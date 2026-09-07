@@ -1,0 +1,620 @@
+{
+  "tool": "ForensIQ v1.0",
+  "examiner": "[Student Name]",
+  "source_image": "/mnt/c/Users/Juvee/forensics_project/forensiq/images/SCHARDT.001",
+  "extraction_utc": "2026-08-10T02:01:46.619677+00:00",
+  "artefacts": [
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/artifact_summary.json",
+      "size_b": 98,
+      "sha256": "38a6f85b210f6d6fcb6fa0b047d3bc0387886fd45b5cc3bd234653cc0bad2ac6",
+      "mtime": "2026-08-10T02:01:46.591648+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/evt/parsed_events.json",
+      "size_b": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "mtime": "2026-06-14T12:57:46.581624+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/evtx/AppEvent.Evt",
+      "size_b": 65536,
+      "sha256": "84a32d026efc41d8a4253f83b3c8eca1719063211d1d133649a8afa74bee6b82",
+      "mtime": "2026-08-10T02:01:39.302144+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/evtx/evt_inventory.json",
+      "size_b": 383,
+      "sha256": "149dfc2982e8219294f083ac9f374d3ccae78dae4709860ee4ec0d1d32a5c88f",
+      "mtime": "2026-08-10T02:01:39.519434+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/evtx/parsed_events.json",
+      "size_b": 33584,
+      "sha256": "df7923081a4011eb4e281a43f8854436b08f8c0a5df17056e3509b1d844b7285",
+      "mtime": "2026-08-10T02:01:39.742027+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/evtx/SecEvent.Evt",
+      "size_b": 65536,
+      "sha256": "69e8d6daf3a51780bb4adeef4190622bec003468c8206724be8c0c560f4d5484",
+      "mtime": "2026-08-10T02:01:39.408978+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/evtx/SysEvent.Evt",
+      "size_b": 65536,
+      "sha256": "dc9c0baad2fe20a709f7aedb3bac3655c00dd921a7616c8aca01804e28700f59",
+      "mtime": "2026-08-10T02:01:39.509194+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/mft/mft_records.json",
+      "size_b": 3202325,
+      "sha256": "d3b897efce1d831e2ddef2a4b4d633439a80fb89b357af957ce0cf7185a8c810",
+      "mtime": "2026-08-10T02:01:41.905880+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/123WASP_SETUP.EXE-333BB1F4.pf",
+      "size_b": 8030,
+      "sha256": "9a6c59efbb985b9e1df1fceb39e8fe738927b51bc5227f56ae12a4be73dd406c",
+      "mtime": "2026-08-10T02:01:41.937222+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/30.EXE-02F7CFE8.pf",
+      "size_b": 6954,
+      "sha256": "178b399e04139790ecd3ddfe8d10414123da288e45bf93ee35da5332df1ce671",
+      "mtime": "2026-08-10T02:01:41.952031+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/A32-19.EXE-311D8B04.pf",
+      "size_b": 8042,
+      "sha256": "80db77e7c3a2221f6a37523ffda4061b767e58f8efe52e6235f53cc123c9a2fb",
+      "mtime": "2026-08-10T02:01:41.962137+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/AGENT.EXE-07F13C20.pf",
+      "size_b": 20130,
+      "sha256": "7d00a89bfa4ffddd46679458a99a2d2eaca6f719471c1fbb8ec91328f70c5bb1",
+      "mtime": "2026-08-10T02:01:41.971589+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/AGENTSVR.EXE-002E45AB.pf",
+      "size_b": 10960,
+      "sha256": "d09470eae9770efe111eecaffda37336dea97fb8524ae422fb3691cfc5caf7bb",
+      "mtime": "2026-08-10T02:01:41.980034+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CAIN.EXE-23D61279.pf",
+      "size_b": 21952,
+      "sha256": "27ee424d8340f27c3a66c3848dd32c889eb733b87faf346f7be9816ad20b9904",
+      "mtime": "2026-08-10T02:01:41.986559+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CAIN25B45.EXE-056F3A6E.pf",
+      "size_b": 9244,
+      "sha256": "06d3b88269f87ded7c92e6e1ce49311b4f3fcf1ed8d5831af1a81a96b4147006",
+      "mtime": "2026-08-10T02:01:41.995324+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CMD.EXE-087B4001.pf",
+      "size_b": 4384,
+      "sha256": "55c582c59a34906f51469980fbce4fc4ba0f52a0642f6a1393569c5ea8707f9c",
+      "mtime": "2026-08-10T02:01:41.999317+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CUTE3032.EXE-1F409A25.pf",
+      "size_b": 9578,
+      "sha256": "cd9660e8e019c17dfcaa2f37de73db07793d83cb79796a18dcafdec28e542ba1",
+      "mtime": "2026-08-10T02:01:42.011063+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DAEMON_MGM.EXE-3B573ED8.pf",
+      "size_b": 3860,
+      "sha256": "2c625f5c9faec36bdd3cf9aaffdf0ad181b67235f868e33137c9ae3eba0cdb45",
+      "mtime": "2026-08-10T02:01:44.659026+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DEFRAG.EXE-273F131E.pf",
+      "size_b": 7754,
+      "sha256": "7b399aa0da4bc32658ea4117f66e8d9eae99fd443620b02ac32cf04789e5fdf5",
+      "mtime": "2026-08-10T02:01:44.158971+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DFRGNTFS.EXE-269967DF.pf",
+      "size_b": 19790,
+      "sha256": "88bd06103985790b76a715e9302cc20c9084111d64ff727334aecd239cbb2f75",
+      "mtime": "2026-08-10T02:01:44.211072+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DRWTSN32.EXE-2B4B52AC.pf",
+      "size_b": 18294,
+      "sha256": "97380d47c466a2b10375ea6c3973191120395334ef3a6094677969a4f055d6b0",
+      "mtime": "2026-08-10T02:01:44.290589+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DUMPREP.EXE-1B46F901.pf",
+      "size_b": 22722,
+      "sha256": "cc63a726bb4f923a9d0eebf56cbbdc93e9d0d0507fa21d08bff2e1bb7bc8b2be",
+      "mtime": "2026-08-10T02:01:42.016576+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DWWIN.EXE-30875ADC.pf",
+      "size_b": 22352,
+      "sha256": "4943f638b463c6561b9c7be1baf74bd52d9eb618e7dcacacf21508158c03816f",
+      "mtime": "2026-08-10T02:01:42.026915+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/ETHEREAL-SETUP-0.10.6.EXE-1D932600.pf",
+      "size_b": 36292,
+      "sha256": "9938a9e40022be017be05ea9686fc79d81397489ad94bb86df736cfcbbe19dcd",
+      "mtime": "2026-08-10T02:01:44.400166+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/ETHEREAL.EXE-1C148EEF.pf",
+      "size_b": 54938,
+      "sha256": "6ec874c3c95e1b383b0374402a9fedd634c24db53158c7b06843637a60627a49",
+      "mtime": "2026-08-10T02:01:44.459761+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/EXPLORER.EXE-082F38A9.pf",
+      "size_b": 16522,
+      "sha256": "5161a30faaa2b66e2f9176b56c8b55bdeade05d5cf2edc6c7d7da5dc16b158f7",
+      "mtime": "2026-08-10T02:01:42.032905+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/FABER TOYS.EXE-286A3C88.pf",
+      "size_b": 24064,
+      "sha256": "1ebd54544aae59c88de9790429959658635552c6270f469c94c11d79b37c1af2",
+      "mtime": "2026-08-10T02:01:42.043575+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/FABERTOYS_FULLSETUP.EXE-316A62F8.pf",
+      "size_b": 7948,
+      "sha256": "d7462a25aa56aea54d5b0dbdd3488000ff49b22809ef508177e056533af05ede",
+      "mtime": "2026-08-10T02:01:42.048633+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/FTINIT.EXE-0441E9C9.pf",
+      "size_b": 39714,
+      "sha256": "e3ad601abf9b031ad73f3b7477742449d1b3100f9abc8d19779d0b1fda27f069",
+      "mtime": "2026-08-10T02:01:44.512208+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/GLJ15.TMP-2FFB7B2A.pf",
+      "size_b": 11104,
+      "sha256": "7d3b2db686edb49584be7a93be10bff13722c0b5a3c4d0d3aa6af87a3ac48c48",
+      "mtime": "2026-08-10T02:01:42.052460+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/HELPSVC.EXE-2878DDA2.pf",
+      "size_b": 16560,
+      "sha256": "0da5b14220e0ae227d815d4dcad1a377193dce9b16cbe2e15cb5b69563311d96",
+      "mtime": "2026-08-10T02:01:44.559675+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/HH.EXE-2D1A70B3.pf",
+      "size_b": 24566,
+      "sha256": "fa5da9bf0c2384e26b03cacecc2946068111278e28467f085176ec0a03a505c6",
+      "mtime": "2026-08-10T02:01:44.613467+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/ICWCONN1.EXE-24884676.pf",
+      "size_b": 19262,
+      "sha256": "b710def372a850dbcb1d548714ed68c0c2966f4f47b5972b5670ccb393f8780e",
+      "mtime": "2026-08-10T02:01:42.066258+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/IE4UINIT.EXE-169A5A39.pf",
+      "size_b": 28516,
+      "sha256": "82320db078aff6d9e42d6f54b0701bbf0212de47a802c6dcc06799f6a7af1825",
+      "mtime": "2026-08-10T02:01:44.700759+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/IEXPLORE.EXE-27122324.pf",
+      "size_b": 64058,
+      "sha256": "1ae365a9c18917a94dc9c1345c823a02a59eb7dc9ceec153973c7a429cab57c6",
+      "mtime": "2026-08-10T02:01:43.404478+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/INS6.TMP-22CFFAF5.pf",
+      "size_b": 15232,
+      "sha256": "31695f748da7bfe677cbc200ade4850e1f1198c2e50d89f83aa035cdc84b039e",
+      "mtime": "2026-08-10T02:01:43.441333+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/IRSETUP.EXE-2E1C7790.pf",
+      "size_b": 20366,
+      "sha256": "287b0eea3f3e07e4f667f4050d1563fee8d6780a3aa55f8d55279277b9029311",
+      "mtime": "2026-08-10T02:01:43.490180+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LALSETUP250.EXE-36C95679.pf",
+      "size_b": 7090,
+      "sha256": "f4c97bfc1b70427542887fcf543dc8da0ade33abfa75cf0a815d09dd348b73b2",
+      "mtime": "2026-08-10T02:01:43.531514+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LOGON.SCR-151EFAEA.pf",
+      "size_b": 4358,
+      "sha256": "89a9b8b7a83026eddb03d36bea99920798082ffc5085e8cddd7e881c191d637c",
+      "mtime": "2026-08-10T02:01:43.579644+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LOGONUI.EXE-0AF22957.pf",
+      "size_b": 19184,
+      "sha256": "da87b308358761766ab6c3f7f25a7049ae685c1e14765805703601194e8935ba",
+      "mtime": "2026-08-10T02:01:43.674999+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LOOKATHOST.EXE-34BB6F8B.pf",
+      "size_b": 12774,
+      "sha256": "f7d20ac01faa2f1bf4c5e1dcc29ba00f95d349b57e8e70b3f9bd1944ceebfb94",
+      "mtime": "2026-08-10T02:01:43.721973+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LOOKATLAN.EXE-1F991DD9.pf",
+      "size_b": 24110,
+      "sha256": "77e31dd03991362654781d4c9a8ae88b3af8ead1ea4cb89163df1daae4126eeb",
+      "mtime": "2026-08-10T02:01:43.776168+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LSASS.EXE-20DB6D1B.pf",
+      "size_b": 12324,
+      "sha256": "6fb107931d012773513fa26d4f12e44b0bb94907401390b58132342ef90444b0",
+      "mtime": "2026-08-10T02:01:43.822956+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MIRC.EXE-0661EC22.pf",
+      "size_b": 19754,
+      "sha256": "04a6ecf4744e2e1fc721ab1b6f39f6a7601d3d368a2d3d8d349630f4711b2758",
+      "mtime": "2026-08-10T02:01:43.859420+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MIRC612.EXE-02791C37.pf",
+      "size_b": 8138,
+      "sha256": "2d0e984811fd5ea587bb4993829c208b271b001734045a17a4c4d3013185466a",
+      "mtime": "2026-08-10T02:01:43.910443+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSIEXEC.EXE-2F8A8CAE.pf",
+      "size_b": 21560,
+      "sha256": "c01bab93ca2605665ca89d9ee6e5abcdf94b45f08893ac2d883687c3cd57117c",
+      "mtime": "2026-08-10T02:01:43.959398+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSIMN.EXE-38BA891D.pf",
+      "size_b": 52064,
+      "sha256": "7f87762cf0b5f412f92688dab4b5ef1db9394b3d311fc53a74cc1b36d8ee3de1",
+      "mtime": "2026-08-10T02:01:44.009877+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSMSGS.EXE-2B6052DE.pf",
+      "size_b": 8226,
+      "sha256": "e3c336c622c1255ba462598c84c6d56598e4914d5699764cf8fcdb225f07b201",
+      "mtime": "2026-08-10T02:01:44.054475+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSOOBE.EXE-30411B02.pf",
+      "size_b": 19712,
+      "sha256": "c0a85cc878db6dacef82e7343df5e9f31e805530c7e2907ec20a9d6f5dcadf5f",
+      "mtime": "2026-08-10T02:01:44.102395+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSTINIT.EXE-39813B24.pf",
+      "size_b": 6742,
+      "sha256": "e1fc751eb84543c3f54e10cfa268301a0fbba29f196514788465076c424a9b68",
+      "mtime": "2026-08-10T02:01:44.752564+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/NETSTUMBLER.EXE-0BFEE568.pf",
+      "size_b": 19558,
+      "sha256": "84aef9b24e32d29645e24070fa5b7b210455bb8262eedc88c797d2871b3f49bf",
+      "mtime": "2026-08-10T02:01:42.695074+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/NETSTUMBLERINSTALLER_0_4_0.EX-0BD9920C.pf",
+      "size_b": 15100,
+      "sha256": "785e95e384787c7fd0a05c93d82d1b5d4544cb4d0ff43ee189aaad3319b7a82e",
+      "mtime": "2026-08-10T02:01:42.739066+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/NOTEPAD.EXE-336351A9.pf",
+      "size_b": 12124,
+      "sha256": "ed056d083f1bc05efbec66451b10d0bad9dcb1418f799e802e54b5bf8285e2c4",
+      "mtime": "2026-08-10T02:01:42.780227+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/NPF_MGM.EXE-189CE5D1.pf",
+      "size_b": 3830,
+      "sha256": "efd618ae8d2e799964034ed18ed7b90396410576e0e36db01e88abc0159b74ae",
+      "mtime": "2026-08-10T02:01:42.817602+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/NTOSBOOT-B00DFAAD.pf",
+      "size_b": 233452,
+      "sha256": "7b5335a33c52f3b6fe9e9b1862aebdd5b969767b9644a433f597d894c870d10f",
+      "mtime": "2026-08-10T02:01:42.865663+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/PING.EXE-31216D26.pf",
+      "size_b": 13624,
+      "sha256": "6b61ace958d266dfddc82509460784c0c47735f03982e37cc1472b34901c9c73",
+      "mtime": "2026-08-10T02:01:42.906091+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/POWERTOYSETUP.EXE-312B2326.pf",
+      "size_b": 10172,
+      "sha256": "3b227bed7a89585cb316e2da7c31a306c0ac5d8a34e7bf76649e6b95ac533c0f",
+      "mtime": "2026-08-10T02:01:42.950447+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/prefetch_list.json",
+      "size_b": 20361,
+      "sha256": "1a325a2df46c14dad18809f4a2d3e8e1e3ef6ddfcaacc0bceaf801170173d0da",
+      "mtime": "2026-08-10T02:01:45.109456+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/REGSVR32.EXE-25EEFE2F.pf",
+      "size_b": 44842,
+      "sha256": "7652ac16bceb7623fa774e833be00b9e466682ad15a72dd23998b587d4a942f7",
+      "mtime": "2026-08-10T02:01:42.985032+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-137CCEC6.pf",
+      "size_b": 20576,
+      "sha256": "9fbaa70fd3c033a95e13192d6bc16c1123074a75239dc1934bc97959356f0b3a",
+      "mtime": "2026-08-10T02:01:43.032494+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-16B6BC1C.pf",
+      "size_b": 9434,
+      "sha256": "3b169fbee9ab554438878b3f3e74b889b29c628c6a15e87d53bd96bdff73befc",
+      "mtime": "2026-08-10T02:01:45.101222+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-18E3301D.pf",
+      "size_b": 24904,
+      "sha256": "8d8590b58f72dacef7d34743d4f218581b24149ba08a8ded98c50f60afcffce6",
+      "mtime": "2026-08-10T02:01:43.077492+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-19076CE2.pf",
+      "size_b": 35728,
+      "sha256": "9909f934d87ce68be41d4721f3348dcccc619f75ea1a2a7807c1082b6f8e7a98",
+      "mtime": "2026-08-10T02:01:43.122580+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-268BFF96.pf",
+      "size_b": 6926,
+      "sha256": "b65e139b0271fce08f7296d9b1592350e07efbd4b9a0aa12edad28ee5c55ce9b",
+      "mtime": "2026-08-10T02:01:43.173331+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-26DA8C9B.pf",
+      "size_b": 20590,
+      "sha256": "55f2c2630cf0ff8c9ab509547f0cd812d1d74e5c3020ef270a2662d2ad6a2e49",
+      "mtime": "2026-08-10T02:01:43.216203+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-271001B4.pf",
+      "size_b": 7508,
+      "sha256": "7cb79514dcaabe64c731415f6c7610c5a04cfb67ae6d21ba9c496746e1bf85c8",
+      "mtime": "2026-08-10T02:01:43.266257+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-28A04614.pf",
+      "size_b": 17668,
+      "sha256": "782d4b24f070a2e4003142e29bd82c14759c048b021a1a6691389b5c68e85b86",
+      "mtime": "2026-08-10T02:01:43.312372+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-2F982821.pf",
+      "size_b": 10348,
+      "sha256": "cc343d6238499cae4f4898982671d9cf8d356513f0720b0dd356475f0dbd0f1c",
+      "mtime": "2026-08-10T02:01:43.345365+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-304A2AEA.pf",
+      "size_b": 29088,
+      "sha256": "e4e1fd5d211e3977cc689c2d12e6e70c23a330c2142c9a49f9ad4a1133c152fc",
+      "mtime": "2026-08-10T02:01:44.796096+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-33D7466C.pf",
+      "size_b": 18690,
+      "sha256": "e917d98372ee07953c071728e8b7de94afab29cb16ea0edcb893141c17905546",
+      "mtime": "2026-08-10T02:01:42.073050+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-35BB92D4.pf",
+      "size_b": 25298,
+      "sha256": "99a84f36171ed608fce746b479013d5fadc1e0c334ec11513b025babc1b8c595",
+      "mtime": "2026-08-10T02:01:42.098548+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-445649BB.pf",
+      "size_b": 22300,
+      "sha256": "bb0f26eabdff92f1177ce6b80b984d4d14a4ede10019ac8ce0cb1531d8a17a35",
+      "mtime": "2026-08-10T02:01:42.145575+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-451FC2C0.pf",
+      "size_b": 7498,
+      "sha256": "024ebefe9207e9061b2763c2d217cd17140a5dc9c406edae0d70125be939c5cf",
+      "mtime": "2026-08-10T02:01:42.182082+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-46215CAC.pf",
+      "size_b": 9720,
+      "sha256": "23b2187f6531b74d0be6a89fa7a47bcd6acec6f640b40cde2146462ec4a0563f",
+      "mtime": "2026-08-10T02:01:42.215216+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SETUP.EXE-046E69FA.pf",
+      "size_b": 11510,
+      "sha256": "679499f392833810fa978a029a87dd62178227001bde92f71f06261c100083f2",
+      "mtime": "2026-08-10T02:01:42.259217+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SETUP50.EXE-362FF7C9.pf",
+      "size_b": 32704,
+      "sha256": "8e5f804f1dc8e29d85f6733ba5086d2ab34215a361093bc40de20ac7cd29e6ee",
+      "mtime": "2026-08-10T02:01:42.296293+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SPOOLSV.EXE-282F76A7.pf",
+      "size_b": 2378,
+      "sha256": "5c05443cee751e48dd6b8147b976f48a47e7e8febb9b6de66dac337110993a7f",
+      "mtime": "2026-08-10T02:01:42.334807+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SVCHOST.EXE-3530F672.pf",
+      "size_b": 9424,
+      "sha256": "4da177e1e89ed50bb769dd9a2aff3063d4285aa0cec40ad1539c215e70bebc38",
+      "mtime": "2026-08-10T02:01:42.367608+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/TASKMGR.EXE-20256C55.pf",
+      "size_b": 16000,
+      "sha256": "adc78ba6d4e6f33f3d6a7a0dd29989f4966cf57e60ac1d4fdd5c764d416be236",
+      "mtime": "2026-08-10T02:01:42.409410+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/TELNET.EXE-24182D40.pf",
+      "size_b": 5516,
+      "sha256": "7e92bc71f15fed4db3f2174b24ee8ac11c14af97435554342d90c6cd418dac69",
+      "mtime": "2026-08-10T02:01:44.848504+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/UNINSTALL.EXE-0D9C8DD2.pf",
+      "size_b": 9038,
+      "sha256": "75dc8eedf63e98d2a8b49e96f48153f37f3d1ea5cec4a6a93046754c601d1249",
+      "mtime": "2026-08-10T02:01:44.895368+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/UNREGMP2.EXE-07CACB61.pf",
+      "size_b": 22076,
+      "sha256": "d959b405aaf55434b1d62dc850409194f632adf4b4b940d8a8af9e3915d24e83",
+      "mtime": "2026-08-10T02:01:44.959861+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/USERINIT.EXE-30B18140.pf",
+      "size_b": 6800,
+      "sha256": "4dae44a7e9d4c622f5410232fa0da3891dd5e9e2b99c245e92ba6b8b915e792a",
+      "mtime": "2026-08-10T02:01:42.445909+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WHOIS.EXE-38443FF6.pf",
+      "size_b": 9060,
+      "sha256": "b39d8982f6eaa180da7ba6d4e5657e1c7f81a020414f0619caed3827463da9b1",
+      "mtime": "2026-08-10T02:01:42.482256+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WHOIS.EXE-3AFF2064.pf",
+      "size_b": 8194,
+      "sha256": "8d0bb0a37872e05369202350c24d46af04fff0196595aab5329e889e28694bb0",
+      "mtime": "2026-08-10T02:01:42.515667+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WINPCAP_3_01_A.EXE-1E3EDEDC.pf",
+      "size_b": 21216,
+      "sha256": "8c080bcb26328406015159c7dae6f9ea68962a0d5b71fbf58b99d4f1bf90fe1d",
+      "mtime": "2026-08-10T02:01:45.033724+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WINPCA~1.EXE-054DDBB5.pf",
+      "size_b": 22030,
+      "sha256": "0fc1fddf47894cf2abb091d319708a8f1c7d531b1e4abc72a03fab48a8fccf5c",
+      "mtime": "2026-08-10T02:01:42.551577+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WMIADAP.EXE-2DF425B2.pf",
+      "size_b": 13630,
+      "sha256": "608b6ba7110951ddeef9568689503e073c388b98cb28de524fd5e92b35fb0b95",
+      "mtime": "2026-08-10T02:01:42.584310+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WMIPRVSE.EXE-28F301A9.pf",
+      "size_b": 33000,
+      "sha256": "81c705a343689592df600eda6ef7315bbc4bfe3658b42b5df70f233d81eec808",
+      "mtime": "2026-08-10T02:01:42.619429+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WORDPAD.EXE-24533991.pf",
+      "size_b": 12916,
+      "sha256": "5fe50ab2dde37b8159b73dc63147be0a15987cc455386c27baa1756eddca986c",
+      "mtime": "2026-08-10T02:01:42.659539+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/registry/DEFAULT",
+      "size_b": 262144,
+      "sha256": "201a9bce9558ede56e3a07aff0eaf31c70d0a516691567913ead7bf38f988a71",
+      "mtime": "2026-08-10T02:01:46.241577+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/registry/SAM",
+      "size_b": 262144,
+      "sha256": "dd3a8a2c70c5fdd300bdf4f301f7b5acbb8d5643f6a88e43854828a14e55421c",
+      "mtime": "2026-08-10T02:01:45.964050+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/registry/SAM_samparse.txt",
+      "size_b": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime": "2026-08-10T02:01:46.527928+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/registry/SECURITY",
+      "size_b": 262144,
+      "sha256": "7afa150440f054fd608f7887edbb9384bb1ec8f65fc299e29f10865017f0e6cd",
+      "mtime": "2026-08-10T02:01:46.113675+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/registry/SOFTWARE",
+      "size_b": 8650752,
+      "sha256": "e761dc28d24b505a5d20ebfd971096207fee034a9ce20a9a7376eabb7ba16947",
+      "mtime": "2026-08-10T02:01:45.829311+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/registry/SOFTWARE_run.txt",
+      "size_b": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime": "2026-08-10T02:01:46.427958+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/registry/SOFTWARE_uninstall.txt",
+      "size_b": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime": "2026-08-10T02:01:46.480411+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/registry/SYSTEM",
+      "size_b": 2621440,
+      "sha256": "dd72deff556db947246d7df9c1218eb851852d5de337e49c4b803a76411422b5",
+      "mtime": "2026-08-10T02:01:45.511049+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/registry/SYSTEM_services.txt",
+      "size_b": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime": "2026-08-10T02:01:46.255670+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/registry/SYSTEM_timezone.txt",
+      "size_b": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime": "2026-08-10T02:01:46.372050+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/registry/SYSTEM_usb.txt",
+      "size_b": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mtime": "2026-08-10T02:01:46.316128+00:00"
+    },
+    {
+      "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/usb/SYSTEM",
+      "size_b": 2621440,
+      "sha256": "dd72deff556db947246d7df9c1218eb851852d5de337e49c4b803a76411422b5",
+      "mtime": "2026-08-10T02:01:45.313347+00:00"
+    }
+  ]
+}

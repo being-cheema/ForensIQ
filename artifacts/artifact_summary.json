@@ -1,0 +1,7 @@
+{
+  "mft_records": true,
+  "events": true,
+  "prefetch": true,
+  "registry": true,
+  "usb": true
+}

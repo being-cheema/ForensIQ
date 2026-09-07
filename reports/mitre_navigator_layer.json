@@ -1,0 +1,53 @@
+{
+  "name": "ForensIQ Detection Layer \u2014 SCHARDT.001",
+  "versions": {
+    "attack": "14",
+    "navigator": "4.9",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "techniques": [
+    {
+      "techniqueID": "T1070.006",
+      "color": "#f87171",
+      "comment": "Count:215",
+      "enabled": true,
+      "score": 215
+    },
+    {
+      "techniqueID": "T1070.001",
+      "color": "#f87171",
+      "comment": "Count:78",
+      "enabled": true,
+      "score": 78
+    },
+    {
+      "techniqueID": "T1052.001",
+      "color": "#fbbf24",
+      "comment": "Count:1",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1486",
+      "color": "#f87171",
+      "comment": "Count:28",
+      "enabled": true,
+      "score": 28
+    },
+    {
+      "techniqueID": "T1003.002",
+      "color": "#f87171",
+      "comment": "Count:3",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1040",
+      "color": "#f87171",
+      "comment": "Count:3",
+      "enabled": true,
+      "score": 3
+    }
+  ]
+}

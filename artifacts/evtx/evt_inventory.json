@@ -1,0 +1,14 @@
+[
+  {
+    "source": "AppEvent.Evt",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/evtx/AppEvent.Evt"
+  },
+  {
+    "source": "SecEvent.Evt",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/evtx/SecEvent.Evt"
+  },
+  {
+    "source": "SysEvent.Evt",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/evtx/SysEvent.Evt"
+  }
+]

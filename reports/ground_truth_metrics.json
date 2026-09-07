@@ -1,0 +1,55 @@
+{
+  "per_artifact": [
+    {
+      "artifact": "cain_abel",
+      "on_disk": 42,
+      "flagged": 6,
+      "detected": true
+    },
+    {
+      "artifact": "network_stumbler",
+      "on_disk": 19,
+      "flagged": 1,
+      "detected": true
+    },
+    {
+      "artifact": "ethereal_winpcap",
+      "on_disk": 188,
+      "flagged": 16,
+      "detected": true
+    },
+    {
+      "artifact": "anonymizer",
+      "on_disk": 70,
+      "flagged": 0,
+      "detected": false
+    },
+    {
+      "artifact": "pw_stealer",
+      "on_disk": 0,
+      "flagged": 0,
+      "detected": false
+    },
+    {
+      "artifact": "defrag",
+      "on_disk": 6,
+      "flagged": 1,
+      "detected": true
+    },
+    {
+      "artifact": "timestamp_bulk",
+      "on_disk": "-",
+      "flagged": "burst",
+      "detected": true
+    }
+  ],
+  "summary": {
+    "recall_on_known_artifacts": 0.7143,
+    "detected": 5,
+    "total_ground_truth": 7,
+    "flag_rate": 0.0504,
+    "n_flagged": 593,
+    "n_total": 11773,
+    "note": "Precision/accuracy intentionally NOT reported: the flagged set is unlabeled beyond the ground-truth subset, so accuracy would be dominated by ~11k true negatives and is uninformative for an unsupervised triage flagger."
+  }
+}
