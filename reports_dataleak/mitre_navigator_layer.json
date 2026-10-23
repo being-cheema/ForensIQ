@@ -1,0 +1,32 @@
+{
+  "name": "ForensIQ ATT&CK Detection Layer",
+  "versions": {
+    "attack": "14",
+    "navigator": "4.9",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "techniques": [
+    {
+      "techniqueID": "T1070.006",
+      "color": "#f87171",
+      "comment": "Count: 2688",
+      "enabled": true,
+      "score": 2688
+    },
+    {
+      "techniqueID": "T1070.001",
+      "color": "#f87171",
+      "comment": "Count: 17428",
+      "enabled": true,
+      "score": 17428
+    },
+    {
+      "techniqueID": "T1052.001",
+      "color": "#fbbf24",
+      "comment": "Count: 1",
+      "enabled": true,
+      "score": 1
+    }
+  ]
+}

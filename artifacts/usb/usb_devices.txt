@@ -1,0 +1,5 @@
+USB Device: Disk&Ven_VMware_&Prod_VMware_Virtual_S
+USB Device: Disk&Ven_SanDisk&Prod_Cruzer_Fit&Rev_2.01
+USB Device: Disk&Ven_Dell&Prod_VIRTUAL_DISK
+Device Serial Signature: 4C530012550531106501
+Device Serial Signature: 4C530012450531101593

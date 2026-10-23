@@ -1,11 +1,4 @@
-
-Get-NetTCPConnection |
-Where {$_.State -eq "Established"}
-
-New-NetFirewallRule `
--DisplayName "Block Suspicious IP" `
--Direction Outbound `
--RemoteAddress 0.0.0.0 `
--Action Block
-
-Write-Host "Review outbound connections."
+# Remediation: Network Sniffing & Covert Beaconing Containment
+netsh advfirewall set allprofiles state on
+netsh advfirewall firewall add rule name="Block Unauthorized Outbound" dir=out action=block protocol=TCP remoteport=4444,1337,8888
+Write-Host "Host firewall enabled and suspicious egress ports blocked."

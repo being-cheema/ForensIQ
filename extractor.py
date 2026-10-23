@@ -1,20 +1,32 @@
-
 """
-extractor_for_evt.py
-SECTION 1 of 3
-Imports, configuration, DiskImage class, helper utilities,
-EVT extraction and parsing.
+extractor.py
+============
+ForensIQ Forensic Artifact Extraction Engine
+Supports both legacy Windows XP (.evt, MBR) and modern Windows 7/10 (.evtx, GPT).
+Extracts MFT filesystem metadata, Windows Event Logs (EVT/EVTX), Prefetch,
+and Registry hives (USBSTOR / SYSTEM / SOFTWARE / SAM).
 """
 
 import os
-import json
 import re
-import subprocess
+import sys
+import json
+import struct
+import datetime
 import traceback
+import subprocess
 
-import pytsk3
-from lxml import etree
-import Evtx.Evtx as evtx_lib
+try:
+    import pytsk3
+except ImportError:
+    pytsk3 = None
+
+try:
+    import Evtx.Evtx as evtx_lib
+    from lxml import etree
+except ImportError:
+    evtx_lib = None
+    etree = None
 
 from config import (
     IMAGE_PATH,
@@ -23,462 +35,609 @@ from config import (
     OUT_DIR
 )
 
+# High-value EVTX channels to prioritize for fast, comprehensive triage
+PRIORITY_EVTX_CHANNELS = {
+    "security.evtx",
+    "system.evtx",
+    "application.evtx",
+    "microsoft-windows-powershell%4operational.evtx",
+    "microsoft-windows-taskscheduler%4operational.evtx",
+    "microsoft-windows-terminalservices-localsessionmanager%4operational.evtx",
+    "microsoft-windows-codeintegrity%4operational.evtx",
+    "microsoft-windows-windows defender%4operational.evtx",
+}
+
+SUSPICIOUS_TOOLS = [
+    "mimikatz", "pwdump", "cain", "wireshark", "ethereal",
+    "tcpdump", "powershell", "cmd", "wscript", "cscript",
+    "123wasp", "lookathost", "lookatlan", "netstumbler"
+]
+
 
 class DiskImage:
-    def __init__(self, path, offset_sectors):
+    """Wraps raw disk image handle and mounted filesystem."""
+    def __init__(self, path, offset_sectors=None):
+        if pytsk3 is None:
+            raise RuntimeError("pytsk3 is required to open forensic disk images.")
+
+        self.path = path
         self.img = pytsk3.Img_Info(path)
-        self.fs = pytsk3.FS_Info(
-            self.img,
-            offset=offset_sectors * SECTOR_SIZE
-        )
+        self.fs = None
+        self.offset = None
+
+        # Determine partition offset
+        target_offset = PART_OFFSET if offset_sectors is None else offset_sectors
+
+        if target_offset and target_offset > 0:
+            try:
+                self.fs = pytsk3.FS_Info(self.img, offset=target_offset * SECTOR_SIZE)
+                self.offset = target_offset
+                print(f"[+] Mounted filesystem at sector offset {target_offset} ({target_offset * SECTOR_SIZE} bytes)")
+            except Exception as e:
+                print(f"[!] Failed to mount partition at specified offset {target_offset}: {e}")
+                print("[*] Attempting automatic partition detection...")
+                self._auto_detect_partition()
+        else:
+            self._auto_detect_partition()
+
+        if self.fs is None:
+            raise RuntimeError(f"Could not open valid NTFS/FAT filesystem in {path}")
+
         self.root = self.fs.open_dir(path="/")
-        print(f"[+] Opened image: {path}")
+        print(f"[+] Successfully opened image root: {path}")
 
+    def _auto_detect_partition(self):
+        """
+        Auto-detect primary OS partition by checking volume info and common candidate offsets:
+        - Sector 206848 (Windows 7 / NIST CFReDS Data Leakage PC)
+        - Sector 1259520 (Windows 10 GPT / Lone Wolf)
+        - Sector 63 (Windows XP MBR)
+        - Sector 2048 (Standard MBR partition 1)
+        """
+        # 1. Try pytsk3 Volume_Info table
+        try:
+            vol = pytsk3.Volume_Info(self.img)
+            for part in vol:
+                desc = part.desc.decode("utf-8", "ignore") if isinstance(part.desc, bytes) else str(part.desc)
+                # Look for NTFS / Basic Data Partition
+                if part.len > 2048 and any(k in desc.lower() for k in ["ntfs", "basic data", "primary"]):
+                    try:
+                        fs_candidate = pytsk3.FS_Info(self.img, offset=part.start * SECTOR_SIZE)
+                        # Verify it has Windows or Users directory
+                        test_dir = fs_candidate.open_dir(path="/")
+                        for entry in test_dir:
+                            ename = entry.info.name.name.decode("utf-8", "ignore").lower()
+                            if ename in ["windows", "winnt", "users", "documents and settings"]:
+                                self.fs = fs_candidate
+                                self.offset = part.start
+                                print(f"[+] Auto-detected OS partition: '{desc}' at sector {part.start}")
+                                return
+                    except Exception:
+                        continue
+        except Exception:
+            pass
 
-disk = DiskImage(IMAGE_PATH, PART_OFFSET)
+        # 2. Try candidate sector list
+        candidates = [206848, 1259520, 63, 2048, 0]
+        for sec in candidates:
+            try:
+                fs_candidate = pytsk3.FS_Info(self.img, offset=sec * SECTOR_SIZE)
+                test_dir = fs_candidate.open_dir(path="/")
+                for entry in test_dir:
+                    ename = entry.info.name.name.decode("utf-8", "ignore").lower()
+                    if ename in ["windows", "winnt", "users", "documents and settings"]:
+                        self.fs = fs_candidate
+                        self.offset = sec
+                        print(f"[+] Auto-detected valid OS partition at sector offset {sec}")
+                        return
+            except Exception:
+                continue
 
 
 def ensure_dir(path):
+    """Ensure directory exists and return path."""
     os.makedirs(path, exist_ok=True)
     return path
 
 
+def open_dir_ci(fs, path):
+    """
+    Open a directory within the filesystem in a case-insensitive manner.
+    """
+    if not path or path == "/":
+        return fs.open_dir(path="/")
+
+    parts = [p for p in path.strip("/").split("/") if p]
+    current_dir = fs.open_dir(path="/")
+
+    for part in parts:
+        found = False
+        target = part.lower()
+        for entry in current_dir:
+            try:
+                name = entry.info.name.name.decode("utf-8", "ignore").lower()
+                if name == target and entry.info.name.type == pytsk3.TSK_FS_NAME_TYPE_DIR:
+                    current_dir = entry.as_directory()
+                    found = True
+                    break
+            except Exception:
+                continue
+        if not found:
+            raise FileNotFoundError(f"Directory not found: {path} (missing component: {part})")
+
+    return current_dir
+
+
 def extract_file_from_image(disk, img_path):
-    f = disk.fs.open(img_path)
-    size = f.info.meta.size
-    return f.read_random(0, size)
+    """Reads all bytes of a file from the disk image using case-insensitive path resolution."""
+    parts = [p for p in img_path.strip("/").split("/") if p]
+    if not parts:
+        return b""
+
+    # Walk directories down to parent
+    parent_dir = open_dir_ci(disk.fs, "/".join(parts[:-1]))
+    filename = parts[-1].lower()
+
+    for entry in parent_dir:
+        try:
+            name = entry.info.name.name.decode("utf-8", "ignore").lower()
+            if name == filename and entry.info.meta:
+                f = disk.fs.open_meta(entry.info.meta.addr)
+                size = f.info.meta.size
+                return f.read_random(0, size)
+        except Exception:
+            continue
+
+    raise FileNotFoundError(f"File not found in disk image: {img_path}")
 
 
 def save_binary(path, data):
+    """Write binary data to file, creating parent directories if needed."""
     ensure_dir(os.path.dirname(path))
     with open(path, "wb") as fh:
         fh.write(data)
 
 
+def normalize_timestamp(value):
+    """
+    Robust timestamp normalizer (H-1):
+    Handles Windows FILETIME (100ns since 1601), millisecond epochs,
+    Unix seconds, datetime objects, and ISO strings, returning ISO-8601 UTC string.
+    """
+    if value is None or value == "" or value == 0:
+        return ""
+
+    if isinstance(value, datetime.datetime):
+        if value.tzinfo is None:
+            value = value.replace(tzinfo=datetime.timezone.utc)
+        return value.astimezone(datetime.timezone.utc).isoformat()
+
+    # Attempt numeric conversion
+    num_val = None
+    if isinstance(value, (int, float)):
+        num_val = value
+    elif isinstance(value, str):
+        try:
+            num_val = float(value) if "." in value else int(value)
+        except ValueError:
+            # Already a datetime string? Try parsing
+            try:
+                dt = datetime.datetime.fromisoformat(value.replace("Z", "+00:00"))
+                return dt.isoformat()
+            except Exception:
+                return value
+
+    if num_val is not None:
+        try:
+            # 1. Windows FILETIME (100ns intervals since 1601-01-01)
+            # Range: 116444736000000000 (1970) to 200000000000000000 (~2234)
+            if 116444736000000000 <= num_val <= 200000000000000000:
+                unix_ts = (num_val - 116444736000000000) / 10000000.0
+                dt = datetime.datetime.fromtimestamp(unix_ts, tz=datetime.timezone.utc)
+                return dt.isoformat()
+
+            # 2. Millisecond epoch (10^12 <= ts < 10^14)
+            if 1000000000000 <= num_val < 100000000000000:
+                unix_ts = num_val / 1000.0
+                dt = datetime.datetime.fromtimestamp(unix_ts, tz=datetime.timezone.utc)
+                return dt.isoformat()
+
+            # 3. Standard Unix seconds (10^8 <= ts < 10^12)
+            if 100000000 <= num_val < 1000000000000:
+                dt = datetime.datetime.fromtimestamp(num_val, tz=datetime.timezone.utc)
+                return dt.isoformat()
+
+        except Exception:
+            return ""
+
+    return str(value)
+
+
+def extract_mft(disk, out_dir=OUT_DIR):
+    """
+    Recursively walk filesystem tree and dump MFT records.
+    Logs skipped unreadable entries (M-1).
+    """
+    records = []
+    skipped_count = 0
+    out_path = os.path.join(out_dir, "mft", "mft_records.json")
+    ensure_dir(os.path.dirname(out_path))
+
+    def walk(directory, current_path="/"):
+        nonlocal skipped_count
+        for entry in directory:
+            try:
+                name_bytes = entry.info.name.name
+                if name_bytes in (b".", b".."):
+                    continue
+
+                name_str = name_bytes.decode("utf-8", "replace")
+                full_path = current_path + name_str
+                meta = entry.info.meta
+
+                rec = {
+                    "path": full_path,
+                    "inode": int(meta.addr) if meta else -1,
+                    "size": int(meta.size) if meta else 0,
+                    "type": "dir" if entry.info.name.type == pytsk3.TSK_FS_NAME_TYPE_DIR else "file",
+                    "m_time": int(meta.mtime) if meta else 0,
+                    "a_time": int(meta.atime) if meta else 0,
+                    "c_time": int(meta.ctime) if meta else 0,
+                    "cr_time": int(meta.crtime) if meta else 0,
+                    "is_deleted": bool(meta.flags == pytsk3.TSK_FS_META_FLAG_UNALLOC) if meta else False
+                }
+                records.append(rec)
+
+                if rec["type"] == "dir":
+                    try:
+                        walk(entry.as_directory(), full_path + "/")
+                    except Exception:
+                        skipped_count += 1
+            except Exception:
+                skipped_count += 1
+
+    print("[*] Walking MFT filesystem structure...")
+    walk(disk.root)
+
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(records, f, indent=2)
+
+    print(f"[+] MFT records extracted: {len(records):,}")
+    if skipped_count > 0:
+        print(f"[i] Skipped {skipped_count:,} unreadable or inaccessible directory entries (expected on raw images)")
+
+    return records
+
+
 def extract_evt_files(disk, out_dir=OUT_DIR):
+    """Extract legacy Windows XP .Evt files from /WINDOWS/system32/config/"""
     evt_dir = "/WINDOWS/system32/config"
     out_evt = ensure_dir(os.path.join(out_dir, "evtx"))
-    events = []
+    inventory = []
 
     try:
-        directory = disk.fs.open_dir(path=evt_dir)
+        directory = open_dir_ci(disk.fs, evt_dir)
     except Exception:
-        traceback.print_exc()
         return []
 
     for entry in directory:
         try:
             name = entry.info.name.name
-
             if not name.lower().endswith(b".evt"):
                 continue
 
-            fname = name.decode(errors="ignore")
-
-            raw = extract_file_from_image(
-                disk,
-                f"{evt_dir}/{fname}"
-            )
-
+            fname = name.decode("utf-8", "ignore")
+            raw = extract_file_from_image(disk, f"{evt_dir}/{fname}")
             outfile = os.path.join(out_evt, fname)
             save_binary(outfile, raw)
-
-            events.append({
-                "source": fname,
-                "path": outfile
-            })
-
+            inventory.append({"source": fname, "path": outfile})
         except Exception as e:
-            print(f"[!] {e}")
+            print(f"[!] Could not extract EVT {entry.info.name.name}: {e}")
 
-    with open(
-        os.path.join(out_evt, "evt_inventory.json"),
-        "w",
-        encoding="utf-8"
-    ) as f:
-        json.dump(events, f, indent=2)
+    with open(os.path.join(out_evt, "evt_inventory.json"), "w", encoding="utf-8") as f:
+        json.dump(inventory, f, indent=2)
 
-    print(f"[+] Extracted {len(events)} EVT files")
-    return events
+    if inventory:
+        print(f"[+] Extracted {len(inventory)} legacy EVT files")
+    return inventory
 
 
-def parse_evt_files():
-    evt_dir = os.path.join(OUT_DIR, "evtx")
+def parse_evt_files(out_dir=OUT_DIR):
+    """Parse extracted legacy .evt files into structured events."""
+    evt_dir = os.path.join(out_dir, "evtx")
+    if not os.path.exists(evt_dir):
+        return []
+
     parsed_events = []
+    evt_files = [f for f in os.listdir(evt_dir) if f.lower().endswith(".evt")]
 
-    for filename in os.listdir(evt_dir):
+    for filename in evt_files:
+        filepath = os.path.join(evt_dir, filename)
+        try:
+            # Try evtexport CLI if installed
+            result = subprocess.run(["evtexport", filepath], capture_output=True, text=True)
+            if result.returncode == 0 and result.stdout:
+                records = re.split(r"\nEvent number\s+:\s+", result.stdout)
+                for record in records[1:]:
+                    event = {"file": filename, "source_log": filename}
+                    m = re.search(r"Creation time\s+:\s+(.*)", record)
+                    if m:
+                        event["timestamp"] = normalize_timestamp(m.group(1).strip())
+                    m = re.search(r"Source name\s+:\s+(.*)", record)
+                    if m:
+                        event["source"] = m.group(1).strip()
+                    m = re.search(r"Event identifier\s+:\s+.*\((\d+)\)", record)
+                    if m:
+                        event["event_id"] = int(m.group(1))
+                    m = re.search(r"Event type\s+:\s+(.*)", record)
+                    if m:
+                        event["event_type"] = m.group(1).strip()
 
-        if not filename.lower().endswith(".evt"):
+                    if "timestamp" in event:
+                        parsed_events.append(event)
+        except Exception:
+            pass
+
+    out_file = os.path.join(evt_dir, "parsed_events.json")
+    # Save if parsed or if no parsed_events exists yet
+    if parsed_events or not os.path.exists(out_file):
+        with open(out_file, "w", encoding="utf-8") as f:
+            json.dump(parsed_events, f, indent=2)
+
+    print(f"[+] Parsed {len(parsed_events)} EVT events")
+    return parsed_events
+
+
+def extract_evtx(disk, out_dir=OUT_DIR):
+    """
+    Extract and parse modern Windows 7 / 10 .evtx binary XML event logs.
+    Includes case-insensitive path lookup and selective priority channel triage.
+    """
+    evtx_dirs = [
+        "/Windows/System32/winevt/Logs",
+        "/WINDOWS/system32/winevt/Logs",
+        "/Windows/system32/winevt/logs"
+    ]
+    out_raw = ensure_dir(os.path.join(out_dir, "evtx"))
+    parsed_events = []
+    log_dir = None
+
+    for d in evtx_dirs:
+        try:
+            log_dir = open_dir_ci(disk.fs, d)
+            break
+        except Exception:
             continue
 
-        filepath = os.path.join(evt_dir, filename)
+    if log_dir is None:
+        return []
 
-        print(f"[+] Parsing {filename}")
-
+    print("[+] Detected modern Windows Event Logs (winevt/Logs)")
+    for entry in log_dir:
         try:
-            result = subprocess.run(
-                ["evtexport", filepath],
-                capture_output=True,
-                text=True
-            )
+            name_bytes = entry.info.name.name
+            if not name_bytes.lower().endswith(b".evtx"):
+                continue
 
-            records = re.split(
-                r"\nEvent number\s+:\s+",
-                result.stdout
-            )
+            fname = name_bytes.decode("utf-8", "ignore")
+            lower_fname = fname.lower()
 
-            for record in records[1:]:
+            # Filter by priority triage list if hundreds of channels exist
+            if lower_fname not in PRIORITY_EVTX_CHANNELS and not any(p in lower_fname for p in ["security", "system", "powershell"]):
+                continue
 
-                event = {"file": filename}
+            raw = extract_file_from_image(disk, f"/Windows/System32/winevt/Logs/{fname}")
+            raw_path = os.path.join(out_raw, fname)
+            save_binary(raw_path, raw)
 
-                m = re.search(
-                    r"Creation time\s+:\s+(.*)",
-                    record
-                )
-                if m:
-                    event["timestamp"] = m.group(1).strip()
+            if evtx_lib is not None:
+                try:
+                    with evtx_lib.Evtx(raw_path) as log:
+                        for record in log.records():
+                            try:
+                                xml_str = record.xml()
+                                xml = etree.fromstring(xml_str.encode("utf-8"))
+                                ns = "http://schemas.microsoft.com/win/2004/08/events/event"
 
-                m = re.search(
-                    r"Source name\s+:\s+(.*)",
-                    record
-                )
-                if m:
-                    event["source"] = m.group(1).strip()
+                                time_node = xml.find(f".//{{{ns}}}TimeCreated")
+                                raw_ts = time_node.get("SystemTime") if time_node is not None else ""
+                                ts = normalize_timestamp(raw_ts)
 
-                m = re.search(
-                    r"Event identifier\s+:\s+.*\((\d+)\)",
-                    record
-                )
-                if m:
-                    event["event_id"] = int(m.group(1))
+                                eid = xml.findtext(f".//{{{ns}}}EventID")
+                                computer = xml.findtext(f".//{{{ns}}}Computer")
+                                provider_node = xml.find(f".//{{{ns}}}Provider")
+                                provider = provider_node.get("Name") if provider_node is not None else ""
 
-                m = re.search(
-                    r"Event type\s+:\s+(.*)",
-                    record
-                )
-                if m:
-                    event["event_type"] = m.group(1).strip()
+                                # Extract EventData key-value pairs
+                                data_items = []
+                                for dnode in xml.findall(f".//{{{ns}}}EventData/{{{ns}}}Data"):
+                                    dname = dnode.get("Name", "")
+                                    dval = dnode.text or ""
+                                    if dval.strip():
+                                        data_items.append(f"{dname}={dval}" if dname else dval)
+                                message = "; ".join(data_items[:5])
 
-                if "timestamp" in event:
-                    parsed_events.append(event)
+                                parsed_events.append({
+                                    "source": fname,
+                                    "source_log": fname,
+                                    "event_id": int(eid) if eid and eid.isdigit() else eid,
+                                    "timestamp": ts,
+                                    "computer": computer or "",
+                                    "provider": provider or "",
+                                    "message": message
+                                })
+                            except Exception:
+                                continue
+                except Exception as e:
+                    print(f"[!] Error parsing EVTX {fname}: {e}")
 
-        except Exception as e:
-            print(f"[!] Failed {filename}: {e}")
+        except Exception:
+            continue
 
-    with open(
-        os.path.join(evt_dir, "parsed_events.json"),
-        "w",
-        encoding="utf-8"
-    ) as f:
-        json.dump(parsed_events, f, indent=2)
-
-    print(f"[+] Parsed {len(parsed_events)} events")
+    if parsed_events:
+        out_file = os.path.join(out_raw, "parsed_events.json")
+        with open(out_file, "w", encoding="utf-8") as f:
+            json.dump(parsed_events, f, indent=2)
+        print(f"[+] Extracted and parsed {len(parsed_events):,} EVTX event records")
 
     return parsed_events
 
 
-if __name__ == "__main__":
-    extract_evt_files(disk)
-    parse_evt_files()
+def extract_prefetch(disk, out_dir=OUT_DIR):
+    """
+    Extracts Prefetch files (.pf) from /WINDOWS/Prefetch.
+    Detects Windows 10 MAM compressed format and flags suspicious tools.
+    """
+    pf_dirs = ["/WINDOWS/Prefetch", "/Windows/Prefetch"]
+    out_pf = ensure_dir(os.path.join(out_dir, "prefetch"))
+    findings = []
+    folder = None
 
-
-"""
-extractor_for_evt.py
-SECTION 2 of 3
-Recursive MFT extraction and Prefetch extraction.
-"""
-
-import os,json,pytsk3
-from config import OUT_DIR
-
-def extract_mft(disk,out_dir=OUT_DIR):
-    records=[]
-    out_path=os.path.join(out_dir,"mft","mft_records.json")
-    os.makedirs(os.path.dirname(out_path),exist_ok=True)
-
-    def walk(directory,path="/"):
-        for entry in directory:
-            name=entry.info.name.name
-            if name in (b".",b".."):
-                continue
-            try:
-                meta=entry.info.meta
-                rec={
-                    "path":path+name.decode("utf-8","replace"),
-                    "inode":int(meta.addr) if meta else -1,
-                    "size":int(meta.size) if meta else 0,
-                    "type":"dir" if entry.info.name.type==pytsk3.TSK_FS_NAME_TYPE_DIR else "file",
-                    "m_time":int(meta.mtime) if meta else 0,
-                    "a_time":int(meta.atime) if meta else 0,
-                    "c_time":int(meta.ctime) if meta else 0,
-                    "cr_time":int(meta.crtime) if meta else 0,
-                    "is_deleted":bool(meta.flags==pytsk3.TSK_FS_META_FLAG_UNALLOC) if meta else False
-                }
-                records.append(rec)
-                if rec["type"]=="dir":
-                    walk(entry.as_directory(),rec["path"]+"/")
-            except Exception:
-                pass
-    walk(disk.root)
-    with open(out_path,"w",encoding="utf-8") as f:
-        json.dump(records,f,indent=2)
-    print(f"[+] MFT records: {len(records)}")
-    return records
-
-SUSPICIOUS_TOOLS=[
-"mimikatz","pwdump","cain","wireshark","ethereal",
-"tcpdump","powershell","cmd","wscript","cscript"
-]
-
-def extract_prefetch(disk,out_dir=OUT_DIR):
-    pf_dir="/WINDOWS/Prefetch"
-    out_pf=os.path.join(out_dir,"prefetch")
-    os.makedirs(out_pf,exist_ok=True)
-    findings=[]
-    try:
-        folder=disk.fs.open_dir(path=pf_dir)
-    except Exception:
-        print("[!] Prefetch directory missing")
-        return []
-    for entry in folder:
-        name=entry.info.name.name
-        if not name.endswith(b".pf"):
+    for d in pf_dirs:
+        try:
+            folder = open_dir_ci(disk.fs, d)
+            break
+        except Exception:
             continue
-        fname=name.decode("utf-8","ignore")
-        raw=extract_file_from_image(disk,f"{pf_dir}/{fname}")
-        outfile=os.path.join(out_pf,fname)
-        with open(outfile,"wb") as f:
-            f.write(raw)
-        lower=fname.lower()
-        findings.append({
-            "name":fname,
-            "path":outfile,
-            "size":int(entry.info.meta.size),
-            "m_time":int(entry.info.meta.mtime),
-            "is_suspicious":any(t in lower for t in SUSPICIOUS_TOOLS),
-            "matched_tools":[t for t in SUSPICIOUS_TOOLS if t in lower]
-        })
-    with open(os.path.join(out_pf,"prefetch_list.json"),"w",encoding="utf-8") as f:
-        json.dump(findings,f,indent=2)
-    print(f"[+] Prefetch files: {len(findings)}")
+
+    if folder is None:
+        print("[!] Prefetch directory not found on disk")
+        return []
+
+    for entry in folder:
+        try:
+            name = entry.info.name.name
+            if not name.lower().endswith(b".pf"):
+                continue
+
+            fname = name.decode("utf-8", "ignore")
+            raw = extract_file_from_image(disk, f"/WINDOWS/Prefetch/{fname}")
+            outfile = os.path.join(out_pf, fname)
+            save_binary(outfile, raw)
+
+            lower = fname.lower()
+            is_mam = raw[:4] == b"MAM\x04"
+
+            findings.append({
+                "name": fname,
+                "path": outfile,
+                "size": int(entry.info.meta.size) if entry.info.meta else len(raw),
+                "m_time": int(entry.info.meta.mtime) if entry.info.meta else 0,
+                "is_compressed_mam": is_mam,
+                "is_suspicious": any(t in lower for t in SUSPICIOUS_TOOLS),
+                "matched_tools": [t for t in SUSPICIOUS_TOOLS if t in lower]
+            })
+        except Exception:
+            continue
+
+    with open(os.path.join(out_pf, "prefetch_list.json"), "w", encoding="utf-8") as f:
+        json.dump(findings, f, indent=2)
+
+    print(f"[+] Prefetch files extracted: {len(findings)}")
     return findings
 
 
-"""
-extractor_for_evt.py
-SECTION 3 of 3
-USB extraction, registry hive extraction, helper parsers,
-and orchestration.
-"""
-
-import os
-import json
-import subprocess
-from config import OUT_DIR
-
-
-def extract_usb_history(disk, out_dir=OUT_DIR):
+def extract_usb_and_registry(disk, out_dir=OUT_DIR):
     """
-    Extract SYSTEM hive for USB analysis.
+    Extracts core registry hives (SYSTEM, SOFTWARE, SAM, SECURITY, DEFAULT)
+    and extracts USB connection evidence (USBSTOR).
     """
-    hive = "/WINDOWS/system32/config/SYSTEM"
+    hive_dirs = ["/WINDOWS/system32/config", "/Windows/System32/config"]
+    reg_dir = ensure_dir(os.path.join(out_dir, "registry"))
+    usb_dir = ensure_dir(os.path.join(out_dir, "usb"))
 
-    usb_dir = os.path.join(out_dir, "usb")
-    os.makedirs(usb_dir, exist_ok=True)
-
-    dest = os.path.join(usb_dir, "SYSTEM")
-
-    try:
-        raw = extract_file_from_image(disk, hive)
-
-        with open(dest, "wb") as fh:
-            fh.write(raw)
-
-        print(f"[+] SYSTEM hive saved to {dest}")
-
-    except Exception as e:
-        print(f"[!] Failed extracting SYSTEM hive: {e}")
-
-    return dest
-
-
-def extract_registry_hives(disk, out_dir=OUT_DIR):
-    """
-    Extract important registry hives for later parsing.
-    """
-
-    hive_names = [
-        "SYSTEM",
-        "SOFTWARE",
-        "SAM",
-        "SECURITY",
-        "DEFAULT"
-    ]
-
-    reg_dir = os.path.join(out_dir, "registry")
-    os.makedirs(reg_dir, exist_ok=True)
-
+    hives = ["SYSTEM", "SOFTWARE", "SAM", "SECURITY", "DEFAULT"]
     extracted = []
 
-    for hive in hive_names:
+    for hive in hives:
+        for hd in hive_dirs:
+            try:
+                raw = extract_file_from_image(disk, f"{hd}/{hive}")
+                dest = os.path.join(reg_dir, hive)
+                save_binary(dest, raw)
+                extracted.append(dest)
 
-        image_path = f"/WINDOWS/system32/config/{hive}"
+                # Keep a direct copy of SYSTEM in usb/ for USBSTOR analysis
+                if hive == "SYSTEM":
+                    save_binary(os.path.join(usb_dir, "SYSTEM"), raw)
+                break
+            except Exception:
+                continue
 
+    # Search for USB device footprints inside SYSTEM hive
+    usb_info_path = os.path.join(usb_dir, "usb_devices.txt")
+    system_hive_path = os.path.join(usb_dir, "SYSTEM")
+    usb_entries = []
+
+    if os.path.exists(system_hive_path):
         try:
-            raw = extract_file_from_image(
-                disk,
-                image_path
-            )
+            with open(system_hive_path, "rb") as f:
+                content = f.read()
+                # Carve USBSTOR string signatures (Disk&Ven_, Removable, etc.)
+                matches = re.findall(rb"Disk&Ven_([a-zA-Z0-9_\-\.\&]+)", content)
+                for m in set(matches):
+                    dev_name = m.decode("utf-8", "ignore")
+                    usb_entries.append(f"USB Device: Disk&Ven_{dev_name}")
 
-            outfile = os.path.join(reg_dir, hive)
-
-            with open(outfile, "wb") as fh:
-                fh.write(raw)
-
-            extracted.append(outfile)
-
-            print(f"[+] Extracted {hive}")
-
+                serials = re.findall(rb"([A-Za-z0-9]{12,24})&[0-9]", content)
+                for s in set(serials[:5]):
+                    usb_entries.append(f"Device Serial Signature: {s.decode('utf-8', 'ignore')}")
         except Exception:
-            print(f"[!] Could not extract {hive}")
+            pass
 
+    with open(usb_info_path, "w", encoding="utf-8") as f:
+        if usb_entries:
+            f.write("\n".join(usb_entries) + "\n")
+        else:
+            f.write("SYSTEM hive extracted. Query USBSTOR via python-registry or regripper.\n")
+
+    print(f"[+] Registry hives extracted: {len(extracted)} (USB evidence in {usb_dir})")
     return extracted
 
 
-def generate_registry_report(out_dir=OUT_DIR):
-    """
-    Optional helper using RegRipper if installed.
-    """
-
-    reg_dir = os.path.join(out_dir, "registry")
-
-    if not os.path.exists(reg_dir):
-        return
-
-    plugins = {
-        "SYSTEM": ["services", "usb", "timezone"],
-        "SOFTWARE": ["run", "uninstall"],
-        "SAM": ["samparse"]
-    }
-
-    for hive, plist in plugins.items():
-
-        hive_path = os.path.join(reg_dir, hive)
-
-        if not os.path.exists(hive_path):
-            continue
-
-        for plugin in plist:
-
-            output = os.path.join(
-                reg_dir,
-                f"{hive}_{plugin}.txt"
-            )
-
-            try:
-
-                subprocess.run(
-                    [
-                        "rip.exe",
-                        "-r",
-                        hive_path,
-                        "-p",
-                        plugin
-                    ],
-                    stdout=open(output, "w"),
-                    stderr=subprocess.DEVNULL
-                )
-
-                print(f"[+] {plugin} parsed")
-
-            except Exception:
-                pass
-
-
-def export_summary():
-
+def export_summary(out_dir=OUT_DIR):
+    """Write overall extraction summary."""
     summary = {
-        "mft_records":
-            os.path.exists(
-                os.path.join(
-                    OUT_DIR,
-                    "mft",
-                    "mft_records.json"
-                )
-            ),
-        "events":
-            os.path.exists(
-                os.path.join(
-                    OUT_DIR,
-                    "evtx",
-                    "parsed_events.json"
-                )
-            ),
-        "prefetch":
-            os.path.exists(
-                os.path.join(
-                    OUT_DIR,
-                    "prefetch",
-                    "prefetch_list.json"
-                )
-            ),
-        "registry":
-            os.path.exists(
-                os.path.join(
-                    OUT_DIR,
-                    "registry"
-                )
-            ),
-        "usb":
-            os.path.exists(
-                os.path.join(
-                    OUT_DIR,
-                    "usb",
-                    "SYSTEM"
-                )
-            )
+        "mft_records": os.path.exists(os.path.join(out_dir, "mft", "mft_records.json")),
+        "events_evt": os.path.exists(os.path.join(out_dir, "evtx", "parsed_events.json")),
+        "prefetch": os.path.exists(os.path.join(out_dir, "prefetch", "prefetch_list.json")),
+        "registry": os.path.exists(os.path.join(out_dir, "registry")),
+        "usb": os.path.exists(os.path.join(out_dir, "usb", "SYSTEM"))
     }
-
-    with open(
-        os.path.join(
-            OUT_DIR,
-            "artifact_summary.json"
-        ),
-        "w",
-        encoding="utf-8"
-    ) as f:
-
+    with open(os.path.join(out_dir, "artifact_summary.json"), "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
+    print("[+] Artifact summary written to artifacts/artifact_summary.json")
 
-    print("[+] Artifact summary written")
 
+def run_all(image_path=IMAGE_PATH, offset=PART_OFFSET, out_dir=OUT_DIR):
+    """Full extraction workflow."""
+    print("=" * 65)
+    print("      ForensIQ Artifact Extraction Engine")
+    print("=" * 65)
+    print(f"[*] Target Image : {image_path}")
+    print(f"[*] Target Offset: {offset}")
 
-def run_all():
+    disk = DiskImage(image_path, offset)
 
-    print("=" * 60)
-    print(" ForensIQ Extraction Pipeline ")
-    print("=" * 60)
+    extract_mft(disk, out_dir=out_dir)
 
-    extract_evt_files(disk)
+    # Try modern EVTX first; if none found, fallback to legacy EVT
+    evtx_events = extract_evtx(disk, out_dir=out_dir)
+    if not evtx_events:
+        extract_evt_files(disk, out_dir=out_dir)
+        parse_evt_files(out_dir=out_dir)
 
-    parse_evt_files()
+    extract_prefetch(disk, out_dir=out_dir)
+    extract_usb_and_registry(disk, out_dir=out_dir)
+    export_summary(out_dir=out_dir)
 
-    extract_mft(disk)
-
-    extract_prefetch(disk)
-
-    extract_usb_history(disk)
-
-    extract_registry_hives(disk)
-
-    generate_registry_report()
-
-    export_summary()
-
-    print("=" * 60)
-    print(" Extraction Complete ")
-    print("=" * 60)
+    print("=" * 65)
+    print("      Artifact Extraction Complete")
+    print("=" * 65)
+    return True
 
 
 if __name__ == "__main__":
-    run_all()
+    target_img = sys.argv[1] if len(sys.argv) > 1 else IMAGE_PATH
+    target_off = int(sys.argv[2]) if len(sys.argv) > 2 else PART_OFFSET
+    run_all(target_img, target_off)

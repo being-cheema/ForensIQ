@@ -1,0 +1,33 @@
+{
+  "framework": "MITRE ATT&CK v14",
+  "techniques_detected": {
+    "T1070.006": {
+      "technique": "Indicator Removal: Timestomp",
+      "count": 2688,
+      "evidence": [
+        "/Users/informant/AppData/Local/Microsoft/Windows/Temporary Internet Files/Content.IE5/BN9SKHUD/Windows6.1-KB2670838-x64[1].cab",
+        "/Windows/Microsoft.NET/Framework64/v4.0.30319/clr.dll",
+        "/Users/informant/AppData/Local/Temp/Microsoft .NET Framework 4 Setup_4.0.30319/netfx_Core.mzz",
+        "/Users/informant/AppData/Local/Microsoft/Windows/Temporary Internet Files/Content.IE5/BN9SKHUD/Windows6.1-KB2882822-x64[1].msu",
+        "/Users/informant/AppData/Local/Temp/Microsoft .NET Framework 4 Setup_4.0.30319/netfx_Extended.mzz"
+      ],
+      "confidence": "HIGH"
+    },
+    "T1070.001": {
+      "technique": "Indicator Removal: Clear Windows Event Logs",
+      "count": 17428,
+      "evidence": [
+        "Working-hour windows with zero recorded events"
+      ],
+      "confidence": "HIGH"
+    },
+    "T1052.001": {
+      "technique": "Exfiltration Over Physical Medium",
+      "count": 1,
+      "evidence": [
+        "SYSTEM hive USBSTOR device records"
+      ],
+      "confidence": "MEDIUM"
+    }
+  }
+}

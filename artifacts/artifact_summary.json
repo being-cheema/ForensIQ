@@ -1,6 +1,6 @@
 {
   "mft_records": true,
-  "events": true,
+  "events_evt": true,
   "prefetch": true,
   "registry": true,
   "usb": true

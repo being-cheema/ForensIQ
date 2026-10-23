@@ -1,0 +1,21 @@
+Artifact (answer key),On disk?,Flagged?,Dominant SHAP feat.,Expected signal,Agree?
+Eraser.exe (Installed Wiping Tool),Yes,Yes,delta_mc,"Executable in program directory, timestomped delta_mc",Yes
+Eraser 6.2.0.2962.exe (Downloaded Installer),Yes,No,N/A,Deleted/Shift-Deleted installer in Downloads,Partial
+ccsetup504.exe (Downloaded CCleaner),Yes,No,N/A,Deleted/Shift-Deleted installer in Downloads,Partial
+CCleaner64.exe (CCleaner Execution Prefetch),Yes,No,N/A,Prefetch artifact of uninstalled cleaner,Partial
+[secret_project]_proposal.docx (LNK),Yes,No,N/A,User recent document shortcut to exfiltrated doc,Partial
+[secret_project]_design_concept.ppt (LNK),Yes,No,N/A,User recent shortcut to confidential design concept,Partial
+(secret_project)_pricing_decision.xlsx (LNK),Yes,No,N/A,User recent shortcut to network drive pricing doc,Partial
+[secret_project]_final_meeting.pptx (LNK),Yes,No,N/A,User recent shortcut to confidential final meeting,Partial
+Desktop\S data\ (Staged & Shift-Deleted),No (Deleted/Overwritten),No,N/A,Overwritten/Shift-Deleted directory MFT records,Yes
+happy_holiday.jpg (Confidential Pricing in GDrive),Yes,No,N/A,Masqueraded spreadsheet uploaded to cloud,Partial
+winter_whether_advisory.zip (Masqueraded Detailed Design),Yes,No,N/A,Masqueraded zip archive shortcut in Recent,Partial
+sync_log.log (Google Drive Exfiltration Log),Yes,Yes,user_path,Active user log recording cloud file sync/signout,Yes
+sync_config.db / snapshot.db (GDrive Databases),Yes,No,N/A,SQLite database recording sync history and account,Partial
+Chrysanthemum.jpg (Wiped via Eraser DoD 7-pass),Yes,Yes,user_path,User space sample image used as wipe decoy,Yes
+Koala.jpg (Decoy burned to CD-R),Yes,Yes,user_path,Decoy picture copied to optical disc staging,Yes
+Penguins.jpg (Decoy burned to CD-R),Yes,Yes,user_path,Decoy picture copied to optical disc staging,Yes
+Tulips.jpg (Decoy burned to CD-R),Yes,Yes,user_path,Decoy picture copied to optical disc staging,Yes
+Resignation_Letter_(Iaman_Informant).docx / .xps,Yes,No,N/A,Document created before workstation abandonment,Partial
+setupapi.dev.log (USB Connection Log),Yes,Yes,size,Large modified log documenting RM#1 & RM#2 connection,Yes
+System.evtx (USBSTOR Event IDs 20001/20003),Yes,No,N/A,System event log recording removable drive attachment,Partial

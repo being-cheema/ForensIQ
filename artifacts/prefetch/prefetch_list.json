@@ -1,659 +1,883 @@
 [
   {
-    "name": "123WASP_SETUP.EXE-333BB1F4.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/123WASP_SETUP.EXE-333BB1F4.pf",
-    "size": 8030,
-    "m_time": 1093014784,
+    "name": "AUDIODG.EXE-BDFD3029.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/AUDIODG.EXE-BDFD3029.pf",
+    "size": 26254,
+    "m_time": 1427296495,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "30.EXE-02F7CFE8.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/30.EXE-02F7CFE8.pf",
-    "size": 6954,
-    "m_time": 1093014534,
+    "name": "BFSVC.EXE-9C7A4DEE.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/BFSVC.EXE-9C7A4DEE.pf",
+    "size": 8914,
+    "m_time": 1427278692,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "A32-19.EXE-311D8B04.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/A32-19.EXE-311D8B04.pf",
-    "size": 8042,
-    "m_time": 1093014492,
+    "name": "CHROME.EXE-D999B1BA.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CHROME.EXE-D999B1BA.pf",
+    "size": 208986,
+    "m_time": 1427231148,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "AGENT.EXE-07F13C20.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/AGENT.EXE-07F13C20.pf",
-    "size": 20130,
-    "m_time": 1093449346,
+    "name": "CLRGC.EXE-5D5B90F5.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CLRGC.EXE-5D5B90F5.pf",
+    "size": 23410,
+    "m_time": 1427278695,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "AGENTSVR.EXE-002E45AB.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/AGENTSVR.EXE-002E45AB.pf",
-    "size": 10960,
-    "m_time": 1093450835,
+    "name": "NGEN.EXE-AE594A6B.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/NGEN.EXE-AE594A6B.pf",
+    "size": 27158,
+    "m_time": 1427295279,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "CAIN.EXE-23D61279.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CAIN.EXE-23D61279.pf",
-    "size": 21952,
-    "m_time": 1093620793,
-    "is_suspicious": true,
-    "matched_tools": [
-      "cain"
-    ]
-  },
-  {
-    "name": "CAIN25B45.EXE-056F3A6E.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CAIN25B45.EXE-056F3A6E.pf",
-    "size": 9244,
-    "m_time": 1093014362,
-    "is_suspicious": true,
-    "matched_tools": [
-      "cain"
-    ]
-  },
-  {
-    "name": "CMD.EXE-087B4001.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CMD.EXE-087B4001.pf",
-    "size": 4384,
-    "m_time": 1093619698,
-    "is_suspicious": true,
-    "matched_tools": [
-      "cmd"
-    ]
-  },
-  {
-    "name": "CUTE3032.EXE-1F409A25.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CUTE3032.EXE-1F409A25.pf",
-    "size": 9578,
-    "m_time": 1093014527,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "DUMPREP.EXE-1B46F901.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DUMPREP.EXE-1B46F901.pf",
-    "size": 22722,
-    "m_time": 1093447553,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "DWWIN.EXE-30875ADC.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DWWIN.EXE-30875ADC.pf",
-    "size": 22352,
-    "m_time": 1093447553,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "EXPLORER.EXE-082F38A9.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/EXPLORER.EXE-082F38A9.pf",
-    "size": 16522,
-    "m_time": 1092956662,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "FABER TOYS.EXE-286A3C88.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/FABER TOYS.EXE-286A3C88.pf",
-    "size": 24064,
-    "m_time": 1093447650,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "FABERTOYS_FULLSETUP.EXE-316A62F8.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/FABERTOYS_FULLSETUP.EXE-316A62F8.pf",
-    "size": 7948,
-    "m_time": 1093014415,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "GLJ15.TMP-2FFB7B2A.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/GLJ15.TMP-2FFB7B2A.pf",
-    "size": 11104,
-    "m_time": 1093014791,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "ICWCONN1.EXE-24884676.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/ICWCONN1.EXE-24884676.pf",
-    "size": 19262,
-    "m_time": 1093015535,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "RUNDLL32.EXE-33D7466C.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-33D7466C.pf",
-    "size": 18690,
-    "m_time": 1092956698,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "RUNDLL32.EXE-35BB92D4.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-35BB92D4.pf",
-    "size": 25298,
-    "m_time": 1093619694,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "RUNDLL32.EXE-445649BB.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-445649BB.pf",
-    "size": 22300,
-    "m_time": 1093015406,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "RUNDLL32.EXE-451FC2C0.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-451FC2C0.pf",
-    "size": 7498,
-    "m_time": 1093015288,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "RUNDLL32.EXE-46215CAC.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-46215CAC.pf",
-    "size": 9720,
-    "m_time": 1093015112,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "SETUP.EXE-046E69FA.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SETUP.EXE-046E69FA.pf",
-    "size": 11510,
-    "m_time": 1093014310,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "SETUP50.EXE-362FF7C9.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SETUP50.EXE-362FF7C9.pf",
-    "size": 32704,
-    "m_time": 1092956677,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "SPOOLSV.EXE-282F76A7.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SPOOLSV.EXE-282F76A7.pf",
-    "size": 2378,
-    "m_time": 1092955931,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "SVCHOST.EXE-3530F672.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SVCHOST.EXE-3530F672.pf",
-    "size": 9424,
-    "m_time": 1092955995,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "TASKMGR.EXE-20256C55.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/TASKMGR.EXE-20256C55.pf",
-    "size": 16000,
-    "m_time": 1093619785,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "USERINIT.EXE-30B18140.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/USERINIT.EXE-30B18140.pf",
-    "size": 6800,
-    "m_time": 1092956661,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "WHOIS.EXE-38443FF6.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WHOIS.EXE-38443FF6.pf",
-    "size": 9060,
-    "m_time": 1093533247,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "WHOIS.EXE-3AFF2064.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WHOIS.EXE-3AFF2064.pf",
-    "size": 8194,
-    "m_time": 1093014651,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "WINPCA~1.EXE-054DDBB5.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WINPCA~1.EXE-054DDBB5.pf",
-    "size": 22030,
-    "m_time": 1093014388,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "WMIADAP.EXE-2DF425B2.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WMIADAP.EXE-2DF425B2.pf",
-    "size": 13630,
-    "m_time": 1093015441,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "WMIPRVSE.EXE-28F301A9.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WMIPRVSE.EXE-28F301A9.pf",
-    "size": 33000,
-    "m_time": 1093535515,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "WORDPAD.EXE-24533991.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WORDPAD.EXE-24533991.pf",
-    "size": 12916,
-    "m_time": 1093014565,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "NETSTUMBLER.EXE-0BFEE568.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/NETSTUMBLER.EXE-0BFEE568.pf",
-    "size": 19558,
-    "m_time": 1093619563,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "NETSTUMBLERINSTALLER_0_4_0.EX-0BD9920C.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/NETSTUMBLERINSTALLER_0_4_0.EX-0BD9920C.pf",
-    "size": 15100,
-    "m_time": 1093619538,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "NOTEPAD.EXE-336351A9.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/NOTEPAD.EXE-336351A9.pf",
-    "size": 12124,
-    "m_time": 1093017050,
-    "is_suspicious": false,
-    "matched_tools": []
-  },
-  {
-    "name": "NPF_MGM.EXE-189CE5D1.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/NPF_MGM.EXE-189CE5D1.pf",
-    "size": 3830,
-    "m_time": 1093619717,
+    "name": "NGEN.EXE-EC3F9239.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/NGEN.EXE-EC3F9239.pf",
+    "size": 37102,
+    "m_time": 1427295288,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
     "name": "NTOSBOOT-B00DFAAD.pf",
     "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/NTOSBOOT-B00DFAAD.pf",
-    "size": 233452,
-    "m_time": 1093619386,
+    "size": 1807348,
+    "m_time": 1427035986,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "PING.EXE-31216D26.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/PING.EXE-31216D26.pf",
-    "size": 13624,
-    "m_time": 1093447443,
+    "name": "OSPPSVC.EXE-E53D3CC0.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/OSPPSVC.EXE-E53D3CC0.pf",
+    "size": 42100,
+    "m_time": 1427297100,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "POWERTOYSETUP.EXE-312B2326.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/POWERTOYSETUP.EXE-312B2326.pf",
-    "size": 10172,
-    "m_time": 1093014726,
+    "name": "REGTLIBV12.EXE-B7C4F383.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/REGTLIBV12.EXE-B7C4F383.pf",
+    "size": 16086,
+    "m_time": 1427295101,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "REGSVR32.EXE-25EEFE2F.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/REGSVR32.EXE-25EEFE2F.pf",
-    "size": 44842,
-    "m_time": 1093014787,
+    "name": "REGTLIBV12.EXE-D3A27E55.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/REGTLIBV12.EXE-D3A27E55.pf",
+    "size": 15894,
+    "m_time": 1427295101,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "RUNDLL32.EXE-137CCEC6.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-137CCEC6.pf",
-    "size": 20576,
-    "m_time": 1092956696,
+    "name": "RUNDLL32.EXE-411A328D.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-411A328D.pf",
+    "size": 206258,
+    "m_time": 1427289840,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "RUNDLL32.EXE-18E3301D.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-18E3301D.pf",
-    "size": 24904,
-    "m_time": 1092956672,
+    "name": "RUNDLL32.EXE-89545801.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-89545801.pf",
+    "size": 33620,
+    "m_time": 1427290184,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "RUNDLL32.EXE-19076CE2.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-19076CE2.pf",
-    "size": 35728,
-    "m_time": 1092956677,
+    "name": "RUNDLL32.EXE-AF74762C.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-AF74762C.pf",
+    "size": 15870,
+    "m_time": 1427231000,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "RUNDLL32.EXE-268BFF96.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-268BFF96.pf",
-    "size": 6926,
-    "m_time": 1093532706,
+    "name": "RUNDLL32.EXE-FE9FC6E1.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-FE9FC6E1.pf",
+    "size": 35120,
+    "m_time": 1427230388,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "RUNDLL32.EXE-26DA8C9B.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-26DA8C9B.pf",
-    "size": 20590,
-    "m_time": 1092956791,
+    "name": "SC.EXE-945D79AE.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SC.EXE-945D79AE.pf",
+    "size": 6834,
+    "m_time": 1427295247,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "RUNDLL32.EXE-271001B4.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-271001B4.pf",
-    "size": 7508,
-    "m_time": 1092956713,
+    "name": "SCHTASKS.EXE-AD598958.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SCHTASKS.EXE-AD598958.pf",
+    "size": 17676,
+    "m_time": 1427296717,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "RUNDLL32.EXE-28A04614.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-28A04614.pf",
-    "size": 17668,
-    "m_time": 1093015545,
+    "name": "SEARCHFILTERHOST.EXE-77482212.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SEARCHFILTERHOST.EXE-77482212.pf",
+    "size": 16802,
+    "m_time": 1427297324,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "RUNDLL32.EXE-2F982821.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-2F982821.pf",
-    "size": 10348,
-    "m_time": 1092956658,
+    "name": "SEARCHINDEXER.EXE-4A6353B9.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SEARCHINDEXER.EXE-4A6353B9.pf",
+    "size": 16354,
+    "m_time": 1427278687,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "IEXPLORE.EXE-27122324.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/IEXPLORE.EXE-27122324.pf",
-    "size": 64058,
-    "m_time": 1093621371,
+    "name": "SEARCHPROTOCOLHOST.EXE-0CB8CADE.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SEARCHPROTOCOLHOST.EXE-0CB8CADE.pf",
+    "size": 30996,
+    "m_time": 1427297324,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "INS6.TMP-22CFFAF5.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/INS6.TMP-22CFFAF5.pf",
-    "size": 15232,
-    "m_time": 1093014416,
+    "name": "SERVICEMODELREG.EXE-1F42B3E3.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SERVICEMODELREG.EXE-1F42B3E3.pf",
+    "size": 18696,
+    "m_time": 1427295248,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "IRSETUP.EXE-2E1C7790.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/IRSETUP.EXE-2E1C7790.pf",
-    "size": 20366,
-    "m_time": 1093449342,
+    "name": "SERVICEMODELREG.EXE-AFDDD121.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SERVICEMODELREG.EXE-AFDDD121.pf",
+    "size": 18514,
+    "m_time": 1427295249,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "LALSETUP250.EXE-36C95679.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LALSETUP250.EXE-36C95679.pf",
-    "size": 7090,
-    "m_time": 1093449332,
+    "name": "SETUP.EXE-9FA85C1C.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SETUP.EXE-9FA85C1C.pf",
+    "size": 64394,
+    "m_time": 1427295027,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "LOGON.SCR-151EFAEA.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LOGON.SCR-151EFAEA.pf",
-    "size": 4358,
-    "m_time": 1093533913,
+    "name": "SVCHOST.EXE-7AC6742A.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SVCHOST.EXE-7AC6742A.pf",
+    "size": 18392,
+    "m_time": 1427293923,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "LOGONUI.EXE-0AF22957.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LOGONUI.EXE-0AF22957.pf",
-    "size": 19184,
-    "m_time": 1093621587,
+    "name": "SVCHOST.EXE-7CFEDEA3.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SVCHOST.EXE-7CFEDEA3.pf",
+    "size": 19500,
+    "m_time": 1427295448,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "LOOKATHOST.EXE-34BB6F8B.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LOOKATHOST.EXE-34BB6F8B.pf",
-    "size": 12774,
-    "m_time": 1093449403,
+    "name": "SVCHOST.EXE-80F4A784.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SVCHOST.EXE-80F4A784.pf",
+    "size": 8280,
+    "m_time": 1427230742,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "LOOKATLAN.EXE-1F991DD9.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LOOKATLAN.EXE-1F991DD9.pf",
-    "size": 24110,
-    "m_time": 1093532784,
+    "name": "ERASER 6.2.0.2962.EXE-BE552234.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/ERASER 6.2.0.2962.EXE-BE552234.pf",
+    "size": 43804,
+    "m_time": 1427295024,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "LSASS.EXE-20DB6D1B.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LSASS.EXE-20DB6D1B.pf",
-    "size": 12324,
-    "m_time": 1092955995,
+    "name": "ERASER.EXE-CE61944A.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/ERASER.EXE-CE61944A.pf",
+    "size": 153292,
+    "m_time": 1427296418,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "MIRC.EXE-0661EC22.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MIRC.EXE-0661EC22.pf",
-    "size": 19754,
-    "m_time": 1093450844,
+    "name": "GOOGLEDRIVESYNC.EXE-841A0D94.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/GOOGLEDRIVESYNC.EXE-841A0D94.pf",
+    "size": 188828,
+    "m_time": 1427296902,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "MIRC612.EXE-02791C37.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MIRC612.EXE-02791C37.pf",
-    "size": 8138,
-    "m_time": 1093014596,
+    "name": "GOOGLEUPDATE.EXE-B95715F5.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/GOOGLEUPDATE.EXE-B95715F5.pf",
+    "size": 35500,
+    "m_time": 1427296561,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "MSIEXEC.EXE-2F8A8CAE.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSIEXEC.EXE-2F8A8CAE.pf",
-    "size": 21560,
-    "m_time": 1093014735,
+    "name": "IEXPLORE.EXE-4B6C9213.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/IEXPLORE.EXE-4B6C9213.pf",
+    "size": 464154,
+    "m_time": 1427296930,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "MSIMN.EXE-38BA891D.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSIMN.EXE-38BA891D.pf",
-    "size": 52064,
-    "m_time": 1093036413,
+    "name": "LODCTR.EXE-3CCE0534.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LODCTR.EXE-3CCE0534.pf",
+    "size": 20266,
+    "m_time": 0,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "MSMSGS.EXE-2B6052DE.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSMSGS.EXE-2B6052DE.pf",
-    "size": 8226,
-    "m_time": 1092956714,
+    "name": "LOGONUI.EXE-09140401.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LOGONUI.EXE-09140401.pf",
+    "size": 45594,
+    "m_time": 1427294710,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "MSOOBE.EXE-30411B02.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSOOBE.EXE-30411B02.pf",
-    "size": 19712,
-    "m_time": 1092956010,
+    "name": "MCBUILDER.EXE-7F26B913.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MCBUILDER.EXE-7F26B913.pf",
+    "size": 509254,
+    "m_time": 1427279610,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "DEFRAG.EXE-273F131E.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DEFRAG.EXE-273F131E.pf",
-    "size": 7754,
-    "m_time": 1093535188,
+    "name": "TASKENG.EXE-48D4E289.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/TASKENG.EXE-48D4E289.pf",
+    "size": 25878,
+    "m_time": 1427296570,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "DFRGNTFS.EXE-269967DF.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DFRGNTFS.EXE-269967DF.pf",
-    "size": 19790,
-    "m_time": 1093535188,
+    "name": "TASKHOST.EXE-7238F31D.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/TASKHOST.EXE-7238F31D.pf",
+    "size": 55788,
+    "m_time": 1427296101,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "DRWTSN32.EXE-2B4B52AC.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DRWTSN32.EXE-2B4B52AC.pf",
-    "size": 18294,
-    "m_time": 1093015548,
+    "name": "TMP5B99.TMP.EXE-6E86E5DD.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/TMP5B99.TMP.EXE-6E86E5DD.pf",
+    "size": 49856,
+    "m_time": 1427295055,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "ETHEREAL-SETUP-0.10.6.EXE-1D932600.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/ETHEREAL-SETUP-0.10.6.EXE-1D932600.pf",
-    "size": 36292,
-    "m_time": 1093620526,
-    "is_suspicious": true,
-    "matched_tools": [
-      "ethereal"
-    ]
-  },
-  {
-    "name": "ETHEREAL.EXE-1C148EEF.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/ETHEREAL.EXE-1C148EEF.pf",
-    "size": 54938,
-    "m_time": 1093620904,
-    "is_suspicious": true,
-    "matched_tools": [
-      "ethereal"
-    ]
-  },
-  {
-    "name": "FTINIT.EXE-0441E9C9.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/FTINIT.EXE-0441E9C9.pf",
-    "size": 39714,
-    "m_time": 1093447625,
+    "name": "TMPFF8D.TMP.EXE-E479EE08.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/TMPFF8D.TMP.EXE-E479EE08.pf",
+    "size": 50982,
+    "m_time": 1427295047,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "HELPSVC.EXE-2878DDA2.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/HELPSVC.EXE-2878DDA2.pf",
-    "size": 16560,
-    "m_time": 1093535513,
+    "name": "TRUSTEDINSTALLER.EXE-3CC531E5.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/TRUSTEDINSTALLER.EXE-3CC531E5.pf",
+    "size": 222122,
+    "m_time": 1427295039,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "HH.EXE-2D1A70B3.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/HH.EXE-2D1A70B3.pf",
-    "size": 24566,
-    "m_time": 1093619547,
+    "name": "UNINST.EXE-0867DC84.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/UNINST.EXE-0867DC84.pf",
+    "size": 25702,
+    "m_time": 1427296709,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "DAEMON_MGM.EXE-3B573ED8.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DAEMON_MGM.EXE-3B573ED8.pf",
-    "size": 3860,
-    "m_time": 1093619719,
+    "name": "UNLODCTR.EXE-531FACC7.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/UNLODCTR.EXE-531FACC7.pf",
+    "size": 9924,
+    "m_time": 1427295241,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "IE4UINIT.EXE-169A5A39.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/IE4UINIT.EXE-169A5A39.pf",
-    "size": 28516,
-    "m_time": 1092956658,
+    "name": "UNLODCTR.EXE-A3D4DEEB.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/UNLODCTR.EXE-A3D4DEEB.pf",
+    "size": 11938,
+    "m_time": 1427295241,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "MSTINIT.EXE-39813B24.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSTINIT.EXE-39813B24.pf",
-    "size": 6742,
-    "m_time": 1092956704,
+    "name": "VSSVC.EXE-B8AFC319.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/VSSVC.EXE-B8AFC319.pf",
+    "size": 52722,
+    "m_time": 1427295448,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "RUNDLL32.EXE-304A2AEA.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-304A2AEA.pf",
-    "size": 29088,
-    "m_time": 1092956664,
+    "name": "WMIADAP.EXE-F8DFDFA2.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WMIADAP.EXE-F8DFDFA2.pf",
+    "size": 20204,
+    "m_time": 1427288997,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "TELNET.EXE-24182D40.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/TELNET.EXE-24182D40.pf",
-    "size": 5516,
-    "m_time": 1093532725,
+    "name": "WMIPRVSE.EXE-1628051C.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WMIPRVSE.EXE-1628051C.pf",
+    "size": 54318,
+    "m_time": 1427296565,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "UNINSTALL.EXE-0D9C8DD2.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/UNINSTALL.EXE-0D9C8DD2.pf",
-    "size": 9038,
-    "m_time": 1093619698,
+    "name": "WMPNSCFG.EXE-FC0D39BF.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WMPNSCFG.EXE-FC0D39BF.pf",
+    "size": 25820,
+    "m_time": 1427293190,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "UNREGMP2.EXE-07CACB61.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/UNREGMP2.EXE-07CACB61.pf",
-    "size": 22076,
-    "m_time": 1092956677,
+    "name": "SETUP_WM.EXE-D33FD27D.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SETUP_WM.EXE-D33FD27D.pf",
+    "size": 62670,
+    "m_time": 1427294570,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "WINPCAP_3_01_A.EXE-1E3EDEDC.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WINPCAP_3_01_A.EXE-1E3EDEDC.pf",
-    "size": 21216,
-    "m_time": 1093619718,
+    "name": "SOLITAIRE.EXE-906D7E29.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SOLITAIRE.EXE-906D7E29.pf",
+    "size": 66126,
+    "m_time": 1427221757,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   },
   {
-    "name": "RUNDLL32.EXE-16B6BC1C.pf",
-    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/RUNDLL32.EXE-16B6BC1C.pf",
-    "size": 9434,
-    "m_time": 1093620687,
+    "name": "SPPSVC.EXE-B0F8131B.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SPPSVC.EXE-B0F8131B.pf",
+    "size": 72248,
+    "m_time": 1427288879,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "STIKYNOT.EXE-AD181651.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/STIKYNOT.EXE-AD181651.pf",
+    "size": 40448,
+    "m_time": 1427221919,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "SVCHOST.EXE-007FEA55.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SVCHOST.EXE-007FEA55.pf",
+    "size": 47674,
+    "m_time": 1427278685,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "SVCHOST.EXE-05F624AB.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SVCHOST.EXE-05F624AB.pf",
+    "size": 8916,
+    "m_time": 1427288879,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "DRVINST.EXE-4CB4314A.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DRVINST.EXE-4CB4314A.pf",
+    "size": 74742,
+    "m_time": 1427278690,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "SETUPUTILITY.EXE-3393AB00.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/SETUPUTILITY.EXE-3393AB00.pf",
+    "size": 28904,
+    "m_time": 1427295290,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "WERMGR.EXE-0F2AC88C.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WERMGR.EXE-0F2AC88C.pf",
+    "size": 12492,
+    "m_time": 1427289550,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "CONHOST.EXE-1F3E9D7E.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CONHOST.EXE-1F3E9D7E.pf",
+    "size": 15272,
+    "m_time": 1427296716,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "CONSENT.EXE-531BD9EA.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CONSENT.EXE-531BD9EA.pf",
+    "size": 159472,
+    "m_time": 1427296709,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "CONTROL.EXE-817F8F1D.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CONTROL.EXE-817F8F1D.pf",
+    "size": 29614,
+    "m_time": 0,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "CONTROL.EXE-817F8F1D.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CONTROL.EXE-817F8F1D.pf",
+    "size": 29614,
+    "m_time": 0,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "MOBSYNC.EXE-C5E2284F.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MOBSYNC.EXE-C5E2284F.pf",
+    "size": 26430,
+    "m_time": 1427293203,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "MOFCOMP.EXE-8FE3D558.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MOFCOMP.EXE-8FE3D558.pf",
+    "size": 25874,
+    "m_time": 1427295263,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "MOFCOMP.EXE-FDE76EFC.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MOFCOMP.EXE-FDE76EFC.pf",
+    "size": 27926,
+    "m_time": 1427295269,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "MSCORSVW.EXE-245ED79E.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSCORSVW.EXE-245ED79E.pf",
+    "size": 43458,
+    "m_time": 1427278706,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "MSCORSVW.EXE-57D17DAF.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSCORSVW.EXE-57D17DAF.pf",
+    "size": 81164,
+    "m_time": 1427295279,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "MSCORSVW.EXE-90526FAC.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSCORSVW.EXE-90526FAC.pf",
+    "size": 54114,
+    "m_time": 1427278709,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "MSCORSVW.EXE-C3C515BD.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSCORSVW.EXE-C3C515BD.pf",
+    "size": 74952,
+    "m_time": 1427295195,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "MSIEXEC.EXE-A2D55CB6.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSIEXEC.EXE-A2D55CB6.pf",
+    "size": 259296,
+    "m_time": 1427296744,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "MSIEXEC.EXE-E09A077A.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSIEXEC.EXE-E09A077A.pf",
+    "size": 134154,
+    "m_time": 1427296753,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "MSOSYNC.EXE-6051F98A.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/MSOSYNC.EXE-6051F98A.pf",
+    "size": 1154,
+    "m_time": 1427288840,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "NETSH.EXE-F1B6DA12.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/NETSH.EXE-F1B6DA12.pf",
+    "size": 47948,
+    "m_time": 1427278693,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "IEXPLORE.EXE-908C99F8.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/IEXPLORE.EXE-908C99F8.pf",
+    "size": 91882,
+    "m_time": 1427296930,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "LODCTR.EXE-3CCE0534.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LODCTR.EXE-3CCE0534.pf",
+    "size": 20266,
+    "m_time": 1427295289,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "LODCTR.EXE-72CD50D0.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/LODCTR.EXE-72CD50D0.pf",
+    "size": 24820,
+    "m_time": 1427295289,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "CONTROL.EXE-817F8F1D.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CONTROL.EXE-817F8F1D.pf",
+    "size": 29614,
+    "m_time": 1427290174,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "DEVICEDISPLAYOBJECTPROVIDER.E-17410B90.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DEVICEDISPLAYOBJECTPROVIDER.E-17410B90.pf",
+    "size": 38046,
+    "m_time": 1427230971,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "DLLHOST.EXE-4F28A26F.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DLLHOST.EXE-4F28A26F.pf",
+    "size": 161264,
+    "m_time": 1427230879,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "DLLHOST.EXE-5E46FA0D.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DLLHOST.EXE-5E46FA0D.pf",
+    "size": 21930,
+    "m_time": 1427297320,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "DLLHOST.EXE-766398D2.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DLLHOST.EXE-766398D2.pf",
+    "size": 17692,
+    "m_time": 1427296714,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "DLLHOST.EXE-7FAA2E4C.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DLLHOST.EXE-7FAA2E4C.pf",
+    "size": 22250,
+    "m_time": 1427296719,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "DLLHOST.EXE-A8DE6D5B.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DLLHOST.EXE-A8DE6D5B.pf",
+    "size": 26658,
+    "m_time": 1427297098,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "DLLHOST.EXE-C373C89E.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DLLHOST.EXE-C373C89E.pf",
+    "size": 18210,
+    "m_time": 1427292827,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "DLLHOST.EXE-E129DEF0.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DLLHOST.EXE-E129DEF0.pf",
+    "size": 31414,
+    "m_time": 1427228651,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "DLLHOST.EXE-ECB71776.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DLLHOST.EXE-ECB71776.pf",
+    "size": 22646,
+    "m_time": 1427296687,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "DOTNETFX40_FULL_SETUP.EXE-5EFD2BFF.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/DOTNETFX40_FULL_SETUP.EXE-5EFD2BFF.pf",
+    "size": 49408,
+    "m_time": 1427295025,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "WEVTUTIL.EXE-400D93E8.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WEVTUTIL.EXE-400D93E8.pf",
+    "size": 15620,
+    "m_time": 1427295249,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "WEVTUTIL.EXE-EF5861C4.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WEVTUTIL.EXE-EF5861C4.pf",
+    "size": 27924,
+    "m_time": 1427295249,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "WINWORD.EXE-CECBA770.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WINWORD.EXE-CECBA770.pf",
+    "size": 233446,
+    "m_time": 1427297099,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "WMPLAYER.EXE-26C72A86.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WMPLAYER.EXE-26C72A86.pf",
+    "size": 33590,
+    "m_time": 1427294568,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "WSQMCONS.EXE-118B52B7.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WSQMCONS.EXE-118B52B7.pf",
+    "size": 1428,
+    "m_time": 1427289286,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "WUAUCLT.EXE-70318591.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WUAUCLT.EXE-70318591.pf",
+    "size": 23828,
+    "m_time": 1427295049,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "WUSA.EXE-A8D5906C.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/WUSA.EXE-A8D5906C.pf",
+    "size": 32292,
+    "m_time": 1427295037,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "XPSRCHVW.EXE-FEB3BF01.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/XPSRCHVW.EXE-FEB3BF01.pf",
+    "size": 63480,
+    "m_time": 1427297337,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "OUTLOOK.EXE-1DF422BF.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/OUTLOOK.EXE-1DF422BF.pf",
+    "size": 165272,
+    "m_time": 1427294473,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "PING.EXE-371F41E2.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/PING.EXE-371F41E2.pf",
+    "size": 15724,
+    "m_time": 1427295514,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "ASPNET_REGIIS.EXE-75651A3C.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/ASPNET_REGIIS.EXE-75651A3C.pf",
+    "size": 49402,
+    "m_time": 1427295268,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "ASPNET_REGIIS.EXE-86915B5A.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/ASPNET_REGIIS.EXE-86915B5A.pf",
+    "size": 47506,
+    "m_time": 1427295273,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "AU_.EXE-506726E7.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/AU_.EXE-506726E7.pf",
+    "size": 36378,
+    "m_time": 1427296719,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "CCLEANER64.EXE-779BD542.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CCLEANER64.EXE-779BD542.pf",
+    "size": 29954,
+    "m_time": 1427296550,
+    "is_compressed_mam": false,
+    "is_suspicious": false,
+    "matched_tools": []
+  },
+  {
+    "name": "CCSETUP504.EXE-6BA2F6A1.pf",
+    "path": "/mnt/c/Users/Juvee/forensics_project/forensiq/artifacts/prefetch/CCSETUP504.EXE-6BA2F6A1.pf",
+    "size": 50914,
+    "m_time": 1427295487,
+    "is_compressed_mam": false,
     "is_suspicious": false,
     "matched_tools": []
   }

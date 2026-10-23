@@ -1,10 +1,4 @@
-
-vssadmin list shadows
-
-Stop-Service LanmanServer -Force
-
-Set-NetFirewallProfile `
--Profile Domain,Public,Private `
--Enabled True
-
-Write-Host "Host isolated. Restore from backups if available."
+# Remediation: Rapid Encryption & Staging Containment
+vssadmin create shadow /for=C:
+Set-ProcessMitigation -System -Enable DEP
+Write-Host "VSS snapshot created and system process mitigations enforced."

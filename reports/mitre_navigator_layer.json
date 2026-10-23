@@ -1,5 +1,5 @@
 {
-  "name": "ForensIQ Detection Layer \u2014 SCHARDT.001",
+  "name": "ForensIQ ATT&CK Detection Layer",
   "versions": {
     "attack": "14",
     "navigator": "4.9",
@@ -10,44 +10,23 @@
     {
       "techniqueID": "T1070.006",
       "color": "#f87171",
-      "comment": "Count:215",
+      "comment": "Count: 2688",
       "enabled": true,
-      "score": 215
+      "score": 2688
     },
     {
       "techniqueID": "T1070.001",
       "color": "#f87171",
-      "comment": "Count:78",
+      "comment": "Count: 17428",
       "enabled": true,
-      "score": 78
+      "score": 17428
     },
     {
       "techniqueID": "T1052.001",
       "color": "#fbbf24",
-      "comment": "Count:1",
+      "comment": "Count: 1",
       "enabled": true,
       "score": 1
-    },
-    {
-      "techniqueID": "T1486",
-      "color": "#f87171",
-      "comment": "Count:28",
-      "enabled": true,
-      "score": 28
-    },
-    {
-      "techniqueID": "T1003.002",
-      "color": "#f87171",
-      "comment": "Count:3",
-      "enabled": true,
-      "score": 3
-    },
-    {
-      "techniqueID": "T1040",
-      "color": "#f87171",
-      "comment": "Count:3",
-      "enabled": true,
-      "score": 3
     }
   ]
 }

@@ -1,0 +1,55 @@
+{
+  "per_artifact": [
+    {
+      "artifact": "cain_abel",
+      "on_disk": 0,
+      "flagged": 0,
+      "detected": false
+    },
+    {
+      "artifact": "network_stumbler",
+      "on_disk": 0,
+      "flagged": 0,
+      "detected": false
+    },
+    {
+      "artifact": "ethereal_winpcap",
+      "on_disk": 0,
+      "flagged": 0,
+      "detected": false
+    },
+    {
+      "artifact": "anonymizer",
+      "on_disk": 0,
+      "flagged": 0,
+      "detected": false
+    },
+    {
+      "artifact": "pw_stealer",
+      "on_disk": 0,
+      "flagged": 0,
+      "detected": false
+    },
+    {
+      "artifact": "defrag",
+      "on_disk": 22,
+      "flagged": 0,
+      "detected": false
+    },
+    {
+      "artifact": "timestamp_bulk",
+      "on_disk": "-",
+      "flagged": "burst",
+      "detected": true
+    }
+  ],
+  "summary": {
+    "recall_on_known_artifacts": 0.1429,
+    "detected": 1,
+    "total_ground_truth": 7,
+    "flag_rate": 0.0511,
+    "n_flagged": 4346,
+    "n_total": 85017,
+    "note": "Precision/accuracy intentionally calculated against ground-truth subset for triage calibration."
+  }
+}

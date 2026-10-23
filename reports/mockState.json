@@ -1,0 +1,301 @@
+{
+  "case_id": "FRQ-CASE-2026",
+  "analyst": "FORENSIQ-AUTOMATED-SOC",
+  "scan_timestamp": "2026-10-23T06:24:14.677195+00:00",
+  "metrics": {
+    "total_extracted_gb": 4.2,
+    "anomalies_flagged": 4227,
+    "logs_parsed": "4,076",
+    "scan_duration_sec": 42,
+    "risk_score": 85
+  },
+  "anomalies": [
+    {
+      "id": "ANM-001",
+      "path": "/Windows/System32/config/SOFTWARE",
+      "score": -0.2226570939075525,
+      "size_kb": 47360,
+      "severity": "critical",
+      "category": "Filesystem Anomaly",
+      "description": "Anomalous file with ML score -0.2227"
+    },
+    {
+      "id": "ANM-002",
+      "path": "/Windows/System32/config/COMPONENTS",
+      "score": -0.2221140993280536,
+      "size_kb": 43008,
+      "severity": "critical",
+      "category": "Filesystem Anomaly",
+      "description": "Anomalous file with ML score -0.2221"
+    },
+    {
+      "id": "ANM-003",
+      "path": "/Windows/System32/config/SYSTEM",
+      "score": -0.2164347820496244,
+      "size_kb": 12288,
+      "severity": "critical",
+      "category": "Filesystem Anomaly",
+      "description": "Anomalous file with ML score -0.2164"
+    },
+    {
+      "id": "ANM-004",
+      "path": "/Windows/System32/SMI/Store/Machine/SCHEMA.DAT",
+      "score": -0.2161653434465557,
+      "size_kb": 11264,
+      "severity": "critical",
+      "category": "Exfiltration / Anonymizer",
+      "description": "Anomalous file with ML score -0.2162"
+    },
+    {
+      "id": "ANM-005",
+      "path": "/Windows/ServiceProfiles/NetworkService/AppData/Roaming/Microsoft/SoftwareProtectionPlatform/tokens.dat",
+      "score": -0.2081244243510517,
+      "size_kb": 6921,
+      "severity": "critical",
+      "category": "Filesystem Anomaly",
+      "description": "Anomalous file with ML score -0.2081"
+    },
+    {
+      "id": "ANM-006",
+      "path": "/Windows/Microsoft.NET/Framework64/v2.0.50727/ngen_service.old.log",
+      "score": -0.1993731595502047,
+      "size_kb": 4196,
+      "severity": "critical",
+      "category": "Filesystem Anomaly",
+      "description": "Anomalous file with ML score -0.1994"
+    },
+    {
+      "id": "ANM-007",
+      "path": "/Windows/Microsoft.NET/Framework/v2.0.50727/ngen_service.old.log",
+      "score": -0.1993731595502047,
+      "size_kb": 4202,
+      "severity": "critical",
+      "category": "Filesystem Anomaly",
+      "description": "Anomalous file with ML score -0.1994"
+    },
+    {
+      "id": "ANM-008",
+      "path": "/Users/Default/NTUSER.DAT",
+      "score": -0.1980557123222279,
+      "size_kb": 256,
+      "severity": "critical",
+      "category": "Filesystem Anomaly",
+      "description": "Anomalous file with ML score -0.1981"
+    },
+    {
+      "id": "ANM-009",
+      "path": "/Windows/System32/wbem/Repository/OBJECTS.DATA",
+      "score": -0.1920782529460148,
+      "size_kb": 14448,
+      "severity": "critical",
+      "category": "Exfiltration / Anonymizer",
+      "description": "Anomalous file with ML score -0.1921"
+    },
+    {
+      "id": "ANM-010",
+      "path": "/Users/informant/AppData/Local/Microsoft/Windows/Temporary Internet Files/Content.IE5/BN9SKHUD/IE11-Windows6.1-KB2841134-x64[1].cab",
+      "score": -0.1872300902070336,
+      "size_kb": 57041,
+      "severity": "critical",
+      "category": "Filesystem Anomaly",
+      "description": "Anomalous file with ML score -0.1872"
+    }
+  ],
+  "timeline": [
+    {
+      "id": "EVT-001",
+      "timestamp": "2009-06-10T20:30:46+00:00",
+      "display_time": "20:30:46 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Filesystem Anomaly] Suspicious file: /Windows/System32/icardagt.exe",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.0290"
+      }
+    },
+    {
+      "id": "EVT-002",
+      "timestamp": "2009-06-10T20:30:46+00:00",
+      "display_time": "20:30:46 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Filesystem Anomaly] Suspicious file: /Windows/winsxs/amd64_wcf-icardagt_exe_31bf3856ad364e35_6.1.7600.16385_none_8dcc9c6f8b58a5eb/icardagt.exe",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.0290"
+      }
+    },
+    {
+      "id": "EVT-003",
+      "timestamp": "2009-06-10T20:30:59+00:00",
+      "display_time": "20:30:59 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Filesystem Anomaly] Suspicious file: /Windows/Microsoft.NET/Framework64/v3.0/WPF/PresentationUI.dll",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.0086"
+      }
+    },
+    {
+      "id": "EVT-004",
+      "timestamp": "2009-06-10T20:30:59+00:00",
+      "display_time": "20:30:59 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Filesystem Anomaly] Suspicious file: /Windows/winsxs/amd64_wpf-presentationui_31bf3856ad364e35_6.1.7600.16385_none_c61a5a2b7d71c1f2/PresentationUI.dll",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.0086"
+      }
+    },
+    {
+      "id": "EVT-005",
+      "timestamp": "2009-06-10T20:31:01+00:00",
+      "display_time": "20:31:01 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Filesystem Anomaly] Suspicious file: /Windows/System32/PresentationNative_v0300.dll",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.0189"
+      }
+    },
+    {
+      "id": "EVT-006",
+      "timestamp": "2009-06-10T20:31:01+00:00",
+      "display_time": "20:31:01 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Filesystem Anomaly] Suspicious file: /Windows/winsxs/amd64_wpf-presentationnative_31bf3856ad364e35_6.1.7600.16385_none_b2bafd8160314f8f/PresentationNative_v0300.dll",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.0189"
+      }
+    },
+    {
+      "id": "EVT-007",
+      "timestamp": "2009-06-10T20:32:06+00:00",
+      "display_time": "20:32:06 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Exfiltration / Anonymizer] Suspicious file: /Windows/System32/DriverStore/FileRepository/hcw72b64.inf_amd64_neutral_023772237d3a4ade/hcw72ATV.sys",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.0346"
+      }
+    },
+    {
+      "id": "EVT-008",
+      "timestamp": "2009-06-10T20:32:06+00:00",
+      "display_time": "20:32:06 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Exfiltration / Anonymizer] Suspicious file: /Windows/System32/DriverStore/FileRepository/hcw72b64.inf_amd64_neutral_023772237d3a4ade/hcw72DTV.sys",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.0346"
+      }
+    },
+    {
+      "id": "EVT-009",
+      "timestamp": "2009-06-10T20:32:06+00:00",
+      "display_time": "20:32:06 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Filesystem Anomaly] Suspicious file: /Windows/winsxs/amd64_hcw72b64.inf_31bf3856ad364e35_6.1.7600.16385_none_b2017fc4229ff517/hcw72DTV.sys",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.0346"
+      }
+    },
+    {
+      "id": "EVT-010",
+      "timestamp": "2009-06-10T20:32:06+00:00",
+      "display_time": "20:32:06 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Filesystem Anomaly] Suspicious file: /Windows/winsxs/amd64_hcw72b64.inf_31bf3856ad364e35_6.1.7600.16385_none_b2017fc4229ff517/hcw72ATV.sys",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.0346"
+      }
+    },
+    {
+      "id": "EVT-011",
+      "timestamp": "2009-06-10T20:32:53+00:00",
+      "display_time": "20:32:53 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Filesystem Anomaly] Suspicious file: /Windows/winsxs/amd64_xcbdav.inf_31bf3856ad364e35_6.1.7600.16385_none_7f4231fc7038c168/xchalVx64.sys",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.1158"
+      }
+    },
+    {
+      "id": "EVT-012",
+      "timestamp": "2009-06-10T20:32:53+00:00",
+      "display_time": "20:32:53 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Exfiltration / Anonymizer] Suspicious file: /Windows/System32/DriverStore/FileRepository/xcbdav.inf_amd64_neutral_cf80e4da1c95e6e2/xchalVx64.sys",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.1158"
+      }
+    },
+    {
+      "id": "EVT-013",
+      "timestamp": "2009-06-10T20:35:28+00:00",
+      "display_time": "20:35:28 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Filesystem Anomaly] Suspicious file: /Windows/winsxs/amd64_netw5v64.inf_31bf3856ad364e35_6.1.7600.16385_none_4c931a8573840e89/netw5v64.sys",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.0358"
+      }
+    },
+    {
+      "id": "EVT-014",
+      "timestamp": "2009-06-10T20:35:28+00:00",
+      "display_time": "20:35:28 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Exfiltration / Anonymizer] Suspicious file: /Windows/System32/DriverStore/FileRepository/netw5v64.inf_amd64_neutral_a6b778ba802632cc/netw5v64.sys",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.0358"
+      }
+    },
+    {
+      "id": "EVT-015",
+      "timestamp": "2009-06-10T20:36:03+00:00",
+      "display_time": "20:36:03 UTC",
+      "type": "critical",
+      "title": "[MFT] ANOMALY",
+      "description": "[Exfiltration / Anonymizer] Suspicious file: /Windows/System32/DriverStore/FileRepository/avmx64c.inf_amd64_neutral_8ebb15bf548db022/fpcmbase.sys",
+      "metadata": {
+        "source": "MFT",
+        "event_id": "ANOMALY",
+        "score": "-0.0092"
+      }
+    }
+  ]
+}

@@ -2,54 +2,32 @@
   "framework": "MITRE ATT&CK v14",
   "techniques_detected": {
     "T1070.006": {
-      "count": 215,
+      "technique": "Indicator Removal: Timestomp",
+      "count": 2688,
       "evidence": [
-        "/RECYCLER/S-1-5-21-2000478354-688789844-1708537768-1003/Dc4.exe",
-        "/Program Files/Ethereal/ethereal.exe",
-        "/Program Files/mIRC/mirc.exe",
-        "/Program Files/Internet Explorer/Connection Wizard/ICWOOBE.EXE",
-        "/WIN98/DRIVER20.CAB"
+        "/Users/informant/AppData/Local/Microsoft/Windows/Temporary Internet Files/Content.IE5/BN9SKHUD/Windows6.1-KB2670838-x64[1].cab",
+        "/Windows/Microsoft.NET/Framework64/v4.0.30319/clr.dll",
+        "/Users/informant/AppData/Local/Temp/Microsoft .NET Framework 4 Setup_4.0.30319/netfx_Core.mzz",
+        "/Users/informant/AppData/Local/Microsoft/Windows/Temporary Internet Files/Content.IE5/BN9SKHUD/Windows6.1-KB2882822-x64[1].msu",
+        "/Users/informant/AppData/Local/Temp/Microsoft .NET Framework 4 Setup_4.0.30319/netfx_Extended.mzz"
       ],
       "confidence": "HIGH"
     },
     "T1070.001": {
-      "count": 78,
+      "technique": "Indicator Removal: Clear Windows Event Logs",
+      "count": 17428,
       "evidence": [
-        "Working-hour windows with zero events"
+        "Working-hour windows with zero recorded events"
       ],
       "confidence": "HIGH"
     },
     "T1052.001": {
+      "technique": "Exfiltration Over Physical Medium",
       "count": 1,
       "evidence": [
-        "SYSTEM hive USBSTOR entries"
+        "SYSTEM hive USBSTOR device records"
       ],
       "confidence": "MEDIUM"
-    },
-    "T1486": {
-      "count": 28,
-      "evidence": [
-        "High volume of archive files detected"
-      ],
-      "confidence": "HIGH"
-    },
-    "T1003.002": {
-      "count": 3,
-      "evidence": [
-        "123wasp_setup.exe-333bb1f4.pf",
-        "cain.exe-23d61279.pf",
-        "cain25b45.exe-056f3a6e.pf"
-      ],
-      "confidence": "HIGH"
-    },
-    "T1040": {
-      "count": 3,
-      "evidence": [
-        "ethereal-setup-0.10.6.exe-1d932600.pf",
-        "ethereal.exe-1c148eef.pf",
-        "winpcap_3_01_a.exe-1e3ededc.pf"
-      ],
-      "confidence": "HIGH"
     }
   }
 }
