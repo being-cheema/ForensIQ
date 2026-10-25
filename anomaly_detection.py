@@ -57,11 +57,22 @@ def train_and_report(contamination=CONTAMINATION):
     scores = model.decision_function(X)
     labels = model.predict(X)  # -1 = anomaly, +1 = normal
 
-    # Save trained model
+    # Save trained model and full bundle (Milestone 3 Task 5, Milestone 6)
     os.makedirs(MODEL_DIR, exist_ok=True)
     model_path = os.path.join(MODEL_DIR, "iforest.pkl")
     with open(model_path, "wb") as f:
         pickle.dump(model, f)
+
+    scaler_path = os.path.join(FEAT_DIR, "scaler.pkl")
+    scaler = None
+    if os.path.exists(scaler_path):
+        with open(scaler_path, "rb") as sf:
+            scaler = pickle.load(sf)
+
+    bundle_path = os.path.join(MODEL_DIR, "iforest_bundle.pkl")
+    cols = FEATURE_COLUMNS[:X.shape[1]]
+    with open(bundle_path, "wb") as f:
+        pickle.dump({"model": model, "scaler": scaler, "features": cols}, f)
 
     flagged_count = int((labels == -1).sum())
     print(f"[+] Model saved to {model_path}")

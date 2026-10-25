@@ -182,8 +182,7 @@ def generate_full_report():
         detected += int(found)
         gt_rows.append({"artifact": name, "on_disk": int(on_disk), "flagged": int(in_flag), "detected": found})
 
-    gt_rows.append({"artifact": "timestamp_bulk", "on_disk": "-", "flagged": "burst", "detected": True})
-    detected += 1
+    # Genuine ground-truth artifacts only (Milestone 4, §14.1)
     total_gt = len(gt_rows)
 
     recall = detected / total_gt

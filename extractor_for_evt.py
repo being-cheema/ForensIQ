@@ -4,9 +4,17 @@ import json
 import re
 import subprocess
 
-import pytsk3
-import Evtx.Evtx as evtx_lib
-from lxml import etree
+try:
+    import pytsk3
+except ImportError:
+    pytsk3 = None
+
+try:
+    import Evtx.Evtx as evtx_lib
+    from lxml import etree
+except ImportError:
+    evtx_lib = None
+    etree = None
 
 from config import (
     IMAGE_PATH,
@@ -30,7 +38,9 @@ class DiskImage:
         print(f"[+] Opened {path}")
 
 
-disk = DiskImage(IMAGE_PATH, PART_OFFSET)
+
+# Top-level disk initialization removed for import safety (Milestone 1, §11.1)
+
 
 
 def extract_file_from_image(disk, img_path):
@@ -52,7 +62,7 @@ def extract_evtx(disk, out_dir=OUT_DIR):
     
     except Exception as e:
         import traceback
-        print(f"[!] Failed: {filename}")
+        print(f"[!] Failed opening {evtx_dir}: {e}")
         traceback.print_exc()
 
     for entry in log_dir:
@@ -93,7 +103,6 @@ def extract_evtx(disk, out_dir=OUT_DIR):
     return events
 
 
-evtx_records = extract_evtx(disk)
 
 def parse_evt_files():
     evt_dir = os.path.join(OUT_DIR, "evtx")
@@ -208,7 +217,6 @@ def parse_evt_files():
 
     return parsed_events
 
-parsed_events = parse_evt_files()
 
 def extract_mft(disk, out_dir=OUT_DIR):
     records = []
@@ -247,8 +255,7 @@ def extract_mft(disk, out_dir=OUT_DIR):
                     "c_time": int(meta.ctime) if meta else 0,
                     "cr_time": int(meta.crtime) if meta else 0,
                     "is_deleted": (
-                        meta.flags
-                        == pytsk3.TSK_FS_META_FLAG_UNALLOC
+                        bool(meta.flags & pytsk3.TSK_FS_META_FLAG_UNALLOC)
                         if meta else False
                     ),
                 }
@@ -284,7 +291,6 @@ def extract_mft(disk, out_dir=OUT_DIR):
     return records
 
 
-mft_records = extract_mft(disk)
 
 
 def extract_prefetch(disk, out_dir=OUT_DIR):
@@ -370,6 +376,17 @@ def extract_usb_history(disk, out_dir=OUT_DIR):
     return dest
 
 
-prefetch_records = extract_prefetch(disk)
-usb_hive = extract_usb_history(disk)
+def main():
+    print(f"[*] Starting legacy EVT extraction from {IMAGE_PATH}")
+    disk = DiskImage(IMAGE_PATH, PART_OFFSET)
+    extract_evtx(disk)
+    parse_evt_files()
+    extract_mft(disk)
+    extract_prefetch(disk)
+    extract_usb_history(disk)
+    print("[+] EVT extraction complete.")
+
+
+if __name__ == "__main__":
+    main()
 

@@ -9,6 +9,7 @@ Supports both legacy Windows XP and modern Windows 7/10 datasets.
 
 import os
 import json
+import pickle
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -95,9 +96,14 @@ def build_macb_features():
     df["is_deleted"] = df.get("is_deleted", False).astype(int)
 
     # MACB delta features (timestomping & backdating detection)
-    df["delta_mc"] = (df["m_time"] - df["c_time"]).abs()
-    df["delta_mb"] = (df["m_time"] - df["cr_time"]).abs()
-    df["delta_ab"] = (df["a_time"] - df["cr_time"]).abs()
+    # Guard against 0/missing timestamps producing artificial ~34-year deltas (Milestone 2, §12.1)
+    has_mc = (df["m_time"] > 0) & (df["c_time"] > 0)
+    has_mb = (df["m_time"] > 0) & (df["cr_time"] > 0)
+    has_ab = (df["a_time"] > 0) & (df["cr_time"] > 0)
+
+    df["delta_mc"] = np.where(has_mc, (df["m_time"] - df["c_time"]).abs(), 0.0)
+    df["delta_mb"] = np.where(has_mb, (df["m_time"] - df["cr_time"]).abs(), 0.0)
+    df["delta_ab"] = np.where(has_ab, (df["a_time"] - df["cr_time"]).abs(), 0.0)
 
     # Dynamic reference timestamp derived from dataset max (H-2):
     # Prevents historical images (2004 XP / 2018 Lone Wolf) from producing all-zero features
@@ -213,6 +219,18 @@ def build_feature_matrix():
 
     np.save(os.path.join(FEAT_DIR, "X_raw.npy"), X_raw)
     np.save(os.path.join(FEAT_DIR, "X_matrix.npy"), X_scaled)
+
+    # Persist fitted scaler alongside matrices (Milestone 3 Task 5, Milestone 6)
+    scaler_path = os.path.join(FEAT_DIR, "scaler.pkl")
+    with open(scaler_path, "wb") as sf:
+        pickle.dump(scaler, sf)
+    try:
+        from config import MODEL_DIR
+        os.makedirs(MODEL_DIR, exist_ok=True)
+        with open(os.path.join(MODEL_DIR, "scaler.pkl"), "wb") as sf:
+            pickle.dump(scaler, sf)
+    except Exception:
+        pass
 
     macb["path"].to_csv(os.path.join(FEAT_DIR, "file_index.csv"), index=False)
 

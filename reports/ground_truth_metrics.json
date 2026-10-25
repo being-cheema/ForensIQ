@@ -35,18 +35,12 @@
       "on_disk": 22,
       "flagged": 0,
       "detected": false
-    },
-    {
-      "artifact": "timestamp_bulk",
-      "on_disk": "-",
-      "flagged": "burst",
-      "detected": true
     }
   ],
   "summary": {
-    "recall_on_known_artifacts": 0.1429,
-    "detected": 1,
-    "total_ground_truth": 7,
+    "recall_on_known_artifacts": 0.0,
+    "detected": 0,
+    "total_ground_truth": 6,
     "flag_rate": 0.0511,
     "n_flagged": 4346,
     "n_total": 85017,

@@ -74,7 +74,13 @@ def compute_shap_explanations():
             return False
 
     with open(model_path, "rb") as f:
-        model = pickle.load(f)
+        loaded = pickle.load(f)
+        if isinstance(loaded, dict) and "model" in loaded:
+            model = loaded["model"]
+        elif isinstance(loaded, tuple):
+            model = loaded[0]
+        else:
+            model = loaded
 
     X_raw = np.load(x_raw_path)
     X_scaled = np.load(x_scaled_path)

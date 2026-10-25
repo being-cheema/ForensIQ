@@ -284,7 +284,7 @@ def extract_mft(disk, out_dir=OUT_DIR):
                     "a_time": int(meta.atime) if meta else 0,
                     "c_time": int(meta.ctime) if meta else 0,
                     "cr_time": int(meta.crtime) if meta else 0,
-                    "is_deleted": bool(meta.flags == pytsk3.TSK_FS_META_FLAG_UNALLOC) if meta else False
+                    "is_deleted": bool(meta.flags & pytsk3.TSK_FS_META_FLAG_UNALLOC) if meta else False
                 }
                 records.append(rec)
 

@@ -38,6 +38,7 @@ STEPS = [
     ("timeline.py", "Timeline Generation", "Construct sorted events CSV and interactive HTML timeline."),
     ("remediation.py", "Remediation Scripts", "Generate PowerShell containment files for detected breach indicators."),
     ("forensiq_report.py", "HTML Report Assembly", "Validate CoC, compile findings, and generate premium HTML dashboard."),
+    ("evaluate_baselines.py", "Baseline Benchmark", "Evaluate equal-budget retrieval against rules, k-NN, and ablations."),
 ]
 
 

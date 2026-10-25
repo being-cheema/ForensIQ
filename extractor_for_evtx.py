@@ -2,9 +2,17 @@
 import os
 import json
 
-import pytsk3
-import Evtx.Evtx as evtx_lib
-from lxml import etree
+try:
+    import pytsk3
+except ImportError:
+    pytsk3 = None
+
+try:
+    import Evtx.Evtx as evtx_lib
+    from lxml import etree
+except ImportError:
+    evtx_lib = None
+    etree = None
 
 from config import (
     IMAGE_PATH,
@@ -28,7 +36,9 @@ class DiskImage:
         print(f"[+] Opened {path}")
 
 
-disk = DiskImage(IMAGE_PATH, PART_OFFSET)
+
+# Top-level disk initialization removed for import safety (Milestone 1, §11.1)
+
 
 
 def extract_file_from_image(disk, img_path):
@@ -106,7 +116,6 @@ def extract_evtx(disk, out_dir=OUT_DIR):
     return events
 
 
-evtx_records = extract_evtx(disk)
 
 
 def extract_mft(disk, out_dir=OUT_DIR):
@@ -146,8 +155,7 @@ def extract_mft(disk, out_dir=OUT_DIR):
                     "c_time": int(meta.ctime) if meta else 0,
                     "cr_time": int(meta.crtime) if meta else 0,
                     "is_deleted": (
-                        meta.flags
-                        == pytsk3.TSK_FS_META_FLAG_UNALLOC
+                        bool(meta.flags & pytsk3.TSK_FS_META_FLAG_UNALLOC)
                         if meta else False
                     ),
                 }
@@ -183,7 +191,6 @@ def extract_mft(disk, out_dir=OUT_DIR):
     return records
 
 
-mft_records = extract_mft(disk)
 
 
 def extract_prefetch(disk, out_dir=OUT_DIR):
@@ -269,6 +276,16 @@ def extract_usb_history(disk, out_dir=OUT_DIR):
     return dest
 
 
-prefetch_records = extract_prefetch(disk)
-usb_hive = extract_usb_history(disk)
+def main():
+    print(f"[*] Starting modern EVTX extraction from {IMAGE_PATH}")
+    disk = DiskImage(IMAGE_PATH, PART_OFFSET)
+    extract_evtx(disk)
+    extract_mft(disk)
+    extract_prefetch(disk)
+    extract_usb_history(disk)
+    print("[+] EVTX extraction complete.")
+
+
+if __name__ == "__main__":
+    main()
 
