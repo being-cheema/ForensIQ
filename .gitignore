@@ -1,3 +1,24 @@
 venv/
+venv_wsl/
+.venv/
 images/
 __pycache__/
+*.pyc
+*.pyo
+.vscode/
+Lone Wolf/
+ForensIQ (2).pdf
+ForensIQ*_pdf_text.txt
+*.E01
+*.dd
+*.raw
+
+# Ignore oversized corrupt sector dump prefetch files (>100MB)
+artifacts/prefetch/DROPBOXCRASHHANDLER.EXE-FB9FF1B3.pf
+artifacts/prefetch/DROPBOXINSTALLER.EXE-7014D2BC.pf
+artifacts/prefetch/NVDISPLAY.CONTAINER.EXE-22606B81.pf
+artifacts/prefetch/NVSTLINK.EXE-C2B24F56.pf
+artifacts/prefetch/SETUP.EXE-C52DC467.pf
+artifacts/prefetch/SVCHOST.EXE-05551E7E.pf
+artifacts/prefetch/SVCHOST.EXE-9B449DE1.pf
+artifacts/prefetch/SYSTEMSETTINGSADMINFLOWS.EXE-B5F2FFDC.pf

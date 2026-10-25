@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<wap-provisioningdoc>
+  <characteristic type="CM_CellularEntries">
+    <characteristic type="Singtel (Singapore)_i0$(__MVID)@WAP">
+      <characteristic type="DevSpecificCellular">
+        <parm name="GPRSInfoAccessPointName" value="e-ideas" datatype="string" />
+      </characteristic>
+      <parm name="AlwaysOn" value="1" datatype="string" />
+      <parm name="Desc" value="Post Paid APN" datatype="string" />
+      <parm name="IPType" value="IPv4v6" datatype="string" />
+      <parm name="PurposeGroups" value="3e5545d2-1137-4dc8-a198-33f1c657515f" datatype="string" />
+    </characteristic>
+    <characteristic type="Singtel (Singapore)_i1$(__MVID)@WAP">
+      <characteristic type="DevSpecificCellular">
+        <parm name="GPRSInfoAccessPointName" value="internet" datatype="string" />
+      </characteristic>
+      <parm name="AlwaysOn" value="1" datatype="string" />
+      <parm name="Desc" value="Post Paid APN" datatype="string" />
+      <parm name="IPType" value="IPv4v6" datatype="string" />
+      <parm name="PurposeGroups" value="3e5545d2-1137-4dc8-a198-33f1c657515f" datatype="string" />
+    </characteristic>
+    <characteristic type="Singtel (Singapore)_i2$(__MVID)@WAP">
+      <characteristic type="DevSpecificCellular">
+        <parm name="GPRSInfoAccessPointName" value="hicard" datatype="string" />
+      </characteristic>
+      <parm name="AlwaysOn" value="1" datatype="string" />
+      <parm name="Desc" value="PrePaid APN" datatype="string" />
+      <parm name="IPType" value="IPv4v6" datatype="string" />
+      <parm name="PurposeGroups" value="3e5545d2-1137-4dc8-a198-33f1c657515f" datatype="string" />
+    </characteristic>
+    <characteristic type="Singtel (Singapore)_i3$(__MVID)@WAP">
+      <characteristic type="DevSpecificCellular">
+        <parm name="GPRSInfoAccessPointName" value="hi-internet" datatype="string" />
+      </characteristic>
+      <parm name="AlwaysOn" value="1" datatype="string" />
+      <parm name="Desc" value="PrePaid APN" datatype="string" />
+      <parm name="IPType" value="IPv4v6" datatype="string" />
+      <parm name="PurposeGroups" value="3e5545d2-1137-4dc8-a198-33f1c657515f" datatype="string" />
+    </characteristic>
+  </characteristic>
+</wap-provisioningdoc>

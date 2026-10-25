@@ -1,0 +1,32 @@
+{
+  "title": "ForensIQ Incident Response Remediation Plan",
+  "case_id": "FRQ-INCIDENT-AUTOMATED",
+  "high_priority_findings": 1,
+  "actions": [
+    {
+      "priority": "P0 - Immediate Containment",
+      "category": "Host Isolation",
+      "action": "Isolate the endpoint from the internal network and revoke VPN access to prevent lateral movement."
+    },
+    {
+      "priority": "P0 - Immediate Containment",
+      "category": "Identity & Access",
+      "action": "Force password reset and terminate all active sessions for identified user profiles (e.g. jcloudy)."
+    },
+    {
+      "priority": "P1 - Cloud Exfiltration Containment",
+      "category": "SaaS / Cloud Revocation",
+      "action": "Revoke OAuth access tokens for Dropbox, Box, OneDrive, and Google Drive for the suspect account."
+    },
+    {
+      "priority": "P1 - Physical Storage Policy",
+      "category": "USB & Peripheral Control",
+      "action": "Deploy GPO or EDR policy to block unauthorized USB mass storage devices across sensitive endpoints."
+    },
+    {
+      "priority": "P2 - Evidence Preservation & Eradication",
+      "category": "Artifact Quarantine",
+      "action": "Quarantine 1 high-risk files identified in user staging/cloud directories."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "window": "2017-09-29 13:30:00+00:00",
+    "eventlog": 0,
+    "filesystem": 59979,
+    "total_activity": 59979
+  },
+  {
+    "window": "2017-09-29 14:30:00+00:00",
+    "eventlog": 0,
+    "filesystem": 32937,
+    "total_activity": 32937
+  },
+  {
+    "window": "2018-03-27 09:30:00+00:00",
+    "eventlog": 2336,
+    "filesystem": 15221,
+    "total_activity": 17557
+  },
+  {
+    "window": "2018-03-27 09:45:00+00:00",
+    "eventlog": 12520,
+    "filesystem": 4802,
+    "total_activity": 17322
+  }
+]

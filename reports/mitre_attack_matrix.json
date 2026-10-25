@@ -1,0 +1,186 @@
+[
+  {
+    "technique_id": "T1567.002",
+    "technique_name": "Exfiltration to Cloud Storage",
+    "tactic": "Exfiltration",
+    "evidence_count": 304,
+    "top_evidence": [
+      {
+        "path": "/Program Files/Box/Box Sync/cacert.pem",
+        "score": -0.20781129284265454,
+        "tier": "Tier 2: Medium Confidence"
+      },
+      {
+        "path": "/Windows/System32/config/systemprofile/AppData/Local/Box Sync Update/SyncMSI.msi",
+        "score": -0.1959554308638739,
+        "tier": "Tier 2: Medium Confidence"
+      },
+      {
+        "path": "/Users/jcloudy/AppData/Local/Microsoft/OneDrive/Update/OneDriveSetup.exe",
+        "score": -0.1849873344392542,
+        "tier": "Tier 1: High Confidence"
+      },
+      {
+        "path": "/Program Files (x86)/Dropbox/Client/Qt5WebEngineCore.dll",
+        "score": -0.17585709916176473,
+        "tier": "Tier 2: Medium Confidence"
+      },
+      {
+        "path": "/Program Files/Box/Box Sync/BoxSyncWindowsUI.dll",
+        "score": -0.1735068392816811,
+        "tier": "Tier 2: Medium Confidence"
+      }
+    ],
+    "description": "Adversary exfiltrates data to commercial cloud synchronization services."
+  },
+  {
+    "technique_id": "T1052.001",
+    "technique_name": "Exfiltration over Physical Medium: USB",
+    "tactic": "Exfiltration",
+    "evidence_count": 1,
+    "top_evidence": [
+      {
+        "path": "/Windows/WinSxS/amd64_microsoft-windows-provisioning-core_31bf3856ad364e35_10.0.16299.98_none_da9ad090a0c1fe0a/RemovableMediaProvisioningPlugin.dll",
+        "score": -0.08497439163502818,
+        "tier": "Tier 2: Medium Confidence"
+      }
+    ],
+    "description": "Adversary exfiltrates data to removable storage devices."
+  },
+  {
+    "technique_id": "T1074.001",
+    "technique_name": "Local Data Staging",
+    "tactic": "Collection",
+    "evidence_count": 646,
+    "top_evidence": [
+      {
+        "path": "/Windows/Temp/INS_5ede1063.TMP",
+        "score": -0.24827166463895312,
+        "tier": "Tier 2: Medium Confidence"
+      },
+      {
+        "path": "/Windows/Temp/INS_ef5c70fc.TMP",
+        "score": -0.24827166463895312,
+        "tier": "Tier 2: Medium Confidence"
+      },
+      {
+        "path": "/Windows/Temp/INS_a9d8583a.TMP",
+        "score": -0.24827166463895312,
+        "tier": "Tier 2: Medium Confidence"
+      },
+      {
+        "path": "/Windows/Temp/INS_ceebea57.TMP",
+        "score": -0.24827166463895312,
+        "tier": "Tier 2: Medium Confidence"
+      },
+      {
+        "path": "/Users/jcloudy/AppData/Roaming/Microsoft/Templates/LiveContent/16/Managed/Document Themes/1033/TM10001104[[fn=Feathered]].thmx",
+        "score": -0.23246240476260238,
+        "tier": "Tier 2: Medium Confidence"
+      }
+    ],
+    "description": "Adversary aggregates files in a local directory prior to exfiltration."
+  },
+  {
+    "technique_id": "T1564",
+    "technique_name": "Hide Artifacts / Timestomping",
+    "tactic": "Defense Evasion",
+    "evidence_count": 13,
+    "top_evidence": [
+      {
+        "path": "/Users/jcloudy/AppData/Local/Microsoft/Windows/SettingSync/metastore/edb.log",
+        "score": -0.0956255209931316,
+        "tier": "Tier 2: Medium Confidence"
+      },
+      {
+        "path": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/Cookies",
+        "score": -0.08958653568750141,
+        "tier": "Tier 3: Low Confidence"
+      },
+      {
+        "path": "/Users/jcloudy/AppData/Local/Microsoft/Windows/SettingSync/remotemetastore/v1/meta.edb",
+        "score": -0.07554964314325019,
+        "tier": "Tier 2: Medium Confidence"
+      },
+      {
+        "path": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/Preferences",
+        "score": -0.0753275992536031,
+        "tier": "Tier 3: Low Confidence"
+      },
+      {
+        "path": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Local State",
+        "score": -0.056197966995159665,
+        "tier": "Tier 3: Low Confidence"
+      }
+    ],
+    "description": "Modification of file metadata to disguise intrusion evidence or bypass filters."
+  },
+  {
+    "technique_id": "T1070.001",
+    "technique_name": "Clear Windows Event Logs",
+    "tactic": "Defense Evasion",
+    "evidence_count": 29,
+    "top_evidence": [
+      {
+        "path": "/Users/jcloudy/AppData/Roaming/Microsoft/Templates/LiveContent/16/Managed/Document Themes/1033/TM10001104[[fn=Feathered]].thmx",
+        "score": -0.23246240476260238,
+        "tier": "Tier 2: Medium Confidence"
+      },
+      {
+        "path": "/Windows/SoftwareDistribution/SLS/855E8A7C-ECB4-4CA3-B045-1DFA50104289/sls.cab",
+        "score": -0.16158897476643486,
+        "tier": "Tier 3: Low Confidence"
+      },
+      {
+        "path": "/Windows/WinSxS/FileMaps/$$_fonts_40104ba9a1d20dac.cdf-ms",
+        "score": -0.12807158008175112,
+        "tier": "Tier 3: Low Confidence"
+      },
+      {
+        "path": "/Windows/WinSxS/wow64_microsoft-windows-advancedtaskmanager_31bf3856ad364e35_10.0.16299.15_none_dc27b1249104866b/Taskmgr.exe",
+        "score": -0.12074626521041021,
+        "tier": "Tier 2: Medium Confidence"
+      },
+      {
+        "path": "/Windows/WinSxS/FileMaps/$$_systemapps_microsoft.windows.cloudexperiencehost_cw5n1h2txyewy_core_js_applaunchers_de40849bf361043c.cdf-ms",
+        "score": -0.11024296005607692,
+        "tier": "Tier 3: Low Confidence"
+      }
+    ],
+    "description": "Clearing security or application logs to impede detection and forensics."
+  },
+  {
+    "technique_id": "T1204.002",
+    "technique_name": "User Execution: Malicious File",
+    "tactic": "Execution",
+    "evidence_count": 700,
+    "top_evidence": [
+      {
+        "path": "/Program Files/NVIDIA Corporation/Installer2/Display.Driver.{F1A55424-D217-43B2-9E6F-93F765181C8D}/NvCplSetupInt.exe",
+        "score": -0.23306735455905592,
+        "tier": "Tier 2: Medium Confidence"
+      },
+      {
+        "path": "/Program Files/NVIDIA Corporation/Control Panel Client/nvcplui.exe",
+        "score": -0.23139143256663253,
+        "tier": "Tier 3: Low Confidence"
+      },
+      {
+        "path": "/Program Files/NVIDIA Corporation/Installer2/Display.3DVision.{B000D554-73C9-4982-B0CE-7FEEC8F7C5B2}/3DVision.exe",
+        "score": -0.22509826810194766,
+        "tier": "Tier 3: Low Confidence"
+      },
+      {
+        "path": "/Program Files (x86)/NVIDIA Corporation/3D Vision/NVStWiz.exe",
+        "score": -0.21792057891748584,
+        "tier": "Tier 3: Low Confidence"
+      },
+      {
+        "path": "/Program Files (x86)/Intel/Intel(R) Processor Graphics/uninstall/Setup.exe",
+        "score": -0.19690091027372592,
+        "tier": "Tier 2: Medium Confidence"
+      }
+    ],
+    "description": "User runs an unverified executable or script from an untrusted source."
+  }
+]

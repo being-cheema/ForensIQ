@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<wap-provisioningdoc>
+  <characteristic type="CM_CellularEntries">
+    <characteristic type="MoldCell (Republic of Moldova)_i0$(__MVID)@WAP">
+      <characteristic type="DevSpecificCellular">
+        <parm name="GPRSInfoAccessPointName" value="gprs" datatype="string" />
+      </characteristic>
+      <parm name="AlwaysOn" value="1" datatype="string" />
+      <parm name="IPType" value="IPv4v6" datatype="string" />
+      <parm name="PurposeGroups" value="3e5545d2-1137-4dc8-a198-33f1c657515f" datatype="string" />
+      <parm name="UserName" value="webemovil" datatype="string" />
+    </characteristic>
+  </characteristic>
+</wap-provisioningdoc>

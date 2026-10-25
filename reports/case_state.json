@@ -1,0 +1,521 @@
+{
+  "case_id": "FRQ-CASE-AUTO",
+  "analyst": "FORENSIQ-AUTO-PIPELINE",
+  "scan_timestamp": "2026-10-23T02:26:21.282801+00:00",
+  "metrics": {
+    "total_extracted_gb": 37.6,
+    "anomalies_flagged": 8306,
+    "logs_parsed": "36k",
+    "scan_duration_sec": 30,
+    "risk_score": 99
+  },
+  "anomalies": [
+    {
+      "id": "ANM-001",
+      "path": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/pnacl/0.57.44.2492/_platform_specific/x86_64/pnacl_public_x86_64_pnacl_llc_nexe",
+      "score": -0.24917755614786963,
+      "size_kb": 13761,
+      "severity": "warn",
+      "category": "Filesystem Anomaly",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.25, delta_mb: 38177775)"
+    },
+    {
+      "id": "ANM-002",
+      "path": "/Windows/Temp/INS_5ede1063.TMP",
+      "score": -0.24827166463895312,
+      "size_kb": 4895,
+      "severity": "warn",
+      "category": "Staging / Drop",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.25, delta_mb: 33516948)"
+    },
+    {
+      "id": "ANM-003",
+      "path": "/Windows/Temp/INS_ef5c70fc.TMP",
+      "score": -0.24827166463895312,
+      "size_kb": 4895,
+      "severity": "warn",
+      "category": "Staging / Drop",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.25, delta_mb: 33516948)"
+    },
+    {
+      "id": "ANM-004",
+      "path": "/Windows/Temp/INS_a9d8583a.TMP",
+      "score": -0.24827166463895312,
+      "size_kb": 4895,
+      "severity": "warn",
+      "category": "Staging / Drop",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.25, delta_mb: 33516948)"
+    },
+    {
+      "id": "ANM-005",
+      "path": "/Windows/Temp/INS_ceebea57.TMP",
+      "score": -0.24827166463895312,
+      "size_kb": 4895,
+      "severity": "warn",
+      "category": "Staging / Drop",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.25, delta_mb: 33516948)"
+    },
+    {
+      "id": "ANM-006",
+      "path": "/Program Files (x86)/Microsoft.NET/Primary Interop Assemblies/Microsoft.mshtml.dll",
+      "score": -0.23640286206408556,
+      "size_kb": 7820,
+      "severity": "warn",
+      "category": "Executable Anomaly",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.24, delta_mb: 0)"
+    },
+    {
+      "id": "ANM-007",
+      "path": "/Program Files/NVIDIA Corporation/Installer2/Display.Driver.{F1A55424-D217-43B2-9E6F-93F765181C8D}/NvCplSetupInt.exe",
+      "score": -0.23306735455905592,
+      "size_kb": 94786,
+      "severity": "warn",
+      "category": "Executable Anomaly",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.23, delta_mb: 32641922)"
+    },
+    {
+      "id": "ANM-008",
+      "path": "/Users/jcloudy/AppData/Roaming/Microsoft/Templates/LiveContent/16/Managed/Document Themes/1033/TM10001104[[fn=Feathered]].thmx",
+      "score": -0.23246240476260238,
+      "size_kb": 2004,
+      "severity": "warn",
+      "category": "Staging / Drop",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.23, delta_mb: 79845036)"
+    },
+    {
+      "id": "ANM-009",
+      "path": "/Program Files/NVIDIA Corporation/Control Panel Client/nvcplui.exe",
+      "score": -0.23139143256663253,
+      "size_kb": 12452,
+      "severity": "warn",
+      "category": "Executable Anomaly",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.23, delta_mb: 39125091)"
+    },
+    {
+      "id": "ANM-010",
+      "path": "/Program Files/NVIDIA Corporation/Display/nvgames.dll",
+      "score": -0.23085877380976239,
+      "size_kb": 11035,
+      "severity": "warn",
+      "category": "Executable Anomaly",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.23, delta_mb: 39125091)"
+    },
+    {
+      "id": "ANM-011",
+      "path": "/Program Files/NVIDIA Corporation/Display/nvgamesr.dll",
+      "score": -0.23085877380976239,
+      "size_kb": 11249,
+      "severity": "warn",
+      "category": "Executable Anomaly",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.23, delta_mb: 39125091)"
+    },
+    {
+      "id": "ANM-012",
+      "path": "/Windows/System32/config/SOFTWARE",
+      "score": -0.23037050539762383,
+      "size_kb": 89344,
+      "severity": "warn",
+      "category": "Filesystem Anomaly",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.23, delta_mb: 15512417)"
+    },
+    {
+      "id": "ANM-013",
+      "path": "/Program Files/NVIDIA Corporation/Display/nvwss.dll",
+      "score": -0.22952870255594804,
+      "size_kb": 10940,
+      "severity": "warn",
+      "category": "Executable Anomaly",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.23, delta_mb: 39125090)"
+    },
+    {
+      "id": "ANM-014",
+      "path": "/Program Files/NVIDIA Corporation/Display/nvdispsr.dll",
+      "score": -0.22846626420057992,
+      "size_kb": 10554,
+      "severity": "warn",
+      "category": "Executable Anomaly",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.23, delta_mb: 39125091)"
+    },
+    {
+      "id": "ANM-015",
+      "path": "/Windows/System32/config/COMPONENTS",
+      "score": -0.22771425974623327,
+      "size_kb": 53504,
+      "severity": "warn",
+      "category": "Filesystem Anomaly",
+      "mac_modified": "",
+      "mac_accessed": "",
+      "mac_created": "",
+      "description": "Isolation Forest anomaly (score: -0.23, delta_mb: 16148777)"
+    }
+  ],
+  "timeline": [
+    {
+      "id": "EVT-001",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Temp/0d94f22d-233f-42ed-b2e8-120c97c7e16a.tmp",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-002",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Windows/System32/DriverStore/FileRepository/igdlh64.inf_amd64_5f8dc4eab6fcd2f0/ocl_cpu_OclCpuBackend64.dll",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.1581",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-003",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Packages/Microsoft.Office.OneNote_8wekyb3d8bbwe/LocalState/AppData/Local/OneNote/16.0/cache/tmp/00000018.bin",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-004",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Temp/b8d90943-3658-4be8-9e8a-e5d4c3dddddf.tmp",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-005",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Temp/f8b6f03b-7f32-40de-85c4-b82226a74dbd.tmp",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-006",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Windows/Prefetch/SVCHOST.EXE-F805C12F.pf",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0088",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-007",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Windows/WinSxS/amd64_microsoft-windows-m..osoftedge.resources_31bf3856ad364e35_10.0.16299.15_en-us_101f0c360d9f5124/PhishSiteEdge.htm",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0880",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-008",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Temp/6c3c8790-909c-4feb-b450-a53ba9968bce.tmp",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-009",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Temp/sa.50611331-FE19-D366-B049-694B8AC9D758_5__.Public.AppUpdate.dat",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-010",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Windows/Temp/DESKTOP-PM6C56D-20180330-1711.log",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-011",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Temp/121a7cdc-9f21-4b6a-804b-daa44bcaea75.tmp",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-012",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Temp/760d0089-1f05-4d96-b455-406bbff56f0c.tmp",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-013",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Windows/WinSxS/amd64_microsoft-windows-s..aleducation-license_31bf3856ad364e35_10.0.16299.15_none_5ab384a9618fb3a8/ProfessionalEducation-OEM-DM-1-ul-phn-rtm.xrm-ms",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0828",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-014",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Temp/72db22cf-4b6c-439d-b818-28cac7f4d4eb.tmp",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-015",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Temp/7172e4a9-4817-46a0-bd5a-11cdd640c45a.tmp",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-016",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Temp/5d308a94-c393-49df-b37b-e71d23f5cff1.tmp",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-017",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Program Files/WindowsApps/Microsoft.MicrosoftOfficeHub_17.8830.7600.0_x64__8wekyb3d8bbwe/VFS/ProgramFilesCommonX64/Microsoft Shared/OFFICE16/MSO99LRES.DLL",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0849",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-018",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Temp/62e4772a-16f3-45e4-8776-8b7373264032.tmp",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-019",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Windows/Prefetch/DROPBOXUPDATEONDEMAND.EXE-45A43BDD.pf",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-020",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Temp/5ce0cef7-a867-4fc1-9948-ec2c12e89516.tmp",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-021",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Temp/5bcc4e0d-8d33-43c2-b757-6ceffbf35101.tmp",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-022",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Windows/Prefetch/DROPBOXUPDATE.EXE-B78ECF5A.pf",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-023",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Windows/Prefetch/DROPBOXINSTALLER.EXE-7014D2BC.pf",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-024",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Users/jcloudy/AppData/Local/Temp/{73915AA2-A9CD-4B68-B023-B5A0C2378914} - OProcSessId.dat",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.0374",
+        "event_id": "ANOMALY"
+      }
+    },
+    {
+      "id": "EVT-025",
+      "timestamp": "1970-01-01T00:00:00+00:00",
+      "display_time": "1970-01-01 00:00:00 UTC",
+      "type": "critical",
+      "title": "MFT",
+      "description": "Suspicious file: /Windows/WinSxS/FileMaps/_0000000000000000.cdf-ms",
+      "metadata": {
+        "kind": "anomaly",
+        "score": "-0.1067",
+        "event_id": "ANOMALY"
+      }
+    }
+  ]
+}
