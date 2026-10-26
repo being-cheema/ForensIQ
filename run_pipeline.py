@@ -24,7 +24,7 @@ except ImportError:
     HAVE_RICH = False
     console = None
 
-from config import validate_config
+from config import validate_config, IMAGE_PATH
 
 STEPS = [
     ("extractor.py", "Data Extraction", "Extract raw files, EVT/EVTX logs, registry hives, and prefetch from disk."),
@@ -154,8 +154,8 @@ def main():
             print(f"[!] Unknown start step name: {args.start_at}")
             sys.exit(1)
 
-    target_img = os.environ.get("FORENSIQ_IMAGE_PATH", os.path.join(base_dir, "images", "SCHARDT.001"))
-    header_info = f"Target Image: {target_img}\nOffset: {os.environ.get('FORENSIQ_PART_OFFSET', '63 (default)')}"
+    target_img = os.environ.get("FORENSIQ_IMAGE_PATH", IMAGE_PATH)
+    header_info = f"Target Image: {target_img}\nOffset: {os.environ.get('FORENSIQ_PART_OFFSET', 'auto-detect')}"
     log_panel("ForensIQ Unified Forensic Intelligence Pipeline", header_info, border_style="bold magenta")
 
     # If extraction is to be run, validate image existence

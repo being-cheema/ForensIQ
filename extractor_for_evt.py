@@ -10,6 +10,28 @@ except ImportError:
     pytsk3 = None
 
 try:
+    import pyewf
+except ImportError:
+    pyewf = None
+
+
+class EWFImgInfo(pytsk3.Img_Info if pytsk3 else object):
+    def __init__(self, ewf_handle):
+        self._ewf_handle = ewf_handle
+        super().__init__()
+    def close(self):
+        try:
+            self._ewf_handle.close()
+        except Exception:
+            pass
+    def read(self, offset, size):
+        self._ewf_handle.seek(offset)
+        return self._ewf_handle.read(size)
+    def get_size(self):
+        return self._ewf_handle.get_media_size()
+
+
+try:
     import Evtx.Evtx as evtx_lib
     from lxml import etree
 except ImportError:
@@ -28,7 +50,28 @@ class DiskImage:
     def __init__(self, path, offset_sectors=None):
         if pytsk3 is None:
             raise RuntimeError("pytsk3 is required to open disk images.")
-        self.img = pytsk3.Img_Info(path)
+
+        resolved_path = os.path.abspath(path)
+        is_e01 = False
+        if os.path.isdir(resolved_path):
+            candidates = sorted([os.path.join(resolved_path, f) for f in os.listdir(resolved_path) if f.lower().endswith((".e01", ".ex01"))])
+            if candidates:
+                resolved_path = candidates[0]
+                is_e01 = True
+        elif resolved_path.lower().endswith((".e01", ".ex01")):
+            is_e01 = True
+
+        self.ewf_handle = None
+        if is_e01:
+            if pyewf is None:
+                raise RuntimeError("libewf-python is required to open .E01 disk images directly.")
+            filenames = pyewf.glob(resolved_path) or [resolved_path]
+            self.ewf_handle = pyewf.handle()
+            self.ewf_handle.open(filenames)
+            self.img = EWFImgInfo(self.ewf_handle)
+        else:
+            self.img = pytsk3.Img_Info(resolved_path)
+
         self.fs = None
         self.offset = None
 

@@ -2,10 +2,22 @@ import os
 import sys
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-# Primary target image path
-DEFAULT_IMAGE_PATH = os.path.join(
-    BASE_DIR, "images", "dataleak", "cfreds_2015_data_leakage_pc.dd"
-)
+
+def _find_default_image():
+    if "FORENSIQ_IMAGE_PATH" in os.environ and os.path.exists(os.environ["FORENSIQ_IMAGE_PATH"]):
+        return os.environ["FORENSIQ_IMAGE_PATH"]
+    candidates = [
+        os.path.join(BASE_DIR, "Lone Wolf", "LoneWolf.E01"),
+        os.path.join(BASE_DIR, "Lone Wolf"),
+        os.path.join(BASE_DIR, "images", "dataleak", "cfreds_2015_data_leakage_pc.dd"),
+        os.path.join(BASE_DIR, "images", "SCHARDT.001"),
+    ]
+    for c in candidates:
+        if os.path.exists(c):
+            return c
+    return candidates[0]
+
+DEFAULT_IMAGE_PATH = _find_default_image()
 IMAGE_PATH = os.environ.get("FORENSIQ_IMAGE_PATH", DEFAULT_IMAGE_PATH)
 
 # Partition offset in 512-byte sectors

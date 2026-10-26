@@ -1,4 +1,5 @@
 pytsk3>=20231007
+libewf-python>=20260924
 python-evtx>=0.7.4
 lxml>=4.9.0
 scikit-learn>=1.4.0

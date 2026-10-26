@@ -22,11 +22,30 @@ except ImportError:
     pytsk3 = None
 
 try:
-    import Evtx.Evtx as evtx_lib
-    from lxml import etree
+    import pyewf
 except ImportError:
-    evtx_lib = None
-    etree = None
+    pyewf = None
+
+
+class EWFImgInfo(pytsk3.Img_Info if pytsk3 else object):
+    """pytsk3 Img_Info adapter for Expert Witness Format (E01) disk images using pyewf."""
+    def __init__(self, ewf_handle):
+        self._ewf_handle = ewf_handle
+        super().__init__()
+
+    def close(self):
+        try:
+            self._ewf_handle.close()
+        except Exception:
+            pass
+
+    def read(self, offset, size):
+        self._ewf_handle.seek(offset)
+        return self._ewf_handle.read(size)
+
+    def get_size(self):
+        return self._ewf_handle.get_media_size()
+
 
 from config import (
     IMAGE_PATH,
@@ -57,9 +76,26 @@ SUSPICIOUS_TOOLS = [
 class DiskImage:
     """Wraps raw disk image handle and mounted filesystem."""
     def __init__(self, path, offset_sectors=None):
-        if not os.path.exists(path):
+        if not path:
+            raise ValueError("No disk image path provided.")
+
+        resolved_path = os.path.abspath(path)
+        is_e01 = False
+
+        if os.path.isdir(resolved_path):
+            candidates = sorted([
+                os.path.join(resolved_path, f) for f in os.listdir(resolved_path)
+                if f.lower().endswith((".e01", ".ex01"))
+            ])
+            if candidates:
+                resolved_path = candidates[0]
+                is_e01 = True
+        elif resolved_path.lower().endswith((".e01", ".ex01")):
+            is_e01 = True
+
+        if not os.path.exists(resolved_path):
             raise FileNotFoundError(
-                f"Disk image file not found: '{path}'\n"
+                f"Disk image file not found: '{resolved_path}'\n"
                 f"    Please pass an existing image path:\n"
                 f"      python extractor.py path/to/image.raw\n"
                 f"      python run_pipeline.py --image path/to/image.raw\n"
@@ -70,8 +106,30 @@ class DiskImage:
         if pytsk3 is None:
             raise RuntimeError("pytsk3 is required to open forensic disk images.")
 
-        self.path = path
-        self.img = pytsk3.Img_Info(path)
+        self.path = resolved_path
+        self.ewf_handle = None
+
+        if is_e01:
+            if pyewf is None:
+                raise RuntimeError(
+                    "libewf-python is required to open .E01 disk images directly.\n"
+                    "Install via: pip install libewf-python"
+                )
+            try:
+                filenames = pyewf.glob(resolved_path)
+            except Exception:
+                filenames = [resolved_path]
+            if not filenames:
+                filenames = [resolved_path]
+            print(f"[+] Direct E01 Ingestion: Detected {len(filenames)} segment(s) for '{os.path.basename(resolved_path)}'")
+            self.ewf_handle = pyewf.handle()
+            self.ewf_handle.open(filenames)
+            self.img = EWFImgInfo(self.ewf_handle)
+            media_size = self.ewf_handle.get_media_size()
+            print(f"[+] Mounted virtual E01 disk: {media_size:,} bytes ({media_size / (1024**3):.2f} GB) — ZERO conversion needed")
+        else:
+            self.img = pytsk3.Img_Info(resolved_path)
+
         self.fs = None
         self.offset = None
 
@@ -541,6 +599,10 @@ def extract_prefetch(disk, out_dir=OUT_DIR):
                 continue
 
             fname = name.decode("utf-8", "ignore")
+            # Prefetch files are never >10MB; skip corrupt cluster runs
+            if entry.info.meta and entry.info.meta.size > 10 * 1024 * 1024:
+                continue
+
             raw = extract_file_from_image(disk, f"/WINDOWS/Prefetch/{fname}")
             outfile = os.path.join(out_pf, fname)
             save_binary(outfile, raw)
