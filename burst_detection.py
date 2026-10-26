@@ -64,7 +64,7 @@ def run_burst_detection():
         for ts, cnt in burst_groups.sort_values("path", ascending=False).head(5).iterrows():
             try:
                 dt = datetime.datetime.fromtimestamp(int(ts), tz=datetime.timezone.utc)
-                print(f"    • {dt.isoformat()} — {int(cnt['path']):,} files modified simultaneously")
+                print(f"    - {dt.isoformat()} : {int(cnt['path']):,} files modified simultaneously")
             except Exception:
                 pass
 

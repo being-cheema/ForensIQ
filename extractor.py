@@ -26,6 +26,13 @@ try:
 except ImportError:
     pyewf = None
 
+try:
+    import Evtx.Evtx as evtx_lib
+    from lxml import etree
+except ImportError:
+    evtx_lib = None
+    etree = None
+
 
 class EWFImgInfo(pytsk3.Img_Info if pytsk3 else object):
     """pytsk3 Img_Info adapter for Expert Witness Format (E01) disk images using pyewf."""
@@ -375,6 +382,8 @@ def extract_mft(disk, out_dir=OUT_DIR):
                     "is_deleted": bool(meta.flags & pytsk3.TSK_FS_META_FLAG_UNALLOC) if meta else False
                 }
                 records.append(rec)
+                if len(records) % 10000 == 0:
+                    print(f"[*] Indexed {len(records):,} MFT filesystem records...", flush=True)
 
                 if rec["type"] == "dir":
                     try:
@@ -713,13 +722,11 @@ def run_all(image_path=IMAGE_PATH, offset=PART_OFFSET, out_dir=OUT_DIR):
         print(f"\n[!] Error: Disk image file does not exist at:")
         print(f"    '{image_path}'")
         print("\n[*] Options to proceed:")
-        print("    1. Specify the correct path to your disk image:")
-        print("       python extractor.py /path/to/your_image.raw")
-        print("       python run_pipeline.py --image /path/to/your_image.raw")
+        print("    1. Direct zero-conversion ingestion (supported for .E01, .dd, .raw, .001):")
+        print('       python extractor.py "Lone Wolf/LoneWolf.E01"')
+        print('       python run_pipeline.py --image "Lone Wolf/LoneWolf.E01"')
         print("    2. If you already have extracted artifacts in artifacts/:")
         print("       python run_pipeline.py --skip-extraction")
-        print("    3. If analyzing an E01 image (e.g. Lone Wolf), convert it first:")
-        print('       python convert_e01.py --image "Lone Wolf/LoneWolf.E01"')
         print("=" * 65)
         return False
 
@@ -745,5 +752,10 @@ def run_all(image_path=IMAGE_PATH, offset=PART_OFFSET, out_dir=OUT_DIR):
 
 if __name__ == "__main__":
     target_img = sys.argv[1] if len(sys.argv) > 1 else IMAGE_PATH
-    target_off = int(sys.argv[2]) if len(sys.argv) > 2 else PART_OFFSET
+    target_off = PART_OFFSET
+    if len(sys.argv) > 2:
+        try:
+            target_off = int(sys.argv[2])
+        except ValueError:
+            target_off = 0
     run_all(target_img, target_off)

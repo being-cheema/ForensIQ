@@ -40,9 +40,9 @@ def calibrate_confidence_tiers():
     p75 = flagged[score_col].quantile(0.75)
 
     print("\n[+] Calibrating Investigation Confidence Tiers:")
-    print(f"    • CRITICAL threshold (Q25): {p25:.4f}")
-    print(f"    • HIGH threshold     (Q50): {p50:.4f}")
-    print(f"    • MEDIUM threshold   (Q75): {p75:.4f}")
+    print(f"    - CRITICAL threshold (Q25): {p25:.4f}")
+    print(f"    - HIGH threshold     (Q50): {p50:.4f}")
+    print(f"    - MEDIUM threshold   (Q75): {p75:.4f}")
 
     def assign_tier(score):
         if score <= p25:
@@ -61,7 +61,7 @@ def calibrate_confidence_tiers():
 
     counts = flagged["confidence_tier"].value_counts()
     for t in ["CRITICAL", "HIGH", "MEDIUM", "LOW"]:
-        print(f"    • {t:10s}: {counts.get(t, 0):4d} files")
+        print(f"    - {t:10s}: {counts.get(t, 0):4d} files")
 
     queue_path = os.path.join(FEAT_DIR, "investigation_queue.csv")
     flagged[["path", score_col, "confidence_tier"]].to_csv(queue_path, index=False)

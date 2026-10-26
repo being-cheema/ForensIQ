@@ -78,15 +78,15 @@ def run_step(script_name, description, base_dir, env_overrides=None):
 
         if result.returncode == 0:
             if HAVE_RICH:
-                console.print(f"[bold green][✓][/bold green] Step [green]{script_name}[/green] completed in {elapsed:.2f}s.\n")
+                console.print(f"[bold green][OK][/bold green] Step [green]{script_name}[/green] completed in {elapsed:.2f}s.\n")
             else:
-                print(f"[✓] Step {script_name} completed in {elapsed:.2f}s.\n")
+                print(f"[+] Step {script_name} completed in {elapsed:.2f}s.\n")
             return True, elapsed
         else:
             if HAVE_RICH:
-                console.print(f"[bold red][✗][/bold red] Step [red]{script_name}[/red] failed with exit code {result.returncode}.\n")
+                console.print(f"[bold red][FAIL][/bold red] Step [red]{script_name}[/red] failed with exit code {result.returncode}.\n")
             else:
-                print(f"[✗] Step {script_name} failed with exit code {result.returncode}.\n")
+                print(f"[!] Step {script_name} failed with exit code {result.returncode}.\n")
             return False, elapsed
     except Exception as e:
         elapsed = time.time() - start_time
@@ -198,7 +198,7 @@ def main():
     if failed:
         sys.exit(1)
     else:
-        print("[✓] ForensIQ pipeline execution finished successfully!")
+        print("[+] ForensIQ pipeline execution finished successfully!")
         sys.exit(0)
 
 

@@ -92,11 +92,11 @@ def verify_manifest(manifest_path=None):
             failed.append(("TAMPERED", fpath))
 
     print("\n[+] Chain of Custody Integrity Verification:")
-    print(f"    • Passed: {passed}")
-    print(f"    • Failed: {len(failed)}")
+    print(f"    - Passed: {passed}")
+    print(f"    - Failed: {len(failed)}")
 
     if not failed:
-        print("    [✓] All artifacts intact — cryptographic integrity verified.")
+        print("    [+] All artifacts intact - cryptographic integrity verified.")
     else:
         for reason, path in failed:
             print(f"    [!] {reason}: {path}")

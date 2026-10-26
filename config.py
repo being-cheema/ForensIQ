@@ -20,8 +20,8 @@ def _find_default_image():
 DEFAULT_IMAGE_PATH = _find_default_image()
 IMAGE_PATH = os.environ.get("FORENSIQ_IMAGE_PATH", DEFAULT_IMAGE_PATH)
 
-# Partition offset in 512-byte sectors
-_raw_offset = os.environ.get("FORENSIQ_PART_OFFSET", "206848")
+# Partition offset in 512-byte sectors (0 or 'auto' triggers intelligent auto-detection)
+_raw_offset = os.environ.get("FORENSIQ_PART_OFFSET", "auto")
 try:
     PART_OFFSET = int(_raw_offset)
 except ValueError:

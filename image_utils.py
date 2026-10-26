@@ -118,7 +118,7 @@ def merge_split_images(first_segment_path, output_path=None, buffer_size=4194304
                     sys.stdout.write(f"\r[+] Progress: {progress:.1f}% ({written_bytes:,} / {total_size:,} bytes)")
                     sys.stdout.flush()
 
-    print(f"\n[✓] Successfully assembled {len(segments)} segments into {output_path}")
+    print(f"\n[+] Successfully assembled {len(segments)} segments into {output_path}")
     return output_path
 
 
