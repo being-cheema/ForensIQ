@@ -230,6 +230,12 @@ def main():
     print(f"    - Executable tools on disk: {sum(1 for t in active_targets if t['is_executable'])}")
     print(f"    - Non-executable artifacts (logs, lnk, db, decoys): {sum(1 for t in active_targets if not t['is_executable'])}")
 
+    if not active_targets:
+        print("\n[i] Notice: No defined CFReDS ground-truth target files matched this image dataset.")
+        print("    (This is expected when analyzing other images such as Lone Wolf or Windows XP SCHARDT).")
+        print("    Baseline retrieval benchmark requires defined target files to score Hits@K.")
+        return True
+
     results = {}
 
     # ---------------------------------------------------------

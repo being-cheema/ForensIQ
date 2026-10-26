@@ -68,11 +68,31 @@ class DiskImage:
         # Determine partition offset
         target_offset = PART_OFFSET if offset_sectors is None else offset_sectors
 
+        def _is_os_partition(fs_obj):
+            if fs_obj is None:
+                return False
+            try:
+                root_entries = fs_obj.open_dir(path="/")
+                for entry in root_entries:
+                    ename = entry.info.name.name.decode("utf-8", "ignore").lower()
+                    if ename in ["windows", "winnt", "users", "documents and settings"]:
+                        return True
+            except Exception:
+                pass
+            return False
+
+        self._is_os_partition = _is_os_partition
+
         if target_offset and target_offset > 0:
             try:
-                self.fs = pytsk3.FS_Info(self.img, offset=target_offset * SECTOR_SIZE)
-                self.offset = target_offset
-                print(f"[+] Mounted filesystem at sector offset {target_offset} ({target_offset * SECTOR_SIZE} bytes)")
+                candidate_fs = pytsk3.FS_Info(self.img, offset=target_offset * SECTOR_SIZE)
+                if _is_os_partition(candidate_fs):
+                    self.fs = candidate_fs
+                    self.offset = target_offset
+                    print(f"[+] Mounted OS partition at specified sector offset {target_offset} ({target_offset * SECTOR_SIZE} bytes)")
+                else:
+                    print(f"[*] Partition at offset {target_offset} does not contain Windows OS root. Auto-detecting...")
+                    self._auto_detect_partition()
             except Exception as e:
                 print(f"[!] Failed to mount partition at specified offset {target_offset}: {e}")
                 print("[*] Attempting automatic partition detection...")

@@ -1,10 +1,12 @@
+import os
 import pandas as pd
 import numpy as np
 
 # Load datasets
-df_all = pd.read_csv('features_dataleak/all_files_labeled.csv')
-df_flag = pd.read_csv('features_dataleak/flagged_anomalies.csv')
-df_shap = pd.read_csv('features_dataleak/shap_explanations.csv')
+feat_base = 'features_dataleak' if os.path.exists('features_dataleak') else 'features'
+df_all = pd.read_csv(os.path.join(feat_base, 'all_files_labeled.csv'))
+df_flag = pd.read_csv(os.path.join(feat_base, 'flagged_anomalies.csv'))
+df_shap = pd.read_csv(os.path.join(feat_base, 'shap_explanations.csv'))
 
 total_files = len(df_all)
 total_flagged = len(df_flag)

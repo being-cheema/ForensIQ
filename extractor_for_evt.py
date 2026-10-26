@@ -25,17 +25,70 @@ from config import (
 
 
 class DiskImage:
-    def __init__(self, path, offset_sectors):
+    def __init__(self, path, offset_sectors=None):
+        if pytsk3 is None:
+            raise RuntimeError("pytsk3 is required to open disk images.")
         self.img = pytsk3.Img_Info(path)
+        self.fs = None
+        self.offset = None
 
-        self.fs = pytsk3.FS_Info(
-            self.img,
-            offset=offset_sectors * SECTOR_SIZE
-        )
+        target_offset = PART_OFFSET if offset_sectors is None else offset_sectors
+
+        def _is_os_partition(fs_obj):
+            if fs_obj is None:
+                return False
+            try:
+                root_entries = fs_obj.open_dir(path="/")
+                for entry in root_entries:
+                    ename = entry.info.name.name.decode("utf-8", "ignore").lower()
+                    if ename in ["windows", "winnt", "users", "documents and settings"]:
+                        return True
+            except Exception:
+                pass
+            return False
+
+        if target_offset and target_offset > 0:
+            try:
+                candidate_fs = pytsk3.FS_Info(self.img, offset=target_offset * SECTOR_SIZE)
+                if _is_os_partition(candidate_fs):
+                    self.fs = candidate_fs
+                    self.offset = target_offset
+            except Exception:
+                pass
+
+        if self.fs is None:
+            candidates = [63, 206848, 1259520, 2048, 0]
+            try:
+                vol = pytsk3.Volume_Info(self.img)
+                for part in vol:
+                    if part.len > 2048:
+                        try:
+                            c_fs = pytsk3.FS_Info(self.img, offset=part.start * SECTOR_SIZE)
+                            if _is_os_partition(c_fs):
+                                self.fs = c_fs
+                                self.offset = part.start
+                                break
+                        except Exception:
+                            continue
+            except Exception:
+                pass
+
+            if self.fs is None:
+                for sec in candidates:
+                    try:
+                        c_fs = pytsk3.FS_Info(self.img, offset=sec * SECTOR_SIZE)
+                        if _is_os_partition(c_fs):
+                            self.fs = c_fs
+                            self.offset = sec
+                            break
+                    except Exception:
+                        continue
+
+        if self.fs is None:
+            raise RuntimeError(f"Could not open valid OS filesystem in {path}")
 
         self.root = self.fs.open_dir(path="/")
-
-        print(f"[+] Opened {path}")
+        print(f"[+] Opened {path} at sector offset {self.offset}")
 
 
 

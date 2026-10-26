@@ -11,7 +11,11 @@ import time
 import hashlib
 from pathlib import Path
 
-import pyewf
+try:
+    import pyewf
+except ImportError:
+    pyewf = None
+
 from rich.console import Console
 from rich.panel import Panel
 from rich.progress import Progress, BarColumn, TextColumn, TimeRemainingColumn, TransferSpeedColumn
@@ -32,6 +36,11 @@ def get_free_space_gb(path):
 
 def convert_e01_to_raw(image_path, output_path=None, chunk_size_mb=32, force=False):
     """Stream-converts multi-segment E01 images into a raw .dd/.raw image file."""
+    if pyewf is None:
+        console.print("[bold red][!] pyewf is required for E01 conversion but is not installed.[/bold red]")
+        console.print("    To install: [bold cyan]pip install libewf-python[/bold cyan] or use pre-converted raw images (.dd / .raw).")
+        return None
+
     image_path = os.path.abspath(image_path)
     if os.path.isdir(image_path):
         candidates = sorted(Path(image_path).glob("*.[eE]01"))
