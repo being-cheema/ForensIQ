@@ -57,6 +57,16 @@ SUSPICIOUS_TOOLS = [
 class DiskImage:
     """Wraps raw disk image handle and mounted filesystem."""
     def __init__(self, path, offset_sectors=None):
+        if not os.path.exists(path):
+            raise FileNotFoundError(
+                f"Disk image file not found: '{path}'\n"
+                f"    Please pass an existing image path:\n"
+                f"      python extractor.py path/to/image.raw\n"
+                f"      python run_pipeline.py --image path/to/image.raw\n"
+                f"    Or use existing pre-extracted artifacts:\n"
+                f"      python run_pipeline.py --skip-extraction"
+            )
+
         if pytsk3 is None:
             raise RuntimeError("pytsk3 is required to open forensic disk images.")
 
@@ -636,6 +646,20 @@ def run_all(image_path=IMAGE_PATH, offset=PART_OFFSET, out_dir=OUT_DIR):
     print("=" * 65)
     print(f"[*] Target Image : {image_path}")
     print(f"[*] Target Offset: {offset}")
+
+    if not os.path.exists(image_path):
+        print(f"\n[!] Error: Disk image file does not exist at:")
+        print(f"    '{image_path}'")
+        print("\n[*] Options to proceed:")
+        print("    1. Specify the correct path to your disk image:")
+        print("       python extractor.py /path/to/your_image.raw")
+        print("       python run_pipeline.py --image /path/to/your_image.raw")
+        print("    2. If you already have extracted artifacts in artifacts/:")
+        print("       python run_pipeline.py --skip-extraction")
+        print("    3. If analyzing an E01 image (e.g. Lone Wolf), convert it first:")
+        print('       python convert_e01.py --image "Lone Wolf/LoneWolf.E01"')
+        print("=" * 65)
+        return False
 
     disk = DiskImage(image_path, offset)
 
