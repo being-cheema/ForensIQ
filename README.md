@@ -41,11 +41,3 @@ py -3.12 evaluate_baselines.py
 # Convert E01 image to raw DD
 py -3.12 convert_e01.py --image path/to/image.E01
 ```
-
----
-
-## Documentation
-
-Comprehensive technical documentation is included in the repository:
-- [**ForensIQ Complete Technical Handbook**](ForensIQ_Complete_Technical_Handbook.pdf) — Architecture, ML formulas, and benchmark results.
-- [**ForensIQ Researcher Action Guide**](ForensIQ_Researcher_Action_Guide.pdf) — Step-by-step triage protocols and checklists.

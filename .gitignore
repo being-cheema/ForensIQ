@@ -22,3 +22,5 @@ artifacts/prefetch/SETUP.EXE-C52DC467.pf
 artifacts/prefetch/SVCHOST.EXE-05551E7E.pf
 artifacts/prefetch/SVCHOST.EXE-9B449DE1.pf
 artifacts/prefetch/SYSTEMSETTINGSADMINFLOWS.EXE-B5F2FFDC.pf
+
+*.pdf
