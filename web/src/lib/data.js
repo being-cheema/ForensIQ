@@ -1,0 +1,16 @@
+import D from '../data/data.json'
+import X from '../data/extras.json'
+
+export { D, X }
+export const MODELS = D.models
+export const SHORT = ['Isolation Forest', 'LOF', 'One-Class SVM']
+export const MVAR = ['--m0', '--m1', '--m2']
+export const IMGS = Object.keys(D.images)
+export const SW = X.sweep || {}
+
+export const fmt = (n) => Number(n).toLocaleString('en-US')
+export const pc = (x, d) => (x * 100).toFixed(d == null ? 1 : d) + '%'
+export const short = (l) => l.split(':')[0]
+export const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim()
+export const hitsFmt = (h) => (Number.isInteger(h) ? String(h) : h.toFixed(1))
+export const frac = (s) => { const p = String(s).split('/'); return parseInt(p[0], 10) / parseInt(p[1], 10) }
