@@ -83,30 +83,38 @@ IMG1_TARGETS = [  # reconstructed from the SCHARDT case notes; family hit = any 
 
 IMG2_TARGETS = [dict(t, timestomp=(t["name"].startswith("Eraser.exe"))) for t in GT_IMG2]
 
+def img3_targets(paths):
+    """
+    Lone Wolf's official answer key is access-restricted, so these targets come from a published
+    third-party analysis of the case (a CDAC internship report on this image) and were each
+    confirmed to exist on the disk. A target counts as caught if any copy of the file is flagged.
+    Treat them as unofficial ground truth.
+    """
+    return [
+        {"name": "AIRPORT INFORMATION.docx", "patterns": ["AIRPORT INFORMATION.docx"]},
+        {"name": "Operation 2nd Hand Smoke.pptx", "patterns": ["Operation 2nd Hand Smoke.pptx"]},
+        {"name": "Planning.docx", "patterns": ["/Planning.docx"]},
+        {"name": "The Cloudy Manifesto.docx", "patterns": ["The Cloudy Manifesto.docx"]},
+        {"name": "Cloudy thoughts (4apr).docx", "patterns": ["Cloudy thoughts (4apr).docx"]},
+        {"name": "Brother Chat.gdoc (Google Drive)", "patterns": ["/Google Drive/Brother Chat.gdoc"]},
+        {"name": "rootkey.csv (AWS keys in Downloads)", "patterns": ["/Users/jcloudy/Downloads/rootkey.csv"]},
+        {"name": "Chrome History database", "patterns": ["/Chrome/User Data/Default/History"]},
+        {"name": "Box Sync client", "patterns": ["/Program Files/Box/Box Sync/BoxSync.exe"]},
+        {"name": "Dropbox client", "patterns": ["/Program Files (x86)/Dropbox/Client/Dropbox.exe"]},
+        {"name": "OneDrive client (jcloudy)", "patterns": ["/Users/jcloudy/AppData/Local/Microsoft/OneDrive/"]},
+        {"name": "Cloud-sync desktop shortcuts", "patterns": ["/Users/jcloudy/Desktop/Box Sync.lnk",
+                                                               "/Users/jcloudy/Desktop/Dropbox.lnk"]},
+    ]
+
+
 IMAGES = {
     "img1": {"label": "Image 1: XP Hacking (SCHARDT.001)", "scenario": "external",
-             "targets": IMG1_TARGETS, "art_dir": os.path.join(CACHE, "img1_artifacts"),
-             "git_source": "0b6f08d"},
+             "targets": IMG1_TARGETS, "art_dir": os.path.join(BASE_DIR, "runs", "img1", "artifacts")},
     "img2": {"label": "Image 2: Win7 Data Leakage", "scenario": "insider",
-             "targets": IMG2_TARGETS, "art_dir": os.path.join(BASE_DIR, "artifacts")},
+             "targets": IMG2_TARGETS, "art_dir": os.path.join(BASE_DIR, "runs", "img2", "artifacts")},
     "img3": {"label": "Image 3: Win10 Lone Wolf", "scenario": "insider",
-             "targets": [], "art_dir": os.path.join(BASE_DIR, "artifacts_lonewolf")},
+             "targets": img3_targets, "art_dir": os.path.join(BASE_DIR, "runs", "img3", "artifacts")},
 }
-
-
-def ensure_img1_artifacts(spec):
-    """Image 1 artifacts only live in git history; restore them into the cache."""
-    d = spec["art_dir"]
-    need = ["mft/mft_records.json", "prefetch/prefetch_list.json", "usb/SYSTEM"]
-    for rel in need:
-        dst = os.path.join(d, rel)
-        if os.path.exists(dst):
-            continue
-        os.makedirs(os.path.dirname(dst), exist_ok=True)
-        blob = subprocess.run(["git", "show", f"{spec['git_source']}:artifacts/{rel}"],
-                              cwd=BASE_DIR, capture_output=True, check=True).stdout
-        with open(dst, "wb") as f:
-            f.write(blob)
 
 
 # ----------------------------------------------------------------------------
@@ -353,8 +361,6 @@ def main():
     main_rows, abl_rows, results, skipped = [], [], {}, {}
     for tag in a.images:
         spec = IMAGES[tag]
-        if tag == "img1":
-            ensure_img1_artifacts(spec)
         if not os.path.exists(os.path.join(spec["art_dir"], "mft", "mft_records.json")):
             skipped[tag] = f"artifacts not found at {spec['art_dir']} (needs extraction from the disk image)"
             print(f"[!] {spec['label']}: NOT RUN - {skipped[tag]}")
@@ -362,7 +368,8 @@ def main():
         t0 = time.time()
         df, raw, feats = build_features(spec["art_dir"], tag)
         N = len(df)
-        active, all_idx = match_targets(df["path"], spec["targets"])
+        tg = spec["targets"](df["path"]) if callable(spec["targets"]) else spec["targets"]
+        active, all_idx = match_targets(df["path"], tg)
         print(f"\n[*] {spec['label']}: {N:,} files, {len(feats)} features, "
               f"{len(active)} targets ({len(all_idx)} file records)")
         if "delta_si_fn" not in feats:

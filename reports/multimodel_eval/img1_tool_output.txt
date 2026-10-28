@@ -2,7 +2,7 @@
  FORENSIQ TRIAGE TOOL OUTPUT - Image 1: XP Hacking (SCHARDT.001)
 ==============================================================================
 [+] Files indexed        : 11,773
-[+] Features             : 22 (delta_si_fn unavailable)
+[+] Features             : 23 (none unavailable)
 [+] Review budget (5%)   : 589 files
 
 ------------------------------------------------------------------------------
@@ -13,26 +13,26 @@
  TIMESTOMPING   : YES (known timestomped target flagged); future_m flagged=0
  INSIDER ATTACK : N/A (external intrusion)
  Top 20 flagged files:
-   1. score=0.7015  /My Documents/DICTIONARIES/biglist_990218.zip  [size]
-   2. score=0.6919  /WINDOWS/Prefetch/WMIPRVSE.EXE-28F301A9.pf  [per_file_prefetch_hit]
-   3. score=0.6881  /WINDOWS/Prefetch/LOGONUI.EXE-0AF22957.pf  [per_file_prefetch_hit]
-   4. score=0.6850  /WINDOWS/Prefetch/IEXPLORE.EXE-27122324.pf  [per_file_prefetch_hit]
-   5. score=0.6836  /WINDOWS/Prefetch/DAEMON_MGM.EXE-3B573ED8.pf  [per_file_prefetch_hit]
-   6. score=0.6831  /WINDOWS/Prefetch/NPF_MGM.EXE-189CE5D1.pf  [per_file_prefetch_hit]
-   7. score=0.6820  /WINDOWS/Prefetch/NTOSBOOT-B00DFAAD.pf  [per_file_prefetch_hit]
-   8. score=0.6817  ttings/Mr. Evil/Local Settings/Application Data/IconCache.db  [size]
-   9. score=0.6752  /WINDOWS/Prefetch/AGENTSVR.EXE-002E45AB.pf  [per_file_prefetch_hit]
-  10. score=0.6749  /My Documents/NOVELL/Nut18/NMEM.EXE  [delta_mb]
-  11. score=0.6746  /WINDOWS/Prefetch/LOGON.SCR-151EFAEA.pf  [per_file_prefetch_hit]
-  12. score=0.6728  /My Documents/FOOTPRINTING/NT/NSTPro2/nstp2kr2.zip  [size]
-  13. score=0.6726  /WINDOWS/Prefetch/DWWIN.EXE-30875ADC.pf  [per_file_prefetch_hit]
-  14. score=0.6722  /WINDOWS/Prefetch/AGENT.EXE-07F13C20.pf  [per_file_prefetch_hit]
-  15. score=0.6715  /My Documents/DICTIONARIES/test.zip  [size]
-  16. score=0.6712  /WINDOWS/system32/CatRoot2/edb.log  [size]
-  17. score=0.6678  /My Documents/NOVELL/Nut18/NEXTMEM.EXE  [delta_mb]
-  18. score=0.6659  /Program Files/mIRC/mirc.exe  [per_file_prefetch_hit]
-  19. score=0.6655  /My Documents/DICTIONARIES/250MB_WORDLIST.ZIP  [size]
-  20. score=0.6654  /My Documents/NOVELL/Nut18/NXMSMEM.EXE  [delta_mb]
+   1. score=0.7078  /My Documents/NOVELL/Nut18/NMEM.EXE  [delta_si_fn]
+   2. score=0.6995  /My Documents/NOVELL/Nut18/NEXTMEM.EXE  [delta_si_fn]
+   3. score=0.6988  /My Documents/NOVELL/Nut18/NXMSMEM.EXE  [delta_si_fn]
+   4. score=0.6955  /My Documents/NOVELL/BINDIN.EXE  [delta_si_fn]
+   5. score=0.6897  /My Documents/DICTIONARIES/biglist_990218.zip  [size]
+   6. score=0.6878  /My Documents/NOVELL/BINDERY.EXE  [delta_si_fn]
+   7. score=0.6869  /My Documents/NOVELL/Nut18/NDISK.EXE  [delta_si_fn]
+   8. score=0.6863  /My Documents/NOVELL/USERINFO.EXE  [delta_si_fn]
+   9. score=0.6854  /My Documents/NOVELL/Nut18/NEQUA.EXE  [delta_si_fn]
+  10. score=0.6850  /My Documents/NOVELL/Nut18/NDELFILE.EXE  [after_hours_touch]
+  11. score=0.6838  /My Documents/NOVELL/Nut18/NADDRESS.EXE  [delta_si_fn]
+  12. score=0.6813  /My Documents/NOVELL/Nut18/NCPY2SUB.EXE  [delta_si_fn]
+  13. score=0.6810  /My Documents/NOVELL/Nut18/NDOSVER.EXE  [delta_si_fn]
+  14. score=0.6808  /My Documents/NOVELL/Nut18/NRPTCONN.EXE  [delta_si_fn]
+  15. score=0.6805  /My Documents/NOVELL/Nut18/NDATEDIR.EXE  [delta_si_fn]
+  16. score=0.6805  /My Documents/NOVELL/Nut18/NDELPRNJ.EXE  [delta_si_fn]
+  17. score=0.6805  /My Documents/NOVELL/Nut18/NQUOTES.EXE  [delta_si_fn]
+  18. score=0.6801  /My Documents/NOVELL/Nut18/NOPNFILE.EXE  [after_hours_touch]
+  19. score=0.6801  /My Documents/NOVELL/Nut18/NSELPRNJ.EXE  [delta_si_fn]
+  20. score=0.6797  /My Documents/NOVELL/Nut18/ULIST.EXE  [delta_si_fn]
  Ground-truth caught:
    [HIT ] Cain & Abel (Cain.exe)
    [HIT ] Ethereal / WinPcap
@@ -50,26 +50,26 @@
  TIMESTOMPING   : NO (known timestomped target missed); future_m flagged=0
  INSIDER ATTACK : N/A (external intrusion)
  Top 20 flagged files:
-   1. score=4498018542.9287  /WIN98/W98SETUP.BIN  
-   2. score=3741615920.2541  /WIN98/PRECOPY1.CAB  
-   3. score=3737906092.5591  /WIN98/PRECOPY2.CAB  
-   4. score=3718234122.2262  /WIN98/DRIVER11.CAB  
-   5. score=3484665639.1655  /WIN98/WIN98_21.CAB  
-   6. score=2790575483.7689  /WIN98/WIN98_74.CAB  
-   7. score=2315547967.2722  /WIN98/SETUP0.WAV  
-   8. score=2142511983.0049  /WIN98/SUHELPER.BIN  
-   9. score=2141631671.4341  /WIN98/OEMSETUP.BIN  
-  10. score=2101762976.6665  /WIN98/DOSSETUP.BIN  
-  11. score=1545622859.9453  /WIN98/SCANDISK.PIF  
-  12. score=1475846541.8202  /WIN98/SAVE32.COM  
-  13. score=1472125803.2103  /WIN98/SETUP1.WAV  
-  14. score=1472107755.5900  /WIN98/SETUP2.WAV  
-  15. score=1069191248.7687  /WIN98/NET8.CAB  
-  16. score=1069191248.7687  /WIN98/NET9.CAB  
-  17. score=369658331.5665  /WIN98/WIN98_OL.CAB  
-  18. score=257266916.7120  /Documents and Settings/Mr. Evil/.gtk-bookmarks  
-  19. score=23117768.2344  /WIN98/DRIVER20.CAB  
-  20. score=7477238.2262  /Documents and Settings/Default User/MPC7CC.tmp  
+   1. score=217117062981.0563  /Documents and Settings/Mr. Evil/.gtk-bookmarks  
+   2. score=6310403441.3008  /Documents and Settings/Default User/MPC7CC.tmp  
+   3. score=5950819788.6541  /Documents and Settings/Mr. Evil/Cookies/mr[1].txt  
+   4. score=5950815252.7880  /Documents and Settings/Mr. Evil/Cookies/mr[2].txt  
+   5. score=4804603731.5145  /Documents and Settings/Mr. Evil/ntuser.ini  
+   6. score=4498018542.9287  /WIN98/W98SETUP.BIN  
+   7. score=4359407844.0245  /Documents and Settings/Mr. Evil/interception  
+   8. score=3851743580.1234  /Documents and Settings/Mr. Evil/My Documents/TMP4352$.TMP  
+   9. score=3741615920.2541  /WIN98/PRECOPY1.CAB  
+  10. score=3737906092.5591  /WIN98/PRECOPY2.CAB  
+  11. score=3718234122.2262  /WIN98/DRIVER11.CAB  
+  12. score=3484665639.1655  /WIN98/WIN98_21.CAB  
+  13. score=2790575483.7689  /WIN98/WIN98_74.CAB  
+  14. score=2728016984.1208  /Documents and Settings/Mr. Evil/NTUSER.DAT  
+  15. score=2315547967.2722  /WIN98/SETUP0.WAV  
+  16. score=2142511983.0049  /WIN98/SUHELPER.BIN  
+  17. score=2141631671.4341  /WIN98/OEMSETUP.BIN  
+  18. score=2101762976.6665  /WIN98/DOSSETUP.BIN  
+  19. score=1912520293.4186  /Documents and Settings/Mr. Evil/Local Settings/desktop.ini  
+  20. score=1912516761.3502  ments and Settings/NetworkService/Local Settings/desktop.ini  
  Ground-truth caught:
    [HIT ] defrag.exe / Anonymizer
    [MISS] Cain & Abel (Cain.exe)
@@ -87,26 +87,26 @@
  TIMESTOMPING   : YES (known timestomped target flagged); future_m flagged=0
  INSIDER ATTACK : N/A (external intrusion)
  Top 20 flagged files:
-   1. score=35.5376  /hiberfil.sys  
-   2. score=35.4369  /My Documents/DICTIONARIES/250MB_WORDLIST.ZIP  [size]
-   3. score=34.5376  /pagefile.sys  
-   4. score=34.5281  emporary Directory 1 for powertoysetup.zip/PowerToySetup.exe  
-   5. score=34.4508  ITATION/NT/SMBGrind Crack/Password User Lists/NTpasslist.txt  
-   6. score=34.2289  /WINDOWS/Driver Cache/i386/driver.cab  
-   7. score=34.2289  /My Documents/FOOTPRINTING/UNIX/unix_hack.tgz  
-   8. score=34.0006  /$LogFile  
-   9. score=33.8808  Documents and Settings/Mr. Evil/Local Settings/Temp/GLFE.tmp  
-  10. score=32.6319  /WINDOWS/0.log  
-  11. score=32.5607  /Documents and Settings/Mr. Evil/.gtk-bookmarks  
-  12. score=32.4721  /WINDOWS/Debug/PASSWD.LOG  
-  13. score=32.3443  /WINDOWS/Debug/oakley.log  
-  14. score=31.5921  uments and Settings/Mr. Evil/Local Settings/Temp/wizdata.dat  
-  15. score=31.5921  uments and Settings/Mr. Evil/Local Settings/Temp/wizdata.dat  
-  16. score=30.1340  /Program Files/Cain/HOSTS.LST  
-  17. score=30.0548  /Program Files/Cain/LMNT.LST  
-  18. score=30.0462  /Program Files/Cain/APR.LST  
-  19. score=30.0388  /Program Files/Cain/DRR.LST  
-  20. score=30.0121  /Program Files/Cain/CERT.LST  
+   1. score=34.2021  /hiberfil.sys  
+   2. score=34.0680  /My Documents/DICTIONARIES/250MB_WORDLIST.ZIP  [size]
+   3. score=33.2021  /pagefile.sys  
+   4. score=33.1906  emporary Directory 1 for powertoysetup.zip/PowerToySetup.exe  
+   5. score=33.1553  ITATION/NT/SMBGrind Crack/Password User Lists/NTpasslist.txt  
+   6. score=32.9464  /WINDOWS/Driver Cache/i386/driver.cab  
+   7. score=32.9464  /My Documents/FOOTPRINTING/UNIX/unix_hack.tgz  
+   8. score=32.5813  /$LogFile  
+   9. score=32.4402  Documents and Settings/Mr. Evil/Local Settings/Temp/GLFE.tmp  
+  10. score=31.1972  /WINDOWS/0.log  
+  11. score=31.0795  /Documents and Settings/Mr. Evil/.gtk-bookmarks  
+  12. score=31.0468  /WINDOWS/Debug/PASSWD.LOG  
+  13. score=30.9212  /WINDOWS/Debug/oakley.log  
+  14. score=30.1132  uments and Settings/Mr. Evil/Local Settings/Temp/wizdata.dat  
+  15. score=30.1132  uments and Settings/Mr. Evil/Local Settings/Temp/wizdata.dat  
+  16. score=29.9512  /My Documents/EXPLOITATION/NT/vnc/winvnc/SETUP.EXE  
+  17. score=29.7220  /My Documents/ENUMERATION/NT/Legion/SETUP.EXE  
+  18. score=28.7272  /Program Files/Cain/HOSTS.LST  
+  19. score=28.6506  /Program Files/Cain/LMNT.LST  
+  20. score=28.6367  /Program Files/Cain/APR.LST  
  Ground-truth caught:
    [HIT ] Cain & Abel (Cain.exe)
    [HIT ] Ethereal / WinPcap

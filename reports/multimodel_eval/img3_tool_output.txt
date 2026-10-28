@@ -1,0 +1,132 @@
+==============================================================================
+ FORENSIQ TRIAGE TOOL OUTPUT - Image 3: Win10 Lone Wolf
+==============================================================================
+[+] Files indexed        : 166,110
+[+] Features             : 23 (none unavailable)
+[+] Review budget (5%)   : 8,306 files
+
+------------------------------------------------------------------------------
+ MODEL: Isolation Forest
+------------------------------------------------------------------------------
+ Targets caught : 7 / 12  (recall 58.3%)
+ Accuracy 94.76%  Precision 0.92%  F1 1.71%  (file-level)
+ TIMESTOMPING   : UNVERIFIED (no ground-truth timestomp target defined); future_m flagged=0
+ INSIDER ATTACK : CONFIRMED
+ Top 20 flagged files:
+   1. score=0.7428  _platform_specific/x86_64/pnacl_public_x86_64_pnacl_llc_nexe  
+   2. score=0.7274   (x86)/Intel/Intel(R) Processor Graphics/uninstall/Setup.exe  
+   3. score=0.7196  4.2492/_platform_specific/x86_64/pnacl_public_x86_64_ld_nexe  
+   4. score=0.7175  icrosoft.NET/Primary Interop Assemblies/Microsoft.mshtml.dll  
+   5. score=0.7152  /_platform_specific/x86_64/pnacl_public_x86_64_pnacl_sz_nexe  
+   6. score=0.7139  okakmgnkcojhhkbfbldkacnbeo/4.2.8_0/_locales/no/messages.json  
+   7. score=0.7132  lckaahabafndbhieahigkjlhalf/14.1_0/_locales/eu/messages.json  
+   8. score=0.7132  lckaahabafndbhieahigkjlhalf/14.1_0/_locales/no/messages.json  
+   9. score=0.7121  /Windows/System32/msvcr100.dll  
+  10. score=0.7103  /Windows/System32/nvcoproc.bin  [delta_mb]
+  11. score=0.7086  mmhkkegccagdldgiimedpiccmgmieda/1.0.0.4_0/images/flapper.gif  
+  12. score=0.7085  /Windows/System32/nvcpl.dll  
+  13. score=0.7083  /Windows/System32/msvcp100.dll  
+  14. score=0.7070  /Program Files/NVIDIA Corporation/Display/nvwss.dll  
+  15. score=0.7061  bafndbhieahigkjlhalf/14.1_0/_metadata/verified_contents.json  
+  16. score=0.7061  kcojhhkbfbldkacnbeo/4.2.8_0/_metadata/verified_contents.json  
+  17. score=0.7056  jhegncpnkpknbcohdijeoejaedia/8.1_0/_locales/no/messages.json  [delta_mb]
+  18. score=0.7056  jhegncpnkpknbcohdijeoejaedia/8.1_0/_locales/se/messages.json  
+  19. score=0.7050  (x86)/Common Files/microsoft shared/VSTO/10.0/VSTOLoader.dll  
+  20. score=0.7048  dy/AppData/Local/Microsoft/OneDrive/Update/OneDriveSetup.exe  
+ Ground-truth caught:
+   [HIT ] Operation 2nd Hand Smoke.pptx
+   [HIT ] The Cloudy Manifesto.docx
+   [HIT ] Chrome History database
+   [HIT ] Box Sync client
+   [HIT ] Dropbox client
+   [HIT ] OneDrive client (jcloudy)
+   [HIT ] Cloud-sync desktop shortcuts
+   [MISS] AIRPORT INFORMATION.docx
+   [MISS] Planning.docx
+   [MISS] Cloudy thoughts (4apr).docx
+   [MISS] Brother Chat.gdoc (Google Drive)
+   [MISS] rootkey.csv (AWS keys in Downloads)
+
+------------------------------------------------------------------------------
+ MODEL: Local Outlier Factor
+------------------------------------------------------------------------------
+ Targets caught : 2 / 12  (recall 16.7%)
+ Accuracy 94.70%  Precision 0.34%  F1 0.63%  (file-level)
+ TIMESTOMPING   : UNVERIFIED (no ground-truth timestomp target defined); future_m flagged=0
+ INSIDER ATTACK : NOT DETECTED
+ Top 20 flagged files:
+   1. score=7546697234.0879  tIndex/Input_{fac12ad3-8b66-48f1-8fac-86f0518fbe88}/apps.csg  
+   2. score=5168080227.9146  t_{fac12ad3-8b66-48f1-8fac-86f0518fbe88}/appsconversions.txt  
+   3. score=4458478081.0493  ect/S-1-5-21-2734969515-1644526556-1039763013-1001/Preferred  
+   4. score=3348840092.5053  /$BadClus  
+   5. score=3077230441.9147  lications/Windows/Projects/SystemIndex/SecStore/CiST0000.000  
+   6. score=2699734409.0119  oft/Windows Defender/Scans/History/Mput/MputHistory/04/12283  
+   7. score=2699734409.0119  oft/Windows Defender/Scans/History/Mput/MputHistory/08/15004  
+   8. score=2699734409.0119  oft/Windows Defender/Scans/History/Mput/MputHistory/18/12284  
+   9. score=2182575249.4322  /Config.Msi/a014fbb.rbf  
+  10. score=2182575249.4322  /Config.Msi/a014fbf.rbf  
+  11. score=2157603711.2971  oft/Windows Defender/Scans/History/Mput/MputHistory/12/12282  
+  12. score=2146973781.8327  /$Extend/$Reparse  
+  13. score=2146973781.8327  /$Extend/$UsnJrnl  
+  14. score=2011354280.5359  ft/Windows Defender/Scans/History/Mput/MputHistory/02/109004  
+  15. score=2011354280.5359  ft/Windows Defender/Scans/History/Mput/MputHistory/18/109002  
+  16. score=2011354280.5359  ft/Windows Defender/Scans/History/Mput/MputHistory/22/109006  
+  17. score=2011354280.5359  ft/Windows Defender/Scans/History/Mput/MputHistory/04/109005  
+  18. score=2011354280.5359  ft/Windows Defender/Scans/History/Mput/MputHistory/22/109003  
+  19. score=1756807073.8733  /Config.Msi/a014fb4.rbf  
+  20. score=1756807073.8733  /Config.Msi/a014fba.rbf  
+ Ground-truth caught:
+   [HIT ] Operation 2nd Hand Smoke.pptx
+   [HIT ] OneDrive client (jcloudy)
+   [MISS] AIRPORT INFORMATION.docx
+   [MISS] Planning.docx
+   [MISS] The Cloudy Manifesto.docx
+   [MISS] Cloudy thoughts (4apr).docx
+   [MISS] Brother Chat.gdoc (Google Drive)
+   [MISS] rootkey.csv (AWS keys in Downloads)
+   [MISS] Chrome History database
+   [MISS] Box Sync client
+   [MISS] Dropbox client
+   [MISS] Cloud-sync desktop shortcuts
+
+------------------------------------------------------------------------------
+ MODEL: One-Class SVM
+------------------------------------------------------------------------------
+ Targets caught : 11 / 12  (recall 91.7%)
+ Accuracy 94.89%  Precision 2.24%  F1 4.20%  (file-level)
+ TIMESTOMPING   : UNVERIFIED (no ground-truth timestomp target defined); future_m flagged=0
+ INSIDER ATTACK : CONFIRMED
+ Top 20 flagged files:
+   1. score=56.0321  /hiberfil.sys  
+   2. score=56.0321  /pagefile.sys  
+   3. score=56.0321  es/microsoft shared/MSEnv/PublicAssemblies/extensibility.dll  
+   4. score=56.0321  les (x86)/Microsoft.NET/Primary Interop Assemblies/adodb.dll  
+   5. score=56.0321  icrosoft.NET/Primary Interop Assemblies/Microsoft.mshtml.dll  
+   6. score=56.0321  osoft.NET/Primary Interop Assemblies/Microsoft.stdformat.dll  
+   7. score=56.0321  (x86)/Microsoft.NET/Primary Interop Assemblies/msdatasrc.dll  
+   8. score=56.0321  es (x86)/Microsoft.NET/Primary Interop Assemblies/stdole.dll  
+   9. score=56.0321  1e8-9b12-ecf4bb487fed}{3808876b-c176-4e48-b7ae-04046e6cc752}  
+  10. score=56.0321  1e8-9b15-28e347017777}{3808876b-c176-4e48-b7ae-04046e6cc752}  
+  11. score=56.0321  e/Chrome/User Data/CertificateTransparency/703/manifest.json  
+  12. score=56.0321  CertificateTransparency/703/_metadata/verified_contents.json  
+  13. score=56.0321  e/Chrome/User Data/CertificateTransparency/704/manifest.json  
+  14. score=56.0321  CertificateTransparency/704/_metadata/verified_contents.json  
+  15. score=56.0321  e/Chrome/User Data/CertificateTransparency/705/manifest.json  
+  16. score=56.0321  CertificateTransparency/705/_metadata/verified_contents.json  
+  17. score=56.0321  e/Chrome/User Data/CertificateTransparency/707/manifest.json  
+  18. score=56.0321  CertificateTransparency/707/_metadata/verified_contents.json  
+  19. score=56.0321  e/Chrome/User Data/CertificateTransparency/710/manifest.json  
+  20. score=56.0321  CertificateTransparency/710/_metadata/verified_contents.json  
+ Ground-truth caught:
+   [HIT ] AIRPORT INFORMATION.docx
+   [HIT ] Operation 2nd Hand Smoke.pptx
+   [HIT ] Planning.docx
+   [HIT ] The Cloudy Manifesto.docx
+   [HIT ] Cloudy thoughts (4apr).docx
+   [HIT ] Brother Chat.gdoc (Google Drive)
+   [HIT ] rootkey.csv (AWS keys in Downloads)
+   [HIT ] Box Sync client
+   [HIT ] Dropbox client
+   [HIT ] OneDrive client (jcloudy)
+   [HIT ] Cloud-sync desktop shortcuts
+   [MISS] Chrome History database

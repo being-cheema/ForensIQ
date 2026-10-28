@@ -360,11 +360,11 @@ def _read_fn_times(entry):
     delta_si_fn feature rather than fabricate it.
     """
     try:
-        f = entry.as_file()
+        f = entry  # directory entries are already pytsk3.File objects
         for attr in f:
             if attr.info.type != pytsk3.TSK_FS_ATTR_TYPE_NTFS_FNAME:
                 continue
-            raw = attr.read_random(0, 48)
+            raw = f.read_random(0, 48, attr.info.type, attr.info.id)
             if len(raw) < 48:
                 continue
             # $FILE_NAME layout: parent ref (8) | crtime | mtime | ctime | atime (8 each)

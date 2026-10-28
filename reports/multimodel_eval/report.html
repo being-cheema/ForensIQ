@@ -2,56 +2,92 @@
 @page { size: A4; margin: 16mm 14mm; }
 body { font: 10.5pt/1.45 -apple-system, Helvetica, Arial, sans-serif; color:#111; }
 h1 { font-size: 20pt; margin: 0 0 4px; } h2 { font-size: 13.5pt; margin: 20px 0 6px; border-bottom:1px solid #ccc; padding-bottom:3px; }
-table { border-collapse: collapse; width:100%; font-size: 9pt; margin: 6px 0 10px; }
+table { border-collapse: collapse; width:100%; font-size: 8.6pt; margin: 6px 0 10px; }
 th,td { border:1px solid #bbb; padding:3px 6px; text-align:left; vertical-align:top; }
 th { background:#eef2f7; } small { color:#555; }
-pre { background:#0e1116; color:#d6e2f0; font: 7.4pt/1.3 Menlo, monospace; padding:8px; border-radius:4px; white-space:pre-wrap; }
-figure { margin:6px 0; page-break-inside:avoid; } img { width:100%; max-width:430px; } figcaption { font-size:8.5pt; color:#444; }
-.row { display:flex; gap:10px; } .row figure { flex:1; } .pb { page-break-before: always; }
+pre { background:#0e1116; color:#d6e2f0; font: 7.2pt/1.3 Menlo, monospace; padding:8px; border-radius:4px; white-space:pre-wrap; }
+figure { margin:6px 0; page-break-inside:avoid; } img { width:100%; max-width:380px; } figcaption { font-size:8.5pt; color:#444; }
+.grid { display:grid; grid-template-columns: 1fr 1fr; gap:6px; } .pb { page-break-before: always; }
 </style></head><body>
 <h1>ForensIQ Multi-Model Evaluation</h1>
-<div><small>Isolation Forest vs. Local Outlier Factor vs. One-Class SVM, equal review budget (top 5% of files).
-All values computed by <code>multimodel_eval.py</code> from the extracted artifacts.</small></div>
+<div><small>Isolation Forest vs. Local Outlier Factor vs. One-Class SVM on the 23-feature baseline, equal review budget (top 5% of files).
+All values computed by <code>multimodel_eval.py</code> from artifacts extracted from the raw disk images.</small></div>
+<h2>1. Scope and limits</h2><ul><li>Images evaluated: Image 1, Image 2, Image 3.</li><li>Every image was re-extracted from its raw disk image (NIST CFReDS Hacking Case, NIST CFReDS Data Leakage Case, Digital Corpora 2018 Lone Wolf), with $FILE_NAME timestamps read from the MFT so that delta_si_fn is computed.</li><li>Targets: Image 1: 7 target families (15 files) reconstructed from the SCHARDT case notes | Image 2: 19 targets (38 files) from the repository&#x27;s CFReDS ground-truth list | Image 3: 12 targets (558 files, all copies counted) taken from a published third-party analysis of the case; the official answer key is access-restricted, so treat these as unofficial.</li><li>A target counts as caught when any of its files is in the flagged set. Same review budget for every model: the top 5% of files.</li><li>One-Class SVM is trained on a 10,000-file random subsample (RBF kernel is O(n^2)) and scores every file; LOF uses 20 neighbours; Isolation Forest 200 trees.</li><li>after_hours_touch uses UTC hours 08:00-18:00; the image&#x27;s own time zone is not applied.</li><li>Constant features: Image 1: 8 of 23 features constant (future_m, is_deleted, credential_tool, sniffer_tool, powershell_exec, cmd_exec, script_host, usb_present); Image 2: 8 of 23 features constant (future_m, is_deleted, credential_tool, sniffer_tool, powershell_exec, cmd_exec, script_host, usb_present); Image 3: 8 of 23 features constant (future_m, is_deleted, credential_tool, sniffer_tool, powershell_exec, cmd_exec, script_host, usb_present). The model therefore works with fewer than 23 active features per image.</li></ul>
+<h2>2. Results at the 5% review budget</h2><table><thead><tr><th>Image</th><th>Model</th><th>Targets caught</th><th>Target recall</th><th>File recall</th><th>Accuracy</th><th>Precision</th><th>F1</th></tr></thead><tbody><tr><td><b>Image 1: XP Hacking (SCHARDT.001) (11,773 files, K=589)</b></td><td><b>Isolation Forest</b></td><td><b>5/7</b></td><td><b>71.4%</b></td><td><b>46.7%</b></td><td><b>94.99%</b></td><td><b>1.19%</b></td><td><b>2.32%</b></td></tr><tr><td></td><td>Local Outlier Factor</td><td>1/7</td><td>14.3%</td><td>13.3%</td><td>94.90%</td><td>0.34%</td><td>0.66%</td></tr><tr><td><b></b></td><td><b>One-Class SVM</b></td><td><b>5/7</b></td><td><b>71.4%</b></td><td><b>46.7%</b></td><td><b>94.99%</b></td><td><b>1.19%</b></td><td><b>2.32%</b></td></tr><tr><td>Image 2: Win7 Data Leakage (85,017 files, K=4,251)</td><td>Isolation Forest</td><td>17/19</td><td>89.5%</td><td>71.1%</td><td>95.02%</td><td>0.64%</td><td>1.26%</td></tr><tr><td></td><td>Local Outlier Factor</td><td>2/19</td><td>10.5%</td><td>5.3%</td><td>94.96%</td><td>0.05%</td><td>0.09%</td></tr><tr><td><b></b></td><td><b>One-Class SVM</b></td><td><b>19/19</b></td><td><b>100.0%</b></td><td><b>89.5%</b></td><td><b>95.04%</b></td><td><b>0.80%</b></td><td><b>1.59%</b></td></tr><tr><td>Image 3: Win10 Lone Wolf (166,110 files, K=8,306)</td><td>Isolation Forest</td><td>7/12</td><td>58.3%</td><td>13.6%</td><td>94.76%</td><td>0.92%</td><td>1.71%</td></tr><tr><td></td><td>Local Outlier Factor</td><td>2/12</td><td>16.7%</td><td>5.0%</td><td>94.70%</td><td>0.34%</td><td>0.63%</td></tr><tr><td><b></b></td><td><b>One-Class SVM</b></td><td><b>11/12</b></td><td><b>91.7%</b></td><td><b>33.3%</b></td><td><b>94.89%</b></td><td><b>2.24%</b></td><td><b>4.20%</b></td></tr></tbody></table>
+<p><small>Accuracy is about 95% for every model because the budget is fixed at 5% and targets are rare; recall, precision and F1 separate the models. Mean target recall: OC-SVM 87.7%, IF 73.1%, LOF 13.8%.</small></p>
+<h2>3. Recall at larger budgets</h2><table><thead><tr><th>Image</th><th>Model</th><th>5%</th><th>5.5%</th><th>10%</th></tr></thead><tbody><tr><td>Image 1</td><td>Isolation Forest</td><td>71.4%</td><td>71.4%</td><td>100.0%</td></tr><tr><td>Image 1</td><td>Local Outlier Factor</td><td>14.3%</td><td>14.3%</td><td>57.1%</td></tr><tr><td>Image 1</td><td>One-Class SVM</td><td>71.4%</td><td>71.4%</td><td>85.7%</td></tr><tr><td>Image 2</td><td>Isolation Forest</td><td>89.5%</td><td>89.5%</td><td>89.5%</td></tr><tr><td>Image 2</td><td>Local Outlier Factor</td><td>10.5%</td><td>10.5%</td><td>15.8%</td></tr><tr><td>Image 2</td><td>One-Class SVM</td><td>100.0%</td><td>100.0%</td><td>100.0%</td></tr><tr><td>Image 3</td><td>Isolation Forest</td><td>58.3%</td><td>58.3%</td><td>83.3%</td></tr><tr><td>Image 3</td><td>Local Outlier Factor</td><td>16.7%</td><td>16.7%</td><td>16.7%</td></tr><tr><td>Image 3</td><td>One-Class SVM</td><td>91.7%</td><td>91.7%</td><td>91.7%</td></tr></tbody></table>
+<h2>4. Timestomping and insider attack</h2><table><thead><tr><th>Image</th><th>Model</th><th>Timestomping</th><th>Known timestomped file flagged</th><th>SI/FN mismatches in flagged set</th><th>Insider attack</th></tr></thead><tbody><tr><td>Image 1</td><td>Isolation Forest</td><td>YES</td><td>NMEM/NGETTIME (timestomped Novell tools)</td><td>373</td><td>N/A (external intrusion)</td></tr><tr><td>Image 1</td><td>Local Outlier Factor</td><td>NO</td><td>-</td><td>93</td><td>N/A (external intrusion)</td></tr><tr><td>Image 1</td><td>One-Class SVM</td><td>YES</td><td>NMEM/NGETTIME (timestomped Novell tools)</td><td>292</td><td>N/A (external intrusion)</td></tr><tr><td>Image 2</td><td>Isolation Forest</td><td>YES</td><td>Eraser.exe (Installed Wiping Tool)</td><td>2614</td><td>CONFIRMED</td></tr><tr><td>Image 2</td><td>Local Outlier Factor</td><td>NO</td><td>-</td><td>3144</td><td>NOT DETECTED</td></tr><tr><td>Image 2</td><td>One-Class SVM</td><td>YES</td><td>Eraser.exe (Installed Wiping Tool)</td><td>2862</td><td>CONFIRMED</td></tr><tr><td>Image 3</td><td>Isolation Forest</td><td>UNVERIFIED</td><td>-</td><td>3282</td><td>CONFIRMED</td></tr><tr><td>Image 3</td><td>Local Outlier Factor</td><td>UNVERIFIED</td><td>-</td><td>4214</td><td>NOT DETECTED</td></tr><tr><td>Image 3</td><td>One-Class SVM</td><td>UNVERIFIED</td><td>-</td><td>3333</td><td>CONFIRMED</td></tr></tbody></table>
+<p><small>Timestomping is YES when a ground-truth timestomped file is flagged (Image 1: NMEM/NGETTIME; Image 2: Eraser.exe), otherwise UNVERIFIED. The SI/FN mismatch count is a hint, not proof. Insider attack: at least half of the targets flagged (partial at 25-50%); not applicable to the external intrusion in Image 1.</small></p>
+<div class='pb'></div><h2>5. Ablation, Image 1 (targets caught)</h2><table><thead><tr><th>Feature set</th><th>n</th><th>Isolation Forest</th><th>LOF</th><th>One-Class SVM</th></tr></thead><tbody><tr><td>Full (all available)</td><td>23</td><td>5/7</td><td>1/7</td><td>5/7</td></tr><tr><td>Legacy 17 only</td><td>17</td><td>5/7</td><td>5/7</td><td>3/7</td></tr><tr><td>Only Temporal</td><td>7</td><td>3/7</td><td>6/7</td><td>2/7</td></tr><tr><td>Without Temporal</td><td>16</td><td>5/7</td><td>1/7</td><td>5/7</td></tr><tr><td>Only Path/File</td><td>9</td><td>3/7</td><td>1/7</td><td>2/7</td></tr><tr><td>Without Path/File</td><td>14</td><td>6/7</td><td>5/7</td><td>3/7</td></tr><tr><td>Only Execution/Tool</td><td>7</td><td>4/7</td><td>0/7</td><td>4/7</td></tr><tr><td>Without Execution/Tool</td><td>16</td><td>3/7</td><td>1/7</td><td>3/7</td></tr><tr><td>Full minus is_shortcut_or_trace</td><td>22</td><td>5/7</td><td>1/7</td><td>5/7</td></tr><tr><td>Full minus per_file_prefetch_hit</td><td>22</td><td>3/7</td><td>1/7</td><td>3/7</td></tr><tr><td>Full minus after_hours_touch</td><td>22</td><td>5/7</td><td>2/7</td><td>5/7</td></tr><tr><td>Full minus delta_si_fn</td><td>22</td><td>5/7</td><td>1/7</td><td>5/7</td></tr><tr><td>Full minus filename_entropy</td><td>22</td><td>5/7</td><td>2/7</td><td>5/7</td></tr><tr><td>Full minus path_depth</td><td>22</td><td>5/7</td><td>3/7</td><td>5/7</td></tr></tbody></table><h2>6. Ablation, Image 2 (targets caught)</h2><table><thead><tr><th>Feature set</th><th>n</th><th>Isolation Forest</th><th>LOF</th><th>One-Class SVM</th></tr></thead><tbody><tr><td>Full (all available)</td><td>23</td><td>17/19</td><td>2/19</td><td>19/19</td></tr><tr><td>Legacy 17 only</td><td>17</td><td>7/19</td><td>8/19</td><td>9/19</td></tr><tr><td>Only Temporal</td><td>7</td><td>0/19</td><td>5/19</td><td>0/19</td></tr><tr><td>Without Temporal</td><td>16</td><td>18/19</td><td>3/19</td><td>19/19</td></tr><tr><td>Only Path/File</td><td>9</td><td>17/19</td><td>3/19</td><td>18/19</td></tr><tr><td>Without Path/File</td><td>14</td><td>1/19</td><td>5/19</td><td>4/19</td></tr><tr><td>Only Execution/Tool</td><td>7</td><td>4/19</td><td>2/19</td><td>4/19</td></tr><tr><td>Without Execution/Tool</td><td>16</td><td>17/19</td><td>4/19</td><td>19/19</td></tr><tr><td>Full minus is_shortcut_or_trace</td><td>22</td><td>5/19</td><td>2/19</td><td>10/19</td></tr><tr><td>Full minus per_file_prefetch_hit</td><td>22</td><td>17/19</td><td>4/19</td><td>19/19</td></tr><tr><td>Full minus after_hours_touch</td><td>22</td><td>17/19</td><td>1/19</td><td>19/19</td></tr><tr><td>Full minus delta_si_fn</td><td>22</td><td>17/19</td><td>2/19</td><td>19/19</td></tr><tr><td>Full minus filename_entropy</td><td>22</td><td>17/19</td><td>4/19</td><td>19/19</td></tr><tr><td>Full minus path_depth</td><td>22</td><td>17/19</td><td>1/19</td><td>18/19</td></tr></tbody></table><h2>7. Ablation, Image 3 (targets caught)</h2><table><thead><tr><th>Feature set</th><th>n</th><th>Isolation Forest</th><th>LOF</th><th>One-Class SVM</th></tr></thead><tbody><tr><td>Full (all available)</td><td>23</td><td>7/12</td><td>2/12</td><td>11/12</td></tr><tr><td>Legacy 17 only</td><td>17</td><td>9/12</td><td>5/12</td><td>2/12</td></tr><tr><td>Only Temporal</td><td>7</td><td>0/12</td><td>4/12</td><td>0/12</td></tr><tr><td>Without Temporal</td><td>16</td><td>8/12</td><td>3/12</td><td>11/12</td></tr><tr><td>Only Path/File</td><td>9</td><td>8/12</td><td>3/12</td><td>9/12</td></tr><tr><td>Without Path/File</td><td>14</td><td>2/12</td><td>5/12</td><td>3/12</td></tr><tr><td>Only Execution/Tool</td><td>7</td><td>3/12</td><td>1/12</td><td>3/12</td></tr><tr><td>Without Execution/Tool</td><td>16</td><td>7/12</td><td>2/12</td><td>9/12</td></tr><tr><td>Full minus is_shortcut_or_trace</td><td>22</td><td>6/12</td><td>2/12</td><td>11/12</td></tr><tr><td>Full minus per_file_prefetch_hit</td><td>22</td><td>7/12</td><td>2/12</td><td>9/12</td></tr><tr><td>Full minus after_hours_touch</td><td>22</td><td>6/12</td><td>2/12</td><td>11/12</td></tr><tr><td>Full minus delta_si_fn</td><td>22</td><td>6/12</td><td>2/12</td><td>11/12</td></tr><tr><td>Full minus filename_entropy</td><td>22</td><td>7/12</td><td>6/12</td><td>11/12</td></tr><tr><td>Full minus path_depth</td><td>22</td><td>6/12</td><td>2/12</td><td>6/12</td></tr></tbody></table><h2>9. Robustness</h2><table><thead><tr><th>Image</th><th>Targets</th><th>LOF by neighbours (targets caught)</th><th>One-Class SVM by subsample (min-max over 5 seeds)</th><th>Isolation Forest (5 seeds)</th><th>Unique rows</th></tr></thead><tbody><tr><td>Image 1</td><td>7</td><td>k=20: 1, k=50: 2, k=100: 3, k=300: 5</td><td>n=5000: 5-6; n=10000: 5-6; n=20000: 5-5</td><td>5-5</td><td>11,125 / 11,773</td></tr><tr><td>Image 2</td><td>19</td><td>k=20: 2, k=50: 1, k=100: 5, k=300: 4</td><td>n=5000: 19-19; n=10000: 19-19; n=20000: 19-19</td><td>17-17</td><td>73,771 / 85,017</td></tr><tr><td>Image 3</td><td>12</td><td>k=20: 2, k=50: 1, k=100: 2, k=300: 3</td><td>n=5000: 11-11; n=10000: 11-11; n=20000: 11-11</td><td>6-8</td><td>140,438 / 166,110</td></tr></tbody></table>
+<div class='pb'></div><h2>SHAP explanations</h2><table><thead><tr><th>Image</th><th>Model</th><th>Features with non-zero SHAP</th><th>Top mean |SHAP|</th></tr></thead><tbody><tr><td>Image 1</td><td>Isolation Forest</td><td>15 / 23</td><td>after_hours_touch 0.49, user_path 0.38, delta_mb 0.31</td></tr><tr><td>Image 1</td><td>Local Outlier Factor</td><td>11 / 23</td><td>path_depth 42518863.25, after_hours_touch 36629677.06, user_path 28310677.71</td></tr><tr><td>Image 1</td><td>One-Class SVM</td><td>13 / 23</td><td>size 5.77, per_file_prefetch_hit 5.44, is_archive 4.06</td></tr><tr><td>Image 2</td><td>Isolation Forest</td><td>14 / 23</td><td>is_exe 0.55, path_depth 0.41, delta_si_fn 0.37</td></tr><tr><td>Image 2</td><td>Local Outlier Factor</td><td>10 / 23</td><td>user_path 258011.64, path_depth 237690.52, after_hours_touch 189519.14</td></tr><tr><td>Image 2</td><td>One-Class SVM</td><td>12 / 23</td><td>is_shortcut_or_trace 30.46, per_file_prefetch_hit 23.05, user_path 6.60</td></tr><tr><td>Image 3</td><td>Isolation Forest</td><td>15 / 23</td><td>is_exe 0.58, after_hours_touch 0.53, delta_ab 0.35</td></tr><tr><td>Image 3</td><td>Local Outlier Factor</td><td>11 / 23</td><td>delta_mc 121319060.83, path_depth 68185027.46, user_path 64051641.17</td></tr><tr><td>Image 3</td><td>One-Class SVM</td><td>11 / 23</td><td>user_path 16.21, filename_entropy 2.66, path_depth 1.75</td></tr></tbody></table>
+<p><small>Isolation Forest: TreeSHAP over a 20,000-file sample plus caught targets. LOF and One-Class SVM: KernelSHAP on caught targets only (not directly comparable). SHAP explains why a file ranked high; it does not by itself establish intent.</small></p>
+<div class='grid'><figure><img src='file:///Users/cheema/ForensIQ/reports/multimodel_eval/shap/img1_Isolation_Forest_shap_bar.png'><figcaption>Image 1 - Isolation Forest</figcaption></figure><figure><img src='file:///Users/cheema/ForensIQ/reports/multimodel_eval/shap/img1_One-Class_SVM_shap_bar.png'><figcaption>Image 1 - One-Class SVM</figcaption></figure><figure><img src='file:///Users/cheema/ForensIQ/reports/multimodel_eval/shap/img2_Isolation_Forest_shap_bar.png'><figcaption>Image 2 - Isolation Forest</figcaption></figure><figure><img src='file:///Users/cheema/ForensIQ/reports/multimodel_eval/shap/img2_One-Class_SVM_shap_bar.png'><figcaption>Image 2 - One-Class SVM</figcaption></figure><figure><img src='file:///Users/cheema/ForensIQ/reports/multimodel_eval/shap/img3_Isolation_Forest_shap_bar.png'><figcaption>Image 3 - Isolation Forest</figcaption></figure><figure><img src='file:///Users/cheema/ForensIQ/reports/multimodel_eval/shap/img3_One-Class_SVM_shap_bar.png'><figcaption>Image 3 - One-Class SVM</figcaption></figure></div>
+<div class='pb'></div><h2>Tool output - Image 1: XP Hacking (SCHARDT.001)</h2><pre>==============================================================================
+ FORENSIQ TRIAGE TOOL OUTPUT - Image 1: XP Hacking (SCHARDT.001)
+==============================================================================
+[+] Files indexed        : 11,773
+[+] Features             : 23 (none unavailable)
+[+] Review budget (5%)   : 589 files
 
-<h2>1. Scope</h2>
-<ul>
-<li>Images evaluated: Image 1 (XP Hacking, 11,773 files) and Image 2 (Win7 Data Leakage, 85,017 files).</li>
-<li>Features per file: Image 1: 22, Image 2: 22 of the 23-feature design. <code>delta_si_fn</code> requires $FILE_NAME timestamps that the stored MFT data does not contain, so it is excluded.</li>
-<li>Not evaluated:</li><ul><li><b>img3</b>: extracted artifacts not available for this image</li></ul>
-<li>One-Class SVM is trained on a 10,000-file random subsample and scores every file; LOF uses 20 neighbours.</li>
-<li>A target is "caught" when any of its files is in the flagged set. Image 1 has 7 target families (15 files); Image 2 has 19 targets (38 files).</li>
-</ul>
+------------------------------------------------------------------------------
+ MODEL: Isolation Forest
+------------------------------------------------------------------------------
+ Targets caught : 5 / 7  (recall 71.4%)
+ Accuracy 94.99%  Precision 1.19%  F1 2.32%  (file-level)
+ TIMESTOMPING   : YES (known timestomped target flagged); future_m flagged=0
+ INSIDER ATTACK : N/A (external intrusion)
+ Top 20 flagged files:
+   1. score=0.7078  /My Documents/NOVELL/Nut18/NMEM.EXE  [delta_si_fn]
+   2. score=0.6995  /My Documents/NOVELL/Nut18/NEXTMEM.EXE  [delta_si_fn]
+   3. score=0.6988  /My Documents/NOVELL/Nut18/NXMSMEM.EXE  [delta_si_fn]
+   4. score=0.6955  /My Documents/NOVELL/BINDIN.EXE  [delta_si_fn]
+   5. score=0.6897  /My Documents/DICTIONARIES/biglist_990218.zip  [size]
+   6. score=0.6878  /My Documents/NOVELL/BINDERY.EXE  [delta_si_fn]
+   7. score=0.6869  /My Documents/NOVELL/Nut18/NDISK.EXE  [delta_si_fn]
+   8. score=0.6863  /My Documents/NOVELL/USERINFO.EXE  [delta_si_fn]
+   9. score=0.6854  /My Documents/NOVELL/Nut18/NEQUA.EXE  [delta_si_fn]
+  10. score=0.6850  /My Documents/NOVELL/Nut18/NDELFILE.EXE  [after_hours_touch]
+  11. score=0.6838  /My Documents/NOVELL/Nut18/NADDRESS.EXE  [delta_si_fn]
+  12. score=0.6813  /My Documents/NOVELL/Nut18/NCPY2SUB.EXE  [delta_si_fn]
+  13. score=0.6810  /My Documents/NOVELL/Nut18/NDOSVER.EXE  [delta_si_fn]
+  14. score=0.6808  /My Documents/NOVELL/Nut18/NRPTCONN.EXE  [delta_si_fn]
+  15. score=0.6805  /My Documents/NOVELL/Nut18/NDATEDIR.EXE  [delta_si_fn]
+  16. score=0.6805  /My Documents/NOVELL/Nut18/NDELPRNJ.EXE  [delta_si_fn]
+  17. score=0.6805  /My Documents/NOVELL/Nut18/NQUOTES.EXE  [delta_si_fn]
+  18. score=0.6801  /My Documents/NOVELL/Nut18/NOPNFILE.EXE  [after_hours_touch]
+  19. score=0.6801  /My Documents/NOVELL/Nut18/NSELPRNJ.EXE  [delta_si_fn]
+  20. score=0.6797  /My Documents/NOVELL/Nut18/ULIST.EXE  [delta_si_fn]
+ Ground-truth caught:
+   [HIT ] Cain &amp; Abel (Cain.exe)
+   [HIT ] Ethereal / WinPcap
+   [HIT ] NetStumbler
+   [HIT ] Password wordlists (ZIP)
+   [HIT ] NMEM/NGETTIME (timestomped Novell tools)
+   [MISS] 123WASP (UNWISE.EXE, 123wasp.exe)
+   [MISS] defrag.exe / Anonymizer
 
-<h2>2. Results at the 5% review budget</h2>
-<table class=''><thead><tr><th>Image</th><th>Model</th><th>Targets caught</th><th>Target recall</th><th>File recall</th><th>Accuracy</th><th>Precision</th><th>F1</th></tr></thead><tbody><tr><td><b>Image 1: XP Hacking (SCHARDT.001)</b><br><small>11,773 files, K=589</small></td><td><b>Isolation Forest</b></td><td>5/7</td><td>71.4%</td><td>46.7%</td><td>94.99%</td><td>1.19%</td><td>2.32%</td></tr><tr><td></td><td>Local Outlier Factor</td><td>1/7</td><td>14.3%</td><td>13.3%</td><td>94.90%</td><td>0.34%</td><td>0.66%</td></tr><tr><td></td><td><b>One-Class SVM</b></td><td>5/7</td><td>71.4%</td><td>46.7%</td><td>94.99%</td><td>1.19%</td><td>2.32%</td></tr><tr><td><b>Image 2: Win7 Data Leakage</b><br><small>85,017 files, K=4,251</small></td><td>Isolation Forest</td><td>17/19</td><td>89.5%</td><td>71.1%</td><td>95.02%</td><td>0.64%</td><td>1.26%</td></tr><tr><td></td><td>Local Outlier Factor</td><td>1/19</td><td>5.3%</td><td>2.6%</td><td>94.96%</td><td>0.02%</td><td>0.05%</td></tr><tr><td></td><td><b>One-Class SVM</b></td><td>19/19</td><td>100.0%</td><td>89.5%</td><td>95.04%</td><td>0.80%</td><td>1.59%</td></tr></tbody></table>
-<p><small>Accuracy is about 95% for every model because the budget is fixed at 5% and targets are rare; recall, precision and F1 are the discriminating metrics.</small></p>
-<h2>3. Recall at larger budgets</h2>
-<table class=''><thead><tr><th>Image</th><th>Model</th><th>5%</th><th>5.5%</th><th>10%</th></tr></thead><tbody><tr><td>Image 1</td><td>Isolation Forest</td><td>71.4%</td><td>71.4%</td><td>100.0%</td></tr><tr><td>Image 1</td><td>Local Outlier Factor</td><td>14.3%</td><td>14.3%</td><td>57.1%</td></tr><tr><td>Image 1</td><td>One-Class SVM</td><td>71.4%</td><td>85.7%</td><td>85.7%</td></tr><tr><td>Image 2</td><td>Isolation Forest</td><td>89.5%</td><td>89.5%</td><td>89.5%</td></tr><tr><td>Image 2</td><td>Local Outlier Factor</td><td>5.3%</td><td>5.3%</td><td>10.5%</td></tr><tr><td>Image 2</td><td>One-Class SVM</td><td>100.0%</td><td>100.0%</td><td>100.0%</td></tr></tbody></table>
-
-<h2>4. Timestomping and insider attack</h2>
-<table class=''><thead><tr><th>Image</th><th>Model</th><th>Timestomping</th><th>Insider attack</th></tr></thead><tbody><tr><td>Image 1</td><td>Isolation Forest</td><td>YES</td><td>N/A (external intrusion)</td></tr><tr><td>Image 1</td><td>Local Outlier Factor</td><td>NO</td><td>N/A (external intrusion)</td></tr><tr><td>Image 1</td><td>One-Class SVM</td><td>YES</td><td>N/A (external intrusion)</td></tr><tr><td>Image 2</td><td>Isolation Forest</td><td>YES</td><td>CONFIRMED</td></tr><tr><td>Image 2</td><td>Local Outlier Factor</td><td>NO</td><td>NOT DETECTED</td></tr><tr><td>Image 2</td><td>One-Class SVM</td><td>YES</td><td>CONFIRMED</td></tr></tbody></table>
-<p><small>Timestomping = a ground-truth timestomped file is flagged (Image 1: NMEM/NGETTIME; Image 2: Eraser.exe). Insider attack = at least half of the insider targets flagged (partial at 25-50%); not applicable to the external intrusion in Image 1.</small></p>
-
-<div class='pb'></div>
-<h2>5. Ablation, Image 2 (targets caught of 19)</h2>
-<table class=''><thead><tr><th>Feature set</th><th>n</th><th>Isolation Forest</th><th>LOF</th><th>One-Class SVM</th></tr></thead><tbody><tr><td>Full (all available)</td><td>22</td><td>17/19</td><td>1/19</td><td>19/19</td></tr><tr><td>Legacy 17 only</td><td>17</td><td>7/19</td><td>8/19</td><td>9/19</td></tr><tr><td>Only Temporal</td><td>6</td><td>1/19</td><td>5/19</td><td>0/19</td></tr><tr><td>Without Temporal</td><td>16</td><td>18/19</td><td>3/19</td><td>19/19</td></tr><tr><td>Only Path/File</td><td>9</td><td>17/19</td><td>3/19</td><td>18/19</td></tr><tr><td>Without Path/File</td><td>13</td><td>2/19</td><td>7/19</td><td>4/19</td></tr><tr><td>Only Execution/Tool</td><td>7</td><td>4/19</td><td>2/19</td><td>4/19</td></tr><tr><td>Without Execution/Tool</td><td>15</td><td>16/19</td><td>4/19</td><td>18/19</td></tr><tr><td>Full minus is_shortcut_or_trace</td><td>21</td><td>6/19</td><td>2/19</td><td>10/19</td></tr><tr><td>Full minus per_file_prefetch_hit</td><td>21</td><td>17/19</td><td>4/19</td><td>18/19</td></tr><tr><td>Full minus after_hours_touch</td><td>21</td><td>17/19</td><td>1/19</td><td>19/19</td></tr><tr><td>Full minus filename_entropy</td><td>21</td><td>17/19</td><td>5/19</td><td>19/19</td></tr><tr><td>Full minus path_depth</td><td>21</td><td>17/19</td><td>0/19</td><td>17/19</td></tr></tbody></table>
-<h2>6. Ablation, Image 1 (targets caught of 7)</h2>
-<table class=''><thead><tr><th>Feature set</th><th>n</th><th>Isolation Forest</th><th>LOF</th><th>One-Class SVM</th></tr></thead><tbody><tr><td>Full (all available)</td><td>22</td><td>5/7</td><td>1/7</td><td>5/7</td></tr><tr><td>Legacy 17 only</td><td>17</td><td>5/7</td><td>5/7</td><td>3/7</td></tr><tr><td>Only Temporal</td><td>6</td><td>3/7</td><td>5/7</td><td>2/7</td></tr><tr><td>Without Temporal</td><td>16</td><td>5/7</td><td>1/7</td><td>5/7</td></tr><tr><td>Only Path/File</td><td>9</td><td>3/7</td><td>1/7</td><td>2/7</td></tr><tr><td>Without Path/File</td><td>13</td><td>6/7</td><td>4/7</td><td>5/7</td></tr><tr><td>Only Execution/Tool</td><td>7</td><td>4/7</td><td>0/7</td><td>4/7</td></tr><tr><td>Without Execution/Tool</td><td>15</td><td>4/7</td><td>1/7</td><td>3/7</td></tr><tr><td>Full minus is_shortcut_or_trace</td><td>21</td><td>6/7</td><td>1/7</td><td>5/7</td></tr><tr><td>Full minus per_file_prefetch_hit</td><td>21</td><td>4/7</td><td>1/7</td><td>3/7</td></tr><tr><td>Full minus after_hours_touch</td><td>21</td><td>5/7</td><td>2/7</td><td>5/7</td></tr><tr><td>Full minus filename_entropy</td><td>21</td><td>5/7</td><td>2/7</td><td>6/7</td></tr><tr><td>Full minus path_depth</td><td>21</td><td>5/7</td><td>3/7</td><td>5/7</td></tr></tbody></table>
-
-<div class='pb'></div>
-<h2>7. SHAP explanations</h2>
-<table class=''><thead><tr><th>Image</th><th>Model</th><th>Features with non-zero SHAP</th></tr></thead><tbody><tr><td>Image 1</td><td>Isolation Forest</td><td>14 / 22</td></tr><tr><td>Image 1</td><td>Local Outlier Factor</td><td>12 / 22</td></tr><tr><td>Image 1</td><td>One-Class SVM</td><td>12 / 22</td></tr><tr><td>Image 2</td><td>Isolation Forest</td><td>13 / 22</td></tr><tr><td>Image 2</td><td>Local Outlier Factor</td><td>9 / 22</td></tr><tr><td>Image 2</td><td>One-Class SVM</td><td>11 / 22</td></tr></tbody></table>
-<p><small>Isolation Forest: TreeSHAP over a 20,000-file sample plus caught targets. LOF and One-Class SVM: KernelSHAP on caught targets only (not directly comparable).</small></p>
-<div class='row'><figure><img src='file:///Users/cheema/ForensIQ/reports/multimodel_eval/shap/img2_Isolation_Forest_shap_bar.png'><figcaption>Image 2 - Isolation Forest</figcaption></figure><figure><img src='file:///Users/cheema/ForensIQ/reports/multimodel_eval/shap/img2_One-Class_SVM_shap_bar.png'><figcaption>Image 2 - One-Class SVM</figcaption></figure></div>
-<div class='row'><figure><img src='file:///Users/cheema/ForensIQ/reports/multimodel_eval/shap/img1_Isolation_Forest_shap_bar.png'><figcaption>Image 1 - Isolation Forest</figcaption></figure><figure><img src='file:///Users/cheema/ForensIQ/reports/multimodel_eval/shap/img2_Local_Outlier_Factor_shap_bar.png'><figcaption>Image 2 - LOF</figcaption></figure></div>
-
-<div class='pb'></div>
-<h2>8. Tool output - Image 2 (Win7 Data Leakage)</h2>
-<pre>==============================================================================
+------------------------------------------------------------------------------
+ MODEL: Local Outlier Factor
+------------------------------------------------------------------------------
+ Targets caught : 1 / 7  (recall 14.3%)
+ Accuracy 94.90%  Precision 0.34%  F1 0.66%  (file-level)
+ TIMESTOMPING   : NO (known timestomped target missed); future_m flagged=0
+ INSIDER ATTACK : N/A (external intrusion)
+ Top 20 flagged files:
+   1. score=217117062981.0563  /Documents and Settings/Mr. Evil/.gtk-bookmarks  
+   2. score=6310403441.3008  /Documents and Settings/Default User/MPC7CC.tmp  
+   3. score=5950819788.6541  /Documents and Settings/Mr. Evil/Cookies/mr[1].txt  
+   4. score=5950815252.7880  /Documents and Settings/Mr. Evil/Cookies/mr[2].txt  
+   5. score=4804603731.5145  /Documents and Settings/Mr. Evil/ntuser.ini  
+   6. score=4498018542.9287  /WIN98/W98SETUP.BIN  
+   7. score=4359407844.0245  /Documents and Settings/Mr. Evil/interception  
+   8. score=3851743580.1234  /Documents and Settings/Mr. Evil/My Documents/TMP4352$.TMP  
+   9. score=3741615920.2541  /WIN98/PRECOPY1.CAB  
+  10. score=3737906092.5591  /WIN98/PRECOPY2.CAB  </pre><h2>Tool output - Image 2: Win7 Data Leakage</h2><pre>==============================================================================
  FORENSIQ TRIAGE TOOL OUTPUT - Image 2: Win7 Data Leakage
 ==============================================================================
 [+] Files indexed        : 85,017
-[+] Features             : 22 (delta_si_fn unavailable)
+[+] Features             : 23 (none unavailable)
 [+] Review budget (5%)   : 4,251 files
 
 ------------------------------------------------------------------------------
@@ -62,26 +98,26 @@ All values computed by <code>multimodel_eval.py</code> from the extracted artifa
  TIMESTOMPING   : YES (known timestomped target flagged); future_m flagged=0
  INSIDER ATTACK : CONFIRMED
  Top 20 flagged files:
-   1. score=0.7674  dows/Microsoft.NET/Framework/v2.0.50727/ngen_service.old.log  
-   2. score=0.7674  ws/Microsoft.NET/Framework64/v2.0.50727/ngen_service.old.log  
-   3. score=0.7577  /Windows/System32/config/COMPONENTS  
-   4. score=0.7565  /Windows/System32/config/SOFTWARE  [size]
-   5. score=0.7549  /Windows/System32/config/SYSTEM  
-   6. score=0.7512  /Windows/System32/SMI/Store/Machine/SCHEMA.DAT  
-   7. score=0.7510  Data/Roaming/Microsoft/SoftwareProtectionPlatform/tokens.dat  [delta_mb]
-   8. score=0.7392  indows/Microsoft.NET/Framework64/v2.0.50727/ngen_service.log  
-   9. score=0.7375  /Windows/Microsoft.NET/Framework/v2.0.50727/ngen_service.log  [is_shortcut_or_trace]
-  10. score=0.7350  es/Content.IE5/BN9SKHUD/IE11-Windows6.1-KB2841134-x64[1].cab  
-  11. score=0.7268  t Files/Content.IE5/BN9SKHUD/Windows6.1-KB2670838-x64[1].cab  
-  12. score=0.7260  /Windows/System32/catroot2/edb00580.log  
-  13. score=0.7260  /Windows/System32/catroot2/edb00590.log  
-  14. score=0.7254  /Windows/System32/catroot2/edb00585.log  [delta_mb]
-  15. score=0.7254  /Windows/System32/catroot2/edb00588.log  
-  16. score=0.7251  /Windows/System32/catroot2/edb0057D.log  
-  17. score=0.7251  /Windows/System32/catroot2/edb0057E.log  
-  18. score=0.7251  /Windows/System32/catroot2/edb0057F.log  
-  19. score=0.7251  /Windows/System32/catroot2/edb00581.log  
-  20. score=0.7251  /Windows/System32/catroot2/edb00582.log  
+   1. score=0.7456  dows/Microsoft.NET/Framework/v2.0.50727/ngen_service.old.log  
+   2. score=0.7456  ws/Microsoft.NET/Framework64/v2.0.50727/ngen_service.old.log  
+   3. score=0.7262  /Windows/System32/config/SYSTEM  
+   4. score=0.7256  /Windows/System32/SMI/Store/Machine/SCHEMA.DAT  
+   5. score=0.7200  /Windows/System32/config/SOFTWARE  [size]
+   6. score=0.7195  /Windows/System32/config/COMPONENTS  
+   7. score=0.7172  indows/Microsoft.NET/Framework64/v2.0.50727/ngen_service.log  
+   8. score=0.7163  /Users/informant/AppData/Local/Temp/~nsu.tmp/Au_.exe  
+   9. score=0.7158  /Windows/Microsoft.NET/Framework/v2.0.50727/ngen_service.log  [is_shortcut_or_trace]
+  10. score=0.7094  /Windows/System32/catroot2/edb.log  [is_shortcut_or_trace]
+  11. score=0.7085  Data/Roaming/Microsoft/SoftwareProtectionPlatform/tokens.dat  [size]
+  12. score=0.7074  /Windows/Microsoft.NET/Framework/v4.0.30319/clr.dll  
+  13. score=0.7059  al/Temp/Microsoft .NET Framework 4 Setup_4.0.30319/Setup.exe  
+  14. score=0.7053  /Windows/Prefetch/NTOSBOOT-B00DFAAD.pf  [is_shortcut_or_trace]
+  15. score=0.7033  /Windows/System32/catroot2/edb00580.log  
+  16. score=0.7033  /Windows/System32/catroot2/edb00590.log  
+  17. score=0.7024  /Windows/System32/Msdtc/MSDTC.LOG  
+  18. score=0.7009  /Windows/System32/catroot2/edb00585.log  [delta_mb]
+  19. score=0.7009  /Windows/System32/catroot2/edb00588.log  
+  20. score=0.6993  /Users/informant/AppData/Local/IconCache.db  
  Ground-truth caught:
    [HIT ] Eraser.exe (Installed Wiping Tool)
    [HIT ] Eraser 6.2.0.2962.exe (Downloaded Installer)
@@ -106,86 +142,68 @@ All values computed by <code>multimodel_eval.py</code> from the extracted artifa
 ------------------------------------------------------------------------------
  MODEL: Local Outlier Factor
 ------------------------------------------------------------------------------
- Targets caught : 1 / 19  (recall 5.3%)
- Accuracy 94.96%  Precision 0.02%  F1 0.05%  (file-level)
- TIMESTOMPING   : NO (known timestomped target missed); future_m flagged=0
- INSIDER ATTACK : NOT DETECTED
- Top 20 flagged files:
-   1. score=10622532139.0866  /Windows/inf/.NET Memory Cache 4.0/netmemorycache.h  
-   2. score=10232098321.8824  3856ad364e35_6.2.7600.16513_none_9ced6808153f4ebe/dfshim.dll  
-   3. score=10230306554.0185  3856ad364e35_6.2.7600.16513_none_40cecc845ce1dd88/dfshim.dll  
-   4. score=10153602577.5192  56ad364e35_6.2.7600.16513_none_3dc6fbd94372d382/mscorees.dll  
-   5. score=10153602561.1077  56ad364e35_6.2.7600.16513_none_e1a860558b15624c/mscorees.dll  
-   6. score=10150237068.7311  856ad364e35_6.2.7600.16513_none_d9cd6dbd0e6f0bd5/mscoree.dll  </pre>
-<h2>9. Tool output - Image 1 (XP Hacking)</h2>
-<pre>==============================================================================
- FORENSIQ TRIAGE TOOL OUTPUT - Image 1: XP Hacking (SCHARDT.001)
+ Targets caught : 2 / 19  (recall 10.5%)
+ Accuracy 94.96%  Precision 0.05%  F1 0.09%  (file-level)
+ TIMESTOMPING   : NO (known timestomped target missed); future_m flagged=0</pre><h2>Tool output - Image 3: Win10 Lone Wolf</h2><pre>==============================================================================
+ FORENSIQ TRIAGE TOOL OUTPUT - Image 3: Win10 Lone Wolf
 ==============================================================================
-[+] Files indexed        : 11,773
-[+] Features             : 22 (delta_si_fn unavailable)
-[+] Review budget (5%)   : 589 files
+[+] Files indexed        : 166,110
+[+] Features             : 23 (none unavailable)
+[+] Review budget (5%)   : 8,306 files
 
 ------------------------------------------------------------------------------
  MODEL: Isolation Forest
 ------------------------------------------------------------------------------
- Targets caught : 5 / 7  (recall 71.4%)
- Accuracy 94.99%  Precision 1.19%  F1 2.32%  (file-level)
- TIMESTOMPING   : YES (known timestomped target flagged); future_m flagged=0
- INSIDER ATTACK : N/A (external intrusion)
+ Targets caught : 7 / 12  (recall 58.3%)
+ Accuracy 94.76%  Precision 0.92%  F1 1.71%  (file-level)
+ TIMESTOMPING   : UNVERIFIED (no ground-truth timestomp target defined); future_m flagged=0
+ INSIDER ATTACK : CONFIRMED
  Top 20 flagged files:
-   1. score=0.7015  /My Documents/DICTIONARIES/biglist_990218.zip  [size]
-   2. score=0.6919  /WINDOWS/Prefetch/WMIPRVSE.EXE-28F301A9.pf  [per_file_prefetch_hit]
-   3. score=0.6881  /WINDOWS/Prefetch/LOGONUI.EXE-0AF22957.pf  [per_file_prefetch_hit]
-   4. score=0.6850  /WINDOWS/Prefetch/IEXPLORE.EXE-27122324.pf  [per_file_prefetch_hit]
-   5. score=0.6836  /WINDOWS/Prefetch/DAEMON_MGM.EXE-3B573ED8.pf  [per_file_prefetch_hit]
-   6. score=0.6831  /WINDOWS/Prefetch/NPF_MGM.EXE-189CE5D1.pf  [per_file_prefetch_hit]
-   7. score=0.6820  /WINDOWS/Prefetch/NTOSBOOT-B00DFAAD.pf  [per_file_prefetch_hit]
-   8. score=0.6817  ttings/Mr. Evil/Local Settings/Application Data/IconCache.db  [size]
-   9. score=0.6752  /WINDOWS/Prefetch/AGENTSVR.EXE-002E45AB.pf  [per_file_prefetch_hit]
-  10. score=0.6749  /My Documents/NOVELL/Nut18/NMEM.EXE  [delta_mb]
-  11. score=0.6746  /WINDOWS/Prefetch/LOGON.SCR-151EFAEA.pf  [per_file_prefetch_hit]
-  12. score=0.6728  /My Documents/FOOTPRINTING/NT/NSTPro2/nstp2kr2.zip  [size]
-  13. score=0.6726  /WINDOWS/Prefetch/DWWIN.EXE-30875ADC.pf  [per_file_prefetch_hit]
-  14. score=0.6722  /WINDOWS/Prefetch/AGENT.EXE-07F13C20.pf  [per_file_prefetch_hit]
-  15. score=0.6715  /My Documents/DICTIONARIES/test.zip  [size]
-  16. score=0.6712  /WINDOWS/system32/CatRoot2/edb.log  [size]
-  17. score=0.6678  /My Documents/NOVELL/Nut18/NEXTMEM.EXE  [delta_mb]
-  18. score=0.6659  /Program Files/mIRC/mirc.exe  [per_file_prefetch_hit]
-  19. score=0.6655  /My Documents/DICTIONARIES/250MB_WORDLIST.ZIP  [size]
-  20. score=0.6654  /My Documents/NOVELL/Nut18/NXMSMEM.EXE  [delta_mb]
+   1. score=0.7428  _platform_specific/x86_64/pnacl_public_x86_64_pnacl_llc_nexe  
+   2. score=0.7274   (x86)/Intel/Intel(R) Processor Graphics/uninstall/Setup.exe  
+   3. score=0.7196  4.2492/_platform_specific/x86_64/pnacl_public_x86_64_ld_nexe  
+   4. score=0.7175  icrosoft.NET/Primary Interop Assemblies/Microsoft.mshtml.dll  
+   5. score=0.7152  /_platform_specific/x86_64/pnacl_public_x86_64_pnacl_sz_nexe  
+   6. score=0.7139  okakmgnkcojhhkbfbldkacnbeo/4.2.8_0/_locales/no/messages.json  
+   7. score=0.7132  lckaahabafndbhieahigkjlhalf/14.1_0/_locales/eu/messages.json  
+   8. score=0.7132  lckaahabafndbhieahigkjlhalf/14.1_0/_locales/no/messages.json  
+   9. score=0.7121  /Windows/System32/msvcr100.dll  
+  10. score=0.7103  /Windows/System32/nvcoproc.bin  [delta_mb]
+  11. score=0.7086  mmhkkegccagdldgiimedpiccmgmieda/1.0.0.4_0/images/flapper.gif  
+  12. score=0.7085  /Windows/System32/nvcpl.dll  
+  13. score=0.7083  /Windows/System32/msvcp100.dll  
+  14. score=0.7070  /Program Files/NVIDIA Corporation/Display/nvwss.dll  
+  15. score=0.7061  bafndbhieahigkjlhalf/14.1_0/_metadata/verified_contents.json  
+  16. score=0.7061  kcojhhkbfbldkacnbeo/4.2.8_0/_metadata/verified_contents.json  
+  17. score=0.7056  jhegncpnkpknbcohdijeoejaedia/8.1_0/_locales/no/messages.json  [delta_mb]
+  18. score=0.7056  jhegncpnkpknbcohdijeoejaedia/8.1_0/_locales/se/messages.json  
+  19. score=0.7050  (x86)/Common Files/microsoft shared/VSTO/10.0/VSTOLoader.dll  
+  20. score=0.7048  dy/AppData/Local/Microsoft/OneDrive/Update/OneDriveSetup.exe  
  Ground-truth caught:
-   [HIT ] Cain &amp; Abel (Cain.exe)
-   [HIT ] Ethereal / WinPcap
-   [HIT ] NetStumbler
-   [HIT ] Password wordlists (ZIP)
-   [HIT ] NMEM/NGETTIME (timestomped Novell tools)
-   [MISS] 123WASP (UNWISE.EXE, 123wasp.exe)
-   [MISS] defrag.exe / Anonymizer
+   [HIT ] Operation 2nd Hand Smoke.pptx
+   [HIT ] The Cloudy Manifesto.docx
+   [HIT ] Chrome History database
+   [HIT ] Box Sync client
+   [HIT ] Dropbox client
+   [HIT ] OneDrive client (jcloudy)
+   [HIT ] Cloud-sync desktop shortcuts
+   [MISS] AIRPORT INFORMATION.docx
+   [MISS] Planning.docx
+   [MISS] Cloudy thoughts (4apr).docx
+   [MISS] Brother Chat.gdoc (Google Drive)
+   [MISS] rootkey.csv (AWS keys in Downloads)
 
 ------------------------------------------------------------------------------
  MODEL: Local Outlier Factor
 ------------------------------------------------------------------------------
- Targets caught : 1 / 7  (recall 14.3%)
- Accuracy 94.90%  Precision 0.34%  F1 0.66%  (file-level)
- TIMESTOMPING   : NO (known timestomped target missed); future_m flagged=0
- INSIDER ATTACK : N/A (external intrusion)
+ Targets caught : 2 / 12  (recall 16.7%)
+ Accuracy 94.70%  Precision 0.34%  F1 0.63%  (file-level)
+ TIMESTOMPING   : UNVERIFIED (no ground-truth timestomp target defined); future_m flagged=0
+ INSIDER ATTACK : NOT DETECTED
  Top 20 flagged files:
-   1. score=4498018542.9287  /WIN98/W98SETUP.BIN  
-   2. score=3741615920.2541  /WIN98/PRECOPY1.CAB  
-   3. score=3737906092.5591  /WIN98/PRECOPY2.CAB  
-   4. score=3718234122.2262  /WIN98/DRIVER11.CAB  
-   5. score=3484665639.1655  /WIN98/WIN98_21.CAB  
-   6. score=2790575483.7689  /WIN98/WIN98_74.CAB  
-   7. score=2315547967.2722  /WIN98/SETUP0.WAV  
-   8. score=2142511983.0049  /WIN98/SUHELPER.BIN  
-   9. score=2141631671.4341  /WIN98/OEMSETUP.BIN  
-  10. score=2101762976.6665  /WIN98/DOSSETUP.BIN  
-  11. score=1545622859.9453  /WIN98/SCANDISK.PIF  
-  12. score=1475846541.8202  /WIN98/SAVE32.COM  
-  13. score=1472125803.2103  /WIN98/SETUP1.WAV  
-  14. score=1472107755.5900  /WIN98/SETUP2.WAV  
-  15. score=1069191248.7687  /WIN98/NET8.CAB  
-  16. score=1069191248.7687  /WIN98/NET9.CAB  
-  17. score=369658331.5665  /WIN98/WIN98_OL.CAB  
-  18. score=257266916.7120  /Documents and Settings/Mr. Evil/.gtk-bookmarks  </pre>
+   1. score=7546697234.0879  tIndex/Input_{fac12ad3-8b66-48f1-8fac-86f0518fbe88}/apps.csg  
+   2. score=5168080227.9146  t_{fac12ad3-8b66-48f1-8fac-86f0518fbe88}/appsconversions.txt  
+   3. score=4458478081.0493  ect/S-1-5-21-2734969515-1644526556-1039763013-1001/Preferred  
+   4. score=3348840092.5053  /$BadClus  
+   5. score=3077230441.9147  lications/Windows/Projects/SystemIndex/SecStore/CiST0000.000  </pre>
 </body></html>
