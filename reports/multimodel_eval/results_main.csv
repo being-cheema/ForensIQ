@@ -1,0 +1,7 @@
+image,model,files,K,targets,target_recall,file_recall,accuracy,precision,f1,timestomping,future_m_flagged,insider,recall_at_5.5pct,recall_at_10pct,seed_mean,seed_std
+Image 1: XP Hacking (SCHARDT.001),Isolation Forest,11773,589,5/7,0.7143,0.4667,0.9499,0.0119,0.0232,YES,0,N/A (external intrusion),0.7143,1.0,0.7143,0.0
+Image 1: XP Hacking (SCHARDT.001),Local Outlier Factor,11773,589,1/7,0.1429,0.1333,0.949,0.0034,0.0066,NO,0,N/A (external intrusion),0.1429,0.5714,,
+Image 1: XP Hacking (SCHARDT.001),One-Class SVM,11773,589,5/7,0.7143,0.4667,0.9499,0.0119,0.0232,YES,0,N/A (external intrusion),0.8571,0.8571,,
+Image 2: Win7 Data Leakage,Isolation Forest,85017,4251,17/19,0.8947,0.7105,0.9502,0.0064,0.0126,YES,0,CONFIRMED,0.8947,0.8947,0.8947,0.0
+Image 2: Win7 Data Leakage,Local Outlier Factor,85017,4251,1/19,0.0526,0.0263,0.9496,0.0002,0.0005,NO,0,NOT DETECTED,0.0526,0.1053,,
+Image 2: Win7 Data Leakage,One-Class SVM,85017,4251,19/19,1.0,0.8947,0.9504,0.008,0.0159,YES,0,CONFIRMED,1.0,1.0,,

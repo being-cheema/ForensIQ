@@ -1,0 +1,117 @@
+==============================================================================
+ FORENSIQ TRIAGE TOOL OUTPUT - Image 1: XP Hacking (SCHARDT.001)
+==============================================================================
+[+] Files indexed        : 11,773
+[+] Features             : 22 (delta_si_fn unavailable)
+[+] Review budget (5%)   : 589 files
+
+------------------------------------------------------------------------------
+ MODEL: Isolation Forest
+------------------------------------------------------------------------------
+ Targets caught : 5 / 7  (recall 71.4%)
+ Accuracy 94.99%  Precision 1.19%  F1 2.32%  (file-level)
+ TIMESTOMPING   : YES (known timestomped target flagged); future_m flagged=0
+ INSIDER ATTACK : N/A (external intrusion)
+ Top 20 flagged files:
+   1. score=0.7015  /My Documents/DICTIONARIES/biglist_990218.zip  [size]
+   2. score=0.6919  /WINDOWS/Prefetch/WMIPRVSE.EXE-28F301A9.pf  [per_file_prefetch_hit]
+   3. score=0.6881  /WINDOWS/Prefetch/LOGONUI.EXE-0AF22957.pf  [per_file_prefetch_hit]
+   4. score=0.6850  /WINDOWS/Prefetch/IEXPLORE.EXE-27122324.pf  [per_file_prefetch_hit]
+   5. score=0.6836  /WINDOWS/Prefetch/DAEMON_MGM.EXE-3B573ED8.pf  [per_file_prefetch_hit]
+   6. score=0.6831  /WINDOWS/Prefetch/NPF_MGM.EXE-189CE5D1.pf  [per_file_prefetch_hit]
+   7. score=0.6820  /WINDOWS/Prefetch/NTOSBOOT-B00DFAAD.pf  [per_file_prefetch_hit]
+   8. score=0.6817  ttings/Mr. Evil/Local Settings/Application Data/IconCache.db  [size]
+   9. score=0.6752  /WINDOWS/Prefetch/AGENTSVR.EXE-002E45AB.pf  [per_file_prefetch_hit]
+  10. score=0.6749  /My Documents/NOVELL/Nut18/NMEM.EXE  [delta_mb]
+  11. score=0.6746  /WINDOWS/Prefetch/LOGON.SCR-151EFAEA.pf  [per_file_prefetch_hit]
+  12. score=0.6728  /My Documents/FOOTPRINTING/NT/NSTPro2/nstp2kr2.zip  [size]
+  13. score=0.6726  /WINDOWS/Prefetch/DWWIN.EXE-30875ADC.pf  [per_file_prefetch_hit]
+  14. score=0.6722  /WINDOWS/Prefetch/AGENT.EXE-07F13C20.pf  [per_file_prefetch_hit]
+  15. score=0.6715  /My Documents/DICTIONARIES/test.zip  [size]
+  16. score=0.6712  /WINDOWS/system32/CatRoot2/edb.log  [size]
+  17. score=0.6678  /My Documents/NOVELL/Nut18/NEXTMEM.EXE  [delta_mb]
+  18. score=0.6659  /Program Files/mIRC/mirc.exe  [per_file_prefetch_hit]
+  19. score=0.6655  /My Documents/DICTIONARIES/250MB_WORDLIST.ZIP  [size]
+  20. score=0.6654  /My Documents/NOVELL/Nut18/NXMSMEM.EXE  [delta_mb]
+ Ground-truth caught:
+   [HIT ] Cain & Abel (Cain.exe)
+   [HIT ] Ethereal / WinPcap
+   [HIT ] NetStumbler
+   [HIT ] Password wordlists (ZIP)
+   [HIT ] NMEM/NGETTIME (timestomped Novell tools)
+   [MISS] 123WASP (UNWISE.EXE, 123wasp.exe)
+   [MISS] defrag.exe / Anonymizer
+
+------------------------------------------------------------------------------
+ MODEL: Local Outlier Factor
+------------------------------------------------------------------------------
+ Targets caught : 1 / 7  (recall 14.3%)
+ Accuracy 94.90%  Precision 0.34%  F1 0.66%  (file-level)
+ TIMESTOMPING   : NO (known timestomped target missed); future_m flagged=0
+ INSIDER ATTACK : N/A (external intrusion)
+ Top 20 flagged files:
+   1. score=4498018542.9287  /WIN98/W98SETUP.BIN  
+   2. score=3741615920.2541  /WIN98/PRECOPY1.CAB  
+   3. score=3737906092.5591  /WIN98/PRECOPY2.CAB  
+   4. score=3718234122.2262  /WIN98/DRIVER11.CAB  
+   5. score=3484665639.1655  /WIN98/WIN98_21.CAB  
+   6. score=2790575483.7689  /WIN98/WIN98_74.CAB  
+   7. score=2315547967.2722  /WIN98/SETUP0.WAV  
+   8. score=2142511983.0049  /WIN98/SUHELPER.BIN  
+   9. score=2141631671.4341  /WIN98/OEMSETUP.BIN  
+  10. score=2101762976.6665  /WIN98/DOSSETUP.BIN  
+  11. score=1545622859.9453  /WIN98/SCANDISK.PIF  
+  12. score=1475846541.8202  /WIN98/SAVE32.COM  
+  13. score=1472125803.2103  /WIN98/SETUP1.WAV  
+  14. score=1472107755.5900  /WIN98/SETUP2.WAV  
+  15. score=1069191248.7687  /WIN98/NET8.CAB  
+  16. score=1069191248.7687  /WIN98/NET9.CAB  
+  17. score=369658331.5665  /WIN98/WIN98_OL.CAB  
+  18. score=257266916.7120  /Documents and Settings/Mr. Evil/.gtk-bookmarks  
+  19. score=23117768.2344  /WIN98/DRIVER20.CAB  
+  20. score=7477238.2262  /Documents and Settings/Default User/MPC7CC.tmp  
+ Ground-truth caught:
+   [HIT ] defrag.exe / Anonymizer
+   [MISS] Cain & Abel (Cain.exe)
+   [MISS] Ethereal / WinPcap
+   [MISS] NetStumbler
+   [MISS] Password wordlists (ZIP)
+   [MISS] NMEM/NGETTIME (timestomped Novell tools)
+   [MISS] 123WASP (UNWISE.EXE, 123wasp.exe)
+
+------------------------------------------------------------------------------
+ MODEL: One-Class SVM
+------------------------------------------------------------------------------
+ Targets caught : 5 / 7  (recall 71.4%)
+ Accuracy 94.99%  Precision 1.19%  F1 2.32%  (file-level)
+ TIMESTOMPING   : YES (known timestomped target flagged); future_m flagged=0
+ INSIDER ATTACK : N/A (external intrusion)
+ Top 20 flagged files:
+   1. score=35.5376  /hiberfil.sys  
+   2. score=35.4369  /My Documents/DICTIONARIES/250MB_WORDLIST.ZIP  [size]
+   3. score=34.5376  /pagefile.sys  
+   4. score=34.5281  emporary Directory 1 for powertoysetup.zip/PowerToySetup.exe  
+   5. score=34.4508  ITATION/NT/SMBGrind Crack/Password User Lists/NTpasslist.txt  
+   6. score=34.2289  /WINDOWS/Driver Cache/i386/driver.cab  
+   7. score=34.2289  /My Documents/FOOTPRINTING/UNIX/unix_hack.tgz  
+   8. score=34.0006  /$LogFile  
+   9. score=33.8808  Documents and Settings/Mr. Evil/Local Settings/Temp/GLFE.tmp  
+  10. score=32.6319  /WINDOWS/0.log  
+  11. score=32.5607  /Documents and Settings/Mr. Evil/.gtk-bookmarks  
+  12. score=32.4721  /WINDOWS/Debug/PASSWD.LOG  
+  13. score=32.3443  /WINDOWS/Debug/oakley.log  
+  14. score=31.5921  uments and Settings/Mr. Evil/Local Settings/Temp/wizdata.dat  
+  15. score=31.5921  uments and Settings/Mr. Evil/Local Settings/Temp/wizdata.dat  
+  16. score=30.1340  /Program Files/Cain/HOSTS.LST  
+  17. score=30.0548  /Program Files/Cain/LMNT.LST  
+  18. score=30.0462  /Program Files/Cain/APR.LST  
+  19. score=30.0388  /Program Files/Cain/DRR.LST  
+  20. score=30.0121  /Program Files/Cain/CERT.LST  
+ Ground-truth caught:
+   [HIT ] Cain & Abel (Cain.exe)
+   [HIT ] Ethereal / WinPcap
+   [HIT ] NetStumbler
+   [HIT ] Password wordlists (ZIP)
+   [HIT ] NMEM/NGETTIME (timestomped Novell tools)
+   [MISS] 123WASP (UNWISE.EXE, 123wasp.exe)
+   [MISS] defrag.exe / Anonymizer

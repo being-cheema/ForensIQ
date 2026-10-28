@@ -1,0 +1,79 @@
+image,config,n_features,model,targets,target_recall,file_recall
+Image 1: XP Hacking (SCHARDT.001),Full (all available),22,Isolation Forest,5/7,0.7143,0.4667
+Image 1: XP Hacking (SCHARDT.001),Full (all available),22,Local Outlier Factor,1/7,0.1429,0.1333
+Image 1: XP Hacking (SCHARDT.001),Full (all available),22,One-Class SVM,5/7,0.7143,0.4667
+Image 1: XP Hacking (SCHARDT.001),Legacy 17 only,17,Isolation Forest,5/7,0.7143,0.4667
+Image 1: XP Hacking (SCHARDT.001),Legacy 17 only,17,Local Outlier Factor,5/7,0.7143,0.5333
+Image 1: XP Hacking (SCHARDT.001),Legacy 17 only,17,One-Class SVM,3/7,0.4286,0.3333
+Image 1: XP Hacking (SCHARDT.001),Only Temporal,6,Isolation Forest,3/7,0.4286,0.2667
+Image 1: XP Hacking (SCHARDT.001),Only Temporal,6,Local Outlier Factor,5/7,0.7143,0.4
+Image 1: XP Hacking (SCHARDT.001),Only Temporal,6,One-Class SVM,2/7,0.2857,0.2
+Image 1: XP Hacking (SCHARDT.001),Without Temporal,16,Isolation Forest,5/7,0.7143,0.4
+Image 1: XP Hacking (SCHARDT.001),Without Temporal,16,Local Outlier Factor,1/7,0.1429,0.0667
+Image 1: XP Hacking (SCHARDT.001),Without Temporal,16,One-Class SVM,5/7,0.7143,0.4
+Image 1: XP Hacking (SCHARDT.001),Only Path/File,9,Isolation Forest,3/7,0.4286,0.2667
+Image 1: XP Hacking (SCHARDT.001),Only Path/File,9,Local Outlier Factor,1/7,0.1429,0.0667
+Image 1: XP Hacking (SCHARDT.001),Only Path/File,9,One-Class SVM,2/7,0.2857,0.2
+Image 1: XP Hacking (SCHARDT.001),Without Path/File,13,Isolation Forest,6/7,0.8571,0.4667
+Image 1: XP Hacking (SCHARDT.001),Without Path/File,13,Local Outlier Factor,4/7,0.5714,0.2667
+Image 1: XP Hacking (SCHARDT.001),Without Path/File,13,One-Class SVM,5/7,0.7143,0.4
+Image 1: XP Hacking (SCHARDT.001),Only Execution/Tool,7,Isolation Forest,4/7,0.5714,0.2667
+Image 1: XP Hacking (SCHARDT.001),Only Execution/Tool,7,Local Outlier Factor,0/7,0.0,0.0
+Image 1: XP Hacking (SCHARDT.001),Only Execution/Tool,7,One-Class SVM,4/7,0.5714,0.2667
+Image 1: XP Hacking (SCHARDT.001),Without Execution/Tool,15,Isolation Forest,4/7,0.5714,0.4
+Image 1: XP Hacking (SCHARDT.001),Without Execution/Tool,15,Local Outlier Factor,1/7,0.1429,0.1333
+Image 1: XP Hacking (SCHARDT.001),Without Execution/Tool,15,One-Class SVM,3/7,0.4286,0.3333
+Image 1: XP Hacking (SCHARDT.001),Full minus is_shortcut_or_trace,21,Isolation Forest,6/7,0.8571,0.5333
+Image 1: XP Hacking (SCHARDT.001),Full minus is_shortcut_or_trace,21,Local Outlier Factor,1/7,0.1429,0.1333
+Image 1: XP Hacking (SCHARDT.001),Full minus is_shortcut_or_trace,21,One-Class SVM,5/7,0.7143,0.4667
+Image 1: XP Hacking (SCHARDT.001),Full minus per_file_prefetch_hit,21,Isolation Forest,4/7,0.5714,0.4
+Image 1: XP Hacking (SCHARDT.001),Full minus per_file_prefetch_hit,21,Local Outlier Factor,1/7,0.1429,0.1333
+Image 1: XP Hacking (SCHARDT.001),Full minus per_file_prefetch_hit,21,One-Class SVM,3/7,0.4286,0.3333
+Image 1: XP Hacking (SCHARDT.001),Full minus after_hours_touch,21,Isolation Forest,5/7,0.7143,0.4667
+Image 1: XP Hacking (SCHARDT.001),Full minus after_hours_touch,21,Local Outlier Factor,2/7,0.2857,0.2
+Image 1: XP Hacking (SCHARDT.001),Full minus after_hours_touch,21,One-Class SVM,5/7,0.7143,0.4667
+Image 1: XP Hacking (SCHARDT.001),Full minus filename_entropy,21,Isolation Forest,5/7,0.7143,0.4667
+Image 1: XP Hacking (SCHARDT.001),Full minus filename_entropy,21,Local Outlier Factor,2/7,0.2857,0.2667
+Image 1: XP Hacking (SCHARDT.001),Full minus filename_entropy,21,One-Class SVM,6/7,0.8571,0.5333
+Image 1: XP Hacking (SCHARDT.001),Full minus path_depth,21,Isolation Forest,5/7,0.7143,0.4667
+Image 1: XP Hacking (SCHARDT.001),Full minus path_depth,21,Local Outlier Factor,3/7,0.4286,0.2667
+Image 1: XP Hacking (SCHARDT.001),Full minus path_depth,21,One-Class SVM,5/7,0.7143,0.4667
+Image 2: Win7 Data Leakage,Full (all available),22,Isolation Forest,17/19,0.8947,0.7105
+Image 2: Win7 Data Leakage,Full (all available),22,Local Outlier Factor,1/19,0.0526,0.0263
+Image 2: Win7 Data Leakage,Full (all available),22,One-Class SVM,19/19,1.0,0.8947
+Image 2: Win7 Data Leakage,Legacy 17 only,17,Isolation Forest,7/19,0.3684,0.1842
+Image 2: Win7 Data Leakage,Legacy 17 only,17,Local Outlier Factor,8/19,0.4211,0.2895
+Image 2: Win7 Data Leakage,Legacy 17 only,17,One-Class SVM,9/19,0.4737,0.3684
+Image 2: Win7 Data Leakage,Only Temporal,6,Isolation Forest,1/19,0.0526,0.0526
+Image 2: Win7 Data Leakage,Only Temporal,6,Local Outlier Factor,5/19,0.2632,0.1579
+Image 2: Win7 Data Leakage,Only Temporal,6,One-Class SVM,0/19,0.0,0.0
+Image 2: Win7 Data Leakage,Without Temporal,16,Isolation Forest,18/19,0.9474,0.8421
+Image 2: Win7 Data Leakage,Without Temporal,16,Local Outlier Factor,3/19,0.1579,0.0789
+Image 2: Win7 Data Leakage,Without Temporal,16,One-Class SVM,19/19,1.0,0.8947
+Image 2: Win7 Data Leakage,Only Path/File,9,Isolation Forest,17/19,0.8947,0.7632
+Image 2: Win7 Data Leakage,Only Path/File,9,Local Outlier Factor,3/19,0.1579,0.0789
+Image 2: Win7 Data Leakage,Only Path/File,9,One-Class SVM,18/19,0.9474,0.8684
+Image 2: Win7 Data Leakage,Without Path/File,13,Isolation Forest,2/19,0.1053,0.0526
+Image 2: Win7 Data Leakage,Without Path/File,13,Local Outlier Factor,7/19,0.3684,0.2105
+Image 2: Win7 Data Leakage,Without Path/File,13,One-Class SVM,4/19,0.2105,0.1579
+Image 2: Win7 Data Leakage,Only Execution/Tool,7,Isolation Forest,4/19,0.2105,0.1579
+Image 2: Win7 Data Leakage,Only Execution/Tool,7,Local Outlier Factor,2/19,0.1053,0.2105
+Image 2: Win7 Data Leakage,Only Execution/Tool,7,One-Class SVM,4/19,0.2105,0.1579
+Image 2: Win7 Data Leakage,Without Execution/Tool,15,Isolation Forest,16/19,0.8421,0.6842
+Image 2: Win7 Data Leakage,Without Execution/Tool,15,Local Outlier Factor,4/19,0.2105,0.1053
+Image 2: Win7 Data Leakage,Without Execution/Tool,15,One-Class SVM,18/19,0.9474,0.8684
+Image 2: Win7 Data Leakage,Full minus is_shortcut_or_trace,21,Isolation Forest,6/19,0.3158,0.2105
+Image 2: Win7 Data Leakage,Full minus is_shortcut_or_trace,21,Local Outlier Factor,2/19,0.1053,0.0526
+Image 2: Win7 Data Leakage,Full minus is_shortcut_or_trace,21,One-Class SVM,10/19,0.5263,0.3421
+Image 2: Win7 Data Leakage,Full minus per_file_prefetch_hit,21,Isolation Forest,17/19,0.8947,0.7105
+Image 2: Win7 Data Leakage,Full minus per_file_prefetch_hit,21,Local Outlier Factor,4/19,0.2105,0.1053
+Image 2: Win7 Data Leakage,Full minus per_file_prefetch_hit,21,One-Class SVM,18/19,0.9474,0.8684
+Image 2: Win7 Data Leakage,Full minus after_hours_touch,21,Isolation Forest,17/19,0.8947,0.7105
+Image 2: Win7 Data Leakage,Full minus after_hours_touch,21,Local Outlier Factor,1/19,0.0526,0.0263
+Image 2: Win7 Data Leakage,Full minus after_hours_touch,21,One-Class SVM,19/19,1.0,0.8947
+Image 2: Win7 Data Leakage,Full minus filename_entropy,21,Isolation Forest,17/19,0.8947,0.7368
+Image 2: Win7 Data Leakage,Full minus filename_entropy,21,Local Outlier Factor,5/19,0.2632,0.2105
+Image 2: Win7 Data Leakage,Full minus filename_entropy,21,One-Class SVM,19/19,1.0,0.8947
+Image 2: Win7 Data Leakage,Full minus path_depth,21,Isolation Forest,17/19,0.8947,0.7368
+Image 2: Win7 Data Leakage,Full minus path_depth,21,Local Outlier Factor,0/19,0.0,0.0
+Image 2: Win7 Data Leakage,Full minus path_depth,21,One-Class SVM,17/19,0.8947,0.7105

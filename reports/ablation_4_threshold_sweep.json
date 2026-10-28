@@ -1,0 +1,62 @@
+{
+  "dataset": "NIST CFReDS Data Leakage PC (Windows 7 x64, 85,017 files)",
+  "total_files": 85017,
+  "total_targets": 19,
+  "trials_per_threshold": 5,
+  "results": [
+    {
+      "threshold": 0.05,
+      "files_k": 4250,
+      "hits_mean": 7.0,
+      "hits_std": 0.0,
+      "recall_mean": 0.368,
+      "recall_std": 0.0,
+      "precision": 0.00165
+    },
+    {
+      "threshold": 0.07,
+      "files_k": 5951,
+      "hits_mean": 7.0,
+      "hits_std": 0.0,
+      "recall_mean": 0.368,
+      "recall_std": 0.0,
+      "precision": 0.00118
+    },
+    {
+      "threshold": 0.09,
+      "files_k": 7651,
+      "hits_mean": 8.2,
+      "hits_std": 0.4,
+      "recall_mean": 0.432,
+      "recall_std": 0.0211,
+      "precision": 0.00107
+    },
+    {
+      "threshold": 0.11,
+      "files_k": 9351,
+      "hits_mean": 10.4,
+      "hits_std": 0.49,
+      "recall_mean": 0.547,
+      "recall_std": 0.0258,
+      "precision": 0.00111
+    },
+    {
+      "threshold": 0.13,
+      "files_k": 11052,
+      "hits_mean": 11.8,
+      "hits_std": 0.4,
+      "recall_mean": 0.621,
+      "recall_std": 0.0211,
+      "precision": 0.00107
+    },
+    {
+      "threshold": 0.15,
+      "files_k": 12752,
+      "hits_mean": 12.0,
+      "hits_std": 0.0,
+      "recall_mean": 0.632,
+      "recall_std": 0.0,
+      "precision": 0.00094
+    }
+  ]
+}

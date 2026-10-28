@@ -1,0 +1,153 @@
+==============================================================================
+ FORENSIQ TRIAGE TOOL OUTPUT - Image 2: Win7 Data Leakage
+==============================================================================
+[+] Files indexed        : 85,017
+[+] Features             : 22 (delta_si_fn unavailable)
+[+] Review budget (5%)   : 4,251 files
+
+------------------------------------------------------------------------------
+ MODEL: Isolation Forest
+------------------------------------------------------------------------------
+ Targets caught : 17 / 19  (recall 89.5%)
+ Accuracy 95.02%  Precision 0.64%  F1 1.26%  (file-level)
+ TIMESTOMPING   : YES (known timestomped target flagged); future_m flagged=0
+ INSIDER ATTACK : CONFIRMED
+ Top 20 flagged files:
+   1. score=0.7674  dows/Microsoft.NET/Framework/v2.0.50727/ngen_service.old.log  
+   2. score=0.7674  ws/Microsoft.NET/Framework64/v2.0.50727/ngen_service.old.log  
+   3. score=0.7577  /Windows/System32/config/COMPONENTS  
+   4. score=0.7565  /Windows/System32/config/SOFTWARE  [size]
+   5. score=0.7549  /Windows/System32/config/SYSTEM  
+   6. score=0.7512  /Windows/System32/SMI/Store/Machine/SCHEMA.DAT  
+   7. score=0.7510  Data/Roaming/Microsoft/SoftwareProtectionPlatform/tokens.dat  [delta_mb]
+   8. score=0.7392  indows/Microsoft.NET/Framework64/v2.0.50727/ngen_service.log  
+   9. score=0.7375  /Windows/Microsoft.NET/Framework/v2.0.50727/ngen_service.log  [is_shortcut_or_trace]
+  10. score=0.7350  es/Content.IE5/BN9SKHUD/IE11-Windows6.1-KB2841134-x64[1].cab  
+  11. score=0.7268  t Files/Content.IE5/BN9SKHUD/Windows6.1-KB2670838-x64[1].cab  
+  12. score=0.7260  /Windows/System32/catroot2/edb00580.log  
+  13. score=0.7260  /Windows/System32/catroot2/edb00590.log  
+  14. score=0.7254  /Windows/System32/catroot2/edb00585.log  [delta_mb]
+  15. score=0.7254  /Windows/System32/catroot2/edb00588.log  
+  16. score=0.7251  /Windows/System32/catroot2/edb0057D.log  
+  17. score=0.7251  /Windows/System32/catroot2/edb0057E.log  
+  18. score=0.7251  /Windows/System32/catroot2/edb0057F.log  
+  19. score=0.7251  /Windows/System32/catroot2/edb00581.log  
+  20. score=0.7251  /Windows/System32/catroot2/edb00582.log  
+ Ground-truth caught:
+   [HIT ] Eraser.exe (Installed Wiping Tool)
+   [HIT ] Eraser 6.2.0.2962.exe (Downloaded Installer)
+   [HIT ] ccsetup504.exe (Downloaded CCleaner)
+   [HIT ] CCleaner64.exe (CCleaner Prefetch)
+   [HIT ] [secret_project]_proposal.docx (LNK)
+   [HIT ] [secret_project]_design_concept.ppt (LNK)
+   [HIT ] (secret_project)_pricing_decision.xlsx (LNK)
+   [HIT ] [secret_project]_final_meeting.pptx (LNK)
+   [HIT ] winter_whether_advisory.zip (Masqueraded Design)
+   [HIT ] sync_log.log (Google Drive Sync Log)
+   [HIT ] sync_config.db / snapshot.db (GDrive DBs)
+   [HIT ] Koala.jpg (Decoy burned to CD-R)
+   [HIT ] Penguins.jpg (Decoy burned to CD-R)
+   [HIT ] Tulips.jpg (Decoy burned to CD-R)
+   [HIT ] Resignation_Letter_(Iaman_Informant).docx / .xps
+   [HIT ] setupapi.dev.log (USB Connection Log)
+   [HIT ] System.evtx (Removable Drive Events)
+   [MISS] happy_holiday.jpg (Confidential Pricing)
+   [MISS] Chrysanthemum.jpg (Wiped via Eraser)
+
+------------------------------------------------------------------------------
+ MODEL: Local Outlier Factor
+------------------------------------------------------------------------------
+ Targets caught : 1 / 19  (recall 5.3%)
+ Accuracy 94.96%  Precision 0.02%  F1 0.05%  (file-level)
+ TIMESTOMPING   : NO (known timestomped target missed); future_m flagged=0
+ INSIDER ATTACK : NOT DETECTED
+ Top 20 flagged files:
+   1. score=10622532139.0866  /Windows/inf/.NET Memory Cache 4.0/netmemorycache.h  
+   2. score=10232098321.8824  3856ad364e35_6.2.7600.16513_none_9ced6808153f4ebe/dfshim.dll  
+   3. score=10230306554.0185  3856ad364e35_6.2.7600.16513_none_40cecc845ce1dd88/dfshim.dll  
+   4. score=10153602577.5192  56ad364e35_6.2.7600.16513_none_3dc6fbd94372d382/mscorees.dll  
+   5. score=10153602561.1077  56ad364e35_6.2.7600.16513_none_e1a860558b15624c/mscorees.dll  
+   6. score=10150237068.7311  856ad364e35_6.2.7600.16513_none_d9cd6dbd0e6f0bd5/mscoree.dll  
+   7. score=10149899893.5405  856ad364e35_6.2.7600.16513_none_7daed23956119a9f/mscoree.dll  
+   8. score=10110964884.7261  6ad364e35_6.2.7600.16513_none_5ce27e967b21016b/netfxperf.dll  
+   9. score=10110964860.2927  6ad364e35_6.2.7600.16513_none_b9011a1a337e72a1/netfxperf.dll  
+  10. score=10097591581.5819  35_6.2.7600.16513_none_9461a4e8d863420a/PresentationHost.exe  
+  11. score=10097544333.5943  35_6.2.7600.16513_none_384309652005d0d4/PresentationHost.exe  
+  12. score=9300073669.6099  /Windows/inf/.NET Memory Cache 4.0/0009/netmemorycache.ini  
+  13. score=8708325011.0062  /Windows/inf/aspnet_state/aspnet_state_perf.h  
+  14. score=8665225820.3586  /Windows/inf/ASP.NET/aspnet_perf.h  
+  15. score=8665225819.4389  /Windows/inf/ASP.NET_4.0.30319/aspnet_perf.h  
+  16. score=7263675069.3974  /Windows/System32/config/RegBack/SAM  
+  17. score=6309535453.2979  2.7600.16513_none_4ef888443214813c/PresentationHostProxy.dll  
+  18. score=6309534618.6223  2.7600.16513_none_f2d9ecc079b71006/PresentationHostProxy.dll  
+  19. score=5579685091.0689  56ae0ad0ea8065165b2864106b822911/Windows6.1-KB958488-x64.cab  
+  20. score=5215149547.0452  /$Boot  
+ Ground-truth caught:
+   [HIT ] happy_holiday.jpg (Confidential Pricing)
+   [MISS] Eraser.exe (Installed Wiping Tool)
+   [MISS] Eraser 6.2.0.2962.exe (Downloaded Installer)
+   [MISS] ccsetup504.exe (Downloaded CCleaner)
+   [MISS] CCleaner64.exe (CCleaner Prefetch)
+   [MISS] [secret_project]_proposal.docx (LNK)
+   [MISS] [secret_project]_design_concept.ppt (LNK)
+   [MISS] (secret_project)_pricing_decision.xlsx (LNK)
+   [MISS] [secret_project]_final_meeting.pptx (LNK)
+   [MISS] winter_whether_advisory.zip (Masqueraded Design)
+   [MISS] sync_log.log (Google Drive Sync Log)
+   [MISS] sync_config.db / snapshot.db (GDrive DBs)
+   [MISS] Chrysanthemum.jpg (Wiped via Eraser)
+   [MISS] Koala.jpg (Decoy burned to CD-R)
+   [MISS] Penguins.jpg (Decoy burned to CD-R)
+   [MISS] Tulips.jpg (Decoy burned to CD-R)
+   [MISS] Resignation_Letter_(Iaman_Informant).docx / .xps
+   [MISS] setupapi.dev.log (USB Connection Log)
+   [MISS] System.evtx (Removable Drive Events)
+
+------------------------------------------------------------------------------
+ MODEL: One-Class SVM
+------------------------------------------------------------------------------
+ Targets caught : 19 / 19  (recall 100.0%)
+ Accuracy 95.04%  Precision 0.80%  F1 1.59%  (file-level)
+ TIMESTOMPING   : YES (known timestomped target flagged); future_m flagged=0
+ INSIDER ATTACK : CONFIRMED
+ Top 20 flagged files:
+   1. score=58.9613  /hiberfil.sys  
+   2. score=58.9613   Users/{91150000-0011-0000-1000-0000000FF1CE}-C/ProPrWW2.cab  
+   3. score=58.9613  /pagefile.sys  
+   4. score=58.9613  1e4-b734-000c29ff2429}{3808876b-c176-4e48-b7ae-04046e6cc752}  
+   5. score=58.9613  mp/Microsoft .NET Framework 4 Setup_4.0.30319/netfx_Core.mzz  
+   6. score=58.9613  /Users/informant/AppData/Local/Temp/~nsu.tmp/Au_.exe  
+   7. score=58.9613  p/Microsoft .NET Framework 4 Setup_4.0.30319/TMP5B99.tmp.exe  
+   8. score=58.9613  al/Temp/Microsoft .NET Framework 4 Setup_4.0.30319/Setup.exe  
+   9. score=58.9613  /Microsoft .NET Framework 4 Setup_4.0.30319/SetupUtility.exe  
+  10. score=58.9612  .NET/Framework64/v4.0.30319/SetupCache/Client/netfx_core.mzz  
+  11. score=58.9563  /Recovery/19ff41c4-d2e0-11e4-9752-e27b831fce8f/Winre.wim  
+  12. score=58.9344  l Users/{91150000-0011-0000-1000-0000000FF1CE}-C/ProPrWW.cab  
+  13. score=58.7753  dows/Microsoft.NET/Framework/v2.0.50727/ngen_service.old.log  
+  14. score=58.7753  ws/Microsoft.NET/Framework64/v2.0.50727/ngen_service.old.log  
+  15. score=58.7748  indows/Microsoft.NET/Framework64/v2.0.50727/ngen_service.log  
+  16. score=58.7748  /Windows/Microsoft.NET/Framework/v2.0.50727/ngen_service.log  
+  17. score=58.7637  /Windows/System32/catroot2/edb.log  
+  18. score=58.7522  /Windows/System32/catroot2/edb00590.log  
+  19. score=58.7522  /Windows/System32/catroot2/edb00580.log  
+  20. score=58.7508  /Windows/System32/catroot2/edb00585.log  
+ Ground-truth caught:
+   [HIT ] Eraser.exe (Installed Wiping Tool)
+   [HIT ] Eraser 6.2.0.2962.exe (Downloaded Installer)
+   [HIT ] ccsetup504.exe (Downloaded CCleaner)
+   [HIT ] CCleaner64.exe (CCleaner Prefetch)
+   [HIT ] [secret_project]_proposal.docx (LNK)
+   [HIT ] [secret_project]_design_concept.ppt (LNK)
+   [HIT ] (secret_project)_pricing_decision.xlsx (LNK)
+   [HIT ] [secret_project]_final_meeting.pptx (LNK)
+   [HIT ] happy_holiday.jpg (Confidential Pricing)
+   [HIT ] winter_whether_advisory.zip (Masqueraded Design)
+   [HIT ] sync_log.log (Google Drive Sync Log)
+   [HIT ] sync_config.db / snapshot.db (GDrive DBs)
+   [HIT ] Chrysanthemum.jpg (Wiped via Eraser)
+   [HIT ] Koala.jpg (Decoy burned to CD-R)
+   [HIT ] Penguins.jpg (Decoy burned to CD-R)
+   [HIT ] Tulips.jpg (Decoy burned to CD-R)
+   [HIT ] Resignation_Letter_(Iaman_Informant).docx / .xps
+   [HIT ] setupapi.dev.log (USB Connection Log)
+   [HIT ] System.evtx (Removable Drive Events)

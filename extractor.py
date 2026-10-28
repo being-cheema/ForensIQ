@@ -348,6 +348,33 @@ def normalize_timestamp(value):
     return str(value)
 
 
+def _filetime_to_unix(ft):
+    """Convert a Windows FILETIME (100 ns ticks since 1601) to Unix seconds."""
+    return int(ft / 10_000_000 - 11644473600) if ft else 0
+
+
+def _read_fn_times(entry):
+    """
+    Reads the kernel-maintained $FILE_NAME (0x30) timestamps of an NTFS entry.
+    Returns {} when the attribute is unavailable so callers can skip the
+    delta_si_fn feature rather than fabricate it.
+    """
+    try:
+        f = entry.as_file()
+        for attr in f:
+            if attr.info.type != pytsk3.TSK_FS_ATTR_TYPE_NTFS_FNAME:
+                continue
+            raw = attr.read_random(0, 48)
+            if len(raw) < 48:
+                continue
+            # $FILE_NAME layout: parent ref (8) | crtime | mtime | ctime | atime (8 each)
+            cr, mt = struct.unpack_from("<QQ", raw, 8)
+            return {"fn_cr_time": _filetime_to_unix(cr), "fn_m_time": _filetime_to_unix(mt)}
+    except Exception:
+        pass
+    return {}
+
+
 def extract_mft(disk, out_dir=OUT_DIR):
     """
     Recursively walk filesystem tree and dump MFT records.
@@ -381,6 +408,8 @@ def extract_mft(disk, out_dir=OUT_DIR):
                     "cr_time": int(meta.crtime) if meta else 0,
                     "is_deleted": bool(meta.flags & pytsk3.TSK_FS_META_FLAG_UNALLOC) if meta else False
                 }
+                if meta and rec["type"] == "file":
+                    rec.update(_read_fn_times(entry))
                 records.append(rec)
                 if len(records) % 10000 == 0:
                     print(f"[*] Indexed {len(records):,} MFT filesystem records...", flush=True)

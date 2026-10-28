@@ -24,3 +24,7 @@ artifacts/prefetch/SVCHOST.EXE-9B449DE1.pf
 artifacts/prefetch/SYSTEMSETTINGSADMINFLOWS.EXE-B5F2FFDC.pf
 
 *.pdf
+
+# Local caches and macOS metadata
+.cache/
+.DS_Store

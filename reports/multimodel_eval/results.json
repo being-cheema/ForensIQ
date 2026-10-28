@@ -1,0 +1,489 @@
+{
+  "results": {
+    "img1": {
+      "label": "Image 1: XP Hacking (SCHARDT.001)",
+      "files": 11773,
+      "features": [
+        "delta_mc",
+        "delta_mb",
+        "delta_ab",
+        "future_m",
+        "zero_size_recent",
+        "size",
+        "is_deleted",
+        "is_exe",
+        "is_archive",
+        "temp_path",
+        "user_path",
+        "credential_tool",
+        "sniffer_tool",
+        "powershell_exec",
+        "cmd_exec",
+        "script_host",
+        "usb_present",
+        "is_shortcut_or_trace",
+        "per_file_prefetch_hit",
+        "after_hours_touch",
+        "filename_entropy",
+        "path_depth"
+      ],
+      "targets": 7,
+      "gt_files": 15,
+      "models": {
+        "Isolation Forest": {
+          "metrics": {
+            "flagged": 589,
+            "targets_total": 7,
+            "targets_hit": 5,
+            "target_recall": 0.7142857142857143,
+            "gt_files": 15,
+            "gt_files_hit": 7,
+            "file_recall": 0.4666666666666667,
+            "precision": 0.011884550084889643,
+            "f1": 0.023178807947019868,
+            "accuracy": 0.9498853308417565,
+            "hit_names": [
+              "Cain & Abel (Cain.exe)",
+              "Ethereal / WinPcap",
+              "NetStumbler",
+              "Password wordlists (ZIP)",
+              "NMEM/NGETTIME (timestomped Novell tools)"
+            ],
+            "miss_names": [
+              "123WASP (UNWISE.EXE, 123wasp.exe)",
+              "defrag.exe / Anonymizer"
+            ]
+          },
+          "verdicts": {
+            "timestomp": "YES",
+            "timestomp_basis": "known timestomped target flagged",
+            "known_ts_hit": [
+              "NMEM/NGETTIME (timestomped Novell tools)"
+            ],
+            "future_m_flagged": 0,
+            "backdated_m_signature_flagged": 6,
+            "si_fn_mismatch_flagged": null,
+            "insider": "N/A (external intrusion)"
+          },
+          "shap": {
+            "active_features": 14,
+            "n_features": 22,
+            "mean_abs": {
+              "delta_mc": 0.28050254372443606,
+              "delta_mb": 0.3161381038098791,
+              "delta_ab": 0.27885775527819545,
+              "future_m": 0.0,
+              "zero_size_recent": 0.0023997259163452407,
+              "size": 0.2988075568501551,
+              "is_deleted": 0.0,
+              "is_exe": 0.2738869419019791,
+              "is_archive": 0.031900459996246695,
+              "temp_path": 0.0035294823305093794,
+              "user_path": 0.32263216418784335,
+              "credential_tool": 0.0,
+              "sniffer_tool": 0.0,
+              "powershell_exec": 0.0,
+              "cmd_exec": 0.0,
+              "script_host": 0.0,
+              "usb_present": 0.0,
+              "is_shortcut_or_trace": 0.179950412373689,
+              "per_file_prefetch_hit": 0.1093840720289188,
+              "after_hours_touch": 0.5470444566501507,
+              "filename_entropy": 0.26704241452758315,
+              "path_depth": 0.28239333051942206
+            }
+          }
+        },
+        "Local Outlier Factor": {
+          "metrics": {
+            "flagged": 589,
+            "targets_total": 7,
+            "targets_hit": 1,
+            "target_recall": 0.14285714285714285,
+            "gt_files": 15,
+            "gt_files_hit": 2,
+            "file_recall": 0.13333333333333333,
+            "precision": 0.003395585738539898,
+            "f1": 0.00662251655629139,
+            "accuracy": 0.949035929669583,
+            "hit_names": [
+              "defrag.exe / Anonymizer"
+            ],
+            "miss_names": [
+              "Cain & Abel (Cain.exe)",
+              "Ethereal / WinPcap",
+              "NetStumbler",
+              "Password wordlists (ZIP)",
+              "NMEM/NGETTIME (timestomped Novell tools)",
+              "123WASP (UNWISE.EXE, 123wasp.exe)"
+            ]
+          },
+          "verdicts": {
+            "timestomp": "NO",
+            "timestomp_basis": "known timestomped target missed",
+            "known_ts_hit": [],
+            "future_m_flagged": 0,
+            "backdated_m_signature_flagged": 9,
+            "si_fn_mismatch_flagged": null,
+            "insider": "N/A (external intrusion)"
+          },
+          "shap": {
+            "active_features": 12,
+            "n_features": 22,
+            "mean_abs": {
+              "delta_mc": 5559.363586423133,
+              "delta_mb": 2553.9925422740903,
+              "delta_ab": 4040.88911445252,
+              "future_m": 0.0,
+              "zero_size_recent": 0.0,
+              "size": 759.5264765716604,
+              "is_deleted": 0.0,
+              "is_exe": 9338.055118411998,
+              "is_archive": 2767.1888047538137,
+              "temp_path": 0.0,
+              "user_path": 31765.896654135286,
+              "credential_tool": 0.0,
+              "sniffer_tool": 0.0,
+              "powershell_exec": 0.0,
+              "cmd_exec": 0.0,
+              "script_host": 0.0,
+              "usb_present": 0.0,
+              "is_shortcut_or_trace": 998.5124958258405,
+              "per_file_prefetch_hit": 7818.642085734409,
+              "after_hours_touch": 35533.090840233184,
+              "filename_entropy": 19525.720500135518,
+              "path_depth": 45323.01228035588
+            }
+          }
+        },
+        "One-Class SVM": {
+          "metrics": {
+            "flagged": 589,
+            "targets_total": 7,
+            "targets_hit": 5,
+            "target_recall": 0.7142857142857143,
+            "gt_files": 15,
+            "gt_files_hit": 7,
+            "file_recall": 0.4666666666666667,
+            "precision": 0.011884550084889643,
+            "f1": 0.023178807947019868,
+            "accuracy": 0.9498853308417565,
+            "hit_names": [
+              "Cain & Abel (Cain.exe)",
+              "Ethereal / WinPcap",
+              "NetStumbler",
+              "Password wordlists (ZIP)",
+              "NMEM/NGETTIME (timestomped Novell tools)"
+            ],
+            "miss_names": [
+              "123WASP (UNWISE.EXE, 123wasp.exe)",
+              "defrag.exe / Anonymizer"
+            ]
+          },
+          "verdicts": {
+            "timestomp": "YES",
+            "timestomp_basis": "known timestomped target flagged",
+            "known_ts_hit": [
+              "NMEM/NGETTIME (timestomped Novell tools)"
+            ],
+            "future_m_flagged": 0,
+            "backdated_m_signature_flagged": 6,
+            "si_fn_mismatch_flagged": null,
+            "insider": "N/A (external intrusion)"
+          },
+          "shap": {
+            "active_features": 12,
+            "n_features": 22,
+            "mean_abs": {
+              "delta_mc": 3.7398442251087767,
+              "delta_mb": 2.8404631993776723,
+              "delta_ab": 0.45822445988905863,
+              "future_m": 0.0,
+              "zero_size_recent": 0.0,
+              "size": 6.287473217353664,
+              "is_deleted": 0.0,
+              "is_exe": 0.6738785535439347,
+              "is_archive": 3.9868959370957184,
+              "temp_path": 0.0,
+              "user_path": 0.504062285846441,
+              "credential_tool": 0.0,
+              "sniffer_tool": 0.0,
+              "powershell_exec": 0.0,
+              "cmd_exec": 0.0,
+              "script_host": 0.0,
+              "usb_present": 0.0,
+              "is_shortcut_or_trace": 0.19085178919657128,
+              "per_file_prefetch_hit": 5.712783529246134,
+              "after_hours_touch": 0.7011967721990654,
+              "filename_entropy": 1.6616007156963701,
+              "path_depth": 0.6103623432860152
+            }
+          }
+        }
+      },
+      "seconds": 33.1
+    },
+    "img2": {
+      "label": "Image 2: Win7 Data Leakage",
+      "files": 85017,
+      "features": [
+        "delta_mc",
+        "delta_mb",
+        "delta_ab",
+        "future_m",
+        "zero_size_recent",
+        "size",
+        "is_deleted",
+        "is_exe",
+        "is_archive",
+        "temp_path",
+        "user_path",
+        "credential_tool",
+        "sniffer_tool",
+        "powershell_exec",
+        "cmd_exec",
+        "script_host",
+        "usb_present",
+        "is_shortcut_or_trace",
+        "per_file_prefetch_hit",
+        "after_hours_touch",
+        "filename_entropy",
+        "path_depth"
+      ],
+      "targets": 19,
+      "gt_files": 38,
+      "models": {
+        "Isolation Forest": {
+          "metrics": {
+            "flagged": 4251,
+            "targets_total": 19,
+            "targets_hit": 17,
+            "target_recall": 0.8947368421052632,
+            "gt_files": 38,
+            "gt_files_hit": 27,
+            "file_recall": 0.7105263157894737,
+            "precision": 0.006351446718419196,
+            "f1": 0.01259034740032642,
+            "accuracy": 0.9501864333015749,
+            "hit_names": [
+              "Eraser.exe (Installed Wiping Tool)",
+              "Eraser 6.2.0.2962.exe (Downloaded Installer)",
+              "ccsetup504.exe (Downloaded CCleaner)",
+              "CCleaner64.exe (CCleaner Prefetch)",
+              "[secret_project]_proposal.docx (LNK)",
+              "[secret_project]_design_concept.ppt (LNK)",
+              "(secret_project)_pricing_decision.xlsx (LNK)",
+              "[secret_project]_final_meeting.pptx (LNK)",
+              "winter_whether_advisory.zip (Masqueraded Design)",
+              "sync_log.log (Google Drive Sync Log)",
+              "sync_config.db / snapshot.db (GDrive DBs)",
+              "Koala.jpg (Decoy burned to CD-R)",
+              "Penguins.jpg (Decoy burned to CD-R)",
+              "Tulips.jpg (Decoy burned to CD-R)",
+              "Resignation_Letter_(Iaman_Informant).docx / .xps",
+              "setupapi.dev.log (USB Connection Log)",
+              "System.evtx (Removable Drive Events)"
+            ],
+            "miss_names": [
+              "happy_holiday.jpg (Confidential Pricing)",
+              "Chrysanthemum.jpg (Wiped via Eraser)"
+            ]
+          },
+          "verdicts": {
+            "timestomp": "YES",
+            "timestomp_basis": "known timestomped target flagged",
+            "known_ts_hit": [
+              "Eraser.exe (Installed Wiping Tool)"
+            ],
+            "future_m_flagged": 0,
+            "backdated_m_signature_flagged": 266,
+            "si_fn_mismatch_flagged": null,
+            "insider": "CONFIRMED"
+          },
+          "shap": {
+            "active_features": 13,
+            "n_features": 22,
+            "mean_abs": {
+              "delta_mc": 0.32060373897818645,
+              "delta_mb": 0.3195345767961492,
+              "delta_ab": 0.44012841987696866,
+              "future_m": 0.0,
+              "zero_size_recent": 0.0023240984278286147,
+              "size": 0.30064278485917884,
+              "is_deleted": 0.0,
+              "is_exe": 0.5365182347043553,
+              "is_archive": 0.0,
+              "temp_path": 0.012917714729156012,
+              "user_path": 0.2751647414082151,
+              "credential_tool": 0.0,
+              "sniffer_tool": 0.0,
+              "powershell_exec": 0.0,
+              "cmd_exec": 0.0,
+              "script_host": 0.0,
+              "usb_present": 0.0,
+              "is_shortcut_or_trace": 0.05415613916235541,
+              "per_file_prefetch_hit": 0.028351630455572496,
+              "after_hours_touch": 0.5102912800764853,
+              "filename_entropy": 0.20104062838051062,
+              "path_depth": 0.5043045297165681
+            }
+          }
+        },
+        "Local Outlier Factor": {
+          "metrics": {
+            "flagged": 4251,
+            "targets_total": 19,
+            "targets_hit": 1,
+            "target_recall": 0.05263157894736842,
+            "gt_files": 38,
+            "gt_files_hit": 1,
+            "file_recall": 0.02631578947368421,
+            "precision": 0.0002352387673488591,
+            "f1": 0.0004663091629750525,
+            "accuracy": 0.9495747909241681,
+            "hit_names": [
+              "happy_holiday.jpg (Confidential Pricing)"
+            ],
+            "miss_names": [
+              "Eraser.exe (Installed Wiping Tool)",
+              "Eraser 6.2.0.2962.exe (Downloaded Installer)",
+              "ccsetup504.exe (Downloaded CCleaner)",
+              "CCleaner64.exe (CCleaner Prefetch)",
+              "[secret_project]_proposal.docx (LNK)",
+              "[secret_project]_design_concept.ppt (LNK)",
+              "(secret_project)_pricing_decision.xlsx (LNK)",
+              "[secret_project]_final_meeting.pptx (LNK)",
+              "winter_whether_advisory.zip (Masqueraded Design)",
+              "sync_log.log (Google Drive Sync Log)",
+              "sync_config.db / snapshot.db (GDrive DBs)",
+              "Chrysanthemum.jpg (Wiped via Eraser)",
+              "Koala.jpg (Decoy burned to CD-R)",
+              "Penguins.jpg (Decoy burned to CD-R)",
+              "Tulips.jpg (Decoy burned to CD-R)",
+              "Resignation_Letter_(Iaman_Informant).docx / .xps",
+              "setupapi.dev.log (USB Connection Log)",
+              "System.evtx (Removable Drive Events)"
+            ]
+          },
+          "verdicts": {
+            "timestomp": "NO",
+            "timestomp_basis": "known timestomped target missed",
+            "known_ts_hit": [],
+            "future_m_flagged": 0,
+            "backdated_m_signature_flagged": 1224,
+            "si_fn_mismatch_flagged": null,
+            "insider": "NOT DETECTED"
+          },
+          "shap": {
+            "active_features": 9,
+            "n_features": 22,
+            "mean_abs": {
+              "delta_mc": 42459159.416954055,
+              "delta_mb": 7965467.990985607,
+              "delta_ab": 6192664.785815476,
+              "future_m": 0.0,
+              "zero_size_recent": 0.0,
+              "size": 1989209.5699945476,
+              "is_deleted": 0.0,
+              "is_exe": 16136419.978678469,
+              "is_archive": 0.0,
+              "temp_path": 0.0,
+              "user_path": 49872507.95108888,
+              "credential_tool": 0.0,
+              "sniffer_tool": 0.0,
+              "powershell_exec": 0.0,
+              "cmd_exec": 0.0,
+              "script_host": 0.0,
+              "usb_present": 0.0,
+              "is_shortcut_or_trace": 0.0,
+              "per_file_prefetch_hit": 0.0,
+              "after_hours_touch": 100363268.75514789,
+              "filename_entropy": 8219886.902700195,
+              "path_depth": 17211173.278589137
+            }
+          }
+        },
+        "One-Class SVM": {
+          "metrics": {
+            "flagged": 4251,
+            "targets_total": 19,
+            "targets_hit": 19,
+            "target_recall": 1.0,
+            "gt_files": 38,
+            "gt_files_hit": 34,
+            "file_recall": 0.8947368421052632,
+            "precision": 0.007998118089861209,
+            "f1": 0.015854511541151785,
+            "accuracy": 0.9503511062493384,
+            "hit_names": [
+              "Eraser.exe (Installed Wiping Tool)",
+              "Eraser 6.2.0.2962.exe (Downloaded Installer)",
+              "ccsetup504.exe (Downloaded CCleaner)",
+              "CCleaner64.exe (CCleaner Prefetch)",
+              "[secret_project]_proposal.docx (LNK)",
+              "[secret_project]_design_concept.ppt (LNK)",
+              "(secret_project)_pricing_decision.xlsx (LNK)",
+              "[secret_project]_final_meeting.pptx (LNK)",
+              "happy_holiday.jpg (Confidential Pricing)",
+              "winter_whether_advisory.zip (Masqueraded Design)",
+              "sync_log.log (Google Drive Sync Log)",
+              "sync_config.db / snapshot.db (GDrive DBs)",
+              "Chrysanthemum.jpg (Wiped via Eraser)",
+              "Koala.jpg (Decoy burned to CD-R)",
+              "Penguins.jpg (Decoy burned to CD-R)",
+              "Tulips.jpg (Decoy burned to CD-R)",
+              "Resignation_Letter_(Iaman_Informant).docx / .xps",
+              "setupapi.dev.log (USB Connection Log)",
+              "System.evtx (Removable Drive Events)"
+            ],
+            "miss_names": []
+          },
+          "verdicts": {
+            "timestomp": "YES",
+            "timestomp_basis": "known timestomped target flagged",
+            "known_ts_hit": [
+              "Eraser.exe (Installed Wiping Tool)"
+            ],
+            "future_m_flagged": 0,
+            "backdated_m_signature_flagged": 318,
+            "si_fn_mismatch_flagged": null,
+            "insider": "CONFIRMED"
+          },
+          "shap": {
+            "active_features": 11,
+            "n_features": 22,
+            "mean_abs": {
+              "delta_mc": 0.33964483072138235,
+              "delta_mb": 0.22514709009337364,
+              "delta_ab": 0.23008080030698108,
+              "future_m": 0.0,
+              "zero_size_recent": 0.0,
+              "size": 0.0998518283797581,
+              "is_deleted": 0.0,
+              "is_exe": 1.0572228674262778,
+              "is_archive": 0.0,
+              "temp_path": 0.0,
+              "user_path": 6.505782796797608,
+              "credential_tool": 0.0,
+              "sniffer_tool": 0.0,
+              "powershell_exec": 0.0,
+              "cmd_exec": 0.0,
+              "script_host": 0.0,
+              "usb_present": 0.0,
+              "is_shortcut_or_trace": 26.469476566844595,
+              "per_file_prefetch_hit": 21.181388303413144,
+              "after_hours_touch": 0.6136308628426212,
+              "filename_entropy": 1.3179403885988388,
+              "path_depth": 0.4390851040632234
+            }
+          }
+        }
+      },
+      "seconds": 143.4
+    }
+  },
+  "skipped": {
+    "img3": "artifacts not found at /Users/cheema/ForensIQ/artifacts_lonewolf (needs extraction from the disk image)"
+  },
+  "svm_subsample": 10000
+}
