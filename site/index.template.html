@@ -1,0 +1,545 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ForensIQ Triage Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: an evidence-room instrument. A sticky control strip drives every panel; the centrepiece is a
+   live scatter of real files from the disk that the three models score, flag and either catch or miss evidence in. */
+:root {
+  --bg: #eef1f5; --surface: #ffffff; --surface2: #f5f7fa; --ink: #0f1923; --ink2: #4b5a6b; --line: #d3dae3;
+  --dot: #8a97a8; --ok: #1b8657; --bad: #c4402c; --warn: #a96a00;
+  --m0: #2f6fb8; --m1: #b2791a; --m2: #a23f86;
+  --font-d: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-b: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-m: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0b1016; --surface: #131a23; --surface2: #18212c; --ink: #e8edf3; --ink2: #9baabb; --line: #263341;
+  --dot: #66768a; --ok: #3dc189; --bad: #f0705a; --warn: #e0a237;
+  --m0: #5a9ae6; --m1: #dba03d; --m2: #d672b6; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0b1016; --surface: #131a23; --surface2: #18212c; --ink: #e8edf3; --ink2: #9baabb; --line: #263341;
+  --dot: #66768a; --ok: #3dc189; --bad: #f0705a; --warn: #e0a237;
+  --m0: #5a9ae6; --m1: #dba03d; --m2: #d672b6; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--font-b); margin: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1120px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--font-d); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: clamp(34px, 6vw, 60px); line-height: 1.02; font-weight: 700; }
+h2 { font-size: clamp(24px, 3.4vw, 34px); line-height: 1.1; font-weight: 700; }
+h3 { font-size: 17px; font-weight: 700; }
+p { margin: 0; max-width: 66ch; }
+a { color: inherit; }
+.mono { font-family: var(--font-m); }
+.eyebrow { font: 500 11.5px/1 var(--font-m); letter-spacing: .14em; text-transform: uppercase; color: var(--ink2); }
+.num { font-variant-numeric: tabular-nums; }
+section { padding-block: 44px 8px; scroll-margin-top: 112px; }
+.sec-head { display: grid; gap: 10px; margin-bottom: 20px; }
+.sec-head p { color: var(--ink2); }
+header.hero { padding-block: 34px 18px; display: grid; gap: 18px; }
+.hero p.lede { font-size: 18px; color: var(--ink2); max-width: 60ch; }
+.hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 6px; }
+.hstat { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; min-width: 0; }
+.hstat b { font: 700 30px/1 var(--font-d); }
+.hstat span { color: var(--ink2); font-size: 13px; }
+.dotkey { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: 0; }
+
+/* control strip */
+.strip { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(8px); border-block: 1px solid var(--line); margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  padding: 10px max(16px, env(safe-area-inset-left, 0px)); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+.strip-in { max-width: 1120px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.grp { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.grp > label, .grp > .lab { font: 500 11px/1 var(--font-m); letter-spacing: .12em; text-transform: uppercase; color: var(--ink2); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--surface); }
+.seg button { font: 500 13px var(--font-b); padding: 7px 12px; border: 0; background: transparent; color: var(--ink2); cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.seg button:focus-visible, .btn:focus-visible, input[type=range]:focus-visible, .row:focus-visible { outline: 2px solid var(--m0); outline-offset: 2px; }
+.seg.m button[aria-pressed="true"] { color: #fff; }
+.budget { flex: 1 1 240px; min-width: 200px; }
+.budget input { flex: 1; min-width: 0; accent-color: var(--m0); }
+.budget output { font: 500 13px var(--font-m); min-width: 118px; text-align: right; }
+
+/* simulation */
+.sim { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 16px; align-items: start; }
+.stage { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; min-width: 0; }
+.ticker { height: 26px; overflow: hidden; border-bottom: 1px solid var(--line); background: var(--surface2); position: relative; }
+.ticker div { position: absolute; white-space: nowrap; font: 400 11.5px/26px var(--font-m); color: var(--ink2); animation: tick 70s linear infinite; padding-left: 100%; }
+@keyframes tick { to { transform: translateX(-100%); } }
+canvas { display: block; width: 100%; aspect-ratio: 16 / 10; touch-action: pan-y; cursor: crosshair; }
+.phases { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
+.phases div { padding: 8px 10px; font: 500 11.5px/1.3 var(--font-m); color: var(--ink2); border-right: 1px solid var(--line); }
+.phases div:last-child { border-right: 0; }
+.phases div b { display: block; color: var(--ink); font-weight: 500; }
+.phases div.on { background: var(--ink); color: var(--bg); } .phases div.on b { color: var(--bg); }
+.transport { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-top: 1px solid var(--line); }
+.btn { font: 600 13px var(--font-b); padding: 8px 16px; border-radius: 6px; border: 1px solid var(--ink); background: var(--ink); color: var(--bg); cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.transport input { flex: 1; min-width: 0; accent-color: var(--ink); }
+.readout { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 14px; position: sticky; top: 104px; }
+.big { font: 700 54px/1 var(--font-d); }
+.big small { font: 500 18px var(--font-m); color: var(--ink2); margin-left: 4px; }
+.kv { display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; font-size: 13.5px; }
+.kv dt { color: var(--ink2); } .kv dd { margin: 0; text-align: right; font-family: var(--font-m); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--ink2); padding: 10px 12px; border-top: 1px solid var(--line); }
+.tip { position: fixed; pointer-events: none; z-index: 40; background: var(--ink); color: var(--bg); font: 400 12px/1.4 var(--font-m); padding: 6px 9px; border-radius: 5px; max-width: 320px; word-break: break-all; opacity: 0; }
+
+/* panels */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 18px; min-width: 0; }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.scroll-x { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+th { font: 500 11px var(--font-m); letter-spacing: .1em; text-transform: uppercase; color: var(--ink2); white-space: nowrap; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-m); }
+.bar { height: 8px; background: var(--surface2); border-radius: 2px; position: relative; min-width: 60px; }
+.bar i { position: absolute; inset: 0 auto 0 0; border-radius: 2px; }
+.chip { display: inline-block; font: 500 11px var(--font-m); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--line); white-space: nowrap; }
+.chip.ok { color: var(--ok); border-color: var(--ok); } .chip.bad { color: var(--bad); border-color: var(--bad); }
+.chip.warn { color: var(--warn); border-color: var(--warn); }
+.cardimg h3 { margin-bottom: 4px; } .cardimg .meta { color: var(--ink2); font-size: 13px; margin-bottom: 12px; }
+.mrow { display: grid; grid-template-columns: 82px minmax(0, 1fr) 54px; gap: 10px; align-items: center; padding: 5px 0; font-size: 13px; }
+.mrow .mn { font: 500 12px var(--font-m); }
+.mrow.best .mn { font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+svg text { fill: var(--ink2); font: 400 11px var(--font-m); }
+svg .gl { stroke: var(--line); stroke-width: 1; }
+
+/* ledger */
+.ledger { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.rows { display: grid; max-height: 520px; overflow: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.row { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 9px 12px; border-bottom: 1px solid var(--line); cursor: pointer; background: transparent; border-inline: 0; border-top: 0; text-align: left; font: inherit; color: inherit; width: 100%; }
+.row:hover, .row[aria-pressed="true"] { background: var(--surface2); }
+.row .ico { width: 14px; height: 14px; border-radius: 50%; }
+.row .ico.ok { background: var(--ok); } .row .ico.bad { background: transparent; border: 2px solid var(--bad); }
+.row small { display: block; color: var(--ink2); font: 400 11.5px var(--font-m); }
+.detail { display: grid; gap: 12px; }
+.fbar { display: grid; grid-template-columns: 150px minmax(0, 1fr) 46px; gap: 8px; align-items: center; font: 400 12px var(--font-m); }
+.fbar .t { height: 10px; background: var(--surface2); position: relative; border-radius: 2px; }
+.fbar .t i { position: absolute; top: 0; bottom: 0; border-radius: 2px; }
+.fbar .t::after { content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px; background: var(--line); }
+.note { color: var(--ink2); font-size: 13.5px; }
+.pipe { display: grid; gap: 0; }
+.stp { display: grid; grid-template-columns: 34px minmax(0, 1fr) 150px 64px; gap: 12px; align-items: center; padding: 10px 4px; border-bottom: 1px solid var(--line); }
+.stp .ix { font: 500 12px var(--font-m); color: var(--ink2); }
+.stp b { font-weight: 600; display: block; } .stp span { color: var(--ink2); font-size: 13px; }
+.cav { display: grid; gap: 10px; padding-left: 0; list-style: none; margin: 0; }
+.cav li { padding: 12px 14px; border: 1px solid var(--line); border-left: 3px solid var(--warn); border-radius: 6px; background: var(--surface); font-size: 14px; }
+footer { padding-block: 40px 60px; color: var(--ink2); font-size: 13px; display: grid; gap: 8px; }
+
+@media (max-width: 860px) {
+  .sim, .ledger, .two, .three { grid-template-columns: minmax(0, 1fr); }
+  .readout { position: static; }
+  .hero-stats { grid-template-columns: minmax(0, 1fr); }
+  .stp { grid-template-columns: 28px minmax(0, 1fr) 64px; } .stp .bar { display: none; }
+  .fbar { grid-template-columns: 110px minmax(0, 1fr) 44px; }
+  .budget output { min-width: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .ticker div { animation: none; } }
+</style>
+
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">ForensIQ &middot; explainable disk triage &middot; three real disk images</div>
+  <h1>Which model finds the evidence in the first 5% of files?</h1>
+  <p class="lede">A forensic examiner can't read 166,000 files. Each model ranks every file on 23 forensic features, and the examiner reads only the top slice. Pick a disk image, pick a model, and watch it triage the real files.</p>
+  <div class="hero-stats" id="heroStats"></div>
+</header>
+</div>
+
+<div class="strip"><div class="strip-in">
+  <div class="grp"><span class="lab" id="lImg">Disk</span>
+    <div class="seg" id="imgSeg" role="group" aria-labelledby="lImg"></div></div>
+  <div class="grp"><span class="lab" id="lMod">Model</span>
+    <div class="seg m" id="modSeg" role="group" aria-labelledby="lMod"></div></div>
+  <div class="grp budget"><label for="bud">Budget</label>
+    <input id="bud" type="range" min="0.2" max="20" step="0.1" value="5"><output id="budOut" for="bud"></output></div>
+</div></div>
+
+<div class="wrap">
+<section id="simulation">
+  <div class="sec-head"><div class="eyebrow">Simulation</div><h2>Watch a model triage a disk</h2>
+    <p>Each dot is a real file from the selected disk, placed by how similar its 23 features are. Press play: files are indexed, scored, cut to the review budget, and the evidence the case investigators care about is marked as caught or missed.</p></div>
+  <div class="sim">
+    <div class="stage">
+      <div class="ticker" aria-hidden="true"><div id="ticker"></div></div>
+      <canvas id="cv" role="img" aria-label="Scatter of files scored by the selected model; flagged files and evidence targets are highlighted"></canvas>
+      <div class="phases" id="phases">
+        <div data-p="0"><b>1 Index</b>read the MFT</div><div data-p="1"><b>2 Score</b>model ranks files</div>
+        <div data-p="2"><b>3 Triage</b>cut to budget</div><div data-p="3"><b>4 Evidence</b>caught or missed</div></div>
+      <div class="transport"><button class="btn" id="play" type="button">Play</button>
+        <input id="scrub" type="range" min="0" max="1000" value="1000" aria-label="Simulation progress"></div>
+      <div class="legend"><span><i class="dotkey" style="background:var(--dot)"></i>file</span>
+        <span><i class="dotkey" id="lgFlag"></i>flagged for review</span>
+        <span><i class="dotkey" style="background:var(--ok)"></i>evidence caught</span>
+        <span><i class="dotkey" style="background:transparent;border:2px solid var(--bad)"></i>evidence missed</span></div>
+    </div>
+    <aside class="readout" aria-live="polite">
+      <div><div class="eyebrow">Evidence caught</div><div class="big num" id="rdCaught"></div></div>
+      <dl class="kv">
+        <dt>Files to read</dt><dd id="rdK"></dd>
+        <dt>Share of disk</dt><dd id="rdShare"></dd>
+        <dt>Files skipped</dt><dd id="rdSkip"></dd>
+        <dt>Evidence recall</dt><dd id="rdRec"></dd>
+      </dl>
+      <p class="note" id="rdNote"></p>
+    </aside>
+  </div>
+</section>
+
+<section id="recall">
+  <div class="sec-head"><div class="eyebrow">Results</div><h2>How much evidence for how much reading?</h2>
+    <p>Recall of the evidence targets as the examiner is allowed to read more files. The dashed line is the budget you chose above.</p></div>
+  <div class="two">
+    <div class="panel"><div id="curve"></div></div>
+    <div class="panel"><h3 id="mtitle" style="margin-bottom:10px"></h3><div class="scroll-x" id="mtable"></div>
+      <p class="note" style="margin-top:10px">Accuracy sits near 95% for every model by construction: a fixed 5% budget on rare evidence. Recall, precision and F1 are the numbers that separate the models.</p></div>
+  </div>
+  <h3 style="margin:26px 0 12px">All three disks at the 5% budget</h3>
+  <div class="three" id="allImgs"></div>
+</section>
+
+<section id="verdicts">
+  <div class="sec-head"><div class="eyebrow">Findings</div><h2>Timestomping and insider attack</h2>
+    <p id="vlede"></p></div>
+  <div class="panel scroll-x" id="vtable"></div>
+</section>
+
+<section id="evidence">
+  <div class="sec-head"><div class="eyebrow">Evidence ledger and SHAP</div><h2>Which evidence, and why did the model flag it?</h2>
+    <p>Each row is one evidence target. Pick one to see the features that pushed it up the ranking. SHAP explains the ranking, not intent: ordinary files can score the same way.</p></div>
+  <div class="ledger"><div class="rows" id="rows"></div><div class="panel detail" id="detail"></div></div>
+</section>
+
+<section id="pipeline">
+  <div class="sec-head"><div class="eyebrow">Pipeline</div><h2>The 12 stages behind every result</h2>
+    <p>Measured run times for the selected disk, from the raw image to the report.</p></div>
+  <div class="panel pipe" id="pipe"></div>
+</section>
+
+<section id="ablation">
+  <div class="sec-head"><div class="eyebrow">Ablation</div><h2>Which features carry the result?</h2>
+    <p>Targets caught at the 5% budget with feature groups removed or kept alone, for the selected disk.</p></div>
+  <div class="panel scroll-x" id="abl"></div>
+</section>
+
+<section id="limits">
+  <div class="sec-head"><div class="eyebrow">Read before citing</div><h2>What these numbers do not show</h2></div>
+  <ul class="cav" id="cav"></ul>
+</section>
+
+<footer>
+  <div>Disk images: NIST CFReDS Hacking Case (SCHARDT), NIST CFReDS Data Leakage Case, Digital Corpora 2018 Lone Wolf scenario. Every figure comes from one scripted run (<span class="mono">multimodel_eval.py</span>) over artifacts extracted directly from the raw images.</div>
+</footer>
+</div>
+<div class="tip" id="tip"></div>
+
+<script id="data" type="application/json">/*__DATA__*/</script>
+<script>
+(function () {
+  var D = JSON.parse(document.getElementById('data').textContent);
+  var MODELS = D.models, SHORT = ['Isolation Forest', 'LOF', 'One-Class SVM'];
+  var MVAR = ['--m0', '--m1', '--m2'];
+  var IMGS = Object.keys(D.images);
+  var S = { img: IMGS[0], m: 2, pct: 0.05, t: 1, playing: false, sel: null };
+  var $ = function (id) { return document.getElementById(id); };
+  var fmt = function (n) { return Number(n).toLocaleString('en-US'); };
+  var pc = function (x, d) { return (x * 100).toFixed(d == null ? 1 : d) + '%'; };
+  var css = function (v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); };
+  var IM = function () { return D.images[S.img]; };
+  var K = function () { return Math.max(1, Math.round(S.pct * IM().files)); };
+  var short = function (l) { return l.split(':')[0]; };
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  /* ---------- controls ---------- */
+  function seg(el, items, get, set, colored) {
+    el.innerHTML = '';
+    items.forEach(function (it, i) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = it;
+      b.setAttribute('aria-pressed', String(get() === i));
+      if (colored) b.dataset.c = i;
+      b.onclick = function () { set(i); };
+      el.appendChild(b);
+    });
+    if (colored) paintModelSeg();
+  }
+  function paintModelSeg() {
+    $('modSeg').querySelectorAll('button').forEach(function (b) {
+      b.style.background = b.getAttribute('aria-pressed') === 'true' ? css(MVAR[b.dataset.c]) : '';
+    });
+  }
+  function buildControls() {
+    seg($('imgSeg'), IMGS.map(function (t) { return short(D.images[t].label); }), function () { return IMGS.indexOf(S.img); },
+      function (i) { S.img = IMGS[i]; S.sel = null; buildControls(); layout(); renderAll(); });
+    seg($('modSeg'), SHORT, function () { return S.m; }, function (i) { S.m = i; buildControls(); renderAll(); }, true);
+    $('budOut').textContent = pc(S.pct) + ' · ' + fmt(K()) + ' files';
+  }
+  $('bud').oninput = function () { S.pct = this.value / 100; $('budOut').textContent = pc(S.pct) + ' · ' + fmt(K()) + ' files'; renderAll(true); };
+
+  /* ---------- hero ---------- */
+  function hero() {
+    var tot = IMGS.reduce(function (a, t) { return a + D.images[t].files; }, 0);
+    var best = [0, 0, 0];
+    IMGS.forEach(function (t) { MODELS.forEach(function (m, i) { best[i] += parseFloat(D.images[t].metrics[m].target_recall); }); });
+    var mean = best.map(function (b) { return b / IMGS.length; });
+    var top = mean.indexOf(Math.max.apply(null, mean));
+    $('heroStats').innerHTML =
+      '<div class="hstat"><b class="num">' + fmt(tot) + '</b><span>files across ' + IMGS.length + ' real disk images</span></div>' +
+      '<div class="hstat"><b class="num">5%</b><span>of files an examiner reads per disk</span></div>' +
+      '<div class="hstat"><b class="num" style="color:var(' + MVAR[top] + ')">' + pc(mean[top], 0) + '</b><span>mean evidence recall for ' + SHORT[top] + ', the best of three models</span></div>';
+  }
+
+  /* ---------- canvas simulation ---------- */
+  var cv = $('cv'), ctx = cv.getContext('2d'), P = [], dpr = 1, hover = -1;
+  function layout() {
+    var s = IM().sample, xs = s.map(function (p) { return p.x; }).sort(function (a, b) { return a - b; }),
+        ys = s.map(function (p) { return p.y; }).sort(function (a, b) { return a - b; });
+    var q = function (a, f) { return a[Math.floor(f * (a.length - 1))]; };
+    var x0 = q(xs, .01), x1 = q(xs, .99), y0 = q(ys, .01), y1 = q(ys, .99);
+    var seed = 11;
+    P = s.map(function (p, i) {
+      seed = (seed * 9301 + 49297) % 233280;
+      return { nx: Math.min(1, Math.max(0, (p.x - x0) / (x1 - x0 || 1))), ny: Math.min(1, Math.max(0, (p.y - y0) / (y1 - y0 || 1))),
+               r: p.r, t: p.t, p: p.p, o: seed / 233280, i: i };
+    });
+    var t = '';
+    s.slice(0, 60).forEach(function (p) { t += p.p + '   ·   '; });
+    $('ticker').textContent = t + t;
+  }
+  function size() {
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    var w = cv.clientWidth, h = cv.clientHeight; cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    draw();
+  }
+  var smooth = function (a, b, t) { var x = Math.min(1, Math.max(0, (t - a) / (b - a))); return x * x * (3 - 2 * x); };
+  var mix = function (c1, c2, f) {
+    function h(c) { c = c.replace('#', ''); if (c.length === 3) c = c.split('').map(function (z) { return z + z; }).join(''); return [0, 2, 4].map(function (i) { return parseInt(c.substr(i, 2), 16); }); }
+    var a = h(c1), b = h(c2); return 'rgb(' + a.map(function (v, i) { return Math.round(v + (b[i] - v) * f); }).join(',') + ')';
+  };
+  function targetState(name) {
+    var tg = IM().targets, i; for (i = 0; i < tg.length; i++) if (tg[i].name === name) return tg[i];
+    return null;
+  }
+  function draw() {
+    var w = cv.width, h = cv.height, t = S.t, k = K(), N = IM().files, m = S.m, pad = 18 * dpr;
+    ctx.clearRect(0, 0, w, h);
+    var dot = css('--dot'), mc = css(MVAR[m]), ok = css('--ok'), bad = css('--bad'), bg = css('--surface');
+    var reveal = smooth(0, .3, t), score = smooth(.3, .55, t), tri = smooth(.55, .75, t), ev = smooth(.75, 1, t);
+    var i, p, x, y, flagged, heat, a, col, rad;
+    for (i = 0; i < P.length; i++) {
+      p = P[i]; if (p.o > reveal * 1.02 && reveal < 1) continue;
+      x = pad + p.nx * (w - 2 * pad); y = pad + p.ny * (h - 2 * pad);
+      flagged = p.r[m] <= k;
+      heat = Math.max(0, 1 - (p.r[m] / N) / 0.15) * score;
+      var f = flagged ? tri : 0;
+      col = mix(dot, mc, Math.max(heat, f)); a = flagged ? 1 : 1 - 0.78 * tri;
+      rad = (2.1 + heat * 1.3 + (flagged ? tri * 1.2 : 0)) * dpr;
+      ctx.globalAlpha = Math.min(1, a * (reveal < 1 ? 0.35 + 0.65 * reveal : 1));
+      ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, rad, 0, 6.2832); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    if (ev > 0) {
+      for (i = 0; i < P.length; i++) {
+        p = P[i]; if (!p.t) continue;
+        var tg = targetState(p.t); if (!tg) continue;
+        x = pad + p.nx * (w - 2 * pad); y = pad + p.ny * (h - 2 * pad);
+        var caught = tg.ranks[MODELS[m]] <= k, r = (5 + 6 * ev) * dpr * (S.sel === p.t ? 1.35 : 1);
+        ctx.lineWidth = 2.2 * dpr; ctx.globalAlpha = ev;
+        ctx.fillStyle = bg; ctx.beginPath(); ctx.arc(x, y, r + 1.5 * dpr, 0, 6.2832); ctx.fill();
+        ctx.strokeStyle = caught ? ok : bad; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.stroke();
+        if (caught) { ctx.fillStyle = ok; ctx.beginPath(); ctx.arc(x, y, r * 0.45, 0, 6.2832); ctx.fill(); }
+        else { ctx.beginPath(); ctx.moveTo(x - r * .5, y - r * .5); ctx.lineTo(x + r * .5, y + r * .5); ctx.moveTo(x + r * .5, y - r * .5); ctx.lineTo(x - r * .5, y + r * .5); ctx.stroke(); }
+        if (S.sel === p.t || i === hover) {
+          ctx.globalAlpha = 1; ctx.font = (12 * dpr) + 'px "IBM Plex Mono", monospace'; ctx.fillStyle = css('--ink');
+          var tw = ctx.measureText(p.t).width, lx = Math.min(w - tw - 8 * dpr, Math.max(8 * dpr, x - tw / 2));
+          ctx.fillText(p.t, lx, y - r - 7 * dpr);
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+    var ph = t < .3 ? 0 : t < .55 ? 1 : t < .75 ? 2 : 3;
+    document.querySelectorAll('#phases div').forEach(function (d, j) { d.classList.toggle('on', j === ph); });
+    $('scrub').value = Math.round(t * 1000);
+  }
+  var raf = 0, last = 0;
+  function tick(ts) {
+    if (!S.playing) return;
+    S.t = Math.min(1, S.t + (ts - last) / 11000); last = ts; draw();
+    if (S.t >= 1) { S.playing = false; $('play').textContent = 'Replay'; return; }
+    raf = requestAnimationFrame(tick);
+  }
+  $('play').onclick = function () {
+    if (S.playing) { S.playing = false; $('play').textContent = 'Play'; return; }
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { S.t = 1; draw(); return; }
+    if (S.t >= 1) S.t = 0; S.playing = true; last = performance.now(); $('play').textContent = 'Pause'; raf = requestAnimationFrame(tick);
+  };
+  $('scrub').oninput = function () { S.playing = false; $('play').textContent = 'Play'; S.t = this.value / 1000; draw(); };
+  cv.addEventListener('pointermove', function (e) {
+    var r = cv.getBoundingClientRect(), mx = (e.clientX - r.left) / r.width, my = (e.clientY - r.top) / r.height, best = -1, bd = 1e9, k = K(), m = S.m;
+    var pad = 18 / r.width, padY = 18 / r.height;
+    P.forEach(function (p, i) {
+      var dx = (pad + p.nx * (1 - 2 * pad) - mx) * r.width, dy = (padY + p.ny * (1 - 2 * padY) - my) * r.height, d = dx * dx + dy * dy;
+      var want = p.t ? 0.4 : 1; if (d * want < bd) { bd = d * want; best = i; }
+    });
+    var tip = $('tip');
+    if (best >= 0 && bd < 18 * 18) {
+      var p = P[best]; hover = p.t ? best : -1;
+      tip.innerHTML = (p.t ? '<b>' + esc(p.t) + '</b><br>' : '') + esc(p.p) + '<br>rank ' + fmt(p.r[m]) + ' of ' + fmt(IM().files) + (p.r[m] <= k ? ' · flagged' : ' · not flagged');
+      tip.style.left = Math.min(innerWidth - 330, e.clientX + 14) + 'px'; tip.style.top = (e.clientY + 14) + 'px'; tip.style.opacity = 1;
+    } else { tip.style.opacity = 0; hover = -1; }
+    if (!S.playing) draw();
+  });
+  cv.addEventListener('pointerleave', function () { $('tip').style.opacity = 0; hover = -1; if (!S.playing) draw(); });
+
+  /* ---------- readout ---------- */
+  function readout() {
+    var im = IM(), k = K(), m = MODELS[S.m], tg = im.targets, c = tg.filter(function (t) { return t.ranks[m] <= k; }).length;
+    $('rdCaught').innerHTML = c + '<small>/ ' + tg.length + '</small>';
+    $('rdK').textContent = fmt(k); $('rdShare').textContent = pc(k / im.files, 2); $('rdSkip').textContent = fmt(im.files - k);
+    $('rdRec').textContent = pc(c / tg.length);
+    var rnd = Math.round(k / im.files * tg.length * 10) / 10;
+    $('rdNote').textContent = 'Reading files at random would catch about ' + rnd + ' of ' + tg.length + ' targets at this budget.';
+    $('lgFlag').style.background = css(MVAR[S.m]);
+  }
+
+  /* ---------- recall curve ---------- */
+  function curve() {
+    var im = IM(), W = 560, H = 320, L = 44, R = 118, T = 14, B = 34, pw = W - L - R, ph = H - T - B;
+    var X = function (p) { return L + (p / 0.2) * pw; }, Y = function (v) { return T + (1 - v) * ph; };
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="Recall versus review budget for three models">';
+    [0, .25, .5, .75, 1].forEach(function (v) { s += '<line class="gl" x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"/><text x="' + (L - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + Math.round(v * 100) + '%</text>'; });
+    [0, .05, .1, .15, .2].forEach(function (p) { s += '<text x="' + X(p) + '" y="' + (H - 12) + '" text-anchor="middle">' + Math.round(p * 100) + '%</text>'; });
+    s += '<text x="' + (L + pw / 2) + '" y="' + (H - 0) + '" text-anchor="middle">review budget (share of files read)</text>';
+    var ends = [];
+    MODELS.forEach(function (m, i) {
+      var pts = D.pcts.map(function (p, j) { return X(p).toFixed(1) + ',' + Y(im.curves[m][j]).toFixed(1); }).join(' ');
+      s += '<polyline fill="none" stroke="var(' + MVAR[i] + ')" stroke-width="' + (i === S.m ? 3.2 : 1.8) + '" opacity="' + (i === S.m ? 1 : .75) + '" points="' + pts + '"/>';
+      ends.push({ i: i, y: Y(im.curves[m][im.curves[m].length - 1]) });
+    });
+    ends.sort(function (a, b) { return a.y - b.y; });
+    for (var j = 1; j < ends.length; j++) if (ends[j].y - ends[j - 1].y < 15) ends[j].y = ends[j - 1].y + 15;
+    ends.forEach(function (e) { s += '<text x="' + (W - R + 8) + '" y="' + (e.y + 4) + '" style="fill:var(' + MVAR[e.i] + ');font-weight:500">' + SHORT[e.i] + '</text>'; });
+    var cx = X(S.pct);
+    s += '<line x1="' + cx + '" x2="' + cx + '" y1="' + T + '" y2="' + (H - B) + '" stroke="var(--ink)" stroke-dasharray="4 4"/>';
+    MODELS.forEach(function (m, i) {
+      var j = 0; while (j < D.pcts.length - 1 && D.pcts[j + 1] <= S.pct + 1e-9) j++;
+      var v = im.curves[m][j]; s += '<circle cx="' + cx + '" cy="' + Y(v) + '" r="4.5" fill="var(' + MVAR[i] + ')" stroke="var(--surface)" stroke-width="1.5"/>';
+    });
+    $('curve').innerHTML = s + '</svg>';
+  }
+
+  /* ---------- tables ---------- */
+  function metricsTable() {
+    var im = IM(); $('mtitle').textContent = short(im.label) + ' at the 5% budget (' + fmt(im.K5) + ' of ' + fmt(im.files) + ' files)';
+    var h = '<table><thead><tr><th>Model</th><th class="n">Targets</th><th class="n">Recall</th><th class="n">Precision</th><th class="n">F1</th><th class="n">Accuracy</th></tr></thead><tbody>';
+    MODELS.forEach(function (m, i) {
+      var x = im.metrics[m];
+      h += '<tr><td><i class="dotkey" style="background:var(' + MVAR[i] + ')"></i>' + SHORT[i] + '</td><td class="n">' + x.targets + '</td><td class="n">' + pc(x.target_recall) + '</td><td class="n">' + pc(x.precision, 2) + '</td><td class="n">' + pc(x.f1, 2) + '</td><td class="n">' + pc(x.accuracy, 2) + '</td></tr>';
+    });
+    $('mtable').innerHTML = h + '</tbody></table>';
+  }
+  function allImgs() {
+    $('allImgs').innerHTML = IMGS.map(function (t) {
+      var im = D.images[t], best = Math.max.apply(null, MODELS.map(function (m) { return parseFloat(im.metrics[m].target_recall); }));
+      var rows = MODELS.map(function (m, i) {
+        var x = im.metrics[m], r = parseFloat(x.target_recall);
+        return '<div class="mrow' + (r === best ? ' best' : '') + '"><span class="mn">' + SHORT[i] + '</span><div class="bar"><i style="width:' + (r * 100) + '%;background:var(' + MVAR[i] + ')"></i></div><span class="num mono">' + x.targets + '</span></div>';
+      }).join('');
+      return '<div class="panel cardimg"><h3>' + esc(short(im.label)) + '</h3><div class="meta">' + esc(im.label.split(': ')[1] || '') + ' · ' + fmt(im.files) + ' files · ' + im.targets.length + ' targets</div>' + rows + '</div>';
+    }).join('');
+  }
+  function verdicts() {
+    var im = IM();
+    $('vlede').textContent = im.scenario === 'external'
+      ? 'This disk is an outside intrusion, so the insider-attack test does not apply. Timestomping is confirmed only when a known timestomped file is flagged.'
+      : 'Insider attack is called when at least half of the evidence targets are flagged. Timestomping is confirmed only when a known timestomped file is flagged; otherwise it is unverified.';
+    var h = '<table><thead><tr><th>Model</th><th>Timestomping</th><th>Known timestomped file flagged</th><th class="n">$SI vs $FN mismatches in flagged set</th><th>Insider attack</th></tr></thead><tbody>';
+    MODELS.forEach(function (m, i) {
+      var v = im.verdicts[m], ts = v.timestomp, cls = ts === 'YES' ? 'ok' : ts === 'NO' ? 'bad' : 'warn', ia = v.insider, ic = /CONFIRMED/.test(ia) ? 'ok' : /NOT/.test(ia) ? 'bad' : 'warn';
+      h += '<tr><td><i class="dotkey" style="background:var(' + MVAR[i] + ')"></i>' + SHORT[i] + '</td><td><span class="chip ' + cls + '">' + ts + '</span></td><td>' + (v.known_ts_hit && v.known_ts_hit.length ? esc(v.known_ts_hit.join(', ')) : '–') + '</td><td class="n">' + fmt(v.si_fn_mismatch_flagged || 0) + '</td><td><span class="chip ' + ic + '">' + esc(ia) + '</span></td></tr>';
+    });
+    $('vtable').innerHTML = h + '</tbody></table><p class="note" style="margin-top:10px">A mismatch between the two timestamp sets is a hint of tampering, not proof: ordinary file operations also cause it.</p>';
+  }
+
+  /* ---------- evidence ledger ---------- */
+  function ledger() {
+    var im = IM(), m = MODELS[S.m], k = K();
+    var tg = im.targets.slice().sort(function (a, b) { return a.ranks[m] - b.ranks[m]; });
+    $('rows').innerHTML = '';
+    tg.forEach(function (t) {
+      var ok = t.ranks[m] <= k, b = document.createElement('button');
+      b.className = 'row'; b.type = 'button'; b.setAttribute('aria-pressed', String(S.sel === t.name));
+      b.innerHTML = '<span class="ico ' + (ok ? 'ok' : 'bad') + '"></span><span>' + esc(t.name) + '<small>' + t.copies + ' cop' + (t.copies > 1 ? 'ies' : 'y') + ' on disk</small></span><span class="mono num">#' + fmt(t.ranks[m]) + '</span>';
+      b.onclick = function () { S.sel = t.name; ledger(); detail(); if (!S.playing) draw(); };
+      $('rows').appendChild(b);
+    });
+    if (!S.sel && tg.length) S.sel = tg[0].name, ledger();
+  }
+  function detail() {
+    var im = IM(), m = MODELS[S.m], t = targetState(S.sel), el = $('detail');
+    if (!t) { el.innerHTML = '<p class="note">Select an evidence target.</p>'; return; }
+    var ok = t.ranks[m] <= K();
+    var drivers = t.shap[m] || t.shap[MODELS[0]], from = t.shap[m] ? SHORT[S.m] : SHORT[0];
+    var h = '<div><span class="chip ' + (ok ? 'ok' : 'bad') + '">' + (ok ? 'caught' : 'missed') + ' at ' + pc(S.pct) + '</span></div>' +
+            '<h3>' + esc(t.name) + '</h3><div class="mono note" style="word-break:break-all">' + esc(t.path) + '</div>' +
+            '<div class="kv"><dt>Rank under ' + SHORT[S.m] + '</dt><dd>#' + fmt(t.ranks[m]) + ' of ' + fmt(im.files) + '</dd><dt>Smallest budget that catches it</dt><dd>' + pc(t.ranks[m] / im.files, 2) + '</dd></div>';
+    if (drivers && drivers.length) {
+      var mx = Math.max.apply(null, drivers.map(function (d) { return Math.abs(d[1]); })) || 1;
+      h += '<div><div class="eyebrow" style="margin-bottom:8px">Top drivers (' + from + ' SHAP)</div>' + drivers.map(function (d) {
+        var w = Math.abs(d[1]) / mx * 50, pos = d[1] >= 0;
+        return '<div class="fbar"><span>' + esc(d[0]) + '</span><span class="t"><i style="' + (pos ? 'left:50%' : 'right:50%') + ';width:' + w + '%;background:' + (pos ? 'var(--ok)' : 'var(--bad)') + '"></i></span><span class="num">' + (d[1] > 0 ? '+' : '') + d[1].toFixed(2) + '</span></div>';
+      }).join('') + '</div><p class="note">Positive values pushed this file up the suspicion ranking. Generic features such as <span class="mono">is_shortcut_or_trace</span> also fire on harmless files, so a high value is a reason for the rank, not proof of intent.</p>';
+    } else h += '<p class="note">No SHAP breakdown was computed for this file under this model: SHAP ran only on files the model flagged.</p>';
+    el.innerHTML = h;
+  }
+
+  /* ---------- pipeline, ablation, caveats ---------- */
+  function pipeline() {
+    var im = IM(), tm = im.stage_times, mx = Math.sqrt(Math.max.apply(null, D.pipeline.map(function (s) { return tm[s.script] || 0; })) || 1);
+    var tot = 0;
+    $('pipe').innerHTML = D.pipeline.map(function (s, i) {
+      var v = tm[s.script] || 0; tot += v;
+      return '<div class="stp"><span class="ix">' + String(i + 1).padStart(2, '0') + '</span><div><b>' + esc(s.title) + '</b><span>' + esc(s.desc) + '</span></div><div class="bar"><i style="width:' + (Math.sqrt(v) / mx * 100) + '%;background:var(--m0)"></i></div><span class="num mono">' + v.toFixed(1) + 's</span></div>';
+    }).join('') + '<div class="stp" style="border-bottom:0"><span></span><b>Total</b><span></span><span class="num mono">' + tot.toFixed(0) + 's</span></div>';
+  }
+  function frac(s) { var p = String(s).split('/'); return parseInt(p[0], 10) / parseInt(p[1], 10); }
+  function ablation() {
+    var im = IM(), h = '<table><thead><tr><th>Feature set</th><th class="n">Features</th>' + SHORT.map(function (n, i) { return '<th><i class="dotkey" style="background:var(' + MVAR[i] + ')"></i>' + n + '</th>'; }).join('') + '</tr></thead><tbody>';
+    im.ablation.forEach(function (r) {
+      var strong = /^Full \(/.test(r.config) || /^Legacy/.test(r.config);
+      h += '<tr' + (strong ? ' style="background:var(--surface2)"' : '') + '><td>' + esc(r.config) + '</td><td class="n">' + r.n + '</td>' + MODELS.map(function (m, i) {
+        return '<td><div style="display:grid;grid-template-columns:44px minmax(50px,1fr);gap:8px;align-items:center"><span class="num mono">' + r[m] + '</span><div class="bar"><i style="width:' + (frac(r[m]) * 100) + '%;background:var(' + MVAR[i] + ')"></i></div></div></td>';
+      }).join('') + '</tr>';
+    });
+    $('abl').innerHTML = h + '</tbody></table>';
+  }
+  function caveats() {
+    var im = IM(), c = im.constant || [], rb = im.robustness || {}, items = [];
+    if (c.length) items.push('<b>' + c.length + ' of the 23 features never vary on this disk</b> (' + c.map(esc).join(', ') + '), so the models use ' + (im.features.length - c.length) + ' active features. <span class="mono">future_m</span> can never fire because its reference time is the newest timestamp on the same disk.');
+    items.push('<b>Targets are not an official answer key everywhere.</b> Disk 1 targets are rebuilt from case notes, disk 2 from the repository\'s CFReDS list, and disk 3 from the scenario author\'s own published examiner tags, because the teacher guide is access-restricted.');
+    items.push('<b>One-Class SVM trains on a 10,000-file subsample</b> and then scores every file. Its recall held across five subsample seeds' + (rb.ocsvm ? ' (' + Object.keys(rb.ocsvm).map(function (n) { var v = rb.ocsvm[n]; return 'n=' + fmt(n) + ': ' + Math.min.apply(null, v) + '–' + Math.max.apply(null, v) + ' targets'; }).join('; ') + ')' : '') + '.');
+    if (rb.lof) items.push('<b>LOF is sensitive to its neighbour count and is weakest at every setting tried</b> (' + Object.keys(rb.lof).map(function (k) { return 'k=' + k + ': ' + rb.lof[k]; }).join(', ') + ' targets). Duplicate feature rows distort it (' + fmt(rb.unique_rows) + ' unique of ' + fmt(rb.rows) + ' rows).');
+    items.push('<b>SHAP explains the ranking, not intent.</b> Shortcut and log files score highly whether or not they relate to the case.');
+    items.push('<b>Time-of-day features use UTC</b> (08:00 to 18:00 working hours); the disk\'s own time zone is not applied.');
+    $('cav').innerHTML = items.map(function (t) { return '<li>' + t + '</li>'; }).join('');
+  }
+
+  function renderAll(budgetOnly) {
+    buildControlsLabel(); readout(); curve(); if (!budgetOnly) { metricsTable(); verdicts(); pipeline(); ablation(); caveats(); }
+    ledger(); detail(); if (!S.playing) draw();
+  }
+  function buildControlsLabel() { paintModelSeg(); }
+  hero(); buildControls(); layout(); renderAll(); allImgs();
+  addEventListener('resize', size);
+  new MutationObserver(function () { paintModelSeg(); draw(); }).observe(document.documentElement, { attributes: true });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { paintModelSeg(); draw(); curve(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  size();
+})();
+</script>
