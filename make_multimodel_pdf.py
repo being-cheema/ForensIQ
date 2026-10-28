@@ -150,7 +150,7 @@ SHAP_H = ["Image", "Model", "Features with non-zero SHAP", "Top mean |SHAP|"]
 ROB_H = ["Image", "Targets", "LOF by neighbours (targets caught)", "One-Class SVM by subsample (min-max over 5 seeds)",
          "Isolation Forest (5 seeds)", "Unique rows"]
 
-# overall winner by mean target recall across evaluated images
+# ranking by mean target recall across evaluated images at the 5% budget
 mean_rec = main.assign(r=main["target_recall"].astype(float)).groupby("model")["r"].mean().reindex(MODELS)
 ranking = ", ".join(f"{SHORT[m]} {pct(mean_rec[m])}" for m in mean_rec.sort_values(ascending=False).index)
 evaluated = ", ".join(res["results"][t]["label"].split(":")[0] for t in res["results"])
@@ -200,9 +200,12 @@ def write_md():
     if rob:
         L += ["## 7. Robustness", "", md_table(ROB_H, robust_rows()), "",
               "LOF is the weakest model at every neighbour setting tried and is very sensitive to it; duplicate rows distort it.", ""]
-    L += ["## 8. Which model performs best", "",
-          f"Mean target recall: {ranking}. The ranking is the same on every evaluated image where the targets are defined from the case record; "
+    L += ["## 8. Which model performs best, and at what budget", "",
+          "At the strict 5% review budget, One-Class SVM catches the most targets. "
+          f"Mean target recall at 5%: {ranking}. At 5% the ranking is the same on every evaluated image where the targets are defined from the case record; "
           "Image 3 uses unofficial targets, so its figures are indicative only.", "",
+          "At a 15% budget, Isolation Forest on all 23 features is the best overall (94.7% on Image 2, 99.4% on Image 3). "
+          "See reports/gemini_audit/GEMINI_AUDIT.md section 4.", "",
           "## Tool output", "", "CLI-style detections per image: " + ", ".join(f"`{t}_tool_output.txt`" for t in res["results"]) + "."]
     with open(os.path.join(D, "multimodel_eval.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L) + "\n")
@@ -244,7 +247,7 @@ figure {{ margin:6px 0; page-break-inside:avoid; }} img {{ width:100%; max-width
 All values computed by <code>multimodel_eval.py</code> from artifacts extracted from the raw disk images.</small></div>
 <h2>1. Scope and limits</h2><ul>{scope_html}</ul>
 <h2>2. Results at the 5% review budget</h2>{html_table(MAIN_H + [''], main_rows(), bold_last=True).replace('<th></th>', '')}
-<p><small>Accuracy is about 95% for every model because the budget is fixed at 5% and targets are rare; recall, precision and F1 separate the models. Mean target recall: {html.escape(ranking)}.</small></p>
+<p><small>Accuracy is about 95% for every model because the budget is fixed at 5% and targets are rare; recall, precision and F1 separate the models. Mean target recall at 5%: {html.escape(ranking)}.</small></p>
 <h2>3. Recall at larger budgets</h2>{html_table(BUD_H, budget_rows())}
 <h2>4. Timestomping and insider attack</h2>{html_table(VERD_H, verdict_rows())}
 <p><small>Timestomping is YES when a ground-truth timestomped file is flagged (Image 1: NMEM/NGETTIME; Image 2: Eraser.exe), otherwise UNVERIFIED. The SI/FN mismatch count is a hint, not proof. Insider attack: at least half of the targets flagged (partial at 25-50%); not applicable to the external intrusion in Image 1.</small></p>

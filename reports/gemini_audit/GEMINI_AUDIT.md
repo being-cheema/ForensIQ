@@ -29,7 +29,7 @@ These numbers do match the old Image 1 outputs in commit `0b6f08d`, which were p
 | Claim | What the data shows |
 |:---|:---|
 | All three images were "already extracted and evaluated" in the repo | Only Image 2 artifacts and 8,306 flagged Image 3 rows existed; no full Image 3 data |
-| 3-model, 23-feature table (IF 7/7, 18/19, 22/24; LOF 6/7, 16/19, 19/24; OC-SVM 5/7, 9/19, 13/24) and "Isolation Forest wins" | No LOF/OC-SVM code existed. Fresh result: OC-SVM best (5/7, 19/19, 25/34), IF second (5/7, 17/19, 8/34), LOF last (1/7, 2/19, 2/34) |
+| 3-model, 23-feature table (IF 7/7, 18/19, 22/24; LOF 6/7, 16/19, 19/24; OC-SVM 5/7, 9/19, 13/24) and "Isolation Forest wins" | No LOF/OC-SVM code existed. Fresh result: OC-SVM best at a 5% budget (5/7, 19/19, 25/34), IF second (5/7, 17/19, 8/34), LOF last (1/7, 2/19, 2/34); at a 15% budget IF on 23 features is best overall |
 | Timestomping "125 / 512 / 5,396 files", "13 future_m files" | `future_m` can never be 1 (compared to the image's own newest time); counts not produced by any code |
 | "591 /Windows/Temp/INS_*.TMP files" on Image 3 | 4 such files on the disk |
 | Image 1: "9 of 17 fired including sniffer_tool and credential_tool" | Both are constant on every row; constants never fire |
@@ -39,7 +39,7 @@ These numbers do match the old Image 1 outputs in commit `0b6f08d`, which were p
 | Chain of custody 102/102, 182 event-log records | 96/96 on the fresh run; 0 event records parsed on Image 1 (old file is empty too) |
 | MITRE T1070.001 "78 work-hour log gaps" | Not present in the mapping |
 | Remediation filename mismatch in `forensiq_report.py` | Both files use `remediate_credentials.ps1` |
-| Threshold sweep: "11% knee", 3 randomizations agree on 44/49 steps | No script produced the old files; the old randomization file has 15/20 rows identical. Fresh IF-17 curve keeps climbing to ~21% |
+| Threshold sweep: "11% knee", 3 randomizations agree on 44/49 steps | No script produced the old files; the old randomization file has 15/20 rows identical. Fresh IF-17 curve keeps climbing to ~21%. The earlier 25% figure matches the 17-feature IF (fresh run: about 21%) |
 | "delta_si_fn mismatch is 100% proof of tampering" | Mismatch is normal on these disks (non-zero on 84% of Image 2 files) |
 | "MFT parsing takes under 30 seconds" | 0.5 s, 13 s and 110 s for Images 1, 2, 3 |
 
@@ -73,3 +73,10 @@ These numbers do match the old Image 1 outputs in commit `0b6f08d`, which were p
 - "100% at 5.5%" is not general. It holds only for One-Class SVM on Image 2.
 - Threshold for ≥ 90% recall, agreeing across all three randomizations: IF-23 11% (Image 2) and 13–15% (Image 3); IF-17 21% (Image 2); OC-SVM 5% (Image 2) but 21–23% (Image 3); LOF never below ~50%.
 - Isolation Forest randomizations agree on 90–98% of thresholds; LOF and Image 3 OC-SVM do not.
+
+### Which model and budget to use
+
+- At a strict 5% review budget, One-Class SVM catches the most targets (5/7, 19/19, 25/34; mean target recall 81.7% vs IF 61.5%, LOF 10.2%).
+- Best overall is Isolation Forest on all 23 features at a 15% budget: 94.7% on Image 2 and 99.4% on Image 3, and its 3 randomizations agree on 90–98% of thresholds.
+- OC-SVM on Image 3 reaches only 80.6% at 15% and needs about 23% to reach 90%. LOF never reaches 90% below about 50%.
+- The earlier "25%" threshold came from the original 17-feature Isolation Forest on Image 2. A fresh rerun of that model reaches 90% at about 21% (93.7% at 21%, 94.7% at 25%, 100% only at 39%). With 23 features the same model needs 15%.

@@ -5,8 +5,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.umd.js"></script>
 <style>
-/* Layout concept: an evidence-room instrument. A sticky control strip drives every panel; the centrepiece is a
+/* React + anime.js rebuild. Layout concept: an evidence-room instrument. A sticky control strip drives every panel; the centrepiece is a
    live scatter of real files from the disk that the three models score, flag and either catch or miss evidence in. */
 :root {
   --bg: #eef1f5; --surface: #ffffff; --surface2: #f5f7fa; --ink: #0f1923; --ink2: #4b5a6b; --line: #d3dae3;
@@ -142,505 +146,743 @@ footer { padding-block: 40px 60px; color: var(--ink2); font-size: 13px; display:
   .budget output { min-width: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .ticker div { animation: none; } }
+
+/* react/anime additions */
+.hero-rule { height: 3px; width: 96px; background: linear-gradient(90deg, var(--m0), var(--m1), var(--m2)); border-radius: 2px; transform-origin: left center; }
+.callout { display: grid; gap: 8px; align-content: start; }
+.callout p { color: var(--ink2); }
+.callout b { color: var(--ink); }
+.vhead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
+.vbars { display: grid; gap: 6px; }
+.vbar { display: grid; grid-template-columns: minmax(150px, 260px) minmax(0, 1fr) 58px; gap: 12px; align-items: center; font-size: 13px; padding: 6px 8px; border-radius: 6px; border: 1px solid transparent; }
+.vbar.rec { border-color: var(--m0); background: var(--surface2); }
+.vl { min-width: 0; }
+.vt { height: 12px; background: var(--surface2); border-radius: 2px; position: relative; }
+.vbar.rec .vt { background: var(--bg); }
+.vt i { position: absolute; inset: 0 auto 0 0; border-radius: 2px; }
+.vt::after { content: ""; position: absolute; left: 90%; top: -4px; bottom: -4px; width: 2px; background: var(--ink); opacity: .6; }
+.vv { text-align: right; }
+.mrow.wide { grid-template-columns: 150px minmax(0, 1fr) 44px; }
+.plain { margin: 0; padding-left: 18px; display: grid; gap: 10px; font-size: 14px; color: var(--ink2); }
+.plain b { color: var(--ink); }
+td .sub { font-size: 11.5px; color: var(--ink2); }
+td .sub.hi { color: var(--ok); }
+td.star { background: var(--surface2); }
+.abc { display: grid; grid-template-columns: 44px minmax(50px, 1fr); gap: 8px; align-items: center; }
+.fcounts { display: flex; flex-wrap: wrap; gap: 8px; }
+.fchip { display: inline-flex; align-items: center; gap: 8px; }
+.bar.mini { width: 54px; min-width: 54px; height: 6px; }
+.csum { display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 10px; align-items: start; cursor: pointer; }
+.cev { margin: 8px 0 2px 96px; max-width: none; }
+.rows > .row { flex: none; }
+@media (max-width: 860px) {
+  .vbar { grid-template-columns: minmax(0, 1fr) 54px; } .vbar .vl { grid-column: 1 / -1; }
+  .mrow.wide { grid-template-columns: 110px minmax(0, 1fr) 40px; }
+  .cev { margin-left: 0; }
+}
 </style>
-
-<div class="wrap">
-<header class="hero">
-  <div class="eyebrow">ForensIQ &middot; explainable disk triage &middot; three real disk images</div>
-  <h1>Which model finds the evidence in the first 5% of files?</h1>
-  <p class="lede">A forensic examiner can't read 166,000 files. Each model ranks every file on 23 forensic features, and the examiner reads only the top slice. Pick a disk image, pick a model, and watch it triage the real files.</p>
-  <div class="hero-stats" id="heroStats"></div>
-</header>
-</div>
-
-<div class="strip"><div class="strip-in">
-  <div class="grp"><span class="lab" id="lImg">Disk</span>
-    <div class="seg" id="imgSeg" role="group" aria-labelledby="lImg"></div></div>
-  <div class="grp"><span class="lab" id="lMod">Model</span>
-    <div class="seg m" id="modSeg" role="group" aria-labelledby="lMod"></div></div>
-  <div class="grp budget"><label for="bud">Budget</label>
-    <input id="bud" type="range" min="0.2" max="20" step="0.1" value="5"><output id="budOut" for="bud"></output></div>
-</div></div>
-
-<div class="wrap">
-<section id="simulation">
-  <div class="sec-head"><div class="eyebrow">Simulation</div><h2>Watch a model triage a disk</h2>
-    <p>Each dot is a real file from the selected disk, placed by how similar its 23 features are. Press play: files are indexed, scored, cut to the review budget, and the evidence the case investigators care about is marked as caught or missed.</p></div>
-  <div class="sim">
-    <div class="stage">
-      <div class="ticker" aria-hidden="true"><div id="ticker"></div></div>
-      <canvas id="cv" role="img" aria-label="Scatter of files scored by the selected model; flagged files and evidence targets are highlighted"></canvas>
-      <div class="phases" id="phases">
-        <div data-p="0"><b>1 Index</b>read the MFT</div><div data-p="1"><b>2 Score</b>model ranks files</div>
-        <div data-p="2"><b>3 Triage</b>cut to budget</div><div data-p="3"><b>4 Evidence</b>caught or missed</div></div>
-      <div class="transport"><button class="btn" id="play" type="button">Play</button>
-        <input id="scrub" type="range" min="0" max="1000" value="1000" aria-label="Simulation progress"></div>
-      <div class="legend"><span><i class="dotkey" style="background:var(--dot)"></i>file</span>
-        <span><i class="dotkey" id="lgFlag"></i>flagged for review</span>
-        <span><i class="dotkey" style="background:var(--ok)"></i>evidence caught</span>
-        <span><i class="dotkey" style="background:transparent;border:2px solid var(--bad)"></i>evidence missed</span></div>
-    </div>
-    <aside class="readout" aria-live="polite">
-      <div><div class="eyebrow">Evidence caught</div><div class="big num" id="rdCaught"></div></div>
-      <dl class="kv">
-        <dt>Files to read</dt><dd id="rdK"></dd>
-        <dt>Share of disk</dt><dd id="rdShare"></dd>
-        <dt>Files skipped</dt><dd id="rdSkip"></dd>
-        <dt>Evidence recall</dt><dd id="rdRec"></dd>
-      </dl>
-      <p class="note" id="rdNote"></p>
-    </aside>
-  </div>
-</section>
-
-<section id="recall">
-  <div class="sec-head"><div class="eyebrow">Results</div><h2>How much evidence for how much reading?</h2>
-    <p>Recall of the evidence targets as the examiner is allowed to read more files. The dashed line is the budget you chose above.</p></div>
-  <div class="two">
-    <div class="panel"><div id="curve"></div></div>
-    <div class="panel"><h3 id="mtitle" style="margin-bottom:10px"></h3><div class="scroll-x" id="mtable"></div>
-      <p class="note" style="margin-top:10px">Accuracy sits near 95% for every model by construction: a fixed 5% budget on rare evidence. Recall, precision and F1 are the numbers that separate the models.</p></div>
-  </div>
-  <h3 style="margin:26px 0 12px">All three disks at the 5% budget</h3>
-  <div class="three" id="allImgs"></div>
-</section>
-
-<section id="verdicts">
-  <div class="sec-head"><div class="eyebrow">Findings</div><h2>Timestomping and insider attack</h2>
-    <p id="vlede"></p></div>
-  <div class="panel scroll-x" id="vtable"></div>
-</section>
-
-<section id="evidence">
-  <div class="sec-head"><div class="eyebrow">Evidence ledger and SHAP</div><h2>Which evidence, and why did the model flag it?</h2>
-    <p>Each row is one evidence target. Pick one to see the features that pushed it up the ranking. SHAP explains the ranking, not intent: ordinary files can score the same way.</p></div>
-  <div class="ledger"><div class="rows" id="rows"></div><div class="panel detail" id="detail"></div></div>
-</section>
-
-<section id="pipeline">
-  <div class="sec-head"><div class="eyebrow">Pipeline</div><h2>The 12 stages behind every result</h2>
-    <p>Measured run times for the selected disk, from the raw image to the report.</p></div>
-  <div class="panel pipe" id="pipe"></div>
-</section>
-
-<section id="ablation">
-  <div class="sec-head"><div class="eyebrow">Ablation</div><h2>Which features carry the result?</h2>
-    <p>Targets caught at the 5% budget with feature groups removed or kept alone, for the selected disk.</p></div>
-  <div class="panel scroll-x" id="abl"></div>
-</section>
-
-<section id="stability">
-  <div class="sec-head"><div class="eyebrow">Threshold stability</div><h2>Is there a review budget that holds up?</h2>
-    <p>Each model was rerun five times with 10% of ordinary files dropped at random, in three separate randomizations. The lines show mean evidence recall from a 5% to a 100% budget; the bands show the spread across runs. The legacy XP disk is excluded.</p></div>
-  <div class="two">
-    <div class="panel"><div id="stabChart"></div></div>
-    <div class="panel"><h3 style="margin-bottom:10px">Smallest budget reaching 90% recall</h3><div class="scroll-x" id="stabTable"></div>
-      <p class="note" style="margin-top:10px" id="stabNote"></p></div>
-  </div>
-</section>
-
-<section id="firing">
-  <div class="sec-head"><div class="eyebrow">SHAP feature firing</div><h2>Which features does the model actually use?</h2>
-    <p>A feature "fires" when its mean SHAP value is above zero. Features that never vary across files can never fire, whatever happened on the disk.</p></div>
-  <div class="panel" style="display:grid;gap:14px">
-    <div id="fireCounts" style="display:flex;flex-wrap:wrap;gap:8px"></div>
-    <div class="scroll-x" id="fireTable"></div>
-  </div>
-</section>
-
-<section id="audit">
-  <div class="sec-head"><div class="eyebrow">Earlier claims checked</div><h2>What an earlier analysis got right and wrong</h2>
-    <p>Each claim from an earlier write-up was re-tested against this run. Many earlier Image 1 numbers matched an older, buggier version of the pipeline; others were not produced by any code.</p></div>
-  <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px">
-    <div class="seg" id="auditSeg" role="group" aria-label="Filter claims"></div><span class="note" id="auditCount"></span></div>
-  <div class="rows" id="auditRows" style="max-height:620px"></div>
-</section>
-
-<section id="limits">
-  <div class="sec-head"><div class="eyebrow">Read before citing</div><h2>What these numbers do not show</h2></div>
-  <ul class="cav" id="cav"></ul>
-</section>
-
-<footer>
-  <div>Disk images: NIST CFReDS Hacking Case (SCHARDT), NIST CFReDS Data Leakage Case, Digital Corpora 2018 Lone Wolf scenario. Every figure comes from one scripted run (<span class="mono">multimodel_eval.py</span>) over artifacts extracted directly from the raw images.</div>
-</footer>
-</div>
-<div class="tip" id="tip"></div>
+<div id="root"><p style="padding:24px 0;color:var(--ink2)">Loading the ForensIQ results&hellip;</p></div>
+<noscript><p style="padding:16px">This page needs JavaScript to show the interactive results.</p></noscript>
 
 <script id="data" type="application/json">/*__DATA__*/</script>
 <script id="extras" type="application/json">/*__EXTRAS__*/</script>
 <script>
 (function () {
+  var React = window.React, ReactDOM = window.ReactDOM, htm = window.htm;
+  var AN = window.anime || null;
+  var html = htm.bind(React.createElement);
+  var useState = React.useState, useEffect = React.useEffect, useLayoutEffect = React.useLayoutEffect, useRef = React.useRef, useMemo = React.useMemo;
+
   var D = JSON.parse(document.getElementById('data').textContent);
+  var X = JSON.parse(document.getElementById('extras').textContent || '{}');
   var MODELS = D.models, SHORT = ['Isolation Forest', 'LOF', 'One-Class SVM'];
   var MVAR = ['--m0', '--m1', '--m2'];
   var IMGS = Object.keys(D.images);
-  var S = { img: IMGS[0], m: 2, pct: 0.05, t: 1, playing: false, sel: null };
-  var $ = function (id) { return document.getElementById(id); };
+  var SW = X.sweep || {};
+
+  var RM = function () { return !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches); };
+  var canAnim = function () { return !!AN && !RM(); };
   var fmt = function (n) { return Number(n).toLocaleString('en-US'); };
   var pc = function (x, d) { return (x * 100).toFixed(d == null ? 1 : d) + '%'; };
-  var css = function (v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); };
-  var IM = function () { return D.images[S.img]; };
-  var K = function () { return Math.max(1, Math.round(S.pct * IM().files)); };
   var short = function (l) { return l.split(':')[0]; };
-  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  var css = function (v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); };
+  var hitsFmt = function (h) { return Number.isInteger(h) ? String(h) : h.toFixed(1); };
+  var frac = function (s) { var p = String(s).split('/'); return parseInt(p[0], 10) / parseInt(p[1], 10); };
 
-  /* ---------- controls ---------- */
-  function seg(el, items, get, set, colored) {
-    el.innerHTML = '';
-    items.forEach(function (it, i) {
-      var b = document.createElement('button'); b.type = 'button'; b.textContent = it;
-      b.setAttribute('aria-pressed', String(get() === i));
-      if (colored) b.dataset.c = i;
-      b.onclick = function () { set(i); };
-      el.appendChild(b);
-    });
-    if (colored) paintModelSeg();
-  }
-  function paintModelSeg() {
-    $('modSeg').querySelectorAll('button').forEach(function (b) {
-      b.style.background = b.getAttribute('aria-pressed') === 'true' ? css(MVAR[b.dataset.c]) : '';
-    });
-  }
-  function buildControls() {
-    seg($('imgSeg'), IMGS.map(function (t) { return short(D.images[t].label); }), function () { return IMGS.indexOf(S.img); },
-      function (i) { S.img = IMGS[i]; S.sel = null; buildControls(); layout(); renderAll(); });
-    seg($('modSeg'), SHORT, function () { return S.m; }, function (i) { S.m = i; buildControls(); renderAll(); }, true);
-    $('budOut').textContent = pc(S.pct) + ' · ' + fmt(K()) + ' files';
-  }
-  $('bud').oninput = function () { S.pct = this.value / 100; $('budOut').textContent = pc(S.pct) + ' · ' + fmt(K()) + ' files'; renderAll(true); };
+  /* ================= animation hooks ================= */
 
-  /* ---------- hero ---------- */
-  function hero() {
-    var tot = IMGS.reduce(function (a, t) { return a + D.images[t].files; }, 0);
-    var best = [0, 0, 0];
-    IMGS.forEach(function (t) { MODELS.forEach(function (m, i) { best[i] += parseFloat(D.images[t].metrics[m].target_recall); }); });
-    var mean = best.map(function (b) { return b / IMGS.length; });
-    var top = mean.indexOf(Math.max.apply(null, mean));
-    $('heroStats').innerHTML =
-      '<div class="hstat"><b class="num">' + fmt(tot) + '</b><span>files across ' + IMGS.length + ' real disk images</span></div>' +
-      '<div class="hstat"><b class="num">5%</b><span>of files an examiner reads per disk</span></div>' +
-      '<div class="hstat"><b class="num" style="color:var(' + MVAR[top] + ')">' + pc(mean[top], 0) + '</b><span>mean evidence recall for ' + SHORT[top] + ', the best of three models</span></div>';
+  /* Calls fn once, the first time ref's element scrolls into view. fn may return a cleanup. Never fires without anime / when motion is reduced. */
+  function useOnceInView(ref, fn) {
+    var f = useRef(fn); f.current = fn;
+    var stop = useRef(null);
+    useEffect(function () {
+      if (!canAnim() || !window.IntersectionObserver || !ref.current) return;
+      var io = new IntersectionObserver(function (es) {
+        if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); stop.current = f.current(); }
+      }, { rootMargin: '0px 0px -6% 0px' });
+      io.observe(ref.current);
+      return function () { io.disconnect(); if (typeof stop.current === 'function') stop.current(); };
+    }, []);
   }
 
-  /* ---------- canvas simulation ---------- */
-  var cv = $('cv'), ctx = cv.getContext('2d'), P = [], dpr = 1, hover = -1;
-  function layout() {
-    var s = IM().sample, xs = s.map(function (p) { return p.x; }).sort(function (a, b) { return a - b; }),
-        ys = s.map(function (p) { return p.y; }).sort(function (a, b) { return a - b; });
-    var q = function (a, f) { return a[Math.floor(f * (a.length - 1))]; };
-    var x0 = q(xs, .01), x1 = q(xs, .99), y0 = q(ys, .01), y1 = q(ys, .99);
-    var seed = 11;
-    P = s.map(function (p, i) {
-      seed = (seed * 9301 + 49297) % 233280;
-      return { nx: Math.min(1, Math.max(0, (p.x - x0) / (x1 - x0 || 1))), ny: Math.min(1, Math.max(0, (p.y - y0) / (y1 - y0 || 1))),
-               r: p.r, t: p.t, p: p.p, o: seed / 233280, i: i };
-    });
-    var t = '';
-    s.slice(0, 60).forEach(function (p) { t += p.p + '   ·   '; });
-    $('ticker').textContent = t + t;
+  /* Bars marked [data-grow] with data-w=<percent> and a rendered final width grow from 0 with a stagger: on first view and whenever deps change. */
+  function useGrow(ref, deps) {
+    var seen = useRef(false);
+    var run = function () {
+      var root = ref.current; if (!root || !canAnim()) return;
+      var els = root.querySelectorAll('[data-grow]'); if (!els.length) return;
+      AN.remove(els); AN.set(els, { width: '0%' });
+      AN({ targets: els, width: function (el) { return el.dataset.w + '%'; }, duration: 800, delay: AN.stagger(28, { start: 120 }), easing: 'easeOutCubic' });
+    };
+    useOnceInView(ref, function () { seen.current = true; run(); return function () { if (ref.current && AN) AN.remove(ref.current.querySelectorAll('[data-grow]')); }; });
+    useLayoutEffect(function () { if (seen.current) run(); }, deps);
   }
-  function size() {
-    dpr = Math.min(2, window.devicePixelRatio || 1);
-    var w = cv.clientWidth, h = cv.clientHeight; cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
-    draw();
+
+  /* SVG polylines with class "draw" draw in with strokeDashoffset; dashed lines get their dash pattern back afterwards. */
+  function useDraw(ref, deps) {
+    var seen = useRef(false);
+    var run = function () {
+      var root = ref.current; if (!root || !canAnim()) return;
+      var ps = root.querySelectorAll('.draw'); if (!ps.length) return;
+      var fades = root.querySelectorAll('.fadein');
+      AN.remove(ps);
+      AN.set(fades, { opacity: 0 });
+      AN({ targets: ps, strokeDashoffset: [AN.setDashoffset, 0], duration: 1300, delay: AN.stagger(140), easing: 'easeInOutSine',
+        complete: function () { ps.forEach(function (p) { p.removeAttribute('stroke-dashoffset'); var d = p.getAttribute('data-dash'); if (d) p.setAttribute('stroke-dasharray', d); else p.removeAttribute('stroke-dasharray'); }); } });
+      if (fades.length) AN({ targets: fades, opacity: function (el) { return [0, +(el.getAttribute('data-op') || 1)]; }, duration: 700, delay: 900, easing: 'easeOutQuad' });
+    };
+    useOnceInView(ref, function () { seen.current = true; run(); return function () { if (ref.current && AN) AN.remove(ref.current.querySelectorAll('.draw, .fadein')); }; });
+    useLayoutEffect(function () { if (seen.current) run(); }, deps);
   }
+
+  /* Number that tweens to its new value. */
+  function Num(props) {
+    var ref = useRef(), cur = useRef({ v: null }), fr = useRef(props.fmt), anim = useRef(null);
+    fr.current = props.fmt || String;
+    useLayoutEffect(function () {
+      var el = ref.current, o = cur.current, v = props.value, intro = props.intro;
+      if (anim.current && AN) AN.remove(o);
+      if (!canAnim() || (o.v === null && !intro)) { o.v = v; el.textContent = fr.current(v); return; }
+      if (o.v === null) o.v = 0;
+      el.textContent = fr.current(o.v);
+      anim.current = AN({ targets: o, v: v, duration: intro ? 1400 : 650, delay: intro ? (props.delay || 0) : 0, easing: 'easeOutCubic',
+        update: function () { el.textContent = fr.current(o.v); }, complete: function () { el.textContent = fr.current(v); } });
+    }, [props.value]);
+    useEffect(function () { return function () { if (AN) AN.remove(cur.current); }; }, []);
+    return html`<span ref=${ref} className="num"></span>`;
+  }
+
+  /* Section: .rv children fade/slide in once when the section first scrolls into view. */
+  function Section(props) {
+    var ref = useRef();
+    useLayoutEffect(function () {
+      if (!canAnim() || !window.IntersectionObserver) return;
+      var els = ref.current.querySelectorAll('.rv'); if (!els.length) return;
+      AN.set(els, { opacity: 0, translateY: 18 });
+      var io = new IntersectionObserver(function (es) {
+        if (!es.some(function (e) { return e.isIntersecting; })) return;
+        io.disconnect();
+        AN({ targets: els, opacity: 1, translateY: 0, delay: AN.stagger(90), duration: 700, easing: 'easeOutCubic',
+          complete: function () { els.forEach(function (e) { e.style.transform = ''; }); } });
+      }, { rootMargin: '0px 0px -6% 0px' });
+      io.observe(ref.current);
+      return function () { io.disconnect(); AN.remove(els); els.forEach(function (e) { e.style.opacity = ''; e.style.transform = ''; }); };
+    }, []);
+    return html`<section id=${props.id} ref=${ref}>${props.children}</section>`;
+  }
+
+  function Seg(props) {
+    return html`<div className=${'seg' + (props.colored ? ' m' : '')} role="group" aria-label=${props.label}>${props.items.map(function (t, i) {
+      var on = props.value === i;
+      return html`<button key=${i} type="button" aria-pressed=${on} style=${props.colored && on ? { background: 'var(' + MVAR[i] + ')' } : undefined} onClick=${function () { props.onPick(i); }}>${t}</button>`;
+    })}</div>`;
+  }
+
+  /* ================= hero ================= */
+  function Hero() {
+    var ref = useRef();
+    var info = useMemo(function () {
+      var tot = IMGS.reduce(function (a, t) { return a + D.images[t].files; }, 0), best = [0, 0, 0];
+      IMGS.forEach(function (t) { MODELS.forEach(function (m, i) { best[i] += parseFloat(D.images[t].metrics[m].target_recall); }); });
+      var mean = best.map(function (b) { return b / IMGS.length; });
+      return { tot: tot, mean: mean, top: mean.indexOf(Math.max.apply(null, mean)) };
+    }, []);
+    useLayoutEffect(function () {
+      if (!canAnim()) return;
+      var q = function (s) { return ref.current.querySelectorAll(s); };
+      AN.set(q('.eyebrow, h1, .lede, .hstat'), { opacity: 0 });
+      AN.set(q('.hero-rule'), { scaleX: 0 });
+      var tl = AN.timeline({ easing: 'easeOutExpo', duration: 800 })
+        .add({ targets: q('.eyebrow'), opacity: [0, 1], translateY: [10, 0] })
+        .add({ targets: q('h1'), opacity: [0, 1], translateY: [26, 0], duration: 1000 }, '-=600')
+        .add({ targets: q('.hero-rule'), scaleX: [0, 1], duration: 900 }, '-=700')
+        .add({ targets: q('.lede'), opacity: [0, 1], translateY: [14, 0] }, '-=700')
+        .add({ targets: q('.hstat'), opacity: [0, 1], translateY: [18, 0], delay: AN.stagger(110) }, '-=500');
+      return function () { tl.pause(); AN.remove(q('.eyebrow, h1, .lede, .hstat, .hero-rule')); };
+    }, []);
+    var top = info.top;
+    return html`<div className="wrap"><header className="hero" ref=${ref}>
+      <div className="eyebrow">ForensIQ · explainable disk triage · three real disk images</div>
+      <h1>Which model finds the evidence in the first 5% of files?</h1>
+      <div className="hero-rule"></div>
+      <p className="lede">A forensic examiner can't read 166,000 files. Each model ranks every file on 23 forensic features, and the examiner reads only the top slice. Pick a disk image, pick a model, and watch it triage the real files.</p>
+      <div className="hero-stats">
+        <div className="hstat"><b><${Num} value=${info.tot} fmt=${fmt} intro=${true} delay=${500} /></b><span>files across ${IMGS.length} real disk images</span></div>
+        <div className="hstat"><b>5%</b><span>of files an examiner reads per disk in the simulation below</span></div>
+        <div className="hstat"><b style=${{ color: 'var(' + MVAR[top] + ')' }}><${Num} value=${info.mean[top]} fmt=${function (v) { return pc(v, 0); }} intro=${true} delay=${650} /></b><span>mean evidence recall for ${SHORT[top]} at a strict 5% budget. The best model changes with the budget: see the verdict.</span></div>
+      </div></header></div>`;
+  }
+
+  /* ================= control strip ================= */
+  function Strip(p) {
+    return html`<div className="strip"><div className="strip-in">
+      <div className="grp"><span className="lab">Disk</span>
+        <${Seg} label="Disk" items=${IMGS.map(function (t) { return short(D.images[t].label); })} value=${IMGS.indexOf(p.img)} onPick=${function (i) { p.setImg(IMGS[i]); }} /></div>
+      <div className="grp"><span className="lab">Model</span>
+        <${Seg} label="Model" colored=${true} items=${SHORT} value=${p.m} onPick=${p.setM} /></div>
+      <div className="grp budget"><label htmlFor="bud">Budget</label>
+        <input id="bud" type="range" min="0.2" max="20" step="0.1" value=${p.pct * 100} onChange=${function (e) { p.setPct(parseFloat(e.target.value) / 100); }} />
+        <output htmlFor="bud">${pc(p.pct)} · ${fmt(p.K)} files</output></div>
+    </div></div>`;
+  }
+
+  /* ================= simulation ================= */
   var smooth = function (a, b, t) { var x = Math.min(1, Math.max(0, (t - a) / (b - a))); return x * x * (3 - 2 * x); };
-  var mix = function (c1, c2, f) {
+  function mixc(c1, c2, f) {
     function h(c) { c = c.replace('#', ''); if (c.length === 3) c = c.split('').map(function (z) { return z + z; }).join(''); return [0, 2, 4].map(function (i) { return parseInt(c.substr(i, 2), 16); }); }
     var a = h(c1), b = h(c2); return 'rgb(' + a.map(function (v, i) { return Math.round(v + (b[i] - v) * f); }).join(',') + ')';
-  };
-  function targetState(name) {
-    var tg = IM().targets, i; for (i = 0; i < tg.length; i++) if (tg[i].name === name) return tg[i];
-    return null;
   }
-  function draw() {
-    var w = cv.width, h = cv.height, t = S.t, k = K(), N = IM().files, m = S.m, pad = 18 * dpr;
-    ctx.clearRect(0, 0, w, h);
-    var dot = css('--dot'), mc = css(MVAR[m]), ok = css('--ok'), bad = css('--bad'), bg = css('--surface');
-    var reveal = smooth(0, .3, t), score = smooth(.3, .55, t), tri = smooth(.55, .75, t), ev = smooth(.75, 1, t);
-    var i, p, x, y, flagged, heat, a, col, rad;
-    for (i = 0; i < P.length; i++) {
-      p = P[i]; if (p.o > reveal * 1.02 && reveal < 1) continue;
-      x = pad + p.nx * (w - 2 * pad); y = pad + p.ny * (h - 2 * pad);
-      flagged = p.r[m] <= k;
-      heat = Math.max(0, 1 - (p.r[m] / N) / 0.15) * score;
-      var f = flagged ? tri : 0;
-      col = mix(dot, mc, Math.max(heat, f)); a = flagged ? 1 : 1 - 0.78 * tri;
-      rad = (2.1 + heat * 1.3 + (flagged ? tri * 1.2 : 0)) * dpr;
-      ctx.globalAlpha = Math.min(1, a * (reveal < 1 ? 0.35 + 0.65 * reveal : 1));
-      ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, rad, 0, 6.2832); ctx.fill();
+  function layoutPts(im) {
+    var s = im.sample, xs = s.map(function (p) { return p.x; }).sort(function (a, b) { return a - b; }), ys = s.map(function (p) { return p.y; }).sort(function (a, b) { return a - b; });
+    var q = function (a, f) { return a[Math.floor(f * (a.length - 1))]; };
+    var x0 = q(xs, .01), x1 = q(xs, .99), y0 = q(ys, .01), y1 = q(ys, .99), seed = 11;
+    return s.map(function (p, i) {
+      seed = (seed * 9301 + 49297) % 233280;
+      return { nx: Math.min(1, Math.max(0, (p.x - x0) / (x1 - x0 || 1))), ny: Math.min(1, Math.max(0, (p.y - y0) / (y1 - y0 || 1))), r: p.r, t: p.t, p: p.p, o: seed / 233280, i: i };
+    });
+  }
+  var PHASES = [['1 Index', 'read the MFT'], ['2 Score', 'model ranks files'], ['3 Triage', 'cut to budget'], ['4 Evidence', 'caught or missed']];
+
+  function Simulation(p) {
+    var im = p.im, cvRef = useRef(), scrubRef = useRef(), tl = useRef(null);
+    var sim = useRef({ reveal: 1, score: 1, tri: 1, ev: 1 }), live = useRef({}), colors = useRef(null), dprRef = useRef(1), hover = useRef(-1);
+    var _p = useState(3), phase = _p[0], setPhase = _p[1];
+    var _pl = useState(false), playing = _pl[0], setPlaying = _pl[1];
+    var _e = useState(true), atEnd = _e[0], setAtEnd = _e[1];
+    var P = useMemo(function () { return layoutPts(im); }, [p.img]);
+    var tmap = useMemo(function () { var o = {}; im.targets.forEach(function (t) { o[t.name] = t; }); return o; }, [p.img]);
+    live.current = { P: P, tmap: tmap, K: p.K, N: im.files, m: p.m, sel: p.sel, files: im.files };
+    var targets = im.targets, mname = MODELS[p.m];
+    var caught = targets.filter(function (t) { return t.ranks[mname] <= p.K; }).length;
+
+    function refreshColors() {
+      colors.current = { dot: css('--dot'), ok: css('--ok'), bad: css('--bad'), bg: css('--surface'), ink: css('--ink'), m: MVAR.map(css) };
     }
-    ctx.globalAlpha = 1;
-    if (ev > 0) {
+    function draw() {
+      var cv = cvRef.current; if (!cv) return;
+      if (!colors.current) refreshColors();
+      var ctx = cv.getContext('2d'), L = live.current, s = sim.current, c = colors.current, dpr = dprRef.current;
+      var w = cv.width, h = cv.height, k = L.K, N = L.N, m = L.m, pad = 18 * dpr, P = L.P;
+      ctx.clearRect(0, 0, w, h);
+      var reveal = s.reveal, score = s.score, tri = s.tri, ev = s.ev, mc = c.m[m];
+      var i, q, x, y, flagged, heat, col, rad, a;
       for (i = 0; i < P.length; i++) {
-        p = P[i]; if (!p.t) continue;
-        var tg = targetState(p.t); if (!tg) continue;
-        x = pad + p.nx * (w - 2 * pad); y = pad + p.ny * (h - 2 * pad);
-        var caught = tg.ranks[MODELS[m]] <= k, r = (5 + 6 * ev) * dpr * (S.sel === p.t ? 1.35 : 1);
-        ctx.lineWidth = 2.2 * dpr; ctx.globalAlpha = ev;
-        ctx.fillStyle = bg; ctx.beginPath(); ctx.arc(x, y, r + 1.5 * dpr, 0, 6.2832); ctx.fill();
-        ctx.strokeStyle = caught ? ok : bad; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.stroke();
-        if (caught) { ctx.fillStyle = ok; ctx.beginPath(); ctx.arc(x, y, r * 0.45, 0, 6.2832); ctx.fill(); }
-        else { ctx.beginPath(); ctx.moveTo(x - r * .5, y - r * .5); ctx.lineTo(x + r * .5, y + r * .5); ctx.moveTo(x + r * .5, y - r * .5); ctx.lineTo(x - r * .5, y + r * .5); ctx.stroke(); }
-        if (S.sel === p.t || i === hover) {
-          ctx.globalAlpha = 1; ctx.font = (12 * dpr) + 'px "IBM Plex Mono", monospace'; ctx.fillStyle = css('--ink');
-          var tw = ctx.measureText(p.t).width, lx = Math.min(w - tw - 8 * dpr, Math.max(8 * dpr, x - tw / 2));
-          ctx.fillText(p.t, lx, y - r - 7 * dpr);
-        }
+        q = P[i]; if (q.o > reveal * 1.02 && reveal < 1) continue;
+        x = pad + q.nx * (w - 2 * pad); y = pad + q.ny * (h - 2 * pad);
+        flagged = q.r[m] <= k;
+        heat = Math.max(0, 1 - (q.r[m] / N) / 0.15) * score;
+        col = mixc(c.dot, mc, Math.max(heat, flagged ? tri : 0)); a = flagged ? 1 : 1 - 0.78 * tri;
+        rad = (2.1 + heat * 1.3 + (flagged ? tri * 1.2 : 0)) * dpr;
+        ctx.globalAlpha = Math.min(1, a * (reveal < 1 ? 0.35 + 0.65 * reveal : 1));
+        ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, rad, 0, 6.2832); ctx.fill();
       }
       ctx.globalAlpha = 1;
+      if (ev > 0) {
+        for (i = 0; i < P.length; i++) {
+          q = P[i]; if (!q.t) continue;
+          var tg = L.tmap[q.t]; if (!tg) continue;
+          x = pad + q.nx * (w - 2 * pad); y = pad + q.ny * (h - 2 * pad);
+          var ok = tg.ranks[MODELS[m]] <= k, r = (5 + 6 * ev) * dpr * (L.sel === q.t ? 1.35 : 1);
+          ctx.lineWidth = 2.2 * dpr; ctx.globalAlpha = ev;
+          ctx.fillStyle = c.bg; ctx.beginPath(); ctx.arc(x, y, r + 1.5 * dpr, 0, 6.2832); ctx.fill();
+          ctx.strokeStyle = ok ? c.ok : c.bad; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.stroke();
+          if (ok) { ctx.fillStyle = c.ok; ctx.beginPath(); ctx.arc(x, y, r * 0.45, 0, 6.2832); ctx.fill(); }
+          else { ctx.beginPath(); ctx.moveTo(x - r * .5, y - r * .5); ctx.lineTo(x + r * .5, y + r * .5); ctx.moveTo(x + r * .5, y - r * .5); ctx.lineTo(x - r * .5, y + r * .5); ctx.stroke(); }
+          if (L.sel === q.t || i === hover.current) {
+            ctx.globalAlpha = 1; ctx.font = (12 * dpr) + 'px "IBM Plex Mono", monospace'; ctx.fillStyle = c.ink;
+            var tw = ctx.measureText(q.t).width, lx = Math.min(w - tw - 8 * dpr, Math.max(8 * dpr, x - tw / 2));
+            ctx.fillText(q.t, lx, y - r - 7 * dpr);
+          }
+        }
+        ctx.globalAlpha = 1;
+      }
+      setPhase(ev > 0 ? 3 : tri > 0 ? 2 : score > 0 ? 1 : 0);
     }
-    var ph = t < .3 ? 0 : t < .55 ? 1 : t < .75 ? 2 : 3;
-    document.querySelectorAll('#phases div').forEach(function (d, j) { d.classList.toggle('on', j === ph); });
-    $('scrub').value = Math.round(t * 1000);
+    function setT(t) { /* fallback (no anime / reduced motion): map progress straight onto the phase values */
+      var s = sim.current; s.reveal = smooth(0, .3, t); s.score = smooth(.3, .55, t); s.tri = smooth(.55, .75, t); s.ev = smooth(.75, 1, t);
+    }
+    function onTick() {
+      draw();
+      if (scrubRef.current && tl.current) scrubRef.current.value = Math.round(tl.current.progress * 10);
+    }
+
+    /* mount: canvas size, theme tracking, and the anime timeline */
+    useEffect(function () {
+      var cv = cvRef.current;
+      function size() { dprRef.current = Math.min(2, window.devicePixelRatio || 1); cv.width = Math.round(cv.clientWidth * dprRef.current); cv.height = Math.round(cv.clientHeight * dprRef.current); draw(); }
+      refreshColors(); size();
+      var ro = window.ResizeObserver ? new ResizeObserver(size) : null; if (ro) ro.observe(cv); else addEventListener('resize', size);
+      var repaint = function () { refreshColors(); draw(); };
+      var mo = new MutationObserver(repaint); mo.observe(document.documentElement, { attributes: true });
+      var mq = matchMedia('(prefers-color-scheme: dark)'); if (mq.addEventListener) mq.addEventListener('change', repaint);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+      if (AN && !RM()) {
+        var s = sim.current; s.reveal = s.score = s.tri = s.ev = 0;
+        var phase = function (key, d) { var o = { targets: s, duration: d, easing: 'easeInOutSine' }; o[key] = [0, 1]; return o; };
+        var t = AN.timeline({ autoplay: false, easing: 'linear', update: onTick, complete: function () { setPlaying(false); setAtEnd(true); } });
+        t.add(phase('reveal', 3300)).add(phase('score', 2750)).add(phase('tri', 2200)).add(phase('ev', 2750));
+        tl.current = t; t.seek(t.duration); onTick();
+      }
+      return function () {
+        if (ro) ro.disconnect(); else removeEventListener('resize', size);
+        mo.disconnect(); if (mq.removeEventListener) mq.removeEventListener('change', repaint);
+        if (tl.current) { tl.current.pause(); AN.remove(sim.current); tl.current = null; }
+      };
+    }, []);
+    useEffect(function () { draw(); }, [p.m, p.K, p.sel, p.img]);
+
+    function toggle() {
+      var t = tl.current;
+      if (!t) { setT(1); draw(); if (scrubRef.current) scrubRef.current.value = 1000; return; }
+      if (playing) { t.pause(); setPlaying(false); return; }
+      if (t.progress >= 99.9) t.seek(0);
+      setAtEnd(false); setPlaying(true); t.play();
+    }
+    function scrub(e) {
+      var v = e.target.value / 1000, t = tl.current;
+      setPlaying(false); setAtEnd(v >= 1);
+      if (t) { t.pause(); t.seek(t.duration * v); } else setT(v);
+      draw();
+    }
+    function move(e) {
+      var cv = cvRef.current, r = cv.getBoundingClientRect(), mx = (e.clientX - r.left) / r.width, my = (e.clientY - r.top) / r.height, best = -1, bd = 1e9, L = live.current, m = L.m;
+      var pad = 18 / r.width, padY = 18 / r.height;
+      L.P.forEach(function (q, i) {
+        var dx = (pad + q.nx * (1 - 2 * pad) - mx) * r.width, dy = (padY + q.ny * (1 - 2 * padY) - my) * r.height, d = dx * dx + dy * dy, want = q.t ? 0.4 : 1;
+        if (d * want < bd) { bd = d * want; best = i; }
+      });
+      var tip = p.tipRef.current;
+      if (best >= 0 && bd < 18 * 18) {
+        var q = L.P[best]; hover.current = q.t ? best : -1;
+        tip.innerHTML = '';
+        if (q.t) { var b = document.createElement('b'); b.textContent = q.t; tip.appendChild(b); tip.appendChild(document.createElement('br')); }
+        tip.appendChild(document.createTextNode(q.p)); tip.appendChild(document.createElement('br'));
+        tip.appendChild(document.createTextNode('rank ' + fmt(q.r[m]) + ' of ' + fmt(L.files) + (q.r[m] <= L.K ? ' · flagged' : ' · not flagged')));
+        tip.style.left = Math.min(innerWidth - 330, e.clientX + 14) + 'px'; tip.style.top = (e.clientY + 14) + 'px'; tip.style.opacity = 1;
+      } else { tip.style.opacity = 0; hover.current = -1; }
+      draw();
+    }
+    function leave() { p.tipRef.current.style.opacity = 0; hover.current = -1; draw(); }
+
+    var tickerText = useMemo(function () { var t = ''; im.sample.slice(0, 60).forEach(function (q) { t += q.p + '   ·   '; }); return t + t; }, [p.img]);
+    var rnd = Math.round(p.K / im.files * targets.length * 10) / 10;
+    return html`<${Section} id="simulation">
+      <div className="sec-head rv"><div className="eyebrow">Simulation</div><h2>Watch a model triage a disk</h2>
+        <p>Each dot is a real file from the selected disk, placed by how similar its 23 features are. Press play: files are indexed, scored, cut to the review budget, and the evidence the case investigators care about is marked as caught or missed.</p></div>
+      <div className="sim rv">
+        <div className="stage">
+          <div className="ticker" aria-hidden="true"><div>${tickerText}</div></div>
+          <canvas ref=${cvRef} role="img" aria-label="Scatter of files scored by the selected model; flagged files and evidence targets are highlighted" onPointerMove=${move} onPointerLeave=${leave}></canvas>
+          <div className="phases">${PHASES.map(function (ph, i) { return html`<div key=${i} className=${phase === i ? 'on' : ''}><b>${ph[0]}</b>${ph[1]}</div>`; })}</div>
+          <div className="transport"><button className="btn" type="button" onClick=${toggle}>${playing ? 'Pause' : atEnd ? 'Replay' : 'Play'}</button>
+            <input ref=${scrubRef} type="range" min="0" max="1000" defaultValue="1000" aria-label="Simulation progress" onInput=${scrub} /></div>
+          <div className="legend"><span><i className="dotkey" style=${{ background: 'var(--dot)' }}></i>file</span>
+            <span><i className="dotkey" style=${{ background: 'var(' + MVAR[p.m] + ')' }}></i>flagged for review</span>
+            <span><i className="dotkey" style=${{ background: 'var(--ok)' }}></i>evidence caught</span>
+            <span><i className="dotkey" style=${{ background: 'transparent', border: '2px solid var(--bad)' }}></i>evidence missed</span></div>
+        </div>
+        <aside className="readout" aria-live="polite">
+          <div><div className="eyebrow">Evidence caught</div><div className="big"><${Num} value=${caught} fmt=${String} /><small>/ ${targets.length}</small></div></div>
+          <dl className="kv">
+            <dt>Files to read</dt><dd><${Num} value=${p.K} fmt=${fmt} /></dd>
+            <dt>Share of disk</dt><dd><${Num} value=${p.K / im.files} fmt=${function (v) { return pc(v, 2); }} /></dd>
+            <dt>Files skipped</dt><dd><${Num} value=${im.files - p.K} fmt=${fmt} /></dd>
+            <dt>Evidence recall</dt><dd><${Num} value=${caught / targets.length} fmt=${function (v) { return pc(v); }} /></dd>
+          </dl>
+          <p className="note">Reading files at random would catch about ${rnd} of ${targets.length} targets at this budget.</p>
+        </aside>
+      </div>
+    <//>`;
   }
-  var raf = 0, last = 0;
-  function tick(ts) {
-    if (!S.playing) return;
-    S.t = Math.min(1, S.t + (ts - last) / 11000); last = ts; draw();
-    if (S.t >= 1) { S.playing = false; $('play').textContent = 'Replay'; return; }
-    raf = requestAnimationFrame(tick);
-  }
-  $('play').onclick = function () {
-    if (S.playing) { S.playing = false; $('play').textContent = 'Play'; return; }
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { S.t = 1; draw(); return; }
-    if (S.t >= 1) S.t = 0; S.playing = true; last = performance.now(); $('play').textContent = 'Pause'; raf = requestAnimationFrame(tick);
+
+  /* ================= NEW: verdict ================= */
+  var FB_N = { img2: 19, img3: 34 };
+  var FB = {
+    img2: { 'IF-23': { 5: [17, 89.5], 11: [17.4, 91.6], 15: [18, 94.7], 21: [19, 100] }, 'OCSVM-23': { 5: [19, 100], 11: [19, 100], 15: [19, 100], 21: [19, 100] },
+      'IF-17': { 5: [7.6, 40], 11: [10.6, 55.8], 15: [13.2, 69.5], 21: [17.8, 93.7], 25: [18, 94.7] } },
+    img3: { 'IF-23': { 5: [11.8, 34.7, 10.6], 11: [29, 85.3], 15: [33.8, 99.4], 21: [34, 100] }, 'OCSVM-23': { 5: [24.8, 72.9], 11: [25.6, 75.3], 15: [27.4, 80.6, 5.1], 21: [30.4, 89.4], 23: [30.8, 90.6] } }
   };
-  $('scrub').oninput = function () { S.playing = false; $('play').textContent = 'Play'; S.t = this.value / 1000; draw(); };
-  cv.addEventListener('pointermove', function (e) {
-    var r = cv.getBoundingClientRect(), mx = (e.clientX - r.left) / r.width, my = (e.clientY - r.top) / r.height, best = -1, bd = 1e9, k = K(), m = S.m;
-    var pad = 18 / r.width, padY = 18 / r.height;
-    P.forEach(function (p, i) {
-      var dx = (pad + p.nx * (1 - 2 * pad) - mx) * r.width, dy = (padY + p.ny * (1 - 2 * padY) - my) * r.height, d = dx * dx + dy * dy;
-      var want = p.t ? 0.4 : 1; if (d * want < bd) { bd = d * want; best = i; }
-    });
-    var tip = $('tip');
-    if (best >= 0 && bd < 18 * 18) {
-      var p = P[best]; hover = p.t ? best : -1;
-      tip.innerHTML = (p.t ? '<b>' + esc(p.t) + '</b><br>' : '') + esc(p.p) + '<br>rank ' + fmt(p.r[m]) + ' of ' + fmt(IM().files) + (p.r[m] <= k ? ' · flagged' : ' · not flagged');
-      tip.style.left = Math.min(innerWidth - 330, e.clientX + 14) + 'px'; tip.style.top = (e.clientY + 14) + 'px'; tip.style.opacity = 1;
-    } else { tip.style.opacity = 0; hover = -1; }
-    if (!S.playing) draw();
-  });
-  cv.addEventListener('pointerleave', function () { $('tip').style.opacity = 0; hover = -1; if (!S.playing) draw(); });
+  function cell(img, cfg, pct) {
+    var d = (SW[img] || {})[cfg], i = d ? d.pct.indexOf(pct) : -1;
+    if (d && i >= 0) return { h: d.hits[i], r: d.recall[i], s: d.std[i] || 0, n: d.targets };
+    var f = ((FB[img] || {})[cfg] || {})[pct];
+    return f ? { h: f[0], r: f[1], s: f[2] || 0, n: FB_N[img] } : null;
+  }
+  function reach(img, cfg, thr) {
+    var d = (SW[img] || {})[cfg]; if (!d) return null;
+    for (var i = 0; i < d.pct.length; i++) if (d.recall[i] >= thr - 1e-9) return d.pct[i];
+    return null;
+  }
+  var VROWS = [
+    { img: 'img2', cfg: 'IF-23', name: 'Image 2 · Isolation Forest, 23 features', v: '--m0', table: true },
+    { img: 'img2', cfg: 'OCSVM-23', name: 'Image 2 · One-Class SVM, 23 features', v: '--m2', table: true },
+    { img: 'img2', cfg: 'IF-17', name: 'Image 2 · Isolation Forest, original 17', v: '--ink2', table: true },
+    { img: 'img2', cfg: 'LOF-23', name: 'Image 2 · LOF, 23 features', v: '--m1' },
+    { img: 'img3', cfg: 'IF-23', name: 'Image 3 · Isolation Forest, 23 features', v: '--m0', table: true },
+    { img: 'img3', cfg: 'OCSVM-23', name: 'Image 3 · One-Class SVM, 23 features', v: '--m2', table: true },
+    { img: 'img3', cfg: 'LOF-23', name: 'Image 3 · LOF, 23 features', v: '--m1' }
+  ];
+  var TICKS = [5, 11, 15, 21, 25], COLS = [5, 11, 15, 21, 23, 25];
 
-  /* ---------- readout ---------- */
-  function readout() {
-    var im = IM(), k = K(), m = MODELS[S.m], tg = im.targets, c = tg.filter(function (t) { return t.ranks[m] <= k; }).length;
-    $('rdCaught').innerHTML = c + '<small>/ ' + tg.length + '</small>';
-    $('rdK').textContent = fmt(k); $('rdShare').textContent = pc(k / im.files, 2); $('rdSkip').textContent = fmt(im.files - k);
-    $('rdRec').textContent = pc(c / tg.length);
-    var rnd = Math.round(k / im.files * tg.length * 10) / 10;
-    $('rdNote').textContent = 'Reading files at random would catch about ' + rnd + ' of ' + tg.length + ' targets at this budget.';
-    $('lgFlag').style.background = css(MVAR[S.m]);
+  function Verdict() {
+    var _b = useState(15), budget = _b[0], setBudget = _b[1];
+    var barsRef = useRef(), whyRef = useRef();
+    var s5 = useMemo(function () {
+      return MODELS.map(function (m) { return IMGS.reduce(function (a, t) { return a + parseFloat(D.images[t].metrics[m].target_recall); }, 0) / IMGS.length; });
+    }, []);
+    var ocHits = IMGS.map(function (t) { return D.images[t].metrics[MODELS[2]].targets; }).join(', ');
+    var agr = ['img2', 'img3'].map(function (i) { var a = (SW[i] || {})['IF-23']; return a ? frac(a.agreement) * 100 : null; }).filter(function (v) { return v != null; });
+    var agrTxt = agr.length ? Math.round(Math.min.apply(null, agr)) + '–' + Math.round(Math.max.apply(null, agr)) + '%' : '90–98%';
+    var rows = VROWS.map(function (r) { return Object.assign({ c: cell(r.img, r.cfg, budget) }, r); });
+    useGrow(barsRef, [budget]);
+    var r17 = reach('img2', 'IF-17', 90) || 21, r17f = reach('img2', 'IF-17', 100) || 39, r23a = reach('img2', 'IF-23', 90) || 11, r23b = reach('img3', 'IF-23', 90) || 15;
+    var oc3 = reach('img3', 'OCSVM-23', 90) || 23, lofMin = Math.min.apply(null, ['img2', 'img3'].map(function (i) { return reach(i, 'LOF-23', 90) || 100; }));
+    var rb = [{ n: 'Original 17 features', w: r17, v: '--ink2' }, { n: '23 features, Image 2', w: r23a, v: '--m0' }, { n: '23 features, Image 3', w: r23b, v: '--m0' }];
+    useGrow(whyRef, []);
+    var c17 = cell('img2', 'IF-17', 21), c17b = cell('img2', 'IF-17', 25);
+
+    return html`<${Section} id="verdict-budget">
+      <div className="sec-head rv"><div className="eyebrow">Verdict</div><h2>Which model, which budget</h2>
+        <p>The best model depends on the review budget, which is the share of files an examiner agrees to review. A very tight budget favours one model. A slightly larger budget favours another.</p></div>
+      <div className="two rv">
+        <div className="panel callout" style=${{ borderTop: '3px solid var(--m2)' }}>
+          <div className="eyebrow">Strict 5% budget</div>
+          <h3>Strict 5% budget → One-Class SVM</h3>
+          <p>At 5% of files, One-Class SVM catches the most: ${ocHits} targets on the three disks. Its mean target recall is <b>${pc(s5[2])}</b>, against ${pc(s5[0])} for Isolation Forest and ${pc(s5[1])} for LOF.</p>
+        </div>
+        <div className="panel callout" style=${{ borderTop: '3px solid var(--m0)' }}>
+          <div className="eyebrow">Best overall</div>
+          <h3>Best overall → Isolation Forest, 23 features, 15%</h3>
+          <p>At a 15% budget it reaches <b>${pc((cell('img2', 'IF-23', 15) || { r: 94.7 }).r / 100)}</b> on Image 2 and <b>${pc((cell('img3', 'IF-23', 15) || { r: 99.4 }).r / 100)}</b> on Image 3. It is also stable: the 3 randomizations agree on ${agrTxt} of thresholds.</p>
+        </div>
+      </div>
+      <div className="panel rv" style=${{ marginTop: 16 }}>
+        <div className="vhead"><h3>Recall at a chosen budget</h3>
+          <div className="grp"><span className="lab">Budget</span>
+            <${Seg} label="Review budget" items=${TICKS.map(function (t) { return t + '%'; })} value=${TICKS.indexOf(budget)} onPick=${function (i) { setBudget(TICKS[i]); }} /></div></div>
+        <p className="note" style=${{ margin: '6px 0 12px' }}>Mean evidence recall over 5 randomized runs. The vertical line marks 90%. ${budget === 15 ? 'At 15% the recommended setting, Isolation Forest on 23 features, is highlighted.' : 'Pick 15% to see the recommended setting.'}</p>
+        <div className="vbars" ref=${barsRef}>${rows.map(function (r) {
+          var rec = r.cfg === 'IF-23' && budget === 15, val = r.c ? r.c.r : 0;
+          return html`<div key=${r.img + r.cfg} className=${'vbar' + (rec ? ' rec' : '')}>
+            <div className="vl">${r.name}${rec ? html` <span className="chip ok">recommended</span>` : null}</div>
+            <div className="vt"><i data-grow="1" data-w=${val} style=${{ width: val + '%', background: 'var(' + r.v + ')' }}></i></div>
+            <div className="vv mono"><${Num} value=${val} fmt=${function (v) { return v.toFixed(1) + '%'; }} /></div></div>`;
+        })}</div>
+      </div>
+      <div className="two rv" style=${{ marginTop: 16 }}>
+        <div className="panel" ref=${whyRef}>
+          <h3 style=${{ marginBottom: 8 }}>Why the earlier 25% figure</h3>
+          <p className="note" style=${{ marginBottom: 12 }}>It came from the original 17-feature Isolation Forest on Image 2. A fresh rerun of that same model reaches 90% at about ${r17}%: ${c17 ? c17.r.toFixed(1) : '93.7'}% at 21%, ${c17b ? c17b.r.toFixed(1) : '94.7'}% at 25%, and 100% only at ${r17f}%. With 23 features the same model needs only 15%. The 6 new features are what cut the budget.</p>
+          <div className="eyebrow" style=${{ marginBottom: 8 }}>Smallest budget reaching 90% recall</div>
+          ${rb.map(function (b) { return html`<div key=${b.n} className="mrow wide"><span className="mn">${b.n}</span><div className="bar"><i data-grow="1" data-w=${b.w / 30 * 100} style=${{ width: (b.w / 30 * 100) + '%', background: 'var(' + b.v + ')' }}></i></div><span className="num mono">${b.w}%</span></div>`; })}
+        </div>
+        <div className="panel">
+          <h3 style=${{ marginBottom: 8 }}>The other two models</h3>
+          <ul className="plain">
+            <li><b>One-Class SVM on Image 3</b> reaches only ${(cell('img3', 'OCSVM-23', 15) || { r: 80.6 }).r.toFixed(1)}% at 15% and needs about ${oc3}% to reach 90%. On Image 2 it is perfect at every budget.</li>
+            <li><b>LOF</b> never reaches 90% below about ${Math.round(lofMin / 10) * 10}%, so it is not a practical choice at any budget an examiner would accept.</li>
+            <li><b>The simple rule:</b> if you can read only 5% of files, use One-Class SVM. If you can read 15%, use Isolation Forest on all 23 features.</li>
+          </ul>
+        </div>
+      </div>
+      <div className="panel scroll-x rv" style=${{ marginTop: 16 }}>
+        <h3 style=${{ marginBottom: 10 }}>Recall at budget</h3>
+        <table><thead><tr><th>Disk · model</th>${COLS.map(function (c) { return html`<th key=${c} className="n">${c}%</th>`; })}</tr></thead><tbody>${VROWS.filter(function (r) { return r.table; }).map(function (r) {
+          return html`<tr key=${r.img + r.cfg}><td><i className="dotkey" style=${{ background: 'var(' + r.v + ')' }}></i>${r.name}</td>${COLS.map(function (c) {
+            var x = cell(r.img, r.cfg, c);
+            if (!x) return html`<td key=${c} className="n">–</td>`;
+            return html`<td key=${c} className=${'n' + (c === 15 && r.cfg === 'IF-23' ? ' star' : '')}><div>${hitsFmt(x.h)}/${x.n}</div><div className=${'sub' + (x.r >= 90 ? ' hi' : '')}>${x.r.toFixed(1)}%${x.s >= 1 ? ' ±' + x.s.toFixed(1) : ''}</div></td>`;
+          })}</tr>`;
+        })}</tbody></table>
+        <p className="note" style=${{ marginTop: 10 }}>Hits are the mean number of evidence targets found over 5 runs, each with 10% of ordinary files dropped at random. Green percentages are at or above 90%. The shaded column is the recommended 15% budget.</p>
+      </div>
+    <//>`;
   }
 
-  /* ---------- recall curve ---------- */
-  function curve() {
-    var im = IM(), W = 560, H = 320, L = 44, R = 118, T = 14, B = 34, pw = W - L - R, ph = H - T - B;
-    var X = function (p) { return L + (p / 0.2) * pw; }, Y = function (v) { return T + (1 - v) * ph; };
-    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="Recall versus review budget for three models">';
-    [0, .25, .5, .75, 1].forEach(function (v) { s += '<line class="gl" x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"/><text x="' + (L - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + Math.round(v * 100) + '%</text>'; });
-    [0, .05, .1, .15, .2].forEach(function (p) { s += '<text x="' + X(p) + '" y="' + (H - 12) + '" text-anchor="middle">' + Math.round(p * 100) + '%</text>'; });
-    s += '<text x="' + (L + pw / 2) + '" y="' + (H - 0) + '" text-anchor="middle">review budget (share of files read)</text>';
-    var ends = [];
-    MODELS.forEach(function (m, i) {
-      var pts = D.pcts.map(function (p, j) { return X(p).toFixed(1) + ',' + Y(im.curves[m][j]).toFixed(1); }).join(' ');
-      s += '<polyline fill="none" stroke="var(' + MVAR[i] + ')" stroke-width="' + (i === S.m ? 3.2 : 1.8) + '" opacity="' + (i === S.m ? 1 : .75) + '" points="' + pts + '"/>';
-      ends.push({ i: i, y: Y(im.curves[m][im.curves[m].length - 1]) });
-    });
-    ends.sort(function (a, b) { return a.y - b.y; });
+  /* ================= recall curve + metrics ================= */
+  function Curve(p) {
+    var im = p.im, ref = useRef(), W = 560, H = 320, L = 44, R = 118, T = 14, B = 34, pw = W - L - R, ph = H - T - B;
+    var Xs = function (v) { return L + (v / 0.2) * pw; }, Ys = function (v) { return T + (1 - v) * ph; };
+    useDraw(ref, [p.img]);
+    var ends = MODELS.map(function (m, i) { return { i: i, y: Ys(im.curves[m][im.curves[m].length - 1]) }; }).sort(function (a, b) { return a.y - b.y; });
     for (var j = 1; j < ends.length; j++) if (ends[j].y - ends[j - 1].y < 15) ends[j].y = ends[j - 1].y + 15;
-    ends.forEach(function (e) { s += '<text x="' + (W - R + 8) + '" y="' + (e.y + 4) + '" style="fill:var(' + MVAR[e.i] + ');font-weight:500">' + SHORT[e.i] + '</text>'; });
-    var cx = X(S.pct);
-    s += '<line x1="' + cx + '" x2="' + cx + '" y1="' + T + '" y2="' + (H - B) + '" stroke="var(--ink)" stroke-dasharray="4 4"/>';
-    MODELS.forEach(function (m, i) {
-      var j = 0; while (j < D.pcts.length - 1 && D.pcts[j + 1] <= S.pct + 1e-9) j++;
-      var v = im.curves[m][j]; s += '<circle cx="' + cx + '" cy="' + Y(v) + '" r="4.5" fill="var(' + MVAR[i] + ')" stroke="var(--surface)" stroke-width="1.5"/>';
-    });
-    $('curve').innerHTML = s + '</svg>';
+    var cx = Xs(p.pct), jj = 0; while (jj < D.pcts.length - 1 && D.pcts[jj + 1] <= p.pct + 1e-9) jj++;
+    return html`<div ref=${ref}><svg viewBox=${'0 0 ' + W + ' ' + H} width="100%" role="img" aria-label="Recall versus review budget for three models">
+      ${[0, .25, .5, .75, 1].map(function (v) { return html`<g key=${v}><line className="gl" x1=${L} x2=${W - R} y1=${Ys(v)} y2=${Ys(v)} /><text x=${L - 8} y=${Ys(v) + 4} textAnchor="end">${Math.round(v * 100)}%</text></g>`; })}
+      ${[0, .05, .1, .15, .2].map(function (v) { return html`<text key=${v} x=${Xs(v)} y=${H - 12} textAnchor="middle">${Math.round(v * 100)}%</text>`; })}
+      <text x=${L + pw / 2} y=${H} textAnchor="middle">review budget (share of files read)</text>
+      ${MODELS.map(function (m, i) {
+        var pts = D.pcts.map(function (v, k) { return Xs(v).toFixed(1) + ',' + Ys(im.curves[m][k]).toFixed(1); }).join(' ');
+        return html`<polyline key=${m} className="draw" fill="none" stroke=${'var(' + MVAR[i] + ')'} strokeWidth=${i === p.m ? 3.2 : 1.8} opacity=${i === p.m ? 1 : .75} points=${pts} />`;
+      })}
+      ${ends.map(function (e) { return html`<text key=${e.i} className="fadein" x=${W - R + 8} y=${e.y + 4} style=${{ fill: 'var(' + MVAR[e.i] + ')', fontWeight: 500 }}>${SHORT[e.i]}</text>`; })}
+      <line x1=${cx} x2=${cx} y1=${T} y2=${H - B} stroke="var(--ink)" strokeDasharray="4 4" />
+      ${MODELS.map(function (m, i) { return html`<circle key=${m} cx=${cx} cy=${Ys(im.curves[m][jj])} r="4.5" fill=${'var(' + MVAR[i] + ')'} stroke="var(--surface)" strokeWidth="1.5" />`; })}
+    </svg></div>`;
   }
 
-  /* ---------- tables ---------- */
-  function metricsTable() {
-    var im = IM(); $('mtitle').textContent = short(im.label) + ' at the 5% budget (' + fmt(im.K5) + ' of ' + fmt(im.files) + ' files)';
-    var h = '<table><thead><tr><th>Model</th><th class="n">Targets</th><th class="n">Recall</th><th class="n">Precision</th><th class="n">F1</th><th class="n">Accuracy</th></tr></thead><tbody>';
-    MODELS.forEach(function (m, i) {
-      var x = im.metrics[m];
-      h += '<tr><td><i class="dotkey" style="background:var(' + MVAR[i] + ')"></i>' + SHORT[i] + '</td><td class="n">' + x.targets + '</td><td class="n">' + pc(x.target_recall) + '</td><td class="n">' + pc(x.precision, 2) + '</td><td class="n">' + pc(x.f1, 2) + '</td><td class="n">' + pc(x.accuracy, 2) + '</td></tr>';
-    });
-    $('mtable').innerHTML = h + '</tbody></table>';
-  }
-  function allImgs() {
-    $('allImgs').innerHTML = IMGS.map(function (t) {
-      var im = D.images[t], best = Math.max.apply(null, MODELS.map(function (m) { return parseFloat(im.metrics[m].target_recall); }));
-      var rows = MODELS.map(function (m, i) {
-        var x = im.metrics[m], r = parseFloat(x.target_recall);
-        return '<div class="mrow' + (r === best ? ' best' : '') + '"><span class="mn">' + SHORT[i] + '</span><div class="bar"><i style="width:' + (r * 100) + '%;background:var(' + MVAR[i] + ')"></i></div><span class="num mono">' + x.targets + '</span></div>';
-      }).join('');
-      return '<div class="panel cardimg"><h3>' + esc(short(im.label)) + '</h3><div class="meta">' + esc(im.label.split(': ')[1] || '') + ' · ' + fmt(im.files) + ' files · ' + im.targets.length + ' targets</div>' + rows + '</div>';
-    }).join('');
-  }
-  function verdicts() {
-    var im = IM();
-    $('vlede').textContent = im.scenario === 'external'
-      ? 'This disk is an outside intrusion, so the insider-attack test does not apply. Timestomping is confirmed only when a known timestomped file is flagged.'
-      : 'Insider attack is called when at least half of the evidence targets are flagged. Timestomping is confirmed only when a known timestomped file is flagged; otherwise it is unverified.';
-    var h = '<table><thead><tr><th>Model</th><th>Timestomping</th><th>Known timestomped file flagged</th><th class="n">$SI vs $FN mismatches in flagged set</th><th>Insider attack</th></tr></thead><tbody>';
-    MODELS.forEach(function (m, i) {
-      var v = im.verdicts[m], ts = v.timestomp, cls = ts === 'YES' ? 'ok' : ts === 'NO' ? 'bad' : 'warn', ia = v.insider, ic = /CONFIRMED/.test(ia) ? 'ok' : /NOT/.test(ia) ? 'bad' : 'warn';
-      h += '<tr><td><i class="dotkey" style="background:var(' + MVAR[i] + ')"></i>' + SHORT[i] + '</td><td><span class="chip ' + cls + '">' + ts + '</span></td><td>' + (v.known_ts_hit && v.known_ts_hit.length ? esc(v.known_ts_hit.join(', ')) : '–') + '</td><td class="n">' + fmt(v.si_fn_mismatch_flagged || 0) + '</td><td><span class="chip ' + ic + '">' + esc(ia) + '</span></td></tr>';
-    });
-    $('vtable').innerHTML = h + '</tbody></table><p class="note" style="margin-top:10px">A mismatch between the two timestamp sets is a hint of tampering, not proof: ordinary file operations also cause it.</p>';
+  function Recall(p) {
+    var im = p.im, ref = useRef(), allRef = useRef();
+    useGrow(allRef, []);
+    return html`<${Section} id="recall">
+      <div className="sec-head rv"><div className="eyebrow">Results</div><h2>How much evidence for how much reading?</h2>
+        <p>Recall of the evidence targets as the examiner is allowed to read more files. The dashed line is the budget you chose above.</p></div>
+      <div className="two rv">
+        <div className="panel"><${Curve} im=${im} img=${p.img} m=${p.m} pct=${p.pct} /></div>
+        <div className="panel"><h3 style=${{ marginBottom: 10 }}>${short(im.label)} at the 5% budget (${fmt(im.K5)} of ${fmt(im.files)} files)</h3>
+          <div className="scroll-x"><table><thead><tr><th>Model</th><th className="n">Targets</th><th className="n">Recall</th><th className="n">Precision</th><th className="n">F1</th><th className="n">Accuracy</th></tr></thead><tbody>${MODELS.map(function (m, i) {
+            var x = im.metrics[m];
+            return html`<tr key=${m}><td><i className="dotkey" style=${{ background: 'var(' + MVAR[i] + ')' }}></i>${SHORT[i]}</td><td className="n">${x.targets}</td><td className="n">${pc(x.target_recall)}</td><td className="n">${pc(x.precision, 2)}</td><td className="n">${pc(x.f1, 2)}</td><td className="n">${pc(x.accuracy, 2)}</td></tr>`;
+          })}</tbody></table></div>
+          <p className="note" style=${{ marginTop: 10 }}>Accuracy sits near 95% for every model by construction: a fixed 5% budget on rare evidence. Recall, precision and F1 are the numbers that separate the models.</p></div>
+      </div>
+      <h3 className="rv" style=${{ margin: '26px 0 12px' }}>All three disks at the 5% budget</h3>
+      <div className="three rv" ref=${allRef}>${IMGS.map(function (t) {
+        var x = D.images[t], best = Math.max.apply(null, MODELS.map(function (m) { return parseFloat(x.metrics[m].target_recall); }));
+        return html`<div key=${t} className="panel cardimg"><h3>${short(x.label)}</h3><div className="meta">${x.label.split(': ')[1] || ''} · ${fmt(x.files)} files · ${x.targets.length} targets</div>
+          ${MODELS.map(function (m, i) {
+            var r = parseFloat(x.metrics[m].target_recall);
+            return html`<div key=${m} className=${'mrow' + (r === best ? ' best' : '')}><span className="mn">${SHORT[i]}</span><div className="bar"><i data-grow="1" data-w=${r * 100} style=${{ width: (r * 100) + '%', background: 'var(' + MVAR[i] + ')' }}></i></div><span className="num mono">${x.metrics[m].targets}</span></div>`;
+          })}</div>`;
+      })}</div>
+    <//>`;
   }
 
-  /* ---------- evidence ledger ---------- */
-  function ledger() {
-    var im = IM(), m = MODELS[S.m], k = K();
+  /* ================= findings ================= */
+  function Findings(p) {
+    var im = p.im;
+    return html`<${Section} id="verdicts">
+      <div className="sec-head rv"><div className="eyebrow">Findings</div><h2>Timestomping and insider attack</h2>
+        <p>${im.scenario === 'external'
+          ? 'This disk is an outside intrusion, so the insider-attack test does not apply. Timestomping is confirmed only when a known timestomped file is flagged.'
+          : 'Insider attack is called when at least half of the evidence targets are flagged. Timestomping is confirmed only when a known timestomped file is flagged; otherwise it is unverified.'}</p></div>
+      <div className="panel scroll-x rv"><table><thead><tr><th>Model</th><th>Timestomping</th><th>Known timestomped file flagged</th><th className="n">$SI vs $FN mismatches in flagged set</th><th>Insider attack</th></tr></thead><tbody>${MODELS.map(function (m, i) {
+        var v = im.verdicts[m], ts = v.timestomp, cls = ts === 'YES' ? 'ok' : ts === 'NO' ? 'bad' : 'warn', ia = v.insider, ic = /CONFIRMED/.test(ia) ? 'ok' : /NOT/.test(ia) ? 'bad' : 'warn';
+        return html`<tr key=${m}><td><i className="dotkey" style=${{ background: 'var(' + MVAR[i] + ')' }}></i>${SHORT[i]}</td><td><span className=${'chip ' + cls}>${ts}</span></td><td>${v.known_ts_hit && v.known_ts_hit.length ? v.known_ts_hit.join(', ') : '–'}</td><td className="n">${fmt(v.si_fn_mismatch_flagged || 0)}</td><td><span className=${'chip ' + ic}>${ia}</span></td></tr>`;
+      })}</tbody></table><p className="note" style=${{ marginTop: 10 }}>A mismatch between the two timestamp sets is a hint of tampering, not proof: ordinary file operations also cause it.</p></div>
+    <//>`;
+  }
+
+  /* ================= evidence ledger + SHAP ================= */
+  function Detail(p) {
+    var im = p.im, m = MODELS[p.m], t = im.targets.filter(function (x) { return x.name === p.sel; })[0], ref = useRef();
+    useGrow(ref, [p.sel, p.m, p.img]);
+    if (!t) return html`<div className="panel detail" ref=${ref}><p className="note">Select an evidence target.</p></div>`;
+    var ok = t.ranks[m] <= p.K, drivers = t.shap[m] || t.shap[MODELS[0]], from = t.shap[m] ? SHORT[p.m] : SHORT[0];
+    var mx = drivers && drivers.length ? (Math.max.apply(null, drivers.map(function (d) { return Math.abs(d[1]); })) || 1) : 1;
+    return html`<div className="panel detail" ref=${ref}>
+      <div><span className=${'chip ' + (ok ? 'ok' : 'bad')}>${ok ? 'caught' : 'missed'} at ${pc(p.pct)}</span></div>
+      <h3>${t.name}</h3><div className="mono note" style=${{ wordBreak: 'break-all' }}>${t.path}</div>
+      <dl className="kv"><dt>Rank under ${SHORT[p.m]}</dt><dd>#${fmt(t.ranks[m])} of ${fmt(im.files)}</dd><dt>Smallest budget that catches it</dt><dd>${pc(t.ranks[m] / im.files, 2)}</dd></dl>
+      ${drivers && drivers.length ? html`<div><div className="eyebrow" style=${{ marginBottom: 8 }}>Top drivers (${from} SHAP)</div>${drivers.map(function (d) {
+        var w = Math.abs(d[1]) / mx * 50, pos = d[1] >= 0, st = { width: w + '%', background: pos ? 'var(--ok)' : 'var(--bad)' };
+        if (pos) st.left = '50%'; else st.right = '50%';
+        return html`<div key=${d[0]} className="fbar"><span>${d[0]}</span><span className="t"><i data-grow="1" data-w=${w} style=${st}></i></span><span className="num">${d[1] > 0 ? '+' : ''}${d[1].toFixed(2)}</span></div>`;
+      })}</div><p className="note">Positive values pushed this file up the suspicion ranking. Generic features such as <span className="mono">is_shortcut_or_trace</span> also fire on harmless files, so a high value is a reason for the rank, not proof of intent.</p>`
+        : html`<p className="note">No SHAP breakdown was computed for this file under this model: SHAP ran only on files the model flagged.</p>`}
+    </div>`;
+  }
+  function Evidence(p) {
+    var im = p.im, m = MODELS[p.m];
     var tg = im.targets.slice().sort(function (a, b) { return a.ranks[m] - b.ranks[m]; });
-    $('rows').innerHTML = '';
-    tg.forEach(function (t) {
-      var ok = t.ranks[m] <= k, b = document.createElement('button');
-      b.className = 'row'; b.type = 'button'; b.setAttribute('aria-pressed', String(S.sel === t.name));
-      b.innerHTML = '<span class="ico ' + (ok ? 'ok' : 'bad') + '"></span><span>' + esc(t.name) + '<small>' + t.copies + ' cop' + (t.copies > 1 ? 'ies' : 'y') + ' on disk</small></span><span class="mono num">#' + fmt(t.ranks[m]) + '</span>';
-      b.onclick = function () { S.sel = t.name; ledger(); detail(); if (!S.playing) draw(); };
-      $('rows').appendChild(b);
-    });
-    if (!S.sel && tg.length) S.sel = tg[0].name, ledger();
-  }
-  function detail() {
-    var im = IM(), m = MODELS[S.m], t = targetState(S.sel), el = $('detail');
-    if (!t) { el.innerHTML = '<p class="note">Select an evidence target.</p>'; return; }
-    var ok = t.ranks[m] <= K();
-    var drivers = t.shap[m] || t.shap[MODELS[0]], from = t.shap[m] ? SHORT[S.m] : SHORT[0];
-    var h = '<div><span class="chip ' + (ok ? 'ok' : 'bad') + '">' + (ok ? 'caught' : 'missed') + ' at ' + pc(S.pct) + '</span></div>' +
-            '<h3>' + esc(t.name) + '</h3><div class="mono note" style="word-break:break-all">' + esc(t.path) + '</div>' +
-            '<div class="kv"><dt>Rank under ' + SHORT[S.m] + '</dt><dd>#' + fmt(t.ranks[m]) + ' of ' + fmt(im.files) + '</dd><dt>Smallest budget that catches it</dt><dd>' + pc(t.ranks[m] / im.files, 2) + '</dd></div>';
-    if (drivers && drivers.length) {
-      var mx = Math.max.apply(null, drivers.map(function (d) { return Math.abs(d[1]); })) || 1;
-      h += '<div><div class="eyebrow" style="margin-bottom:8px">Top drivers (' + from + ' SHAP)</div>' + drivers.map(function (d) {
-        var w = Math.abs(d[1]) / mx * 50, pos = d[1] >= 0;
-        return '<div class="fbar"><span>' + esc(d[0]) + '</span><span class="t"><i style="' + (pos ? 'left:50%' : 'right:50%') + ';width:' + w + '%;background:' + (pos ? 'var(--ok)' : 'var(--bad)') + '"></i></span><span class="num">' + (d[1] > 0 ? '+' : '') + d[1].toFixed(2) + '</span></div>';
-      }).join('') + '</div><p class="note">Positive values pushed this file up the suspicion ranking. Generic features such as <span class="mono">is_shortcut_or_trace</span> also fire on harmless files, so a high value is a reason for the rank, not proof of intent.</p>';
-    } else h += '<p class="note">No SHAP breakdown was computed for this file under this model: SHAP ran only on files the model flagged.</p>';
-    el.innerHTML = h;
+    return html`<${Section} id="evidence">
+      <div className="sec-head rv"><div className="eyebrow">Evidence ledger and SHAP</div><h2>Which evidence, and why did the model flag it?</h2>
+        <p>Each row is one evidence target. Pick one to see the features that pushed it up the ranking. SHAP explains the ranking, not intent: ordinary files can score the same way.</p></div>
+      <div className="ledger rv"><div className="rows">${tg.map(function (t) {
+        var ok = t.ranks[m] <= p.K;
+        return html`<button key=${t.name} className="row" type="button" aria-pressed=${p.sel === t.name} onClick=${function () { p.setSel(t.name); }}><span className=${'ico ' + (ok ? 'ok' : 'bad')}></span><span>${t.name}<small>${t.copies} cop${t.copies > 1 ? 'ies' : 'y'} on disk</small></span><span className="mono num">#${fmt(t.ranks[m])}</span></button>`;
+      })}</div><${Detail} im=${im} m=${p.m} K=${p.K} pct=${p.pct} sel=${p.sel} img=${p.img} /></div>
+    <//>`;
   }
 
-  /* ---------- pipeline, ablation, caveats ---------- */
-  function pipeline() {
-    var im = IM(), tm = im.stage_times, mx = Math.sqrt(Math.max.apply(null, D.pipeline.map(function (s) { return tm[s.script] || 0; })) || 1);
-    var tot = 0;
-    $('pipe').innerHTML = D.pipeline.map(function (s, i) {
+  /* ================= pipeline + ablation + caveats ================= */
+  function Pipeline(p) {
+    var tm = p.im.stage_times, ref = useRef(), mx = Math.sqrt(Math.max.apply(null, D.pipeline.map(function (s) { return tm[s.script] || 0; })) || 1), tot = 0;
+    useGrow(ref, [p.img]);
+    var rows = D.pipeline.map(function (s, i) {
       var v = tm[s.script] || 0; tot += v;
-      return '<div class="stp"><span class="ix">' + String(i + 1).padStart(2, '0') + '</span><div><b>' + esc(s.title) + '</b><span>' + esc(s.desc) + '</span></div><div class="bar"><i style="width:' + (Math.sqrt(v) / mx * 100) + '%;background:var(--m0)"></i></div><span class="num mono">' + v.toFixed(1) + 's</span></div>';
-    }).join('') + '<div class="stp" style="border-bottom:0"><span></span><b>Total</b><span></span><span class="num mono">' + tot.toFixed(0) + 's</span></div>';
-  }
-  function frac(s) { var p = String(s).split('/'); return parseInt(p[0], 10) / parseInt(p[1], 10); }
-  function ablation() {
-    var im = IM(), h = '<table><thead><tr><th>Feature set</th><th class="n">Features</th>' + SHORT.map(function (n, i) { return '<th><i class="dotkey" style="background:var(' + MVAR[i] + ')"></i>' + n + '</th>'; }).join('') + '</tr></thead><tbody>';
-    im.ablation.forEach(function (r) {
-      var strong = /^Full \(/.test(r.config) || /^Legacy/.test(r.config);
-      h += '<tr' + (strong ? ' style="background:var(--surface2)"' : '') + '><td>' + esc(r.config) + '</td><td class="n">' + r.n + '</td>' + MODELS.map(function (m, i) {
-        return '<td><div style="display:grid;grid-template-columns:44px minmax(50px,1fr);gap:8px;align-items:center"><span class="num mono">' + r[m] + '</span><div class="bar"><i style="width:' + (frac(r[m]) * 100) + '%;background:var(' + MVAR[i] + ')"></i></div></div></td>';
-      }).join('') + '</tr>';
+      return html`<div key=${s.script} className="stp"><span className="ix">${String(i + 1).padStart(2, '0')}</span><div><b>${s.title}</b><span>${s.desc}</span></div><div className="bar"><i data-grow="1" data-w=${Math.sqrt(v) / mx * 100} style=${{ width: (Math.sqrt(v) / mx * 100) + '%', background: 'var(--m0)' }}></i></div><span className="num mono">${v.toFixed(1)}s</span></div>`;
     });
-    $('abl').innerHTML = h + '</tbody></table>';
+    return html`<${Section} id="pipeline">
+      <div className="sec-head rv"><div className="eyebrow">Pipeline</div><h2>The 12 stages behind every result</h2><p>Measured run times for the selected disk, from the raw image to the report.</p></div>
+      <div className="panel pipe rv" ref=${ref}>${rows}<div className="stp" style=${{ borderBottom: 0 }}><span></span><b>Total</b><span></span><span className="num mono">${tot.toFixed(0)}s</span></div></div>
+    <//>`;
   }
-  function caveats() {
-    var im = IM(), c = im.constant || [], rb = im.robustness || {}, items = [];
-    if (c.length) items.push('<b>' + c.length + ' of the 23 features never vary on this disk</b> (' + c.map(esc).join(', ') + '), so the models use ' + (im.features.length - c.length) + ' active features. <span class="mono">future_m</span> can never fire because its reference time is the newest timestamp on the same disk.');
-    items.push('<b>Targets are not an official answer key everywhere.</b> Disk 1 targets are rebuilt from case notes, disk 2 from the repository\'s CFReDS list, and disk 3 from the scenario author\'s own published examiner tags, because the teacher guide is access-restricted.');
-    items.push('<b>One-Class SVM trains on a 10,000-file subsample</b> and then scores every file. Its recall held across five subsample seeds' + (rb.ocsvm ? ' (' + Object.keys(rb.ocsvm).map(function (n) { var v = rb.ocsvm[n]; return 'n=' + fmt(n) + ': ' + Math.min.apply(null, v) + '–' + Math.max.apply(null, v) + ' targets'; }).join('; ') + ')' : '') + '.');
-    if (rb.lof) items.push('<b>LOF is sensitive to its neighbour count and is weakest at every setting tried</b> (' + Object.keys(rb.lof).map(function (k) { return 'k=' + k + ': ' + rb.lof[k]; }).join(', ') + ' targets). Duplicate feature rows distort it (' + fmt(rb.unique_rows) + ' unique of ' + fmt(rb.rows) + ' rows).');
-    items.push('<b>SHAP explains the ranking, not intent.</b> Shortcut and log files score highly whether or not they relate to the case.');
-    items.push('<b>Time-of-day features use UTC</b> (08:00 to 18:00 working hours); the disk\'s own time zone is not applied.');
-    $('cav').innerHTML = items.map(function (t) { return '<li>' + t + '</li>'; }).join('');
+  function Ablation(p) {
+    var ref = useRef();
+    useGrow(ref, [p.img]);
+    return html`<${Section} id="ablation">
+      <div className="sec-head rv"><div className="eyebrow">Ablation</div><h2>Which features carry the result?</h2><p>Targets caught at the 5% budget with feature groups removed or kept alone, for the selected disk.</p></div>
+      <div className="panel scroll-x rv" ref=${ref}><table><thead><tr><th>Feature set</th><th className="n">Features</th>${SHORT.map(function (n, i) { return html`<th key=${n}><i className="dotkey" style=${{ background: 'var(' + MVAR[i] + ')' }}></i>${n}</th>`; })}</tr></thead><tbody>${p.im.ablation.map(function (r) {
+        var strong = /^Full \(/.test(r.config) || /^Legacy/.test(r.config);
+        return html`<tr key=${r.config} style=${strong ? { background: 'var(--surface2)' } : undefined}><td>${r.config}</td><td className="n">${r.n}</td>${MODELS.map(function (m, i) {
+          return html`<td key=${m}><div className="abc"><span className="num mono">${r[m]}</span><div className="bar"><i data-grow="1" data-w=${frac(r[m]) * 100} style=${{ width: (frac(r[m]) * 100) + '%', background: 'var(' + MVAR[i] + ')' }}></i></div></div></td>`;
+        })}</tr>`;
+      })}</tbody></table></div>
+    <//>`;
   }
 
-  /* ---------- threshold stability, feature firing, claims audit ---------- */
-  var X = JSON.parse(document.getElementById('extras').textContent || '{}');
+  /* ================= threshold stability ================= */
   var CFG = [['IF-23', '--m0', '', 'IF · 23'], ['LOF-23', '--m1', '', 'LOF · 23'], ['OCSVM-23', '--m2', '', 'OC-SVM · 23'], ['IF-17', '--ink2', '5 4', 'IF · 17']];
-  function stability() {
-    var sw = (X.sweep || {})[S.img];
-    if (!sw) {
-      $('stabChart').innerHTML = '<p class="note">The legacy XP disk is excluded from this study. Pick Image 2 or Image 3.</p>';
-      $('stabTable').innerHTML = ''; $('stabNote').textContent = ''; return;
-    }
+  function Stability(p) {
+    var sw = SW[p.img], ref = useRef();
+    useDraw(ref, [p.img]);
+    var head = html`<div className="sec-head rv"><div className="eyebrow">Threshold stability</div><h2>Is there a review budget that holds up?</h2>
+      <p>Each model was rerun five times with 10% of ordinary files dropped at random, in three separate randomizations. The lines show mean evidence recall from a 5% to a 100% budget; the bands show the spread across runs. The legacy XP disk is excluded.</p></div>`;
+    if (!sw) return html`<${Section} id="stability">${head}<div className="two rv"><div className="panel"><p className="note">The legacy XP disk is excluded from this study. Pick Image 2 or Image 3.</p></div></div><//>`;
     var W = 560, H = 320, L = 44, R = 150, T = 14, B = 34, pw = W - L - R, ph = H - T - B;
-    var Xs = function (p) { return L + (p / 100) * pw; }, Ys = function (v) { return T + (1 - v / 100) * ph; };
-    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="Mean recall versus review budget across randomized runs">';
-    [0, 25, 50, 75, 100].forEach(function (v) { s += '<line class="gl" x1="' + L + '" x2="' + (W - R) + '" y1="' + Ys(v) + '" y2="' + Ys(v) + '"/><text x="' + (L - 8) + '" y="' + (Ys(v) + 4) + '" text-anchor="end">' + v + '%</text>'; });
-    [0, 25, 50, 75, 100].forEach(function (p) { s += '<text x="' + Xs(p) + '" y="' + (H - 12) + '" text-anchor="middle">' + p + '%</text>'; });
-    s += '<text x="' + (L + pw / 2) + '" y="' + H + '" text-anchor="middle">review budget</text>';
+    var Xs = function (v) { return L + (v / 100) * pw; }, Ys = function (v) { return T + (1 - v / 100) * ph; };
     var ends = [];
     CFG.forEach(function (c) {
       var d = sw[c[0]]; if (!d) return;
-      var up = d.pct.map(function (p, i) { return Xs(p).toFixed(1) + ',' + Ys(Math.min(100, d.recall[i] + d.std[i])).toFixed(1); });
-      var dn = d.pct.map(function (p, i) { return Xs(p).toFixed(1) + ',' + Ys(Math.max(0, d.recall[i] - d.std[i])).toFixed(1); }).reverse();
-      s += '<polygon points="' + up.concat(dn).join(' ') + '" fill="var(' + c[1] + ')" opacity="0.12"/>';
-      s += '<polyline fill="none" stroke="var(' + c[1] + ')" stroke-width="2.2"' + (c[2] ? ' stroke-dasharray="' + c[2] + '"' : '') + ' points="' + d.pct.map(function (p, i) { return Xs(p).toFixed(1) + ',' + Ys(d.recall[i]).toFixed(1); }).join(' ') + '"/>';
-      var j = d.pct.findIndex(function (p) { return p >= 20; }); if (j < 0) j = d.pct.length - 1;
-      ends.push({ c: c, y: Ys(d.recall[j]), x: Xs(d.pct[j]) });
+      var j = d.pct.findIndex(function (v) { return v >= 20; }); if (j < 0) j = d.pct.length - 1;
+      ends.push({ c: c, y: Ys(d.recall[j]) });
     });
     ends.sort(function (a, b) { return a.y - b.y; });
     for (var j = 1; j < ends.length; j++) if (ends[j].y - ends[j - 1].y < 15) ends[j].y = ends[j - 1].y + 15;
-    ends.forEach(function (e) { s += '<text x="' + (W - R + 8) + '" y="' + (Math.min(H - B, e.y) + 4) + '" style="fill:var(' + e.c[1] + ');font-weight:500">' + esc(e.c[3]) + '</text>'; });
-    var cx = Xs(S.pct * 100);
-    s += '<line x1="' + cx + '" x2="' + cx + '" y1="' + T + '" y2="' + (H - B) + '" stroke="var(--ink)" stroke-dasharray="4 4"/>';
-    $('stabChart').innerHTML = s + '</svg>';
-    var h = '<table><thead><tr><th>Model (features)</th><th class="n">Run set 1</th><th class="n">Run set 2</th><th class="n">Run set 3</th><th>Agree?</th><th class="n">Thresholds agreeing</th></tr></thead><tbody>';
-    CFG.forEach(function (c) {
-      var d = sw[c[0]]; if (!d) return;
-      var g = d.ge90 || {}, cell = function (k) { return g[k] == null ? 'never' : g[k] + '%'; };
-      h += '<tr><td><i class="dotkey" style="background:var(' + c[1] + ')"></i>' + esc(d.label) + '</td><td class="n">' + cell('R1') + '</td><td class="n">' + cell('R2') + '</td><td class="n">' + cell('R3') + '</td><td><span class="chip ' + (d.agree90 ? 'ok' : 'warn') + '">' + (d.agree90 ? 'yes' : 'no') + '</span></td><td class="n">' + esc(d.agreement || '–') + '</td></tr>';
-    });
-    $('stabTable').innerHTML = h + '</tbody></table>';
-    var i5 = function (d) { return d.pct.indexOf(5); };
-    var a = sw['IF-23'], o = sw['OCSVM-23'];
-    $('stabNote').textContent = 'At 5% Isolation Forest catches ' + a.hits[i5(a)] + ' of ' + a.targets + ' targets on average and One-Class SVM ' + o.hits[i5(o)] + '. Full recall at a 5.5% budget is not a general result: only One-Class SVM on Image 2 reaches it.';
-  }
-  function chipFor(st) {
-    if (!st) return '<span class="note">–</span>';
-    var cls = st.status === 'fired' ? 'ok' : st.status === 'not fired' ? 'bad' : 'warn';
-    return '<span class="chip ' + cls + '">' + esc(st.status) + '</span> <span class="mono num note">' + st.shap.toFixed(3) + '</span>';
-  }
-  function firing() {
-    var f = (X.firing || {})[S.img]; if (!f) { $('fireTable').innerHTML = ''; return; }
-    $('fireCounts').innerHTML = f.counts.map(function (c) {
-      return '<span class="chip">' + c.set + ' features · ' + esc(c.model) + ': <b>' + c.fired + '</b> of ' + c.of + ' fired</span>';
-    }).join('');
-    var rows = f.features.slice().sort(function (a, b) { return ((b.s23 || {}).shap || 0) - ((a.s23 || {}).shap || 0); });
-    var h = '<table><thead><tr><th>Feature</th><th>Original 17</th><th>23-feature set</th><th class="n">Files non-zero</th><th>Why</th></tr></thead><tbody>';
-    rows.forEach(function (r) {
-      var cause = (r.s23 || r.s17 || {}).cause || '';
-      h += '<tr><td class="mono">' + esc(r.feature) + (r.constant ? ' <span class="chip bad">constant</span>' : '') + '</td><td>' + chipFor(r.s17) + '</td><td>' + chipFor(r.s23) + '</td><td class="n">' + r.nonzero_pct + '%</td><td style="font-size:12.5px;color:var(--ink2);min-width:280px">' + esc(cause.length > 230 ? cause.slice(0, 227) + '…' : cause) + '</td></tr>';
-    });
-    $('fireTable').innerHTML = h + '</tbody></table>';
-  }
-  var AF = 0;
-  function audit() {
-    var all = X.claims || [], opts = ['All', 'Wrong', 'Correct'];
-    seg($('auditSeg'), opts, function () { return AF; }, function (i) { AF = i; audit(); });
-    var list = all.filter(function (c) { return AF === 0 || (AF === 1 ? c.verdict === 'FALSE' : c.verdict === 'TRUE'); });
-    var nf = all.filter(function (c) { return c.verdict === 'FALSE'; }).length;
-    $('auditCount').textContent = nf + ' of ' + all.length + ' checked claims did not hold up.';
-    $('auditRows').innerHTML = list.map(function (c) {
-      var ok = c.verdict === 'TRUE', cls = ok ? 'ok' : c.verdict === 'FALSE' ? 'bad' : 'warn';
-      return '<details class="row" style="display:block;cursor:default"><summary style="display:grid;grid-template-columns:86px minmax(0,1fr);gap:10px;align-items:start;cursor:pointer"><span class="chip ' + cls + '">' + (ok ? 'correct' : c.verdict === 'FALSE' ? 'wrong' : esc(c.verdict.toLowerCase())) + '</span><span>' + esc(c.claim) + '<small>' + esc(c.area) + '</small></span></summary><p class="note" style="margin:8px 0 2px 96px;max-width:none">' + esc(c.evidence) + '</p></details>';
-    }).join('');
+    var cx = Xs(p.pct * 100), i5 = function (d) { return d.pct.indexOf(5); }, a = sw['IF-23'], o = sw['OCSVM-23'];
+    return html`<${Section} id="stability">${head}
+      <div className="two rv">
+        <div className="panel" ref=${ref}><svg viewBox=${'0 0 ' + W + ' ' + H} width="100%" role="img" aria-label="Mean recall versus review budget across randomized runs">
+          ${[0, 25, 50, 75, 100].map(function (v) { return html`<g key=${v}><line className="gl" x1=${L} x2=${W - R} y1=${Ys(v)} y2=${Ys(v)} /><text x=${L - 8} y=${Ys(v) + 4} textAnchor="end">${v}%</text><text x=${Xs(v)} y=${H - 12} textAnchor="middle">${v}%</text></g>`; })}
+          <text x=${L + pw / 2} y=${H} textAnchor="middle">review budget</text>
+          ${CFG.map(function (c) {
+            var d = sw[c[0]]; if (!d) return null;
+            var up = d.pct.map(function (v, i) { return Xs(v).toFixed(1) + ',' + Ys(Math.min(100, d.recall[i] + d.std[i])).toFixed(1); });
+            var dn = d.pct.map(function (v, i) { return Xs(v).toFixed(1) + ',' + Ys(Math.max(0, d.recall[i] - d.std[i])).toFixed(1); }).reverse();
+            return html`<g key=${c[0]}><polygon className="fadein" data-op="0.12" points=${up.concat(dn).join(' ')} fill=${'var(' + c[1] + ')'} opacity="0.12" />
+              <polyline className="draw" data-dash=${c[2]} fill="none" stroke=${'var(' + c[1] + ')'} strokeWidth="2.2" strokeDasharray=${c[2] || undefined} points=${d.pct.map(function (v, i) { return Xs(v).toFixed(1) + ',' + Ys(d.recall[i]).toFixed(1); }).join(' ')} /></g>`;
+          })}
+          ${ends.map(function (e) { return html`<text key=${e.c[0]} className="fadein" x=${W - R + 8} y=${Math.min(H - B, e.y) + 4} style=${{ fill: 'var(' + e.c[1] + ')', fontWeight: 500 }}>${e.c[3]}</text>`; })}
+          <line x1=${cx} x2=${cx} y1=${T} y2=${H - B} stroke="var(--ink)" strokeDasharray="4 4" />
+        </svg></div>
+        <div className="panel"><h3 style=${{ marginBottom: 10 }}>Smallest budget reaching 90% recall</h3>
+          <div className="scroll-x"><table><thead><tr><th>Model (features)</th><th className="n">Run set 1</th><th className="n">Run set 2</th><th className="n">Run set 3</th><th>Agree?</th><th className="n">Thresholds agreeing</th></tr></thead><tbody>${CFG.map(function (c) {
+            var d = sw[c[0]]; if (!d) return null;
+            var g = d.ge90 || {}, cellv = function (k) { return g[k] == null ? 'never' : g[k] + '%'; };
+            return html`<tr key=${c[0]}><td><i className="dotkey" style=${{ background: 'var(' + c[1] + ')' }}></i>${d.label}</td><td className="n">${cellv('R1')}</td><td className="n">${cellv('R2')}</td><td className="n">${cellv('R3')}</td><td><span className=${'chip ' + (d.agree90 ? 'ok' : 'warn')}>${d.agree90 ? 'yes' : 'no'}</span></td><td className="n">${d.agreement || '–'}</td></tr>`;
+          })}</tbody></table></div>
+          <p className="note" style=${{ marginTop: 10 }}>${a && o ? 'At 5% Isolation Forest catches ' + a.hits[i5(a)] + ' of ' + a.targets + ' targets on average and One-Class SVM ' + o.hits[i5(o)] + '. Full recall at a 5.5% budget is not a general result: only One-Class SVM on Image 2 reaches it.' : ''}</p></div>
+      </div>
+    <//>`;
   }
 
-  function renderAll(budgetOnly) {
-    buildControlsLabel(); readout(); curve(); stability(); if (!budgetOnly) { metricsTable(); verdicts(); pipeline(); ablation(); caveats(); firing(); }
-    ledger(); detail(); if (!S.playing) draw();
+  /* ================= feature firing ================= */
+  function ChipFor(p) {
+    var st = p.st;
+    if (!st) return html`<span className="note">–</span>`;
+    var cls = st.status === 'fired' ? 'ok' : st.status === 'not fired' ? 'bad' : 'warn';
+    return html`<span><span className=${'chip ' + cls}>${st.status}</span> <span className="mono num note">${st.shap.toFixed(3)}</span></span>`;
   }
-  function buildControlsLabel() { paintModelSeg(); }
-  hero(); buildControls(); layout(); renderAll(); allImgs(); audit();
-  addEventListener('resize', size);
-  new MutationObserver(function () { paintModelSeg(); draw(); }).observe(document.documentElement, { attributes: true });
-  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { paintModelSeg(); draw(); curve(); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
-  size();
+  function Firing(p) {
+    var f = (X.firing || {})[p.img], ref = useRef();
+    useGrow(ref, [p.img]);
+    var rows = f ? f.features.slice().sort(function (a, b) { return ((b.s23 || {}).shap || 0) - ((a.s23 || {}).shap || 0); }) : [];
+    return html`<${Section} id="firing">
+      <div className="sec-head rv"><div className="eyebrow">SHAP feature firing</div><h2>Which features does the model actually use?</h2>
+        <p>A feature "fires" when its mean SHAP value is above zero. Features that never vary across files can never fire, whatever happened on the disk.</p></div>
+      <div className="panel rv" style=${{ display: 'grid', gap: 14 }} ref=${ref}>
+        ${f ? html`<div className="fcounts">${f.counts.map(function (c, i) {
+          return html`<span key=${i} className="chip fchip"><span>${c.set} features · ${c.model}: <b>${c.fired}</b> of ${c.of} fired</span><span className="bar mini"><i data-grow="1" data-w=${c.fired / c.of * 100} style=${{ width: (c.fired / c.of * 100) + '%', background: 'var(--m0)' }}></i></span></span>`;
+        })}</div>
+        <div className="scroll-x"><table><thead><tr><th>Feature</th><th>Original 17</th><th>23-feature set</th><th className="n">Files non-zero</th><th>Why</th></tr></thead><tbody>${rows.map(function (r) {
+          var cause = (r.s23 || r.s17 || {}).cause || '';
+          return html`<tr key=${r.feature}><td className="mono">${r.feature}${r.constant ? html` <span className="chip bad">constant</span>` : null}</td><td><${ChipFor} st=${r.s17} /></td><td><${ChipFor} st=${r.s23} /></td><td className="n">${r.nonzero_pct}%</td><td style=${{ fontSize: '12.5px', color: 'var(--ink2)', minWidth: 280 }}>${cause.length > 230 ? cause.slice(0, 227) + '…' : cause}</td></tr>`;
+        })}</tbody></table></div>` : null}
+      </div>
+    <//>`;
+  }
+
+  /* ================= claims audit ================= */
+  function Audit() {
+    var _f = useState(0), af = _f[0], setAf = _f[1], all = X.claims || [];
+    var list = all.filter(function (c) { return af === 0 || (af === 1 ? c.verdict === 'FALSE' : c.verdict === 'TRUE'); });
+    var nf = all.filter(function (c) { return c.verdict === 'FALSE'; }).length;
+    return html`<${Section} id="audit">
+      <div className="sec-head rv"><div className="eyebrow">Earlier claims checked</div><h2>What the earlier results got right and wrong</h2>
+        <p>Each claim from the earlier results was re-tested against this run. Many earlier Image 1 numbers matched an older, buggier version of the pipeline; others were not produced by any code.</p></div>
+      <div className="rv" style=${{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center', marginBottom: 12 }}>
+        <${Seg} label="Filter claims" items=${['All', 'Wrong', 'Correct']} value=${af} onPick=${setAf} /><span className="note">${nf} of ${all.length} checked claims did not hold up.</span></div>
+      <div className="rows rv" style=${{ maxHeight: 620 }}>${list.map(function (c, i) {
+        var ok = c.verdict === 'TRUE', cls = ok ? 'ok' : c.verdict === 'FALSE' ? 'bad' : 'warn';
+        return html`<details key=${c.claim + i} className="row" style=${{ display: 'block', cursor: 'default' }}><summary className="csum"><span className=${'chip ' + cls}>${ok ? 'correct' : c.verdict === 'FALSE' ? 'wrong' : c.verdict.toLowerCase()}</span><span>${c.claim}<small>${c.area}</small></span></summary><p className="note cev">${c.evidence}</p></details>`;
+      })}</div>
+    <//>`;
+  }
+
+  function Limits(p) {
+    var im = p.im, c = im.constant || [], rb = im.robustness || {};
+    return html`<${Section} id="limits">
+      <div className="sec-head rv"><div className="eyebrow">Read before citing</div><h2>What these numbers do not show</h2></div>
+      <ul className="cav rv">
+        ${c.length ? html`<li><b>${c.length} of the 23 features never vary on this disk</b> (${c.join(', ')}), so the models use ${im.features.length - c.length} active features. <span className="mono">future_m</span> can never fire because its reference time is the newest timestamp on the same disk.</li>` : null}
+        <li><b>Targets are not an official answer key everywhere.</b> Disk 1 targets are rebuilt from case notes, disk 2 from the repository's CFReDS list, and disk 3 from the scenario author's own published examiner tags, because the official answer key for that scenario is access-restricted.</li>
+        <li><b>The best model depends on the budget.</b> One-Class SVM leads at a strict 5% budget; Isolation Forest on 23 features leads from about 15%. Neither result is a claim about every disk.</li>
+        <li><b>One-Class SVM trains on a 10,000-file subsample</b> and then scores every file. Its recall held across five subsample seeds${rb.ocsvm ? ' (' + Object.keys(rb.ocsvm).map(function (n) { var v = rb.ocsvm[n]; return 'n=' + fmt(n) + ': ' + Math.min.apply(null, v) + '–' + Math.max.apply(null, v) + ' targets'; }).join('; ') + ')' : ''}.</li>
+        ${rb.lof ? html`<li><b>LOF is sensitive to its neighbour count and is weakest at every setting tried</b> (${Object.keys(rb.lof).map(function (k) { return 'k=' + k + ': ' + rb.lof[k]; }).join(', ')} targets). Duplicate feature rows distort it (${fmt(rb.unique_rows)} unique of ${fmt(rb.rows)} rows).</li>` : null}
+        <li><b>SHAP explains the ranking, not intent.</b> Shortcut and log files score highly whether or not they relate to the case.</li>
+        <li><b>Time-of-day features use UTC</b> (08:00 to 18:00 working hours); the disk's own time zone is not applied.</li>
+      </ul>
+    <//>`;
+  }
+
+  /* ================= app ================= */
+  function App() {
+    var _i = useState(IMGS[0]), img = _i[0], setImgRaw = _i[1];
+    var _m = useState(2), m = _m[0], setM = _m[1];
+    var _p = useState(0.05), pct = _p[0], setPct = _p[1];
+    var _s = useState(null), selRaw = _s[0], setSel = _s[1];
+    var tipRef = useRef();
+    var im = D.images[img], K = Math.max(1, Math.round(pct * im.files));
+    var sel = useMemo(function () {
+      if (selRaw && im.targets.some(function (t) { return t.name === selRaw; })) return selRaw;
+      var tg = im.targets.slice().sort(function (a, b) { return a.ranks[MODELS[m]] - b.ranks[MODELS[m]]; });
+      return tg.length ? tg[0].name : null;
+    }, [selRaw, img, m]);
+    var setImg = function (i) { setImgRaw(i); setSel(null); };
+    return html`<${React.Fragment}>
+      <${Hero} />
+      <${Strip} img=${img} m=${m} pct=${pct} K=${K} setImg=${setImg} setM=${setM} setPct=${setPct} />
+      <div className="wrap">
+        <${Simulation} img=${img} im=${im} m=${m} K=${K} sel=${sel} tipRef=${tipRef} />
+        <${Verdict} />
+        <${Recall} img=${img} im=${im} m=${m} pct=${pct} />
+        <${Findings} im=${im} />
+        <${Evidence} img=${img} im=${im} m=${m} K=${K} pct=${pct} sel=${sel} setSel=${setSel} />
+        <${Pipeline} img=${img} im=${im} />
+        <${Ablation} img=${img} im=${im} />
+        <${Stability} img=${img} pct=${pct} />
+        <${Firing} img=${img} />
+        <${Audit} />
+        <${Limits} im=${im} />
+        <footer>
+          <div>Disk images: NIST CFReDS Hacking Case (SCHARDT), NIST CFReDS Data Leakage Case, Digital Corpora 2018 Lone Wolf scenario. Every figure comes from one scripted run (<span className="mono">multimodel_eval.py</span>) over artifacts extracted directly from the raw images.</div>
+        </footer>
+      </div>
+      <div className="tip" ref=${tipRef}></div>
+    <//>`;
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(html`<${App} />`);
 })();
 </script>

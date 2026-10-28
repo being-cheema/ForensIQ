@@ -143,9 +143,11 @@ Isolation Forest: TreeSHAP over a 20,000-file sample plus caught targets. LOF an
 
 LOF is the weakest model at every neighbour setting tried and is very sensitive to it; duplicate rows distort it.
 
-## 8. Which model performs best
+## 8. Which model performs best, and at what budget
 
-Mean target recall: OC-SVM 81.7%, IF 61.5%, LOF 10.2%. The ranking is the same on every evaluated image where the targets are defined from the case record; Image 3 uses unofficial targets, so its figures are indicative only.
+At the strict 5% review budget, One-Class SVM catches the most targets. Mean target recall at 5%: OC-SVM 81.7%, IF 61.5%, LOF 10.2%. At 5% the ranking is the same on every evaluated image where the targets are defined from the case record; Image 3 uses unofficial targets, so its figures are indicative only.
+
+At a 15% budget, Isolation Forest on all 23 features is the best overall (94.7% on Image 2, 99.4% on Image 3). See reports/gemini_audit/GEMINI_AUDIT.md section 4.
 
 ## Tool output
 
