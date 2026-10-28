@@ -229,6 +229,33 @@ footer { padding-block: 40px 60px; color: var(--ink2); font-size: 13px; display:
   <div class="panel scroll-x" id="abl"></div>
 </section>
 
+<section id="stability">
+  <div class="sec-head"><div class="eyebrow">Threshold stability</div><h2>Is there a review budget that holds up?</h2>
+    <p>Each model was rerun five times with 10% of ordinary files dropped at random, in three separate randomizations. The lines show mean evidence recall from a 5% to a 100% budget; the bands show the spread across runs. The legacy XP disk is excluded.</p></div>
+  <div class="two">
+    <div class="panel"><div id="stabChart"></div></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Smallest budget reaching 90% recall</h3><div class="scroll-x" id="stabTable"></div>
+      <p class="note" style="margin-top:10px" id="stabNote"></p></div>
+  </div>
+</section>
+
+<section id="firing">
+  <div class="sec-head"><div class="eyebrow">SHAP feature firing</div><h2>Which features does the model actually use?</h2>
+    <p>A feature "fires" when its mean SHAP value is above zero. Features that never vary across files can never fire, whatever happened on the disk.</p></div>
+  <div class="panel" style="display:grid;gap:14px">
+    <div id="fireCounts" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+    <div class="scroll-x" id="fireTable"></div>
+  </div>
+</section>
+
+<section id="audit">
+  <div class="sec-head"><div class="eyebrow">Earlier claims checked</div><h2>What an earlier analysis got right and wrong</h2>
+    <p>Each claim from an earlier write-up was re-tested against this run. Many earlier Image 1 numbers matched an older, buggier version of the pipeline; others were not produced by any code.</p></div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px">
+    <div class="seg" id="auditSeg" role="group" aria-label="Filter claims"></div><span class="note" id="auditCount"></span></div>
+  <div class="rows" id="auditRows" style="max-height:620px"></div>
+</section>
+
 <section id="limits">
   <div class="sec-head"><div class="eyebrow">Read before citing</div><h2>What these numbers do not show</h2></div>
   <ul class="cav" id="cav"></ul>
@@ -241,6 +268,7 @@ footer { padding-block: 40px 60px; color: var(--ink2); font-size: 13px; display:
 <div class="tip" id="tip"></div>
 
 <script id="data" type="application/json">/*__DATA__*/</script>
+<script id="extras" type="application/json">/*__EXTRAS__*/</script>
 <script>
 (function () {
   var D = JSON.parse(document.getElementById('data').textContent);
@@ -530,12 +558,85 @@ footer { padding-block: 40px 60px; color: var(--ink2); font-size: 13px; display:
     $('cav').innerHTML = items.map(function (t) { return '<li>' + t + '</li>'; }).join('');
   }
 
+  /* ---------- threshold stability, feature firing, claims audit ---------- */
+  var X = JSON.parse(document.getElementById('extras').textContent || '{}');
+  var CFG = [['IF-23', '--m0', '', 'IF · 23'], ['LOF-23', '--m1', '', 'LOF · 23'], ['OCSVM-23', '--m2', '', 'OC-SVM · 23'], ['IF-17', '--ink2', '5 4', 'IF · 17']];
+  function stability() {
+    var sw = (X.sweep || {})[S.img];
+    if (!sw) {
+      $('stabChart').innerHTML = '<p class="note">The legacy XP disk is excluded from this study. Pick Image 2 or Image 3.</p>';
+      $('stabTable').innerHTML = ''; $('stabNote').textContent = ''; return;
+    }
+    var W = 560, H = 320, L = 44, R = 150, T = 14, B = 34, pw = W - L - R, ph = H - T - B;
+    var Xs = function (p) { return L + (p / 100) * pw; }, Ys = function (v) { return T + (1 - v / 100) * ph; };
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="Mean recall versus review budget across randomized runs">';
+    [0, 25, 50, 75, 100].forEach(function (v) { s += '<line class="gl" x1="' + L + '" x2="' + (W - R) + '" y1="' + Ys(v) + '" y2="' + Ys(v) + '"/><text x="' + (L - 8) + '" y="' + (Ys(v) + 4) + '" text-anchor="end">' + v + '%</text>'; });
+    [0, 25, 50, 75, 100].forEach(function (p) { s += '<text x="' + Xs(p) + '" y="' + (H - 12) + '" text-anchor="middle">' + p + '%</text>'; });
+    s += '<text x="' + (L + pw / 2) + '" y="' + H + '" text-anchor="middle">review budget</text>';
+    var ends = [];
+    CFG.forEach(function (c) {
+      var d = sw[c[0]]; if (!d) return;
+      var up = d.pct.map(function (p, i) { return Xs(p).toFixed(1) + ',' + Ys(Math.min(100, d.recall[i] + d.std[i])).toFixed(1); });
+      var dn = d.pct.map(function (p, i) { return Xs(p).toFixed(1) + ',' + Ys(Math.max(0, d.recall[i] - d.std[i])).toFixed(1); }).reverse();
+      s += '<polygon points="' + up.concat(dn).join(' ') + '" fill="var(' + c[1] + ')" opacity="0.12"/>';
+      s += '<polyline fill="none" stroke="var(' + c[1] + ')" stroke-width="2.2"' + (c[2] ? ' stroke-dasharray="' + c[2] + '"' : '') + ' points="' + d.pct.map(function (p, i) { return Xs(p).toFixed(1) + ',' + Ys(d.recall[i]).toFixed(1); }).join(' ') + '"/>';
+      var j = d.pct.findIndex(function (p) { return p >= 20; }); if (j < 0) j = d.pct.length - 1;
+      ends.push({ c: c, y: Ys(d.recall[j]), x: Xs(d.pct[j]) });
+    });
+    ends.sort(function (a, b) { return a.y - b.y; });
+    for (var j = 1; j < ends.length; j++) if (ends[j].y - ends[j - 1].y < 15) ends[j].y = ends[j - 1].y + 15;
+    ends.forEach(function (e) { s += '<text x="' + (W - R + 8) + '" y="' + (Math.min(H - B, e.y) + 4) + '" style="fill:var(' + e.c[1] + ');font-weight:500">' + esc(e.c[3]) + '</text>'; });
+    var cx = Xs(S.pct * 100);
+    s += '<line x1="' + cx + '" x2="' + cx + '" y1="' + T + '" y2="' + (H - B) + '" stroke="var(--ink)" stroke-dasharray="4 4"/>';
+    $('stabChart').innerHTML = s + '</svg>';
+    var h = '<table><thead><tr><th>Model (features)</th><th class="n">Run set 1</th><th class="n">Run set 2</th><th class="n">Run set 3</th><th>Agree?</th><th class="n">Thresholds agreeing</th></tr></thead><tbody>';
+    CFG.forEach(function (c) {
+      var d = sw[c[0]]; if (!d) return;
+      var g = d.ge90 || {}, cell = function (k) { return g[k] == null ? 'never' : g[k] + '%'; };
+      h += '<tr><td><i class="dotkey" style="background:var(' + c[1] + ')"></i>' + esc(d.label) + '</td><td class="n">' + cell('R1') + '</td><td class="n">' + cell('R2') + '</td><td class="n">' + cell('R3') + '</td><td><span class="chip ' + (d.agree90 ? 'ok' : 'warn') + '">' + (d.agree90 ? 'yes' : 'no') + '</span></td><td class="n">' + esc(d.agreement || '–') + '</td></tr>';
+    });
+    $('stabTable').innerHTML = h + '</tbody></table>';
+    var i5 = function (d) { return d.pct.indexOf(5); };
+    var a = sw['IF-23'], o = sw['OCSVM-23'];
+    $('stabNote').textContent = 'At 5% Isolation Forest catches ' + a.hits[i5(a)] + ' of ' + a.targets + ' targets on average and One-Class SVM ' + o.hits[i5(o)] + '. Full recall at a 5.5% budget is not a general result: only One-Class SVM on Image 2 reaches it.';
+  }
+  function chipFor(st) {
+    if (!st) return '<span class="note">–</span>';
+    var cls = st.status === 'fired' ? 'ok' : st.status === 'not fired' ? 'bad' : 'warn';
+    return '<span class="chip ' + cls + '">' + esc(st.status) + '</span> <span class="mono num note">' + st.shap.toFixed(3) + '</span>';
+  }
+  function firing() {
+    var f = (X.firing || {})[S.img]; if (!f) { $('fireTable').innerHTML = ''; return; }
+    $('fireCounts').innerHTML = f.counts.map(function (c) {
+      return '<span class="chip">' + c.set + ' features · ' + esc(c.model) + ': <b>' + c.fired + '</b> of ' + c.of + ' fired</span>';
+    }).join('');
+    var rows = f.features.slice().sort(function (a, b) { return ((b.s23 || {}).shap || 0) - ((a.s23 || {}).shap || 0); });
+    var h = '<table><thead><tr><th>Feature</th><th>Original 17</th><th>23-feature set</th><th class="n">Files non-zero</th><th>Why</th></tr></thead><tbody>';
+    rows.forEach(function (r) {
+      var cause = (r.s23 || r.s17 || {}).cause || '';
+      h += '<tr><td class="mono">' + esc(r.feature) + (r.constant ? ' <span class="chip bad">constant</span>' : '') + '</td><td>' + chipFor(r.s17) + '</td><td>' + chipFor(r.s23) + '</td><td class="n">' + r.nonzero_pct + '%</td><td style="font-size:12.5px;color:var(--ink2);min-width:280px">' + esc(cause.length > 230 ? cause.slice(0, 227) + '…' : cause) + '</td></tr>';
+    });
+    $('fireTable').innerHTML = h + '</tbody></table>';
+  }
+  var AF = 0;
+  function audit() {
+    var all = X.claims || [], opts = ['All', 'Wrong', 'Correct'];
+    seg($('auditSeg'), opts, function () { return AF; }, function (i) { AF = i; audit(); });
+    var list = all.filter(function (c) { return AF === 0 || (AF === 1 ? c.verdict === 'FALSE' : c.verdict === 'TRUE'); });
+    var nf = all.filter(function (c) { return c.verdict === 'FALSE'; }).length;
+    $('auditCount').textContent = nf + ' of ' + all.length + ' checked claims did not hold up.';
+    $('auditRows').innerHTML = list.map(function (c) {
+      var ok = c.verdict === 'TRUE', cls = ok ? 'ok' : c.verdict === 'FALSE' ? 'bad' : 'warn';
+      return '<details class="row" style="display:block;cursor:default"><summary style="display:grid;grid-template-columns:86px minmax(0,1fr);gap:10px;align-items:start;cursor:pointer"><span class="chip ' + cls + '">' + (ok ? 'correct' : c.verdict === 'FALSE' ? 'wrong' : esc(c.verdict.toLowerCase())) + '</span><span>' + esc(c.claim) + '<small>' + esc(c.area) + '</small></span></summary><p class="note" style="margin:8px 0 2px 96px;max-width:none">' + esc(c.evidence) + '</p></details>';
+    }).join('');
+  }
+
   function renderAll(budgetOnly) {
-    buildControlsLabel(); readout(); curve(); if (!budgetOnly) { metricsTable(); verdicts(); pipeline(); ablation(); caveats(); }
+    buildControlsLabel(); readout(); curve(); stability(); if (!budgetOnly) { metricsTable(); verdicts(); pipeline(); ablation(); caveats(); firing(); }
     ledger(); detail(); if (!S.playing) draw();
   }
   function buildControlsLabel() { paintModelSeg(); }
-  hero(); buildControls(); layout(); renderAll(); allImgs();
+  hero(); buildControls(); layout(); renderAll(); allImgs(); audit();
   addEventListener('resize', size);
   new MutationObserver(function () { paintModelSeg(); draw(); }).observe(document.documentElement, { attributes: true });
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { paintModelSeg(); draw(); curve(); });

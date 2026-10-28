@@ -10,7 +10,9 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.join(BASE, "site")
 data = open(os.path.join(SITE, "data.json"), encoding="utf-8").read().replace("</", "<\\/")
 tpl = open(os.path.join(SITE, "index.template.html"), encoding="utf-8").read()
-out = tpl.replace("/*__DATA__*/", data)
+extras_p = os.path.join(SITE, "extras.json")
+extras = open(extras_p, encoding="utf-8").read().replace("</", "<\\/") if os.path.exists(extras_p) else "{}"
+out = tpl.replace("/*__DATA__*/", data).replace("/*__EXTRAS__*/", extras)
 
 
 def ascii_safe(doc):
