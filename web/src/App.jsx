@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { D, MODELS, IMGS } from './lib/data'
 import Hero from './components/Hero'
 import ControlStrip from './components/ControlStrip'
@@ -20,6 +20,7 @@ export default function App() {
   const [m, setM] = useState(2)
   const [pct, setPct] = useState(0.05)
   const [selRaw, setSel] = useState(null)
+  const [theme, setTheme] = useState(null)
   const tipRef = useRef()
   const im = D.images[img], K = Math.max(1, Math.round(pct * im.files))
   const sel = useMemo(() => {
@@ -28,11 +29,19 @@ export default function App() {
     return tg.length ? tg[0].name : null
   }, [selRaw, img, m])
   const setImg = (i) => { setImgRaw(i); setSel(null) }
+  useEffect(() => {
+    const r = document.documentElement
+    if (theme) r.setAttribute('data-theme', theme); else r.removeAttribute('data-theme')
+  }, [theme])
+  const dark = theme ? theme === 'dark' : !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)
   return (
     <>
-      <Hero />
+      <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true" focusable="false">
+        <filter id="rough" x="-5%" y="-10%" width="110%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n" /><feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" /></filter>
+      </svg>
+      <Hero img={img} dark={dark} toggleTheme={() => setTheme(dark ? 'light' : 'dark')} />
       <ControlStrip img={img} m={m} pct={pct} K={K} setImg={setImg} setM={setM} setPct={setPct} />
-      <div className="wrap">
+      <main>
         <Simulation img={img} im={im} m={m} K={K} sel={sel} tipRef={tipRef} />
         <Verdict />
         <Results img={img} im={im} m={m} pct={pct} />
@@ -44,8 +53,8 @@ export default function App() {
         <Firing img={img} />
         <Audit />
         <Limits im={im} />
-        <Footer />
-      </div>
+      </main>
+      <Footer />
       <div className="tip" ref={tipRef}></div>
     </>
   )
