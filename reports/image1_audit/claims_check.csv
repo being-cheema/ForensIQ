@@ -1,0 +1,33 @@
+id,claim,verdict,evidence
+1,589 files flagged by v1 and by v2,TRUE,"v1 flagged rows=589, v2 flagged rows=589; v1 unique flagged paths=589, v2=589."
+2,"593 rows downstream because 4 duplicated paths (NDELFILE.EXE, NOPNFILE.EXE, TXTVIEW.OCX, msoeres.dll)",TRUE,"SHAP table has 593 rows for 589 paths: xai_shap.py selects every row whose path is in the flagged-path set, so 4 unflagged twin rows are added; their basenames are ['NDELFILE.EXE', 'NOPNFILE.EXE', 'TXTVIEW.OCX', 'msoeres.dll']. Note the 589 flagged rows themselves are all unique paths, so 'flagged' stays 589; the 593 only affects the SHAP/ explanation tables. Image-wide the MFT has 154 paths occurring twice (11773 rows vs 11619 unique paths)."
+3,"Score range [-0.1649, +0.2412]",FALSE,"Fresh run range is [-0.1673, 0.2099] (stored flagged_anomalies.csv min -0.1673)."
+4,Decision cutoff ~ -0.0000,TRUE,"Largest flagged score -0.000201, smallest unflagged 0.000134; sklearn offset_ for contamination 0.05 puts the boundary at 0 by construction of decision_function."
+5,"Cain.exe rank #4, score -0.1562",FALSE,"Fresh run: rank #136, score -0.1096, flagged=True."
+6,"ethereal.exe rank #60, score -0.1352",FALSE,"Fresh run: rank #148, score -0.0983, flagged=True."
+7,"NetStumbler.exe rank #191, score -0.0999",FALSE,"Fresh run: rank #322, score -0.0471, flagged=True."
+8,"defrag.exe rank #580, score -0.0008",FALSE,"Fresh run: rank #2260, score +0.1088, flagged=False."
+9,"UNWISE.EXE rank #525, score -0.0134",FALSE,"Fresh run: rank #1823, score +0.0902, flagged=False."
+10,"123wasp.exe rank #603, score +0.0032",FALSE,"Fresh run: rank #2270, score +0.1091, flagged=False."
+11,"uninst-anonymizer.exe rank #647, score +0.0133",FALSE,"Fresh run: rank #1289, score +0.0653, flagged=False."
+12,"biglist_990218.zip rank #1, score -0.1649",FALSE,"Fresh run: rank #1, score -0.1673, flagged=True."
+13,Bumping 5% to 5.5% (648 files) gives 100% (7/7) category recall,FALSE,"At 5.5%: K=648 rows; families caught 5/8 (missing: 123WASP, Anonymizer, defrag.exe); file recall 68/302. Smallest contamination on a 0.1% grid reaching all 8 families: 19.2% (K=2261)."
+14,Active-6 retains 589/589,FALSE,"'Active-6' is not defined anywhere in the repo. Retrained: all 9 non-constant features -> 558/589 overlap; assumed 6 (3 MACB deltas+size+is_exe+is_archive) -> 535/589. Removing the 8 constant columns is not a no-op because IsolationForest draws split features at random, so the RNG path changes."
+15,Ablation: drop is_exe 374/589,FALSE,Retrained (seed 42): overlap 514/589; 5-seed mean+/-std 513.8 +/- 2.1.
+16,Ablation: drop size 323/589,FALSE,Retrained (seed 42): overlap 477/589; 5-seed mean+/-std 474.8 +/- 3.1.
+17,Ablation: drop all MACB deltas 107/589,FALSE,Retrained (seed 42): overlap 238/589; 5-seed mean+/-std 242.6 +/- 5.6.
+18,Ablation: MACB-only 198/589 with 0 tool files,FALSE,Retrained (seed 42): overlap 350/589; tool-family files caught 70 (all-GT files 72); 5-seed overlap 355.8 +/- 9.6.
+19,v2 catches 65/70 Anonymizer files,TRUE,"Substring 'anonymizer' anywhere: 70 rows on disk, v1 flagged 0, v2 flagged 65. Under the /Program Files/Anonymizer/ family definition: 66 files, v1 0, v2 65."
+20,Ethereal v1->v2: 16 -> 25,FALSE,"Ethereal/WinPcap rows flagged: v1 44, v2 25 (regex); family definition 43 -> 25 of 174."
+21,NetStumbler v1->v2: 1 -> 11,TRUE,"NetStumbler rows flagged (regex 'stumbler'): v1 1, v2 11; family definition 1 -> 11 of 13."
+22,Timestomped files v1->v2: 219 -> 300,FALSE,"'Timestomped' as defined in mitre_mapper.py (flagged and delta_mb < 60 s): v1 226, v2 301. Claimed 219/300 are close but not equal; the claim's own definition is not in the repo, so under any other definition it is UNVERIFIABLE."
+23,"Jaccard(v1, v2) = 0.5756",FALSE,"Jaccard on unique paths 0.5855; on rows 0.5855; |v1 & v2| rows=435, |union|=743."
+24,v2 omits is_exe,TRUE,"burst_detection.py feat_v2 = ['delta_mc', 'delta_mb', 'delta_ab', 'future_m', 'zero_size_recent', 'size', 'log_burst_count', 'log_burst_60s']; (also omits is_archive, user_path, temp_path and every prefetch/USB flag)."
+25,210-file burst at 2004-08-19T22:34:25Z,TRUE,"Top 1-second m_time buckets (file records): [('2001-08-23T18:00:00Z', 7033), ('2004-08-19T22:34:25Z', 210), ('1999-04-23T22:22:00Z', 131), ('2004-08-19T22:35:22Z', 45), ('2004-08-19T22:34:59Z', 44)]."
+26,"7,033-file burst at 2001-08-23T18:00:00Z",TRUE,"Top 1-second m_time buckets: [('2001-08-23T18:00:00Z', 7033), ('2004-08-19T22:34:25Z', 210), ('1999-04-23T22:22:00Z', 131)]. Top 60-second buckets: [('2001-08-23T18:00Z', 7033), ('2004-08-19T22:35Z', 546), ('2004-08-19T22:34Z', 371)]."
+27,Chain of custody 102/102 PASS,FALSE,"chain_of_custody.json lists 96 artefacts; coc_verification.csv: 96 PASS, 0 not-PASS; independent SHA-256 re-hash mismatches: 0. So the integrity result is a full pass, but on 96 artefacts, not 102."
+28,182 event log records parsed,FALSE,"parsed_events.json holds 0 events (pipeline.log: 'Parsed 0 EVT events'); 3 .Evt files extracted (AppEvent, SecEvent, SysEvent) but none parsed. log_gap_features.csv is empty."
+29,81 prefetch files,TRUE,81 .pf files in artifacts/prefetch (prefetch_list.json entries: 81).
+30,MITRE T1070.006 = 215 timestomped files,FALSE,mitre_mapping.json T1070.006 count = 226.
+31,MITRE T1070.001 = 78 work-hour log gaps,FALSE,"T1070.001 present in mitre_mapping.json: False; techniques detected: ['T1003.002', 'T1040', 'T1052.001', 'T1070.006', 'T1486']. With 0 parsed events there are no hourly bins, so no gap can be computed."
+32,forensiq_report.py looks for remediate_credential_dumping.ps1 but remediation.py writes remediate_credentials.ps1,FALSE,"Filenames referenced by forensiq_report.py: ['remediate_credentials.ps1', 'remediate_log_clearing.ps1', 'remediate_malware.ps1', 'remediate_network.ps1', 'remediate_ransomware.ps1', 'remediate_timestamp.ps1', 'remediate_usb.ps1']; written by remediation.py: ['remediate_credentials.ps1', 'remediate_log_clearing.ps1', 'remediate_malware.ps1', 'remediate_network.ps1', 'remediate_ransomware.ps1', 'remediate_timestamp.ps1', 'remediate_usb.ps1']; 'remediate_credential_dumping.ps1' appears in neither. Names referenced but never written: none ('remediate_log_clearing.ps1' is written only when a log_clearing pattern is detected, so it is absent on this run by design). On disk: ['remediate_credentials.ps1', 'remediate_malware.ps1', 'remediate_network.ps1', 'remediate_ransomware.ps1', 'remediate_timestamp.ps1', 'remediate_usb.ps1']."

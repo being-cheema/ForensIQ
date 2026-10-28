@@ -1,0 +1,11 @@
+contamination_pct,K_rows,families_caught,family_recall,gt_files_caught,file_recall,families_newly_entering,families_still_missing,n_Cain & Abel,n_Ethereal/WinPcap,n_NetStumbler,n_123WASP,n_Anonymizer,n_defrag.exe,n_Timestomped Novell,n_Wordlists,flagged_Cain.exe,flagged_ethereal.exe,flagged_NetStumbler.exe,flagged_defrag.exe,flagged_UNWISE.EXE,flagged_123wasp.exe,flagged_uninst-anonymizer.exe,flagged_biglist_990218.zip,flagged_250MB_WORDLIST.ZIP,flagged_NMEM.EXE,flagged_NGETTIME.EXE
+1.0,113,3/8,0.375,6,0.0199,Ethereal/WinPcap; Timestomped Novell; Wordlists,Cain & Abel; NetStumbler; 123WASP; Anonymizer; defrag.exe,0,2,0,0,0,0,2,2,0,0,0,0,0,0,0,1,1,1,1
+2.0,236,4/8,0.5,8,0.0265,Cain & Abel,NetStumbler; 123WASP; Anonymizer; defrag.exe,1,3,0,0,0,0,2,2,1,1,0,0,0,0,0,1,1,1,1
+2.5,295,4/8,0.5,8,0.0265,,NetStumbler; 123WASP; Anonymizer; defrag.exe,1,3,0,0,0,0,2,2,1,1,0,0,0,0,0,1,1,1,1
+3.0,354,5/8,0.625,13,0.043,NetStumbler,123WASP; Anonymizer; defrag.exe,3,5,1,0,0,0,2,2,1,1,1,0,0,0,0,1,1,1,1
+4.0,471,5/8,0.625,20,0.0662,,123WASP; Anonymizer; defrag.exe,3,12,1,0,0,0,2,2,1,1,1,0,0,0,0,1,1,1,1
+5.0,589,5/8,0.625,52,0.1722,,123WASP; Anonymizer; defrag.exe,4,43,1,0,0,0,2,2,1,1,1,0,0,0,0,1,1,1,1
+5.12,603,5/8,0.625,57,0.1887,,123WASP; Anonymizer; defrag.exe,4,48,1,0,0,0,2,2,1,1,1,0,0,0,0,1,1,1,1
+5.5,648,5/8,0.625,68,0.2252,,123WASP; Anonymizer; defrag.exe,4,59,1,0,0,0,2,2,1,1,1,0,0,0,0,1,1,1,1
+7.5,883,5/8,0.625,91,0.3013,,123WASP; Anonymizer; defrag.exe,7,79,1,0,0,0,2,2,1,1,1,0,0,0,0,1,1,1,1
+10.0,1177,6/8,0.75,106,0.351,Anonymizer,123WASP; defrag.exe,7,92,2,0,1,0,2,2,1,1,1,0,0,0,0,1,1,1,1

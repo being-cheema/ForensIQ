@@ -1,0 +1,15 @@
+family,gt_files,v1_caught,v2_caught,union_caught,intersection_caught,v1_only,v2_only
+Cain & Abel,37,4,3.0,4.0,3.0,1.0,0.0
+Ethereal/WinPcap,174,43,25.0,61.0,7.0,36.0,18.0
+NetStumbler,13,1,11.0,11.0,1.0,0.0,10.0
+123WASP,7,0,0.0,0.0,0.0,0.0,0.0
+Anonymizer,66,0,65.0,65.0,0.0,0.0,65.0
+defrag.exe,1,0,0.0,0.0,0.0,0.0,0.0
+Timestomped Novell,2,2,2.0,2.0,2.0,0.0,0.0
+Wordlists,2,2,2.0,2.0,2.0,0.0,0.0
+ALL GT FILES,302,52,108.0,145.0,15.0,37.0,93.0
+FLAGGED SET (unique paths),,589,589.0,743.0,435.0,154.0,154.0
+JACCARD (unique paths),,0.5855,,,,,
+JACCARD (rows),,0.5855,,,,,
+v2 feature list,,delta_mc delta_mb delta_ab future_m zero_size_recent size log_burst_count log_burst_60s,,,,,
+v1 feature list,,delta_mc delta_mb delta_ab future_m zero_size_recent size is_deleted is_exe is_archive temp_path user_path credential_tool sniffer_tool powershell_exec cmd_exec script_host usb_present,,,,,
