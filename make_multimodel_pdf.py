@@ -34,8 +34,8 @@ TAGS = {v["label"].split(":")[0]: t for t, v in res["results"].items()}  # "Imag
 TARGET_SOURCES = {
     "img1": "7 target families (15 files) reconstructed from the SCHARDT case notes",
     "img2": "19 targets (38 files) from the repository's CFReDS ground-truth list",
-    "img3": "12 targets (558 files, all copies counted) taken from a published third-party "
-            "analysis of the case; the official answer key is access-restricted, so treat these as unofficial",
+    "img3": "34 files (125 copies) that the scenario author's own examiner tagged Evidence / Of interest / Bookmark "
+            "(published openly by Digital Corpora), plus the Chrome Login Data database; the teacher's guide answer key was not available",
 }
 
 

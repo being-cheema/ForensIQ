@@ -8,10 +8,10 @@
 ------------------------------------------------------------------------------
  MODEL: Isolation Forest
 ------------------------------------------------------------------------------
- Targets caught : 7 / 12  (recall 58.3%)
- Accuracy 94.76%  Precision 0.92%  F1 1.71%  (file-level)
+ Targets caught : 8 / 34  (recall 23.5%)
+ Accuracy 94.97%  Precision 0.19%  F1 0.38%  (file-level)
  TIMESTOMPING   : UNVERIFIED (no ground-truth timestomp target defined); future_m flagged=0
- INSIDER ATTACK : CONFIRMED
+ INSIDER ATTACK : NOT DETECTED
  Top 20 flagged files:
    1. score=0.7428  _platform_specific/x86_64/pnacl_public_x86_64_pnacl_llc_nexe  
    2. score=0.7274   (x86)/Intel/Intel(R) Processor Graphics/uninstall/Setup.exe  
@@ -34,24 +34,46 @@
   19. score=0.7050  (x86)/Common Files/microsoft shared/VSTO/10.0/VSTOLoader.dll  
   20. score=0.7048  dy/AppData/Local/Microsoft/OneDrive/Update/OneDriveSetup.exe  
  Ground-truth caught:
+   [HIT ] Box Sync.lnk
+   [HIT ] DarkWolf.png
+   [HIT ] Dropbox.lnk
+   [HIT ] Google Drive.lnk
+   [HIT ] Huckleberry.png
+   [HIT ] Jim's Notebook.url
    [HIT ] Operation 2nd Hand Smoke.pptx
    [HIT ] The Cloudy Manifesto.docx
-   [HIT ] Chrome History database
-   [HIT ] Box Sync client
-   [HIT ] Dropbox client
-   [HIT ] OneDrive client (jcloudy)
-   [HIT ] Cloud-sync desktop shortcuts
+   [MISS] 2018-04-03 (1).png
+   [MISS] 2018-04-03 (3).png
+   [MISS] 2018-04-03.png
+   [MISS] 2018-04-04 (2).png
+   [MISS] 2018-04-04 (3).png
+   [MISS] 2018-04-04 (4).png
+   [MISS] 2018-04-04.png
    [MISS] AIRPORT INFORMATION.docx
-   [MISS] Planning.docx
+   [MISS] AMEN.pdf
+   [MISS] BladeofGrass.jpg
+   [MISS] Brother Chat.gdoc
+   [MISS] CachedImage_1366_768_POS4.jpg
    [MISS] Cloudy thoughts (4apr).docx
-   [MISS] Brother Chat.gdoc (Google Drive)
-   [MISS] rootkey.csv (AWS keys in Downloads)
+   [MISS] CubaDearmed.jpg
+   [MISS] DeathToll.jpg
+   [MISS] DemLogic.jpg
+   [MISS] HoldMyTidePod.jpg
+   [MISS] LeftUsesBoycotts.pdf
+   [MISS] MyTiredHead.jpg
+   [MISS] Planning.docx
+   [MISS] RedGuns.jpg
+   [MISS] rootkey.csv
+   [MISS] SelfDefenseisMurder.pdf
+   [MISS] Sheep.jpg
+   [MISS] UKknifeBan.pdf
+   [MISS] Chrome Login Data database
 
 ------------------------------------------------------------------------------
  MODEL: Local Outlier Factor
 ------------------------------------------------------------------------------
- Targets caught : 2 / 12  (recall 16.7%)
- Accuracy 94.70%  Precision 0.34%  F1 0.63%  (file-level)
+ Targets caught : 2 / 34  (recall 5.9%)
+ Accuracy 94.95%  Precision 0.06%  F1 0.12%  (file-level)
  TIMESTOMPING   : UNVERIFIED (no ground-truth timestomp target defined); future_m flagged=0
  INSIDER ATTACK : NOT DETECTED
  Top 20 flagged files:
@@ -77,23 +99,45 @@
   20. score=1756807073.8733  /Config.Msi/a014fba.rbf  
  Ground-truth caught:
    [HIT ] Operation 2nd Hand Smoke.pptx
-   [HIT ] OneDrive client (jcloudy)
+   [HIT ] Sheep.jpg
+   [MISS] 2018-04-03 (1).png
+   [MISS] 2018-04-03 (3).png
+   [MISS] 2018-04-03.png
+   [MISS] 2018-04-04 (2).png
+   [MISS] 2018-04-04 (3).png
+   [MISS] 2018-04-04 (4).png
+   [MISS] 2018-04-04.png
    [MISS] AIRPORT INFORMATION.docx
-   [MISS] Planning.docx
-   [MISS] The Cloudy Manifesto.docx
+   [MISS] AMEN.pdf
+   [MISS] BladeofGrass.jpg
+   [MISS] Box Sync.lnk
+   [MISS] Brother Chat.gdoc
+   [MISS] CachedImage_1366_768_POS4.jpg
    [MISS] Cloudy thoughts (4apr).docx
-   [MISS] Brother Chat.gdoc (Google Drive)
-   [MISS] rootkey.csv (AWS keys in Downloads)
-   [MISS] Chrome History database
-   [MISS] Box Sync client
-   [MISS] Dropbox client
-   [MISS] Cloud-sync desktop shortcuts
+   [MISS] CubaDearmed.jpg
+   [MISS] DarkWolf.png
+   [MISS] DeathToll.jpg
+   [MISS] DemLogic.jpg
+   [MISS] Dropbox.lnk
+   [MISS] Google Drive.lnk
+   [MISS] HoldMyTidePod.jpg
+   [MISS] Huckleberry.png
+   [MISS] Jim's Notebook.url
+   [MISS] LeftUsesBoycotts.pdf
+   [MISS] MyTiredHead.jpg
+   [MISS] Planning.docx
+   [MISS] RedGuns.jpg
+   [MISS] rootkey.csv
+   [MISS] SelfDefenseisMurder.pdf
+   [MISS] The Cloudy Manifesto.docx
+   [MISS] UKknifeBan.pdf
+   [MISS] Chrome Login Data database
 
 ------------------------------------------------------------------------------
  MODEL: One-Class SVM
 ------------------------------------------------------------------------------
- Targets caught : 11 / 12  (recall 91.7%)
- Accuracy 94.89%  Precision 2.24%  F1 4.20%  (file-level)
+ Targets caught : 25 / 34  (recall 73.5%)
+ Accuracy 95.03%  Precision 0.78%  F1 1.55%  (file-level)
  TIMESTOMPING   : UNVERIFIED (no ground-truth timestomp target defined); future_m flagged=0
  INSIDER ATTACK : CONFIRMED
  Top 20 flagged files:
@@ -119,14 +163,36 @@
   20. score=56.0321  CertificateTransparency/710/_metadata/verified_contents.json  
  Ground-truth caught:
    [HIT ] AIRPORT INFORMATION.docx
+   [HIT ] AMEN.pdf
+   [HIT ] BladeofGrass.jpg
+   [HIT ] Box Sync.lnk
+   [HIT ] Brother Chat.gdoc
+   [HIT ] Cloudy thoughts (4apr).docx
+   [HIT ] CubaDearmed.jpg
+   [HIT ] DarkWolf.png
+   [HIT ] DeathToll.jpg
+   [HIT ] DemLogic.jpg
+   [HIT ] Dropbox.lnk
+   [HIT ] Google Drive.lnk
+   [HIT ] HoldMyTidePod.jpg
+   [HIT ] Huckleberry.png
+   [HIT ] Jim's Notebook.url
+   [HIT ] LeftUsesBoycotts.pdf
+   [HIT ] MyTiredHead.jpg
    [HIT ] Operation 2nd Hand Smoke.pptx
    [HIT ] Planning.docx
+   [HIT ] RedGuns.jpg
+   [HIT ] rootkey.csv
+   [HIT ] SelfDefenseisMurder.pdf
+   [HIT ] Sheep.jpg
    [HIT ] The Cloudy Manifesto.docx
-   [HIT ] Cloudy thoughts (4apr).docx
-   [HIT ] Brother Chat.gdoc (Google Drive)
-   [HIT ] rootkey.csv (AWS keys in Downloads)
-   [HIT ] Box Sync client
-   [HIT ] Dropbox client
-   [HIT ] OneDrive client (jcloudy)
-   [HIT ] Cloud-sync desktop shortcuts
-   [MISS] Chrome History database
+   [HIT ] UKknifeBan.pdf
+   [MISS] 2018-04-03 (1).png
+   [MISS] 2018-04-03 (3).png
+   [MISS] 2018-04-03.png
+   [MISS] 2018-04-04 (2).png
+   [MISS] 2018-04-04 (3).png
+   [MISS] 2018-04-04 (4).png
+   [MISS] 2018-04-04.png
+   [MISS] CachedImage_1366_768_POS4.jpg
+   [MISS] Chrome Login Data database

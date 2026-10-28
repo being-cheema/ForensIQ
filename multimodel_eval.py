@@ -83,28 +83,52 @@ IMG1_TARGETS = [  # reconstructed from the SCHARDT case notes; family hit = any 
 
 IMG2_TARGETS = [dict(t, timestomp=(t["name"].startswith("Eraser.exe"))) for t in GT_IMG2]
 
+AXIOM_TAGS_DIR = os.path.join(BASE_DIR, "images", "lonewolf_public", "outputs", "Axiom Tagged Files Listing")
+AXIOM_NAME_COLS = {"All Desktop Files.csv": "Name", "Word Documents.csv": "Filename", "PDF Documents.csv": "Filename",
+                   "PowerPoint Documents.csv": "Filename", "Pictures.csv": "File Name",
+                   "File system items.csv": "Name", "AWS Keys.csv": "Name"}
+
+
+def _read_axiom_csv(path):
+    raw = open(path, "rb").read()
+    for enc in ("utf-8-sig", "utf-16"):
+        try:
+            return pd.read_csv(pd.io.common.StringIO(raw.decode(enc)), dtype=str).fillna("")
+        except (UnicodeError, pd.errors.ParserError):
+            continue
+    return pd.DataFrame()
+
+
 def img3_targets(paths):
     """
-    Lone Wolf's official answer key is access-restricted, so these targets come from a published
-    third-party analysis of the case (a CDAC internship report on this image) and were each
-    confirmed to exist on the disk. A target counts as caught if any copy of the file is flagged.
-    Treat them as unofficial ground truth.
+    Lone Wolf targets from the scenario author's own examiner tags, published openly by Digital
+    Corpora in 'Forensic Outputs.zip' (Axiom 'Tagged Files Listing'). Every file the examiner tagged
+    Evidence / Of interest / Bookmark (desktop files, Word, PowerPoint, PDF, pictures, AWS key,
+    Google-Doc and notebook bookmarks) that exists under /Users/jcloudy on the image is one target;
+    a target counts as caught if any copy of that file name is flagged. The Chrome 'Login Data'
+    database is added because the examiner exported it as evidence.
     """
-    return [
-        {"name": "AIRPORT INFORMATION.docx", "patterns": ["AIRPORT INFORMATION.docx"]},
-        {"name": "Operation 2nd Hand Smoke.pptx", "patterns": ["Operation 2nd Hand Smoke.pptx"]},
-        {"name": "Planning.docx", "patterns": ["/Planning.docx"]},
-        {"name": "The Cloudy Manifesto.docx", "patterns": ["The Cloudy Manifesto.docx"]},
-        {"name": "Cloudy thoughts (4apr).docx", "patterns": ["Cloudy thoughts (4apr).docx"]},
-        {"name": "Brother Chat.gdoc (Google Drive)", "patterns": ["/Google Drive/Brother Chat.gdoc"]},
-        {"name": "rootkey.csv (AWS keys in Downloads)", "patterns": ["/Users/jcloudy/Downloads/rootkey.csv"]},
-        {"name": "Chrome History database", "patterns": ["/Chrome/User Data/Default/History"]},
-        {"name": "Box Sync client", "patterns": ["/Program Files/Box/Box Sync/BoxSync.exe"]},
-        {"name": "Dropbox client", "patterns": ["/Program Files (x86)/Dropbox/Client/Dropbox.exe"]},
-        {"name": "OneDrive client (jcloudy)", "patterns": ["/Users/jcloudy/AppData/Local/Microsoft/OneDrive/"]},
-        {"name": "Cloud-sync desktop shortcuts", "patterns": ["/Users/jcloudy/Desktop/Box Sync.lnk",
-                                                               "/Users/jcloudy/Desktop/Dropbox.lnk"]},
-    ]
+    names = {}
+    for fname, col in AXIOM_NAME_COLS.items():
+        p = os.path.join(AXIOM_TAGS_DIR, fname)
+        if not os.path.exists(p):
+            continue
+        df = _read_axiom_csv(p)
+        if col in df.columns:
+            for n in df[col]:
+                n = n.strip()
+                if n and ":" not in n and n.lower() != "desktop.ini":
+                    names[n.lower()] = n
+    low = paths.str.lower()
+    base = low.str.rsplit("/", n=1).str[-1]
+    in_user = low.str.startswith("/users/jcloudy/")
+    targets = []
+    for key, n in sorted(names.items()):
+        hits = paths[in_user & (base == key)].tolist()
+        if hits:
+            targets.append({"name": n, "patterns": hits})
+    targets.append({"name": "Chrome Login Data database", "patterns": ["/Chrome/User Data/Default/Login Data"]})
+    return targets
 
 
 IMAGES = {
