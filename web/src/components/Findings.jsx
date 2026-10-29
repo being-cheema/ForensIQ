@@ -5,7 +5,7 @@ import { Pr, Flag } from '../lib/Prose'
 export default function Findings(p) {
   const im = p.im
   return (
-    <Section id="verdicts" letter="H" title="The answer-key verdicts (circular, kept for comparison)">
+    <Section id="verdicts" letter="I" title="The answer-key verdicts (circular, kept for comparison)">
       <Pr note={<>A mismatch between the two timestamp sets is a hint of tampering, not proof: ordinary file operations also cause it.</>}>
         <p><strong>These verdicts peek at the answer key</strong>: they say yes when a file already known to be evidence is flagged. A real case has no answer key, so they cannot be used as a finding. The fair verdicts, built only from what the tool flagged, are in Exhibit D.</p>
         <p>{im.scenario === 'external'

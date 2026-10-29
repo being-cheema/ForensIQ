@@ -37,7 +37,7 @@ export default function Results(p) {
   const im = p.im, allRef = useRef(), K = kOf(im, p.pct)
   useGrow(allRef, [p.pct])
   return (
-    <Section id="recall" letter="G" title="How much evidence for how much reading?">
+    <Section id="recall" letter="H" title="How much evidence for how much reading?">
       <Pr note={<>The 5% tables further down are the equal-budget comparison. Accuracy sits near 95% for every model there by construction, because 95% of files are left unflagged. Recall, precision and F1 are the numbers that separate the models.</>}>
         <p>Recall of the evidence targets as the examiner is allowed to read more files, up to 20% of the disk. The dashed line is the budget you chose above, {pc(p.pct)}. The Plateau exhibit above follows the same curves out to 100%.</p>
       </Pr>

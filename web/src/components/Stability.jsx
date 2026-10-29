@@ -11,7 +11,7 @@ export default function Stability(p) {
   const sw = SW[p.img], ref = useRef()
   useDraw(ref, [p.img])
   const intro = <p>Each model was rerun five times with 10% of ordinary files dropped at random, in three separate randomizations. The lines show mean evidence recall from a 5% to a 100% budget; the bands show the spread across runs. The legacy XP disk is excluded.</p>
-  if (!sw) return <Section id="stability" letter="L" title="Is there a review budget that holds up?"><Pr>{intro}</Pr><Pr><p className="small">The legacy XP disk is excluded from this study. Pick Image 2 or Image 3.</p></Pr></Section>
+  if (!sw) return <Section id="stability" letter="M" title="Is there a review budget that holds up?"><Pr>{intro}</Pr><Pr><p className="small">The legacy XP disk is excluded from this study. Pick Image 2 or Image 3.</p></Pr></Section>
   const W = 900, H = 380, L = 48, R = 130, T = 16, B = 44, pw = W - L - R, ph = H - T - B
   const Xs = (v) => L + (v / 100) * pw, Ys = (v) => T + (1 - v / 100) * ph
   const ends = []
@@ -26,7 +26,7 @@ export default function Stability(p) {
   const ca = curve(p.img, 'IF-23').at(p.pct * 100), co = curve(p.img, 'OCSVM-23').at(p.pct * 100)
   const note = a && o ? 'At a ' + pc(p.pct) + ' budget Isolation Forest catches ' + fn1(ca.found) + ' of ' + a.targets + ' targets on average and One-Class SVM ' + fn1(co.found) + '. The full-recall points differ by disk and model: see the table below.' : ''
   return (
-    <Section id="stability" letter="L" title="Is there a review budget that holds up?">
+    <Section id="stability" letter="M" title="Is there a review budget that holds up?">
       <Pr note={note || null}>{intro}</Pr>
       <div ref={ref}><svg className="ch" viewBox={'0 0 ' + W + ' ' + H} role="img" aria-label="Mean recall versus review budget across randomized runs">
         <line className="axis" x1={L} x2={L} y1={T} y2={H - B} /><line className="axis" x1={L} x2={W - R} y1={H - B} y2={H - B} />

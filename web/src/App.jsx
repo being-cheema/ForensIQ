@@ -8,6 +8,7 @@ import Plateau from './components/Plateau'
 import ToolOutput from './components/ToolOutput'
 import Reliability from './components/Reliability'
 import TrustXai from './components/TrustXai'
+import Remediation from './components/Remediation'
 import Results from './components/Results'
 import Findings from './components/Findings'
 import Evidence from './components/Evidence'
@@ -52,6 +53,7 @@ export default function App() {
         <ToolOutput img={img} m={m} pct={pct} />
         <Reliability img={img} m={m} pct={pct} />
         <TrustXai img={img} m={m} />
+        <Remediation img={img} />
         <Results img={img} im={im} m={m} pct={pct} />
         <Findings im={im} />
         <Evidence img={img} im={im} m={m} K={K} pct={pct} sel={sel} setSel={setSel} />

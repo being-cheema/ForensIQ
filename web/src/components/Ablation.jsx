@@ -8,7 +8,7 @@ export default function Ablation(p) {
   const ref = useRef()
   useGrow(ref, [p.img])
   return (
-    <Section id="ablation" letter="K" title="Which features carry the result?">
+    <Section id="ablation" letter="L" title="Which features carry the result?">
       <Pr><p>Targets caught with feature groups removed or kept alone, for the selected disk. The ablation was run only at the 5% equal-budget comparison point, so these counts are fixed there and do not move with the budget control.</p></Pr>
       <div className="tbl" ref={ref}><table><thead><tr><th>Feature set</th><th className="n">Features</th>{SHORT.map((n, i) => <th key={n}><i className="key" style={{ background: 'var(' + MVAR[i] + ')' }}></i>{n}</th>)}</tr></thead><tbody>{p.im.ablation.map((r) => {
         const strong = /^Full \(/.test(r.config) || /^Legacy/.test(r.config)
