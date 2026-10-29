@@ -1,0 +1,197 @@
+{
+ "budget_pct": 20,
+ "code_sha256": {
+  "multimodel_eval.py": "52568308dfe7e4316b6eccc50f6dadc8870f9d84964279a7102c51d4e438071c",
+  "study_v3_common.py": "36a8e3082eee1fb50aca7e5a14c8b55a50979876df23b122cae15b4759c04916",
+  "study_v3_explanation_record.py": "2896e3ed5664d95dbcb513055eab212da32cc1ed2200587f35797566e71dc570"
+ },
+ "explainer": "shap.TreeExplainer on the suspicion score (-score_samples), all flagged files",
+ "feature_set": "final",
+ "libraries": {
+  "numpy": "2.5.4",
+  "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "python": "3.13.5",
+  "scikit-learn": "1.9.1",
+  "shap": "0.54.1"
+ },
+ "model": "Isolation Forest (200 trees, max_samples auto = 256, contamination 0.05 [unused for ranking], n_jobs=-1)",
+ "record_definition": "R(f) = (path, score, rank, top-k SHAP attributions, model config hash, feature-set hash, seed)",
+ "records": {
+  "img1": {
+   "K_flagged_20pct": 2355,
+   "bytes_raw": 870498,
+   "bytes_written": 870498,
+   "feature_set_hash": "87766ed66a85e8335fdee71d8fcb6ec9915f728743f72b4273191bec3bd3dcc0",
+   "feature_table_sha256": "9313641ae3f6e584bf4571dbefdc9ccc30f2234b71697f2b0fee19fe4f48cdaa",
+   "features": [
+    "delta_mc",
+    "delta_mb",
+    "delta_ab",
+    "delta_si_fn",
+    "m_before_cr",
+    "zero_size_recent",
+    "after_hours_touch",
+    "size",
+    "is_exe",
+    "is_archive",
+    "is_script",
+    "temp_path",
+    "user_path",
+    "path_depth",
+    "filename_entropy",
+    "is_shortcut_or_trace",
+    "per_file_prefetch_hit",
+    "log_burst_count",
+    "log_burst_60s"
+   ],
+   "file": "img1_records.jsonl",
+   "files_in_disk": 11773,
+   "model_config_hash": "ed727643edd16bd7a564abbf553377ca405e3f61d01b52f3dce6875e6422c0b9",
+   "model_params": {
+    "bootstrap": false,
+    "contamination": 0.05,
+    "max_features": 1.0,
+    "max_samples": "auto",
+    "n_estimators": 200,
+    "n_jobs": -1,
+    "random_state": 42,
+    "verbose": 0,
+    "warm_start": false
+   },
+   "n_records": 2355,
+   "sha256_records_file": "90355c5e91589c024b4d2b2c7e7494e96c4881ecc0ea43470012c202817bec32"
+  },
+  "img2": {
+   "K_flagged_20pct": 17003,
+   "bytes_raw": 6891697,
+   "bytes_written": 6891697,
+   "feature_set_hash": "87766ed66a85e8335fdee71d8fcb6ec9915f728743f72b4273191bec3bd3dcc0",
+   "feature_table_sha256": "6af01368806b873a4190b3a6b02a7f8e315f2810e33e2f0548d0ffa192556e31",
+   "features": [
+    "delta_mc",
+    "delta_mb",
+    "delta_ab",
+    "delta_si_fn",
+    "m_before_cr",
+    "zero_size_recent",
+    "after_hours_touch",
+    "size",
+    "is_exe",
+    "is_archive",
+    "is_script",
+    "temp_path",
+    "user_path",
+    "path_depth",
+    "filename_entropy",
+    "is_shortcut_or_trace",
+    "per_file_prefetch_hit",
+    "log_burst_count",
+    "log_burst_60s"
+   ],
+   "file": "img2_records.jsonl",
+   "files_in_disk": 85017,
+   "model_config_hash": "ed727643edd16bd7a564abbf553377ca405e3f61d01b52f3dce6875e6422c0b9",
+   "model_params": {
+    "bootstrap": false,
+    "contamination": 0.05,
+    "max_features": 1.0,
+    "max_samples": "auto",
+    "n_estimators": 200,
+    "n_jobs": -1,
+    "random_state": 42,
+    "verbose": 0,
+    "warm_start": false
+   },
+   "n_records": 17003,
+   "sha256_records_file": "9cae0b4a5128fc2bf67e082af4db319cc2808d6c5df65f1b55e60dc4bceacbd7"
+  },
+  "img3": {
+   "K_flagged_20pct": 33222,
+   "bytes_raw": 13900474,
+   "bytes_written": 13900474,
+   "feature_set_hash": "87766ed66a85e8335fdee71d8fcb6ec9915f728743f72b4273191bec3bd3dcc0",
+   "feature_table_sha256": "febf4545b2fbc36769a3af2f580b8e27a53e5580182be4c9bfe96b888d1c48c0",
+   "features": [
+    "delta_mc",
+    "delta_mb",
+    "delta_ab",
+    "delta_si_fn",
+    "m_before_cr",
+    "zero_size_recent",
+    "after_hours_touch",
+    "size",
+    "is_exe",
+    "is_archive",
+    "is_script",
+    "temp_path",
+    "user_path",
+    "path_depth",
+    "filename_entropy",
+    "is_shortcut_or_trace",
+    "per_file_prefetch_hit",
+    "log_burst_count",
+    "log_burst_60s"
+   ],
+   "file": "img3_records.jsonl",
+   "files_in_disk": 166110,
+   "model_config_hash": "ed727643edd16bd7a564abbf553377ca405e3f61d01b52f3dce6875e6422c0b9",
+   "model_params": {
+    "bootstrap": false,
+    "contamination": 0.05,
+    "max_features": 1.0,
+    "max_samples": "auto",
+    "n_estimators": 200,
+    "n_jobs": -1,
+    "random_state": 42,
+    "verbose": 0,
+    "warm_start": false
+   },
+   "n_records": 33222,
+   "sha256_records_file": "bda4eec9c00a36e32bdcfac74f660bc6fc5293a534760c0212b9a4f7610f8d8d"
+  }
+ },
+ "rerun_check": {
+  "all_identical": true,
+  "byte_identical": {
+   "img1": true,
+   "img2": true,
+   "img3": true
+  },
+  "feature_table_sha256_equal": {
+   "img1": true,
+   "img2": true,
+   "img3": true
+  },
+  "passes": 2,
+  "scope": "second pass repeats feature build, scaling, IF fit, scoring, TreeSHAP and serialisation in a fresh call",
+  "sha256_run1": {
+   "img1": "90355c5e91589c024b4d2b2c7e7494e96c4881ecc0ea43470012c202817bec32",
+   "img2": "9cae0b4a5128fc2bf67e082af4db319cc2808d6c5df65f1b55e60dc4bceacbd7",
+   "img3": "bda4eec9c00a36e32bdcfac74f660bc6fc5293a534760c0212b9a4f7610f8d8d"
+  },
+  "sha256_run2": {
+   "img1": "90355c5e91589c024b4d2b2c7e7494e96c4881ecc0ea43470012c202817bec32",
+   "img2": "9cae0b4a5128fc2bf67e082af4db319cc2808d6c5df65f1b55e60dc4bceacbd7",
+   "img3": "bda4eec9c00a36e32bdcfac74f660bc6fc5293a534760c0212b9a4f7610f8d8d"
+  }
+ },
+ "restricted_to_top": null,
+ "seed": 42,
+ "timing_seconds": {
+  "img1": {
+   "build_fit_score": 0.64,
+   "treeshap_all_flagged": 3.83
+  },
+  "img2": {
+   "build_fit_score": 3.43,
+   "treeshap_all_flagged": 26.66
+  },
+  "img3": {
+   "build_fit_score": 6.49,
+   "treeshap_all_flagged": 48.61
+  }
+ },
+ "top_k": 3,
+ "total_bytes_records": 21662669,
+ "total_seconds_both_passes": 181.5
+}

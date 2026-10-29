@@ -1,0 +1,2275 @@
+{
+ "feature_set": "final",
+ "seeds": [
+  42,
+  1337,
+  9999,
+  7,
+  2024
+ ],
+ "budgets_pct": [
+  15,
+  20
+ ],
+ "n_features": 19,
+ "features": [
+  "delta_mc",
+  "delta_mb",
+  "delta_ab",
+  "delta_si_fn",
+  "m_before_cr",
+  "zero_size_recent",
+  "after_hours_touch",
+  "size",
+  "is_exe",
+  "is_archive",
+  "is_script",
+  "temp_path",
+  "user_path",
+  "path_depth",
+  "filename_entropy",
+  "is_shortcut_or_trace",
+  "per_file_prefetch_hit",
+  "log_burst_count",
+  "log_burst_60s"
+ ],
+ "error_rates": {
+  "per_disk": {
+   "img1": {
+    "IF": {
+     "15": {
+      "K": 1766,
+      "targets": 7,
+      "target_files": 15,
+      "caught_per_seed": [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "recall_seedmean": 1.0,
+      "recall_seedmean_wilson95": [
+       0.6456695613241317,
+       1.0
+      ],
+      "recall_worst": 1.0,
+      "recall_worst_wilson95": [
+       0.6456695613241317,
+       1.0
+      ],
+      "miss_rate_seedmean": 0.0,
+      "file_precision": {
+       "mean": 0.007927519818799546,
+       "sd": 0.0
+      },
+      "target_files_caught": {
+       "mean": 14.0,
+       "sd": 0.0
+      },
+      "false_alarms": {
+       "mean": 1752.0,
+       "sd": 0.0
+      },
+      "false_alarm_rate": {
+       "mean": 0.14900493281170268,
+       "sd": 0.0
+      }
+     },
+     "20": {
+      "K": 2355,
+      "targets": 7,
+      "target_files": 15,
+      "caught_per_seed": [
+       7,
+       7,
+       7,
+       7,
+       7
+      ],
+      "recall_seedmean": 1.0,
+      "recall_seedmean_wilson95": [
+       0.6456695613241317,
+       1.0
+      ],
+      "recall_worst": 1.0,
+      "recall_worst_wilson95": [
+       0.6456695613241317,
+       1.0
+      ],
+      "miss_rate_seedmean": 0.0,
+      "file_precision": {
+       "mean": 0.006199575371549894,
+       "sd": 0.00023257858068159915
+      },
+      "target_files_caught": {
+       "mean": 14.6,
+       "sd": 0.5477225575051662
+      },
+      "false_alarms": {
+       "mean": 2340.4,
+       "sd": 0.5477225575051661
+      },
+      "false_alarm_rate": {
+       "mean": 0.1990474570505188,
+       "sd": 4.6582969680668554e-05
+      }
+     }
+    },
+    "LOF": {
+     "15": {
+      "K": 1766,
+      "targets": 7,
+      "target_files": 15,
+      "caught_per_seed": [
+       4,
+       4,
+       4,
+       4,
+       4
+      ],
+      "recall_seedmean": 0.5714285714285714,
+      "recall_seedmean_wilson95": [
+       0.25045836275303557,
+       0.8417801460075546
+      ],
+      "recall_worst": 0.5714285714285714,
+      "recall_worst_wilson95": [
+       0.25045836275303557,
+       0.8417801460075546
+      ],
+      "miss_rate_seedmean": 0.4285714285714286,
+      "file_precision": {
+       "mean": 0.0028312570781426952,
+       "sd": 0.0
+      },
+      "target_files_caught": {
+       "mean": 5.0,
+       "sd": 0.0
+      },
+      "false_alarms": {
+       "mean": 1761.0,
+       "sd": 0.0
+      },
+      "false_alarm_rate": {
+       "mean": 0.14977036911039293,
+       "sd": 0.0
+      }
+     },
+     "20": {
+      "K": 2355,
+      "targets": 7,
+      "target_files": 15,
+      "caught_per_seed": [
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "recall_seedmean": 0.7142857142857143,
+      "recall_seedmean_wilson95": [
+       0.3589344495310541,
+       0.9177810767507166
+      ],
+      "recall_worst": 0.7142857142857143,
+      "recall_worst_wilson95": [
+       0.3589344495310541,
+       0.9177810767507166
+      ],
+      "miss_rate_seedmean": 0.2857142857142857,
+      "file_precision": {
+       "mean": 0.003397027600849257,
+       "sd": 0.0
+      },
+      "target_files_caught": {
+       "mean": 8.0,
+       "sd": 0.0
+      },
+      "false_alarms": {
+       "mean": 2347.0,
+       "sd": 0.0
+      },
+      "false_alarm_rate": {
+       "mean": 0.19960877700289165,
+       "sd": 0.0
+      }
+     }
+    },
+    "OC-SVM": {
+     "15": {
+      "K": 1766,
+      "targets": 7,
+      "target_files": 15,
+      "caught_per_seed": [
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "recall_seedmean": 0.8571428571428571,
+      "recall_seedmean_wilson95": [
+       0.486872167860775,
+       0.9743203759421759
+      ],
+      "recall_worst": 0.8571428571428571,
+      "recall_worst_wilson95": [
+       0.486872167860775,
+       0.9743203759421759
+      ],
+      "miss_rate_seedmean": 0.1428571428571429,
+      "file_precision": {
+       "mean": 0.004643261608154021,
+       "sd": 0.0002532353315401799
+      },
+      "target_files_caught": {
+       "mean": 8.2,
+       "sd": 0.4472135954999579
+      },
+      "false_alarms": {
+       "mean": 1757.8,
+       "sd": 0.44721359549995804
+      },
+      "false_alarm_rate": {
+       "mean": 0.14949821398196972,
+       "sd": 3.803483547371338e-05
+      }
+     },
+     "20": {
+      "K": 2355,
+      "targets": 7,
+      "target_files": 15,
+      "caught_per_seed": [
+       6,
+       6,
+       6,
+       6,
+       6
+      ],
+      "recall_seedmean": 0.8571428571428571,
+      "recall_seedmean_wilson95": [
+       0.486872167860775,
+       0.9743203759421759
+      ],
+      "recall_worst": 0.8571428571428571,
+      "recall_worst_wilson95": [
+       0.486872167860775,
+       0.9743203759421759
+      ],
+      "miss_rate_seedmean": 0.1428571428571429,
+      "file_precision": {
+       "mean": 0.004246284501061571,
+       "sd": 0.0
+      },
+      "target_files_caught": {
+       "mean": 10.0,
+       "sd": 0.0
+      },
+      "false_alarms": {
+       "mean": 2345.0,
+       "sd": 0.0
+      },
+      "false_alarm_rate": {
+       "mean": 0.19943868004762716,
+       "sd": 0.0
+      }
+     }
+    }
+   },
+   "img2": {
+    "IF": {
+     "15": {
+      "K": 12753,
+      "targets": 19,
+      "target_files": 38,
+      "caught_per_seed": [
+       19,
+       19,
+       19,
+       19,
+       19
+      ],
+      "recall_seedmean": 1.0,
+      "recall_seedmean_wilson95": [
+       0.8318207737404363,
+       0.9999999999999999
+      ],
+      "recall_worst": 1.0,
+      "recall_worst_wilson95": [
+       0.8318207737404363,
+       0.9999999999999999
+      ],
+      "miss_rate_seedmean": 0.0,
+      "file_precision": {
+       "mean": 0.0029796910530855486,
+       "sd": 0.0
+      },
+      "target_files_caught": {
+       "mean": 38.0,
+       "sd": 0.0
+      },
+      "false_alarms": {
+       "mean": 12715.0,
+       "sd": 0.0
+      },
+      "false_alarm_rate": {
+       "mean": 0.14962520152037562,
+       "sd": 0.0
+      }
+     },
+     "20": {
+      "K": 17003,
+      "targets": 19,
+      "target_files": 38,
+      "caught_per_seed": [
+       19,
+       19,
+       19,
+       19,
+       19
+      ],
+      "recall_seedmean": 1.0,
+      "recall_seedmean_wilson95": [
+       0.8318207737404363,
+       0.9999999999999999
+      ],
+      "recall_worst": 1.0,
+      "recall_worst_wilson95": [
+       0.8318207737404363,
+       0.9999999999999999
+      ],
+      "miss_rate_seedmean": 0.0,
+      "file_precision": {
+       "mean": 0.002234899723578192,
+       "sd": 0.0
+      },
+      "target_files_caught": {
+       "mean": 38.0,
+       "sd": 0.0
+      },
+      "false_alarms": {
+       "mean": 16965.0,
+       "sd": 0.0
+      },
+      "false_alarm_rate": {
+       "mean": 0.1996375575142094,
+       "sd": 0.0
+      }
+     }
+    },
+    "LOF": {
+     "15": {
+      "K": 12753,
+      "targets": 19,
+      "target_files": 38,
+      "caught_per_seed": [
+       5,
+       5,
+       5,
+       5,
+       5
+      ],
+      "recall_seedmean": 0.2631578947368421,
+      "recall_seedmean_wilson95": [
+       0.1180641227208778,
+       0.4879155107704944
+      ],
+      "recall_worst": 0.2631578947368421,
+      "recall_worst_wilson95": [
+       0.1180641227208778,
+       0.4879155107704944
+      ],
+      "miss_rate_seedmean": 0.736842105263158,
+      "file_precision": {
+       "mean": 0.00039206461224809854,
+       "sd": 6.06087439757635e-20
+      },
+      "target_files_caught": {
+       "mean": 5.0,
+       "sd": 0.0
+      },
+      "false_alarms": {
+       "mean": 12748.0,
+       "sd": 0.0
+      },
+      "false_alarm_rate": {
+       "mean": 0.15001353275515128,
+       "sd": 0.0
+      }
+     },
+     "20": {
+      "K": 17003,
+      "targets": 19,
+      "target_files": 38,
+      "caught_per_seed": [
+       8,
+       8,
+       8,
+       8,
+       8
+      ],
+      "recall_seedmean": 0.42105263157894735,
+      "recall_seedmean_wilson95": [
+       0.23141891166171535,
+       0.637240966168742
+      ],
+      "recall_worst": 0.42105263157894735,
+      "recall_worst_wilson95": [
+       0.23141891166171535,
+       0.637240966168742
+      ],
+      "miss_rate_seedmean": 0.5789473684210527,
+      "file_precision": {
+       "mean": 0.0004705052049638299,
+       "sd": 0.0
+      },
+      "target_files_caught": {
+       "mean": 8.0,
+       "sd": 0.0
+      },
+      "false_alarms": {
+       "mean": 16995.0,
+       "sd": 0.0
+      },
+      "false_alarm_rate": {
+       "mean": 0.19999058590945998,
+       "sd": 0.0
+      }
+     }
+    },
+    "OC-SVM": {
+     "15": {
+      "K": 12753,
+      "targets": 19,
+      "target_files": 38,
+      "caught_per_seed": [
+       19,
+       19,
+       19,
+       19,
+       19
+      ],
+      "recall_seedmean": 1.0,
+      "recall_seedmean_wilson95": [
+       0.8318207737404363,
+       0.9999999999999999
+      ],
+      "recall_worst": 1.0,
+      "recall_worst_wilson95": [
+       0.8318207737404363,
+       0.9999999999999999
+      ],
+      "miss_rate_seedmean": 0.0,
+      "file_precision": {
+       "mean": 0.0028542303771661574,
+       "sd": 8.940448718726083e-05
+      },
+      "target_files_caught": {
+       "mean": 36.4,
+       "sd": 1.140175425099138
+      },
+      "false_alarms": {
+       "mean": 12716.6,
+       "sd": 1.1401754250991378
+      },
+      "false_alarm_rate": {
+       "mean": 0.14964402970145566,
+       "sd": 1.341714335423366e-05
+      }
+     },
+     "20": {
+      "K": 17003,
+      "targets": 19,
+      "target_files": 38,
+      "caught_per_seed": [
+       19,
+       19,
+       19,
+       19,
+       19
+      ],
+      "recall_seedmean": 1.0,
+      "recall_seedmean_wilson95": [
+       0.8318207737404363,
+       0.9999999999999999
+      ],
+      "recall_worst": 1.0,
+      "recall_worst_wilson95": [
+       0.8318207737404363,
+       0.9999999999999999
+      ],
+      "miss_rate_seedmean": 0.0,
+      "file_precision": {
+       "mean": 0.002176086572957713,
+       "sd": 5.881315062047877e-05
+      },
+      "target_files_caught": {
+       "mean": 37.0,
+       "sd": 1.0
+      },
+      "false_alarms": {
+       "mean": 16966.0,
+       "sd": 1.0
+      },
+      "false_alarm_rate": {
+       "mean": 0.19964932512738442,
+       "sd": 1.176761317502051e-05
+      }
+     }
+    }
+   },
+   "img3": {
+    "IF": {
+     "15": {
+      "K": 24916,
+      "targets": 34,
+      "target_files": 85,
+      "caught_per_seed": [
+       33,
+       33,
+       29,
+       33,
+       34
+      ],
+      "recall_seedmean": 0.9529411764705882,
+      "recall_seedmean_wilson95": [
+       0.8253122950370484,
+       0.9886098134264705
+      ],
+      "recall_worst": 0.8529411764705882,
+      "recall_worst_wilson95": [
+       0.6987194336217214,
+       0.9355055859602414
+      ],
+      "miss_rate_seedmean": 0.04705882352941182,
+      "file_precision": {
+       "mean": 0.003194734307272435,
+       "sd": 0.00018304309280769583
+      },
+      "target_files_caught": {
+       "mean": 79.6,
+       "sd": 4.560701700396551
+      },
+      "false_alarms": {
+       "mean": 24836.4,
+       "sd": 4.560701700396552
+      },
+      "false_alarm_rate": {
+       "mean": 0.14959433820207801,
+       "sd": 2.7469969585281974e-05
+      }
+     },
+     "20": {
+      "K": 33222,
+      "targets": 34,
+      "target_files": 85,
+      "caught_per_seed": [
+       34,
+       34,
+       34,
+       34,
+       34
+      ],
+      "recall_seedmean": 1.0,
+      "recall_seedmean_wilson95": [
+       0.8984854444077807,
+       0.9999999999999999
+      ],
+      "recall_worst": 1.0,
+      "recall_worst_wilson95": [
+       0.8984854444077807,
+       0.9999999999999999
+      ],
+      "miss_rate_seedmean": 0.0,
+      "file_precision": {
+       "mean": 0.0025585455421106495,
+       "sd": 0.0
+      },
+      "target_files_caught": {
+       "mean": 85.0,
+       "sd": 0.0
+      },
+      "false_alarms": {
+       "mean": 33137.0,
+       "sd": 0.0
+      },
+      "false_alarm_rate": {
+       "mean": 0.19959042312904682,
+       "sd": 0.0
+      }
+     }
+    },
+    "LOF": {
+     "15": {
+      "K": 24916,
+      "targets": 34,
+      "target_files": 85,
+      "caught_per_seed": [
+       15,
+       15,
+       15,
+       15,
+       15
+      ],
+      "recall_seedmean": 0.4411764705882353,
+      "recall_seedmean_wilson95": [
+       0.28883482142347944,
+       0.6054610086461933
+      ],
+      "recall_worst": 0.4411764705882353,
+      "recall_worst_wilson95": [
+       0.28883482142347944,
+       0.6054610086461933
+      ],
+      "miss_rate_seedmean": 0.5588235294117647,
+      "file_precision": {
+       "mean": 0.0006822925028094397,
+       "sd": 0.0
+      },
+      "target_files_caught": {
+       "mean": 17.0,
+       "sd": 0.0
+      },
+      "false_alarms": {
+       "mean": 24899.0,
+       "sd": 0.0
+      },
+      "false_alarm_rate": {
+       "mean": 0.14997138985092606,
+       "sd": 0.0
+      }
+     },
+     "20": {
+      "K": 33222,
+      "targets": 34,
+      "target_files": 85,
+      "caught_per_seed": [
+       19,
+       19,
+       19,
+       19,
+       19
+      ],
+      "recall_seedmean": 0.5588235294117647,
+      "recall_seedmean_wilson95": [
+       0.3945389913538066,
+       0.7111651785765205
+      ],
+      "recall_worst": 0.5588235294117647,
+      "recall_worst_wilson95": [
+       0.3945389913538066,
+       0.7111651785765205
+      ],
+      "miss_rate_seedmean": 0.4411764705882353,
+      "file_precision": {
+       "mean": 0.0008729155378965744,
+       "sd": 1.21217487951527e-19
+      },
+      "target_files_caught": {
+       "mean": 29.0,
+       "sd": 0.0
+      },
+      "false_alarms": {
+       "mean": 33193.0,
+       "sd": 0.0
+      },
+      "false_alarm_rate": {
+       "mean": 0.19992772172865533,
+       "sd": 0.0
+      }
+     }
+    },
+    "OC-SVM": {
+     "15": {
+      "K": 24916,
+      "targets": 34,
+      "target_files": 85,
+      "caught_per_seed": [
+       24,
+       21,
+       24,
+       18,
+       23
+      ],
+      "recall_seedmean": 0.6470588235294118,
+      "recall_seedmean_wilson95": [
+       0.4791396298916258,
+       0.7851207949341923
+      ],
+      "recall_worst": 0.5294117647058824,
+      "recall_worst_wilson95": [
+       0.36736712863069904,
+       0.6854849563344647
+      ],
+      "miss_rate_seedmean": 0.3529411764705882,
+      "file_precision": {
+       "mean": 0.0021833360089902067,
+       "sd": 0.0002930119160129071
+      },
+      "target_files_caught": {
+       "mean": 54.4,
+       "sd": 7.300684899377592
+      },
+      "false_alarms": {
+       "mean": 24861.6,
+       "sd": 7.3006848993775915
+      },
+      "false_alarm_rate": {
+       "mean": 0.14974612257190184,
+       "sd": 4.397340701326011e-05
+      }
+     },
+     "20": {
+      "K": 33222,
+      "targets": 34,
+      "target_files": 85,
+      "caught_per_seed": [
+       25,
+       23,
+       24,
+       21,
+       24
+      ],
+      "recall_seedmean": 0.6882352941176471,
+      "recall_seedmean_wilson95": [
+       0.5203084565515962,
+       0.8179448872254508
+      ],
+      "recall_worst": 0.6176470588235294,
+      "recall_worst_wilson95": [
+       0.4504101721679258,
+       0.7609981676927285
+      ],
+      "miss_rate_seedmean": 0.31176470588235294,
+      "file_precision": {
+       "mean": 0.0017578712901089636,
+       "sd": 0.00017883873069066218
+      },
+      "target_files_caught": {
+       "mean": 58.4,
+       "sd": 5.941380311005179
+      },
+      "false_alarms": {
+       "mean": 33163.6,
+       "sd": 5.941380311005179
+      },
+      "false_alarm_rate": {
+       "mean": 0.19975063996386086,
+       "sd": 3.578605819006065e-05
+      }
+     }
+    }
+   }
+  },
+  "pooled": {
+   "IF": {
+    "15": {
+     "targets": 60,
+     "K_total": 39435,
+     "recall_seedmean": 0.9733333333333333,
+     "recall_seedmean_wilson95": [
+      0.8961387386229207,
+      0.9935652405046775
+     ],
+     "recall_worst": 0.9166666666666666,
+     "recall_worst_wilson95": [
+      0.8193105788446039,
+      0.9638795436268733
+     ],
+     "miss_rate_seedmean": 0.026666666666666727,
+     "file_precision": {
+      "mean": 0.003337137060986434,
+      "sd": 0.00011565111450225824
+     },
+     "false_alarms": {
+      "mean": 39303.4,
+      "sd": 4.560701700396552
+     },
+     "false_alarm_rate": {
+      "mean": 0.14957794506054908,
+      "sd": 1.735677799832384e-05
+     },
+     "note": "pooled over the 3 disks (micro): sums of counts; Wilson treats the 60 targets as independent"
+    },
+    "20": {
+     "targets": 60,
+     "K_total": 52580,
+     "recall_seedmean": 1.0,
+     "recall_seedmean_wilson95": [
+      0.9398281469657729,
+      1.0
+     ],
+     "recall_worst": 1.0,
+     "recall_worst_wilson95": [
+      0.9398281469657729,
+      1.0
+     ],
+     "miss_rate_seedmean": 0.0,
+     "file_precision": {
+      "mean": 0.0026169646253328257,
+      "sd": 1.0416937191045459e-05
+     },
+     "false_alarms": {
+      "mean": 52442.4,
+      "sd": 0.5477225575051661
+     },
+     "false_alarm_rate": {
+      "mean": 0.19958137021334896,
+      "sd": 2.0844816126656695e-06
+     },
+     "note": "pooled over the 3 disks (micro): sums of counts; Wilson treats the 60 targets as independent"
+    }
+   },
+   "LOF": {
+    "15": {
+     "targets": 60,
+     "K_total": 39435,
+     "recall_seedmean": 0.4,
+     "recall_seedmean_wilson95": [
+      0.28569490454383006,
+      0.5263394660630154
+     ],
+     "recall_worst": 0.4,
+     "recall_worst_wilson95": [
+      0.28569490454383006,
+      0.5263394660630154
+     ],
+     "miss_rate_seedmean": 0.6,
+     "file_precision": {
+      "mean": 0.0006846709775580068,
+      "sd": 0.0
+     },
+     "false_alarms": {
+      "mean": 39408.0,
+      "sd": 0.0
+     },
+     "false_alarm_rate": {
+      "mean": 0.14997602393040088,
+      "sd": 0.0
+     },
+     "note": "pooled over the 3 disks (micro): sums of counts; Wilson treats the 60 targets as independent"
+    },
+    "20": {
+     "targets": 60,
+     "K_total": 52580,
+     "recall_seedmean": 0.5333333333333333,
+     "recall_seedmean_wilson95": [
+      0.40893426933426563,
+      0.6537209404634525
+     ],
+     "recall_worst": 0.5333333333333333,
+     "recall_worst_wilson95": [
+      0.40893426933426563,
+      0.6537209404634525
+     ],
+     "miss_rate_seedmean": 0.4666666666666667,
+     "file_precision": {
+      "mean": 0.0008558387219475084,
+      "sd": 1.21217487951527e-19
+     },
+     "false_alarms": {
+      "mean": 52535.0,
+      "sd": 0.0
+     },
+     "false_alarm_rate": {
+      "mean": 0.19993378037920248,
+      "sd": 0.0
+     },
+     "note": "pooled over the 3 disks (micro): sums of counts; Wilson treats the 60 targets as independent"
+    }
+   },
+   "OC-SVM": {
+    "15": {
+     "targets": 60,
+     "K_total": 39435,
+     "recall_seedmean": 0.7833333333333333,
+     "recall_seedmean_wilson95": [
+      0.6637997232345094,
+      0.8687695600460952
+     ],
+     "recall_worst": 0.7166666666666667,
+     "recall_worst_wilson95": [
+      0.5923271473263599,
+      0.8149317163588082
+     ],
+     "miss_rate_seedmean": 0.21666666666666667,
+     "file_precision": {
+      "mean": 0.002510460251046025,
+      "sd": 0.00017476922470001556
+     },
+     "false_alarms": {
+      "mean": 39336.0,
+      "sd": 6.892024376045111
+     },
+     "false_alarm_rate": {
+      "mean": 0.14970201170641112,
+      "sd": 2.6229151764888968e-05
+     },
+     "note": "pooled over the 3 disks (micro): sums of counts; Wilson treats the 60 targets as independent"
+    },
+    "20": {
+     "targets": 60,
+     "K_total": 52580,
+     "recall_seedmean": 0.8066666666666666,
+     "recall_seedmean_wilson95": [
+      0.6896003911306484,
+      0.886827539008359
+     ],
+     "recall_worst": 0.7666666666666667,
+     "recall_worst_wilson95": [
+      0.6456372951896278,
+      0.855604383192118
+     ],
+     "miss_rate_seedmean": 0.19333333333333336,
+     "file_precision": {
+      "mean": 0.00200456447318372,
+      "sd": 0.00010974924341006857
+     },
+     "false_alarms": {
+      "mean": 52474.6,
+      "sd": 5.770615218501403
+     },
+     "false_alarm_rate": {
+      "mean": 0.1997039145690777,
+      "sd": 2.1961376525153987e-05
+     },
+     "note": "pooled over the 3 disks (micro): sums of counts; Wilson treats the 60 targets as independent"
+    }
+   }
+  }
+ },
+ "per_target_IF": {
+  "disks": {
+   "img1": [
+    {
+     "target": "Cain & Abel (Cain.exe)",
+     "n_files": 2,
+     "best_rank_mean": 35.6,
+     "best_rank_sd": 29.996666481460903,
+     "best_rank_worst_seed": 75,
+     "percentile_mean": 0.30238681729380784,
+     "percentile_worst_seed": 0.6370508791302132,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 5
+    },
+    {
+     "target": "Ethereal / WinPcap",
+     "n_files": 2,
+     "best_rank_mean": 67.8,
+     "best_rank_sd": 28.44644090215857,
+     "best_rank_worst_seed": 118,
+     "percentile_mean": 0.5758939947337127,
+     "percentile_worst_seed": 1.0022933831648688,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 4
+    },
+    {
+     "target": "NetStumbler",
+     "n_files": 1,
+     "best_rank_mean": 124.8,
+     "best_rank_sd": 63.33403508383151,
+     "best_rank_worst_seed": 234,
+     "percentile_mean": 1.0600526628726747,
+     "percentile_worst_seed": 1.9875987428862651,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 3
+    },
+    {
+     "target": "Password wordlists (ZIP)",
+     "n_files": 2,
+     "best_rank_mean": 19.0,
+     "best_rank_sd": 15.362291495737216,
+     "best_rank_worst_seed": 38,
+     "percentile_mean": 0.16138622271298733,
+     "percentile_worst_seed": 0.32277244542597466,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 7
+    },
+    {
+     "target": "NMEM/NGETTIME (timestomped Novell tools)",
+     "n_files": 2,
+     "best_rank_mean": 26.6,
+     "best_rank_sd": 21.361179742701477,
+     "best_rank_worst_seed": 46,
+     "percentile_mean": 0.2259407117981823,
+     "percentile_worst_seed": 0.3907245391998641,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 6
+    },
+    {
+     "target": "123WASP (UNWISE.EXE, 123wasp.exe)",
+     "n_files": 2,
+     "best_rank_mean": 1462.8,
+     "best_rank_sd": 187.38383067917042,
+     "best_rank_worst_seed": 1742,
+     "percentile_mean": 12.425040346555678,
+     "percentile_worst_seed": 14.79656841926442,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 1
+    },
+    {
+     "target": "defrag.exe / Anonymizer",
+     "n_files": 4,
+     "best_rank_mean": 308.4,
+     "best_rank_sd": 27.051802158081816,
+     "best_rank_worst_seed": 353,
+     "percentile_mean": 2.619553214983436,
+     "percentile_worst_seed": 2.99838613777287,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 2
+    }
+   ],
+   "img2": [
+    {
+     "target": "Eraser.exe (Installed Wiping Tool)",
+     "n_files": 1,
+     "best_rank_mean": 460.6,
+     "best_rank_sd": 242.21333571874197,
+     "best_rank_worst_seed": 880,
+     "percentile_mean": 0.5417739981415481,
+     "percentile_worst_seed": 1.0350871002270134,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 17
+    },
+    {
+     "target": "Eraser 6.2.0.2962.exe (Downloaded Installer)",
+     "n_files": 2,
+     "best_rank_mean": 1069.4,
+     "best_rank_sd": 468.66757942063794,
+     "best_rank_worst_seed": 1758,
+     "percentile_mean": 1.2578660738440548,
+     "percentile_worst_seed": 2.0678217297716928,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 14
+    },
+    {
+     "target": "ccsetup504.exe (Downloaded CCleaner)",
+     "n_files": 2,
+     "best_rank_mean": 1087.8,
+     "best_rank_sd": 503.8196105750549,
+     "best_rank_worst_seed": 1851,
+     "percentile_mean": 1.2795088041215286,
+     "percentile_worst_seed": 2.1772116165002293,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 13
+    },
+    {
+     "target": "CCleaner64.exe (CCleaner Prefetch)",
+     "n_files": 1,
+     "best_rank_mean": 3853.2,
+     "best_rank_sd": 1175.514440574849,
+     "best_rank_worst_seed": 5307,
+     "percentile_mean": 4.532270016584918,
+     "percentile_worst_seed": 6.242280955573591,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 3
+    },
+    {
+     "target": "[secret_project]_proposal.docx (LNK)",
+     "n_files": 2,
+     "best_rank_mean": 1274.2,
+     "best_rank_sd": 421.5633997395884,
+     "best_rank_worst_seed": 1999,
+     "percentile_mean": 1.4987590717150687,
+     "percentile_worst_seed": 2.3512944469929544,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 11
+    },
+    {
+     "target": "[secret_project]_design_concept.ppt (LNK)",
+     "n_files": 2,
+     "best_rank_mean": 1650.6,
+     "best_rank_sd": 713.3626707362812,
+     "best_rank_worst_seed": 2876,
+     "percentile_mean": 1.9414940541303505,
+     "percentile_worst_seed": 3.3828528411964665,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 6
+    },
+    {
+     "target": "(secret_project)_pricing_decision.xlsx (LNK)",
+     "n_files": 2,
+     "best_rank_mean": 1401.2,
+     "best_rank_sd": 761.6618015891305,
+     "best_rank_worst_seed": 2707,
+     "percentile_mean": 1.6481409600432855,
+     "percentile_worst_seed": 3.1840690685392334,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 9
+    },
+    {
+     "target": "[secret_project]_final_meeting.pptx (LNK)",
+     "n_files": 2,
+     "best_rank_mean": 1633.8,
+     "best_rank_sd": 857.815656187272,
+     "best_rank_worst_seed": 3132,
+     "percentile_mean": 1.9217333003987438,
+     "percentile_worst_seed": 3.683969088535234,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 8
+    },
+    {
+     "target": "happy_holiday.jpg (Confidential Pricing)",
+     "n_files": 1,
+     "best_rank_mean": 10840.0,
+     "best_rank_sd": 636.2468074576092,
+     "best_rank_worst_seed": 11815,
+     "percentile_mean": 12.750391098250939,
+     "percentile_worst_seed": 13.897220555888822,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 1
+    },
+    {
+     "target": "winter_whether_advisory.zip (Masqueraded Design)",
+     "n_files": 1,
+     "best_rank_mean": 742.2,
+     "best_rank_sd": 242.9582268621501,
+     "best_rank_worst_seed": 1101,
+     "percentile_mean": 0.8730018702141925,
+     "percentile_worst_seed": 1.2950351106249338,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 16
+    },
+    {
+     "target": "sync_log.log (Google Drive Sync Log)",
+     "n_files": 2,
+     "best_rank_mean": 300.0,
+     "best_rank_sd": 55.31726674375732,
+     "best_rank_worst_seed": 389,
+     "percentile_mean": 0.3528706023501182,
+     "percentile_worst_seed": 0.4575555477139866,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 18
+    },
+    {
+     "target": "sync_config.db / snapshot.db (GDrive DBs)",
+     "n_files": 6,
+     "best_rank_mean": 1132.8,
+     "best_rank_sd": 309.43125246167364,
+     "best_rank_worst_seed": 1620,
+     "percentile_mean": 1.3324393944740465,
+     "percentile_worst_seed": 1.9055012526906383,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 12
+    },
+    {
+     "target": "Chrysanthemum.jpg (Wiped via Eraser)",
+     "n_files": 1,
+     "best_rank_mean": 8523.0,
+     "best_rank_sd": 2354.1787315325064,
+     "best_rank_worst_seed": 11230,
+     "percentile_mean": 10.025053812766858,
+     "percentile_worst_seed": 13.209122881306092,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 2
+    },
+    {
+     "target": "Koala.jpg (Decoy burned to CD-R)",
+     "n_files": 2,
+     "best_rank_mean": 1380.6,
+     "best_rank_sd": 571.9368846297641,
+     "best_rank_worst_seed": 2332,
+     "percentile_mean": 1.623910512015244,
+     "percentile_worst_seed": 2.7429808156015856,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 10
+    },
+    {
+     "target": "Penguins.jpg (Decoy burned to CD-R)",
+     "n_files": 2,
+     "best_rank_mean": 2073.0,
+     "best_rank_sd": 974.8910195503905,
+     "best_rank_worst_seed": 3620,
+     "percentile_mean": 2.4383358622393168,
+     "percentile_worst_seed": 4.257971935024759,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 4
+    },
+    {
+     "target": "Tulips.jpg (Decoy burned to CD-R)",
+     "n_files": 2,
+     "best_rank_mean": 1660.0,
+     "best_rank_sd": 652.8445450488194,
+     "best_rank_worst_seed": 2617,
+     "percentile_mean": 1.9525506663373207,
+     "percentile_worst_seed": 3.078207887834198,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 5
+    },
+    {
+     "target": "Resignation_Letter_(Iaman_Informant).docx / .xps",
+     "n_files": 5,
+     "best_rank_mean": 844.4,
+     "best_rank_sd": 245.07101011747594,
+     "best_rank_worst_seed": 1119,
+     "percentile_mean": 0.9932131220814661,
+     "percentile_worst_seed": 1.316207346765941,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 15
+    },
+    {
+     "target": "setupapi.dev.log (USB Connection Log)",
+     "n_files": 1,
+     "best_rank_mean": 111.6,
+     "best_rank_sd": 40.77744474583958,
+     "best_rank_worst_seed": 159,
+     "percentile_mean": 0.13126786407424398,
+     "percentile_worst_seed": 0.18702141924556265,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 19
+    },
+    {
+     "target": "System.evtx (Removable Drive Events)",
+     "n_files": 1,
+     "best_rank_mean": 1643.2,
+     "best_rank_sd": 1070.0844359208295,
+     "best_rank_worst_seed": 3496,
+     "percentile_mean": 1.9327899126057142,
+     "percentile_worst_seed": 4.112118752720044,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 7
+    }
+   ],
+   "img3": [
+    {
+     "target": "2018-04-03 (1).png",
+     "n_files": 1,
+     "best_rank_mean": 15308.2,
+     "best_rank_sd": 1291.9873064391925,
+     "best_rank_worst_seed": 16568,
+     "percentile_mean": 9.215700439467822,
+     "percentile_worst_seed": 9.974113539220998,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 10
+    },
+    {
+     "target": "2018-04-03 (3).png",
+     "n_files": 1,
+     "best_rank_mean": 7384.6,
+     "best_rank_sd": 2265.684399910985,
+     "best_rank_worst_seed": 10259,
+     "percentile_mean": 4.445608331828306,
+     "percentile_worst_seed": 6.176027933297212,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 24
+    },
+    {
+     "target": "2018-04-03.png",
+     "n_files": 1,
+     "best_rank_mean": 21172.0,
+     "best_rank_sd": 2681.036553275617,
+     "best_rank_worst_seed": 25340,
+     "percentile_mean": 12.74577087472157,
+     "percentile_worst_seed": 15.254951538137378,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 5
+    },
+    {
+     "target": "2018-04-04 (2).png",
+     "n_files": 1,
+     "best_rank_mean": 22368.4,
+     "best_rank_sd": 2895.264979237652,
+     "best_rank_worst_seed": 26094,
+     "percentile_mean": 13.466016495093612,
+     "percentile_worst_seed": 15.708867617843598,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 3
+    },
+    {
+     "target": "2018-04-04 (3).png",
+     "n_files": 1,
+     "best_rank_mean": 22038.0,
+     "best_rank_sd": 2774.4501257005863,
+     "best_rank_worst_seed": 25253,
+     "percentile_mean": 13.267112154596353,
+     "percentile_worst_seed": 15.202576605863584,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 4
+    },
+    {
+     "target": "2018-04-04 (4).png",
+     "n_files": 1,
+     "best_rank_mean": 16427.8,
+     "best_rank_sd": 1301.829366699031,
+     "best_rank_worst_seed": 18404,
+     "percentile_mean": 9.889711636867137,
+     "percentile_worst_seed": 11.079405213412798,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 9
+    },
+    {
+     "target": "2018-04-04.png",
+     "n_files": 1,
+     "best_rank_mean": 8568.8,
+     "best_rank_sd": 2631.3399058274476,
+     "best_rank_worst_seed": 12132,
+     "percentile_mean": 5.158509421467701,
+     "percentile_worst_seed": 7.303594003973271,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 20
+    },
+    {
+     "target": "AIRPORT INFORMATION.docx",
+     "n_files": 4,
+     "best_rank_mean": 7817.4,
+     "best_rank_sd": 575.0637355980639,
+     "best_rank_worst_seed": 8499,
+     "percentile_mean": 4.70615856962254,
+     "percentile_worst_seed": 5.116489073505508,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 22
+    },
+    {
+     "target": "AMEN.pdf",
+     "n_files": 1,
+     "best_rank_mean": 17892.2,
+     "best_rank_sd": 2044.2863546969147,
+     "best_rank_worst_seed": 20572,
+     "percentile_mean": 10.771296129071098,
+     "percentile_worst_seed": 12.384564445247126,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 7
+    },
+    {
+     "target": "BladeofGrass.jpg",
+     "n_files": 4,
+     "best_rank_mean": 7133.8,
+     "best_rank_sd": 437.13407554204696,
+     "best_rank_worst_seed": 7786,
+     "percentile_mean": 4.294624044307989,
+     "percentile_worst_seed": 4.68725543314671,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 26
+    },
+    {
+     "target": "Box Sync.lnk",
+     "n_files": 2,
+     "best_rank_mean": 1902.4,
+     "best_rank_sd": 742.1137379135357,
+     "best_rank_worst_seed": 3069,
+     "percentile_mean": 1.1452651857203058,
+     "percentile_worst_seed": 1.8475708867617844,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 32
+    },
+    {
+     "target": "Brother Chat.gdoc",
+     "n_files": 1,
+     "best_rank_mean": 10091.0,
+     "best_rank_sd": 2159.078854511803,
+     "best_rank_worst_seed": 13056,
+     "percentile_mean": 6.074890133044368,
+     "percentile_worst_seed": 7.859851905363915,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 15
+    },
+    {
+     "target": "CachedImage_1366_768_POS4.jpg",
+     "n_files": 1,
+     "best_rank_mean": 12072.0,
+     "best_rank_sd": 2262.8274348699238,
+     "best_rank_worst_seed": 14937,
+     "percentile_mean": 7.267473361025826,
+     "percentile_worst_seed": 8.992234061766299,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 12
+    },
+    {
+     "target": "Cloudy thoughts (4apr).docx",
+     "n_files": 1,
+     "best_rank_mean": 26898.2,
+     "best_rank_sd": 2497.0070484482017,
+     "best_rank_worst_seed": 30300,
+     "percentile_mean": 16.193004635482513,
+     "percentile_worst_seed": 18.240924688459454,
+     "outside_15pct": true,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 1
+    },
+    {
+     "target": "CubaDearmed.jpg",
+     "n_files": 4,
+     "best_rank_mean": 7572.4,
+     "best_rank_sd": 1019.9675485033825,
+     "best_rank_worst_seed": 9315,
+     "percentile_mean": 4.558665944253808,
+     "percentile_worst_seed": 5.607729817590753,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 23
+    },
+    {
+     "target": "DarkWolf.png",
+     "n_files": 4,
+     "best_rank_mean": 4751.8,
+     "best_rank_sd": 538.4428474777988,
+     "best_rank_worst_seed": 5633,
+     "percentile_mean": 2.8606345192944436,
+     "percentile_worst_seed": 3.3911263620492447,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 29
+    },
+    {
+     "target": "DeathToll.jpg",
+     "n_files": 4,
+     "best_rank_mean": 9464.2,
+     "best_rank_sd": 465.3457854112359,
+     "best_rank_worst_seed": 10174,
+     "percentile_mean": 5.697549816386732,
+     "percentile_worst_seed": 6.124857022455,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 16
+    },
+    {
+     "target": "DemLogic.jpg",
+     "n_files": 4,
+     "best_rank_mean": 9305.6,
+     "best_rank_sd": 907.810993544361,
+     "best_rank_worst_seed": 10221,
+     "percentile_mean": 5.60207091686232,
+     "percentile_worst_seed": 6.153151526097164,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 18
+    },
+    {
+     "target": "Dropbox.lnk",
+     "n_files": 2,
+     "best_rank_mean": 1844.6,
+     "best_rank_sd": 626.5112129882433,
+     "best_rank_worst_seed": 2761,
+     "percentile_mean": 1.110468966347601,
+     "percentile_worst_seed": 1.6621515862982361,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 33
+    },
+    {
+     "target": "Google Drive.lnk",
+     "n_files": 3,
+     "best_rank_mean": 1986.6,
+     "best_rank_sd": 805.3997765085362,
+     "best_rank_worst_seed": 3196,
+     "percentile_mean": 1.1959544879898862,
+     "percentile_worst_seed": 1.9240262476672085,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 31
+    },
+    {
+     "target": "HoldMyTidePod.jpg",
+     "n_files": 4,
+     "best_rank_mean": 9448.0,
+     "best_rank_sd": 776.6308646969936,
+     "best_rank_worst_seed": 10404,
+     "percentile_mean": 5.687797242790921,
+     "percentile_worst_seed": 6.2633194870868705,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 17
+    },
+    {
+     "target": "Huckleberry.png",
+     "n_files": 4,
+     "best_rank_mean": 6655.8,
+     "best_rank_sd": 557.312928254854,
+     "best_rank_worst_seed": 7299,
+     "percentile_mean": 4.006862922160014,
+     "percentile_worst_seed": 4.394076214556619,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 27
+    },
+    {
+     "target": "Jim's Notebook.url",
+     "n_files": 1,
+     "best_rank_mean": 8582.2,
+     "best_rank_sd": 2316.939403609857,
+     "best_rank_worst_seed": 11382,
+     "percentile_mean": 5.166576365059298,
+     "percentile_worst_seed": 6.852085967130215,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 19
+    },
+    {
+     "target": "LeftUsesBoycotts.pdf",
+     "n_files": 1,
+     "best_rank_mean": 11175.8,
+     "best_rank_sd": 2462.654908833148,
+     "best_rank_worst_seed": 13405,
+     "percentile_mean": 6.727951357534164,
+     "percentile_worst_seed": 8.069953645174884,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 13
+    },
+    {
+     "target": "MyTiredHead.jpg",
+     "n_files": 4,
+     "best_rank_mean": 7347.8,
+     "best_rank_sd": 846.9951003400197,
+     "best_rank_worst_seed": 8774,
+     "percentile_mean": 4.4234543374872075,
+     "percentile_worst_seed": 5.282042020347962,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 25
+    },
+    {
+     "target": "Operation 2nd Hand Smoke.pptx",
+     "n_files": 5,
+     "best_rank_mean": 1685.2,
+     "best_rank_sd": 912.7599355799969,
+     "best_rank_worst_seed": 2862,
+     "percentile_mean": 1.0145084582505568,
+     "percentile_worst_seed": 1.722954668593101,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 34
+    },
+    {
+     "target": "Planning.docx",
+     "n_files": 5,
+     "best_rank_mean": 10959.8,
+     "best_rank_sd": 735.3238742214209,
+     "best_rank_worst_seed": 12049,
+     "percentile_mean": 6.597917042923364,
+     "percentile_worst_seed": 7.253627114562639,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 14
+    },
+    {
+     "target": "RedGuns.jpg",
+     "n_files": 4,
+     "best_rank_mean": 8295.6,
+     "best_rank_sd": 634.7797255741553,
+     "best_rank_worst_seed": 9090,
+     "percentile_mean": 4.9940400939136715,
+     "percentile_worst_seed": 5.472277406537836,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 21
+    },
+    {
+     "target": "rootkey.csv",
+     "n_files": 1,
+     "best_rank_mean": 23635.4,
+     "best_rank_sd": 2294.0857220252256,
+     "best_rank_worst_seed": 27583,
+     "percentile_mean": 14.228764072000482,
+     "percentile_worst_seed": 16.605261573656012,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 2
+    },
+    {
+     "target": "SelfDefenseisMurder.pdf",
+     "n_files": 1,
+     "best_rank_mean": 18346.8,
+     "best_rank_sd": 1770.5906359178566,
+     "best_rank_worst_seed": 20397,
+     "percentile_mean": 11.04497020046957,
+     "percentile_worst_seed": 12.279212569983745,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 6
+    },
+    {
+     "target": "Sheep.jpg",
+     "n_files": 4,
+     "best_rank_mean": 6080.0,
+     "best_rank_sd": 1048.0469932212009,
+     "best_rank_worst_seed": 6930,
+     "percentile_mean": 3.6602251520077056,
+     "percentile_worst_seed": 4.171934260429835,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 28
+    },
+    {
+     "target": "The Cloudy Manifesto.docx",
+     "n_files": 6,
+     "best_rank_mean": 3089.0,
+     "best_rank_sd": 937.4579990591578,
+     "best_rank_worst_seed": 4311,
+     "percentile_mean": 1.859611101077599,
+     "percentile_worst_seed": 2.5952681957738846,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 30
+    },
+    {
+     "target": "UKknifeBan.pdf",
+     "n_files": 1,
+     "best_rank_mean": 13770.2,
+     "best_rank_sd": 2802.5795617609147,
+     "best_rank_worst_seed": 15746,
+     "percentile_mean": 8.289807958581664,
+     "percentile_worst_seed": 9.479260730841009,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 11
+    },
+    {
+     "target": "Chrome Login Data database",
+     "n_files": 2,
+     "best_rank_mean": 16435.6,
+     "best_rank_sd": 1315.7139886768705,
+     "best_rank_worst_seed": 17721,
+     "percentile_mean": 9.894407320450302,
+     "percentile_worst_seed": 10.668231894527723,
+     "outside_15pct": false,
+     "outside_20pct": false,
+     "hardness_rank_in_disk": 8
+    }
+   ]
+  },
+  "hardest10_pooled": [
+   {
+    "target": "Cloudy thoughts (4apr).docx",
+    "n_files": 1,
+    "best_rank_mean": 26898.2,
+    "best_rank_sd": 2497.0070484482017,
+    "best_rank_worst_seed": 30300,
+    "percentile_mean": 16.193004635482513,
+    "percentile_worst_seed": 18.240924688459454,
+    "outside_15pct": true,
+    "outside_20pct": false,
+    "hardness_rank_in_disk": 1,
+    "disk": "img3"
+   },
+   {
+    "target": "rootkey.csv",
+    "n_files": 1,
+    "best_rank_mean": 23635.4,
+    "best_rank_sd": 2294.0857220252256,
+    "best_rank_worst_seed": 27583,
+    "percentile_mean": 14.228764072000482,
+    "percentile_worst_seed": 16.605261573656012,
+    "outside_15pct": false,
+    "outside_20pct": false,
+    "hardness_rank_in_disk": 2,
+    "disk": "img3"
+   },
+   {
+    "target": "2018-04-04 (2).png",
+    "n_files": 1,
+    "best_rank_mean": 22368.4,
+    "best_rank_sd": 2895.264979237652,
+    "best_rank_worst_seed": 26094,
+    "percentile_mean": 13.466016495093612,
+    "percentile_worst_seed": 15.708867617843598,
+    "outside_15pct": false,
+    "outside_20pct": false,
+    "hardness_rank_in_disk": 3,
+    "disk": "img3"
+   },
+   {
+    "target": "2018-04-04 (3).png",
+    "n_files": 1,
+    "best_rank_mean": 22038.0,
+    "best_rank_sd": 2774.4501257005863,
+    "best_rank_worst_seed": 25253,
+    "percentile_mean": 13.267112154596353,
+    "percentile_worst_seed": 15.202576605863584,
+    "outside_15pct": false,
+    "outside_20pct": false,
+    "hardness_rank_in_disk": 4,
+    "disk": "img3"
+   },
+   {
+    "target": "happy_holiday.jpg (Confidential Pricing)",
+    "n_files": 1,
+    "best_rank_mean": 10840.0,
+    "best_rank_sd": 636.2468074576092,
+    "best_rank_worst_seed": 11815,
+    "percentile_mean": 12.750391098250939,
+    "percentile_worst_seed": 13.897220555888822,
+    "outside_15pct": false,
+    "outside_20pct": false,
+    "hardness_rank_in_disk": 1,
+    "disk": "img2"
+   },
+   {
+    "target": "2018-04-03.png",
+    "n_files": 1,
+    "best_rank_mean": 21172.0,
+    "best_rank_sd": 2681.036553275617,
+    "best_rank_worst_seed": 25340,
+    "percentile_mean": 12.74577087472157,
+    "percentile_worst_seed": 15.254951538137378,
+    "outside_15pct": false,
+    "outside_20pct": false,
+    "hardness_rank_in_disk": 5,
+    "disk": "img3"
+   },
+   {
+    "target": "123WASP (UNWISE.EXE, 123wasp.exe)",
+    "n_files": 2,
+    "best_rank_mean": 1462.8,
+    "best_rank_sd": 187.38383067917042,
+    "best_rank_worst_seed": 1742,
+    "percentile_mean": 12.425040346555678,
+    "percentile_worst_seed": 14.79656841926442,
+    "outside_15pct": false,
+    "outside_20pct": false,
+    "hardness_rank_in_disk": 1,
+    "disk": "img1"
+   },
+   {
+    "target": "SelfDefenseisMurder.pdf",
+    "n_files": 1,
+    "best_rank_mean": 18346.8,
+    "best_rank_sd": 1770.5906359178566,
+    "best_rank_worst_seed": 20397,
+    "percentile_mean": 11.04497020046957,
+    "percentile_worst_seed": 12.279212569983745,
+    "outside_15pct": false,
+    "outside_20pct": false,
+    "hardness_rank_in_disk": 6,
+    "disk": "img3"
+   },
+   {
+    "target": "AMEN.pdf",
+    "n_files": 1,
+    "best_rank_mean": 17892.2,
+    "best_rank_sd": 2044.2863546969147,
+    "best_rank_worst_seed": 20572,
+    "percentile_mean": 10.771296129071098,
+    "percentile_worst_seed": 12.384564445247126,
+    "outside_15pct": false,
+    "outside_20pct": false,
+    "hardness_rank_in_disk": 7,
+    "disk": "img3"
+   },
+   {
+    "target": "Chrysanthemum.jpg (Wiped via Eraser)",
+    "n_files": 1,
+    "best_rank_mean": 8523.0,
+    "best_rank_sd": 2354.1787315325064,
+    "best_rank_worst_seed": 11230,
+    "percentile_mean": 10.025053812766858,
+    "percentile_worst_seed": 13.209122881306092,
+    "outside_15pct": false,
+    "outside_20pct": false,
+    "hardness_rank_in_disk": 2,
+    "disk": "img2"
+   }
+  ],
+  "flag_rule": "hardest = the 10 largest seed-mean rank percentiles over the 60 targets; outside_15/20pct = seed-mean best rank beyond the budget"
+ },
+ "rank_metrics": {
+  "per_disk": {
+   "img1": {
+    "IF": {
+     "auc": {
+      "mean": 0.9439167658898905,
+      "sd": 0.0012956313604404702
+     },
+     "ap": {
+      "mean": 0.07303599299887352,
+      "sd": 0.027634941570070393
+     },
+     "rprec": {
+      "mean": 0.09333333333333334,
+      "sd": 0.05962847939999439
+     },
+     "positives_files": 15,
+     "prevalence": 0.0012741017582604264
+    },
+    "LOF": {
+     "auc": {
+      "mean": 0.7067046549866758,
+      "sd": 0.0
+     },
+     "ap": {
+      "mean": 0.002789286105297996,
+      "sd": 0.0
+     },
+     "rprec": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "positives_files": 15,
+     "prevalence": 0.0012741017582604264
+    },
+    "OC-SVM": {
+     "auc": {
+      "mean": 0.8165005386403582,
+      "sd": 0.012612563638059357
+     },
+     "ap": {
+      "mean": 0.044252479018255256,
+      "sd": 0.013379618031695
+     },
+     "rprec": {
+      "mean": 0.06666666666666667,
+      "sd": 0.0
+     },
+     "positives_files": 15,
+     "prevalence": 0.0012741017582604264
+    }
+   },
+   "img2": {
+    "IF": {
+     "auc": {
+      "mean": 0.9563145631645217,
+      "sd": 0.006363023490336166
+     },
+     "ap": {
+      "mean": 0.007941748900153422,
+      "sd": 0.0019469307026829415
+     },
+     "rprec": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "positives_files": 38,
+     "prevalence": 0.0004469694296434831
+    },
+    "LOF": {
+     "auc": {
+      "mean": 0.49293943209498814,
+      "sd": 0.0
+     },
+     "ap": {
+      "mean": 0.00044488351148856816,
+      "sd": 0.0
+     },
+     "rprec": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "positives_files": 38,
+     "prevalence": 0.0004469694296434831
+    },
+    "OC-SVM": {
+     "auc": {
+      "mean": 0.9713918794798218,
+      "sd": 0.004928877163415438
+     },
+     "ap": {
+      "mean": 0.013245050839524436,
+      "sd": 0.0014521438196418567
+     },
+     "rprec": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "positives_files": 38,
+     "prevalence": 0.0004469694296434831
+    }
+   },
+   "img3": {
+    "IF": {
+     "auc": {
+      "mean": 0.9251006705226889,
+      "sd": 0.007324723617981759
+     },
+     "ap": {
+      "mean": 0.0032888304380765654,
+      "sd": 0.0003394485460112558
+     },
+     "rprec": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "positives_files": 85,
+     "prevalence": 0.00051170910842213
+    },
+    "LOF": {
+     "auc": {
+      "mean": 0.5937617828640265,
+      "sd": 0.0
+     },
+     "ap": {
+      "mean": 0.0007199474385830755,
+      "sd": 0.0
+     },
+     "rprec": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "positives_files": 85,
+     "prevalence": 0.00051170910842213
+    },
+    "OC-SVM": {
+     "auc": {
+      "mean": 0.8215856860678319,
+      "sd": 0.035377919620295205
+     },
+     "ap": {
+      "mean": 0.0028811505185663655,
+      "sd": 0.0005171548505433971
+     },
+     "rprec": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "positives_files": 85,
+     "prevalence": 0.00051170910842213
+    }
+   }
+  },
+  "note": "file-level; positives = all files matching a target pattern; LOF is deterministic so its sd is 0; R-precision = share of positives in the top R (R = #positives)"
+ },
+ "model_comparison": {
+  "wilcoxon": {
+   "IF_vs_OC-SVM": {
+    "test": "one-sided Wilcoxon signed-rank, H1: IF best-rank percentile < other (IF ranks the target higher)",
+    "n_targets": 60,
+    "n_nonzero_pairs": 60,
+    "statistic_W": 858.0,
+    "p_value": 0.3373846900636075,
+    "median_percentile_IF": 4.1507434832340016,
+    "median_percentile_OC-SVM": 3.1208235506592015,
+    "median_paired_diff_pct_points": 0.1354318343849448,
+    "targets_IF_better": 27,
+    "targets_other_better": 33,
+    "ties": 0,
+    "per_disk": {
+     "img1": {
+      "n": 7,
+      "W": 7.0,
+      "p": 0.1484375
+     },
+     "img2": {
+      "n": 19,
+      "W": 161.0,
+      "p": 0.9973354339599609
+     },
+     "img3": {
+      "n": 34,
+      "W": 195.0,
+      "p": 0.04056705656694248
+     }
+    }
+   },
+   "IF_vs_LOF": {
+    "test": "one-sided Wilcoxon signed-rank, H1: IF best-rank percentile < other (IF ranks the target higher)",
+    "n_targets": 60,
+    "n_nonzero_pairs": 60,
+    "statistic_W": 32.0,
+    "p_value": 4.0081209358800323e-11,
+    "median_percentile_IF": 4.1507434832340016,
+    "median_percentile_LOF": 18.950683001327473,
+    "median_paired_diff_pct_points": -15.35660859394067,
+    "targets_IF_better": 53,
+    "targets_other_better": 7,
+    "ties": 0,
+    "per_disk": {
+     "img1": {
+      "n": 7,
+      "W": 0.0,
+      "p": 0.0078125
+     },
+     "img2": {
+      "n": 19,
+      "W": 1.0,
+      "p": 3.814697265625e-06
+     },
+     "img3": {
+      "n": 34,
+      "W": 23.0,
+      "p": 3.725290298461914e-08
+     }
+    }
+   }
+  },
+  "bootstrap_recall20": {
+   "IF": {
+    "pooled": {
+     "recall20": 1.0,
+     "ci95": [
+      1.0,
+      1.0
+     ]
+    },
+    "per_disk": {
+     "img1": {
+      "recall20": 1.0,
+      "ci95": [
+       1.0,
+       1.0
+      ]
+     },
+     "img2": {
+      "recall20": 1.0,
+      "ci95": [
+       1.0,
+       1.0
+      ]
+     },
+     "img3": {
+      "recall20": 1.0,
+      "ci95": [
+       1.0,
+       1.0
+      ]
+     }
+    }
+   },
+   "LOF": {
+    "pooled": {
+     "recall20": 0.5333333333333333,
+     "ci95": [
+      0.4,
+      0.65
+     ]
+    },
+    "per_disk": {
+     "img1": {
+      "recall20": 0.7142857142857143,
+      "ci95": [
+       0.2857142857142857,
+       1.0
+      ]
+     },
+     "img2": {
+      "recall20": 0.42105263157894735,
+      "ci95": [
+       0.21052631578947367,
+       0.631578947368421
+      ]
+     },
+     "img3": {
+      "recall20": 0.5588235294117647,
+      "ci95": [
+       0.38235294117647056,
+       0.7352941176470589
+      ]
+     }
+    }
+   },
+   "OC-SVM": {
+    "pooled": {
+     "recall20": 0.8066666666666666,
+     "ci95": [
+      0.7099999999999999,
+      0.8967499999999995
+     ]
+    },
+    "per_disk": {
+     "img1": {
+      "recall20": 0.8571428571428571,
+      "ci95": [
+       0.5714285714285714,
+       1.0
+      ]
+     },
+     "img2": {
+      "recall20": 1.0,
+      "ci95": [
+       1.0,
+       1.0
+      ]
+     },
+     "img3": {
+      "recall20": 0.6882352941176472,
+      "ci95": [
+       0.5411764705882353,
+       0.8294117647058823
+      ]
+     }
+    }
+   }
+  },
+  "bootstrap_spec": {
+   "resamples": 2000,
+   "unit": "target",
+   "rng_seed": 20260101,
+   "statistic": "mean over targets of (fraction of seeds in which the target is in the top 20%)"
+  },
+  "note": "percentile = seed-mean best rank / N; the 60 targets are pooled across disks, so disk difficulty is shared; targets within a disk are not independent of each other (same model fit)"
+ },
+ "runtime": {
+  "machine": {
+   "cpu": "Apple M2 Pro",
+   "ram_bytes": 17179869184,
+   "ram_gb": 16.0,
+   "logical_cpus": "10",
+   "os": "macOS-27.2-arm64-arm-64bit-Mach-O",
+   "python": "3.13.5",
+   "sklearn": "1.9.1",
+   "shap": "0.54.1"
+  },
+  "runs": 3,
+  "per_disk": {
+   "img1": {
+    "files": 11773,
+    "flagged_20pct": 2355,
+    "build_features_s": {
+     "mean": 0.2786515000043437,
+     "sd": 0.05379354751965771
+    },
+    "build_features_runs": [
+     0.3406728340050904,
+     0.2506007909978507,
+     0.24468087501008995
+    ],
+    "if_fit_score_s": {
+     "mean": 0.32775433332911535,
+     "sd": 0.007202652371563084
+    },
+    "if_fit_score_runs": [
+     0.333262083993759,
+     0.31960354099282995,
+     0.33039737500075717
+    ],
+    "shap_s_per_1000_flagged": {
+     "mean": 1.4384822080028243,
+     "sd": 0.007186581372611239
+    },
+    "shap_sample_rows": 1000,
+    "shap_s_for_all_flagged_est": 3.3876255998466513,
+    "artifacts": {
+     "mft_records_total": 12541,
+     "mft_records_files": 11773,
+     "prefetch_pf_files": 81,
+     "evtx_log_files": 3,
+     "parsed_events": 0,
+     "registry_hives": 5,
+     "registry_hive_names": [
+      "DEFAULT",
+      "SAM",
+      "SECURITY",
+      "SOFTWARE",
+      "SYSTEM"
+     ]
+    }
+   },
+   "img2": {
+    "files": 85017,
+    "flagged_20pct": 17003,
+    "build_features_s": {
+     "mean": 2.3222416390005187,
+     "sd": 0.01533001711082437
+    },
+    "build_features_runs": [
+     2.31549675000133,
+     2.3114405419910327,
+     2.339787625009194
+    ],
+    "if_fit_score_s": {
+     "mean": 1.0915073053329252,
+     "sd": 0.004563975824409229
+    },
+    "if_fit_score_runs": [
+     1.0868035000021337,
+     1.0959172500006389,
+     1.091801165996003
+    ],
+    "shap_s_per_1000_flagged": {
+     "mean": 1.5798731666679184,
+     "sd": 0.01083838275868485
+    },
+    "shap_sample_rows": 1000,
+    "shap_s_for_all_flagged_est": 26.86258345285462,
+    "artifacts": {
+     "mft_records_total": 104034,
+     "mft_records_files": 85017,
+     "prefetch_pf_files": 95,
+     "evtx_log_files": 9,
+     "parsed_events": 4076,
+     "registry_hives": 5,
+     "registry_hive_names": [
+      "DEFAULT",
+      "SAM",
+      "SECURITY",
+      "SOFTWARE",
+      "SYSTEM"
+     ]
+    }
+   },
+   "img3": {
+    "files": 166110,
+    "flagged_20pct": 33222,
+    "build_features_s": {
+     "mean": 4.809835957998682,
+     "sd": 0.012271744202032846
+    },
+    "build_features_runs": [
+     4.7982809159875615,
+     4.822716750000836,
+     4.808510208007647
+    ],
+    "if_fit_score_s": {
+     "mean": 1.7590219306681927,
+     "sd": 0.03210176458689657
+    },
+    "if_fit_score_runs": [
+     1.7428283750050468,
+     1.795995167005458,
+     1.738242249994073
+    ],
+    "shap_s_per_1000_flagged": {
+     "mean": 1.4573280416613368,
+     "sd": 0.003375884348105507
+    },
+    "shap_sample_rows": 1000,
+    "shap_s_for_all_flagged_est": 48.41535220007293,
+    "artifacts": {
+     "mft_records_total": 197058,
+     "mft_records_files": 166110,
+     "prefetch_pf_files": 161,
+     "evtx_log_files": 20,
+     "parsed_events": 8614,
+     "registry_hives": 5,
+     "registry_hive_names": [
+      "DEFAULT",
+      "SAM",
+      "SECURITY",
+      "SOFTWARE",
+      "SYSTEM"
+     ]
+    }
+   }
+  },
+  "note": "feature building = multimodel_eval.build_features (final set incl. burst) from runs/imgN/artifacts, JSON already extracted; IF = standardise + fit (200 trees, sample 256, n_jobs=-1) + score all rows; SHAP = TreeSHAP on 1000 random flagged files (top 20%)"
+ },
+ "total_script_s": 121.48618602752686
+}
