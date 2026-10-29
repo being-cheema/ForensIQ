@@ -6,6 +6,7 @@ import Num from '../lib/Num'
 import Section from '../lib/Section'
 import Seg from '../lib/Seg'
 import { Pr } from '../lib/Prose'
+import Integrity from './Integrity'
 import { MK, DISKS, A2, statAt, f1, rangeTxt } from '../lib/study'
 
 const TICKS = [5, 10, 15, 20, 25]
@@ -57,6 +58,7 @@ export default function Verdict() {
           <p>One-Class SVM caught {DISKS.map((t) => f1(statAt(t, 'OC-SVM', 20).mean) + '/' + statAt(t, 'OC-SVM', 20).n).join(', ')}. LOF caught {DISKS.map((t) => f1(statAt(t, 'LOF', 20).mean) + '/' + statAt(t, 'LOF', 20).n).join(', ')}. LOF also fails the explainability tests in Exhibit G.</p>
         </div>
       </div>
+      <Integrity />
     </Section>
     <section className="ex cont"><div className="wrap">
       <div className="chartgrid" style={{ marginTop: 0 }}>
