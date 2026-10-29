@@ -2,42 +2,41 @@
  FORENSIQ TRIAGE TOOL OUTPUT - Image 2: Win7 Data Leakage
 ==============================================================================
 [+] Files indexed        : 85,017
-[+] Features             : 23 (none unavailable)
+[+] Features             : 19 (none unavailable; set=final)
 [+] Review budget (5%)   : 4,251 files
 
 ------------------------------------------------------------------------------
  MODEL: Isolation Forest
 ------------------------------------------------------------------------------
- Targets caught : 17 / 19  (recall 89.5%)
- Accuracy 95.02%  Precision 0.64%  F1 1.26%  (file-level)
+ Targets caught : 16 / 19  (recall 84.2%)
+ Accuracy 95.01%  Precision 0.59%  F1 1.17%  (file-level)
  TIMESTOMPING   : YES (known timestomped target flagged); future_m flagged=0
  INSIDER ATTACK : CONFIRMED
  Top 20 flagged files:
-   1. score=0.7456  dows/Microsoft.NET/Framework/v2.0.50727/ngen_service.old.log  
-   2. score=0.7456  ws/Microsoft.NET/Framework64/v2.0.50727/ngen_service.old.log  
-   3. score=0.7262  /Windows/System32/config/SYSTEM  
-   4. score=0.7256  /Windows/System32/SMI/Store/Machine/SCHEMA.DAT  
-   5. score=0.7200  /Windows/System32/config/SOFTWARE  [size]
-   6. score=0.7195  /Windows/System32/config/COMPONENTS  
-   7. score=0.7172  indows/Microsoft.NET/Framework64/v2.0.50727/ngen_service.log  
-   8. score=0.7163  /Users/informant/AppData/Local/Temp/~nsu.tmp/Au_.exe  
-   9. score=0.7158  /Windows/Microsoft.NET/Framework/v2.0.50727/ngen_service.log  [is_shortcut_or_trace]
-  10. score=0.7094  /Windows/System32/catroot2/edb.log  [is_shortcut_or_trace]
-  11. score=0.7085  Data/Roaming/Microsoft/SoftwareProtectionPlatform/tokens.dat  [size]
-  12. score=0.7074  /Windows/Microsoft.NET/Framework/v4.0.30319/clr.dll  
-  13. score=0.7059  al/Temp/Microsoft .NET Framework 4 Setup_4.0.30319/Setup.exe  
-  14. score=0.7053  /Windows/Prefetch/NTOSBOOT-B00DFAAD.pf  [is_shortcut_or_trace]
-  15. score=0.7033  /Windows/System32/catroot2/edb00580.log  
-  16. score=0.7033  /Windows/System32/catroot2/edb00590.log  
-  17. score=0.7024  /Windows/System32/Msdtc/MSDTC.LOG  
-  18. score=0.7009  /Windows/System32/catroot2/edb00585.log  [delta_mb]
-  19. score=0.7009  /Windows/System32/catroot2/edb00588.log  
-  20. score=0.6993  /Users/informant/AppData/Local/IconCache.db  
+   1. score=0.7179  ws/Microsoft.NET/Framework64/v2.0.50727/ngen_service.old.log  
+   2. score=0.7167  dows/Microsoft.NET/Framework/v2.0.50727/ngen_service.old.log  
+   3. score=0.7067  /Microsoft .NET Framework 4 Setup_4.0.30319/SetupUtility.exe  
+   4. score=0.7019  vineCDM/1.4.7.771/_platform_specific/win_x86/widevinecdm.dll  [size]
+   5. score=0.6984  /Windows/System32/config/SYSTEM  
+   6. score=0.6942  /Windows/System32/config/COMPONENTS  
+   7. score=0.6937  /Windows/System32/Msdtc/MSDTC.LOG  
+   8. score=0.6929  al/Temp/Microsoft .NET Framework 4 Setup_4.0.30319/Setup.exe  
+   9. score=0.6919  /Windows/System32/config/SOFTWARE  [size]
+  10. score=0.6914  Data/Roaming/Microsoft/SoftwareProtectionPlatform/tokens.dat  [size]
+  11. score=0.6907  oogle/Chrome/User Data/SwiftShader/3.2.6.45159/libGLESv2.dll  
+  12. score=0.6900  /Windows/System32/SMI/Store/Machine/SCHEMA.DAT  
+  13. score=0.6886  /Windows/System32/catroot2/edb.log  [is_shortcut_or_trace]
+  14. score=0.6869  indows/Microsoft.NET/Framework64/v2.0.50727/ngen_service.log  
+  15. score=0.6866  p/Microsoft .NET Framework 4 Setup_4.0.30319/SetupEngine.dll  [delta_mb]
+  16. score=0.6856  /Users/informant/AppData/Local/Temp/~nsu.tmp/Au_.exe  
+  17. score=0.6820  /Windows/System32/catroot2/edb00590.log  
+  18. score=0.6820  /Windows/Microsoft.NET/Framework/v2.0.50727/ngen_service.log  [is_shortcut_or_trace]
+  19. score=0.6818  /Windows/System32/catroot2/edb0058A.log  
+  20. score=0.6804   Files (x86)/Google/Chrome/Application/41.0.2272.101/pdf.dll  
  Ground-truth caught:
    [HIT ] Eraser.exe (Installed Wiping Tool)
    [HIT ] Eraser 6.2.0.2962.exe (Downloaded Installer)
    [HIT ] ccsetup504.exe (Downloaded CCleaner)
-   [HIT ] CCleaner64.exe (CCleaner Prefetch)
    [HIT ] [secret_project]_proposal.docx (LNK)
    [HIT ] [secret_project]_design_concept.ppt (LNK)
    [HIT ] (secret_project)_pricing_decision.xlsx (LNK)
@@ -51,40 +50,39 @@
    [HIT ] Resignation_Letter_(Iaman_Informant).docx / .xps
    [HIT ] setupapi.dev.log (USB Connection Log)
    [HIT ] System.evtx (Removable Drive Events)
+   [MISS] CCleaner64.exe (CCleaner Prefetch)
    [MISS] happy_holiday.jpg (Confidential Pricing)
    [MISS] Chrysanthemum.jpg (Wiped via Eraser)
 
 ------------------------------------------------------------------------------
  MODEL: Local Outlier Factor
 ------------------------------------------------------------------------------
- Targets caught : 2 / 19  (recall 10.5%)
- Accuracy 94.96%  Precision 0.05%  F1 0.09%  (file-level)
+ Targets caught : 0 / 19  (recall 0.0%)
+ Accuracy 94.96%  Precision 0.00%  F1 0.00%  (file-level)
  TIMESTOMPING   : NO (known timestomped target missed); future_m flagged=0
  INSIDER ATTACK : NOT DETECTED
  Top 20 flagged files:
-   1. score=18022019631.0714  /Recovery/19ff41c4-d2e0-11e4-9752-e27b831fce8f/boot.sdi  
-   2. score=10906327999.3649  /Windows/inf/.NET Memory Cache 4.0/netmemorycache.h  
-   3. score=9681889136.1038  /Windows/inf/.NET Memory Cache 4.0/0009/netmemorycache.ini  
-   4. score=9230122627.2357  /Windows/inf/aspnet_state/aspnet_state_perf.h  
-   5. score=8682773114.7744  /Windows/inf/ASP.NET/aspnet_perf.h  
-   6. score=8682773113.7768  /Windows/inf/ASP.NET_4.0.30319/aspnet_perf.h  
-   7. score=7286530060.0462  kage_for_KB958488~31bf3856ad364e35~amd64~~6.2.7600.16513.mum  
-   8. score=7189887776.0434  kage_for_KB958488~31bf3856ad364e35~amd64~~6.2.7600.16513.cat  
-   9. score=6658727836.2516  kage_for_KB958488~31bf3856ad364e35~amd64~~6.2.7600.16513.cat  
-  10. score=5157390885.5364  ws/inf/MSDTC Bridge 4.0.0.0/_TransactionBridgePerfCounters.h  
-  11. score=5131641802.0890  /Windows/inf/SMSvcHost 4.0.0.0/_SMSvcHostPerfCounters.h  
-  12. score=5107608809.5233  ndows/inf/Windows Workflow Foundation 4.0.0.0/PerfCounters.h  
-  13. score=4881047739.1815  ws/inf/.NET CLR Networking 4.0.0.0/_NetworkingPerfCounters.h  
-  14. score=4487285206.0886  /Config.Msi/522e58.rbf  
-  15. score=4363681281.7940  /$AttrDef  
-  16. score=4126096827.3701  /$Bitmap  
-  17. score=4100145784.2001  /$UpCase  
-  18. score=3085577936.6607  ault/IndexedDB/https_www.google.com_0.indexeddb.leveldb/LOCK  
-  19. score=3085577936.6607  cal Extension Settings/pafkbggdmjlpgkdkcbjmhmfcdpncadgh/LOCK  
-  20. score=2732918289.0725  /Config.Msi  
+   1. score=4363788993.6689  /Windows/Microsoft.NET/Framework/v2.0.50727/ngen_service.log  
+   2. score=4363788993.6689  indows/Microsoft.NET/Framework64/v2.0.50727/ngen_service.log  
+   3. score=3634064168.7057  /Windows/System32/catroot2/edb.log  
+   4. score=2610989924.4139  /Windows/SoftwareDistribution/DataStore/Logs/edbtmp.log  
+   5. score=2610989924.4139  /Windows/SoftwareDistribution/DataStore/Logs/edbtmp.log  
+   6. score=2497338511.8298  /Windows/Prefetch/AgCx_SC4.db  
+   7. score=2368886164.7805  /v1.0/Modules/BitsTransfer/en-US/about_BITS_Cmdlets.help.txt  
+   8. score=2368886164.7805  /v1.0/Modules/BitsTransfer/en-US/about_BITS_Cmdlets.help.txt  
+   9. score=1577600494.0935  /Windows/System32/catroot2/edb004A0.log  
+  10. score=1577600494.0935  /Windows/System32/catroot2/edb00540.log  
+  11. score=1577600494.0935  /Windows/System32/catroot2/edb00560.log  
+  12. score=1322470106.4967  /Windows/System32/catroot2/edb0055C.log  
+  13. score=1322470106.4967  /Windows/System32/catroot2/edb0055E.log  
+  14. score=1322470106.4967  /Windows/System32/catroot2/edb0055F.log  
+  15. score=1322470106.4967  /Windows/System32/catroot2/edb00565.log  
+  16. score=1322470106.4967  /Windows/System32/catroot2/edb00575.log  
+  17. score=1322470106.4967  /Windows/System32/catroot2/edb00577.log  
+  18. score=1181791981.5634  debar/Gadgets/Weather.Gadget/en-US/css/localizedSettings.css  
+  19. score=1181791981.5634  debar/Gadgets/Weather.Gadget/en-US/css/localizedSettings.css  
+  20. score=1145490611.0419  /Windows/System32/catroot2/edbtmp.log  
  Ground-truth caught:
-   [HIT ] happy_holiday.jpg (Confidential Pricing)
-   [HIT ] Resignation_Letter_(Iaman_Informant).docx / .xps
    [MISS] Eraser.exe (Installed Wiping Tool)
    [MISS] Eraser 6.2.0.2962.exe (Downloaded Installer)
    [MISS] ccsetup504.exe (Downloaded CCleaner)
@@ -93,6 +91,7 @@
    [MISS] [secret_project]_design_concept.ppt (LNK)
    [MISS] (secret_project)_pricing_decision.xlsx (LNK)
    [MISS] [secret_project]_final_meeting.pptx (LNK)
+   [MISS] happy_holiday.jpg (Confidential Pricing)
    [MISS] winter_whether_advisory.zip (Masqueraded Design)
    [MISS] sync_log.log (Google Drive Sync Log)
    [MISS] sync_config.db / snapshot.db (GDrive DBs)
@@ -100,6 +99,7 @@
    [MISS] Koala.jpg (Decoy burned to CD-R)
    [MISS] Penguins.jpg (Decoy burned to CD-R)
    [MISS] Tulips.jpg (Decoy burned to CD-R)
+   [MISS] Resignation_Letter_(Iaman_Informant).docx / .xps
    [MISS] setupapi.dev.log (USB Connection Log)
    [MISS] System.evtx (Removable Drive Events)
 
@@ -107,30 +107,30 @@
  MODEL: One-Class SVM
 ------------------------------------------------------------------------------
  Targets caught : 19 / 19  (recall 100.0%)
- Accuracy 95.04%  Precision 0.80%  F1 1.59%  (file-level)
+ Accuracy 95.03%  Precision 0.78%  F1 1.54%  (file-level)
  TIMESTOMPING   : YES (known timestomped target flagged); future_m flagged=0
  INSIDER ATTACK : CONFIRMED
  Top 20 flagged files:
-   1. score=63.9374  /hiberfil.sys  
-   2. score=63.9374   Users/{91150000-0011-0000-1000-0000000FF1CE}-C/ProPrWW2.cab  
-   3. score=63.9374  /pagefile.sys  
-   4. score=63.9374  1e4-b734-000c29ff2429}{3808876b-c176-4e48-b7ae-04046e6cc752}  
-   5. score=63.9374  mp/Microsoft .NET Framework 4 Setup_4.0.30319/netfx_Core.mzz  
-   6. score=63.9374  /Users/informant/AppData/Local/Temp/~nsu.tmp/Au_.exe  
-   7. score=63.9374  p/Microsoft .NET Framework 4 Setup_4.0.30319/TMP5B99.tmp.exe  
-   8. score=63.9374  al/Temp/Microsoft .NET Framework 4 Setup_4.0.30319/Setup.exe  
-   9. score=63.9374  /Microsoft .NET Framework 4 Setup_4.0.30319/SetupUtility.exe  
-  10. score=63.9371  .NET/Framework64/v4.0.30319/SetupCache/Client/netfx_core.mzz  
-  11. score=63.9325  /Recovery/19ff41c4-d2e0-11e4-9752-e27b831fce8f/Winre.wim  
-  12. score=63.9167  l Users/{91150000-0011-0000-1000-0000000FF1CE}-C/ProPrWW.cab  
-  13. score=63.7294  dows/Microsoft.NET/Framework/v2.0.50727/ngen_service.old.log  
-  14. score=63.7294  ws/Microsoft.NET/Framework64/v2.0.50727/ngen_service.old.log  
-  15. score=63.7291  indows/Microsoft.NET/Framework64/v2.0.50727/ngen_service.log  
-  16. score=63.7291  /Windows/Microsoft.NET/Framework/v2.0.50727/ngen_service.log  
-  17. score=63.7270  /Windows/System32/catroot2/edb.log  
-  18. score=63.7148  /Windows/System32/catroot2/edb00590.log  
-  19. score=63.7148  /Windows/System32/catroot2/edb00580.log  
-  20. score=63.7133  /Windows/System32/catroot2/edb00585.log  
+   1. score=46.9479  /hiberfil.sys  
+   2. score=46.9479   Users/{91150000-0011-0000-1000-0000000FF1CE}-C/ProPrWW2.cab  
+   3. score=46.9479  /pagefile.sys  
+   4. score=46.9479  1e4-b734-000c29ff2429}{3808876b-c176-4e48-b7ae-04046e6cc752}  
+   5. score=46.9479  mp/Microsoft .NET Framework 4 Setup_4.0.30319/netfx_Core.mzz  
+   6. score=46.9479  /Users/informant/AppData/Local/Temp/~nsu.tmp/Au_.exe  
+   7. score=46.9478  p/Microsoft .NET Framework 4 Setup_4.0.30319/TMP5B99.tmp.exe  
+   8. score=46.9478  /Microsoft .NET Framework 4 Setup_4.0.30319/SetupUtility.exe  
+   9. score=46.9478  al/Temp/Microsoft .NET Framework 4 Setup_4.0.30319/Setup.exe  
+  10. score=46.9471  .NET/Framework64/v4.0.30319/SetupCache/Client/netfx_core.mzz  
+  11. score=46.9402  /Recovery/19ff41c4-d2e0-11e4-9752-e27b831fce8f/Winre.wim  
+  12. score=46.9135  l Users/{91150000-0011-0000-1000-0000000FF1CE}-C/ProPrWW.cab  
+  13. score=46.9071  /Windows/Prefetch/DEVICEDISPLAYOBJECTPROVIDER.E-17410B90.pf  
+  14. score=46.8337  orary Internet Files/Low/Content.IE5/I9XNJ6FX/Appnexus[1].js  
+  15. score=46.5438  /Users/informant/AppData/Local/Temp/CVR6A76.tmp.cvr  
+  16. score=46.5387  /Users/informant/AppData/Local/Temp/bch5BAB.tmp  
+  17. score=46.5386  /Users/informant/AppData/Local/Temp/bch561B.tmp  
+  18. score=46.5386  /Users/informant/AppData/Local/Temp/bchF82B.tmp  
+  19. score=46.5384  /Users/informant/AppData/Local/Temp/bch72F6.tmp  
+  20. score=46.5376  /Users/informant/AppData/Local/Temp/bchFF9E.tmp  
  Ground-truth caught:
    [HIT ] Eraser.exe (Installed Wiping Tool)
    [HIT ] Eraser 6.2.0.2962.exe (Downloaded Installer)

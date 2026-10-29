@@ -20,7 +20,7 @@ export default function A4({ d }) {
   const [shown, setShown] = useState(0)
   const box = useRef(), barRef = useRef(), revealRef = useRef(), endAt = useRef(0)
 
-  // the model: Isolation Forest, all 23 features, fitted live on this sample
+  // the model: Isolation Forest, all 19 features, fitted live on this sample
   const model = useMemo(() => {
     const f = fitIsolationForest(d.X, { nTrees: 200, sampleSize: 256, seed: 42 })
     const s = d.X.map((x) => f.score(x))
@@ -103,7 +103,7 @@ export default function A4({ d }) {
   return (
     <Part n="A4" title="Examiner versus machine"
       intro={'You have ' + READS + ' reads and ' + SECS + ' seconds to find as much evidence as you can in the sample. Click a file to read it. When the round ends, the Isolation Forest gets the same ' + READS + ' reads.'}
-      note={<>The model has never seen which files are evidence; it ranks purely on the 23 features, fitted live on this sample. A random reader would expect to find about <b>{(READS / d.n * T).toFixed(1)}</b> of the sample's {T} evidence files.</>}>
+      note={<>The model has never seen which files are evidence; it ranks purely on the 19 features, fitted live on this sample. A random reader would expect to find about <b>{(READS / d.n * T).toFixed(1)}</b> of the sample's {T} evidence files.</>}>
       <div className="g-bar">
         <div className="g-stats" aria-live="polite" aria-atomic="true">
           <span><b className="num"><Num value={Math.max(0, READS - reads.length)} fmt={String} /></b> reads left</span>

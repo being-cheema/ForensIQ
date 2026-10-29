@@ -11,7 +11,7 @@ const BUDGETS = [5, 10, 15, 20]
 const MS = ['IF', 'LOF', 'OC-SVM']
 const snap = (pct) => BUDGETS.reduce((a, b) => (Math.abs(b - pct * 100) < Math.abs(a - pct * 100) ? b : a), BUDGETS[0])
 const fb1 = (x) => (Math.round(x * 10) / 10).toString()
-const bnote = (b) => (b === 5 ? 'strict comparison' : b === 15 ? 'recommended' : '')
+const bnote = (b) => (b === 20 ? 'recommended' : '')
 const bl = (b) => b + '%' + (bnote(b) ? ' (' + bnote(b) + ')' : '')
 const pr1 = (x) => (x * 100).toFixed(1) + '%'
 const span = (a, f) => { const lo = Math.min.apply(null, a), hi = Math.max.apply(null, a); return f(lo) === f(hi) ? f(lo) : f(lo) + '–' + f(hi) }
@@ -327,7 +327,7 @@ export default function ToolOutput({ img, m, pct }) {
           <RankList tool={tool} K={S.K} resetKey={img + mo + bud} />
 
           <h3 className="rel-h"><span>2</span>What the top K is made of</h3>
-          <Fig n="4" name={'tool-mix-' + img + '-' + m} caption={<>What fills the top K at each budget, {SHORT[m]} on {imgName(img)}. Your budget ({bud}%) is the red label here and the shaded row in the table below. Evidence files are the target files inside the top K; they are also counted in their own file type, so the segments can overlap by at most that many files. Types are guessed from the path.</>}>
+          <Fig n="3" name={'tool-mix-' + img + '-' + m} caption={<>What fills the top K at each budget, {SHORT[m]} on {imgName(img)}. Your budget ({bud}%) is the red label here and the shaded row in the table below. Evidence files are the target files inside the top K; they are also counted in their own file type, so the segments can overlap by at most that many files. Types are guessed from the path.</>}>
             <MixFig tool={tool} bud={bud} loaded={!!d} />
           </Fig>
           <div className="tbl ledger"><table>

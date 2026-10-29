@@ -2,103 +2,107 @@
  FORENSIQ TRIAGE TOOL OUTPUT - Image 3: Win10 Lone Wolf
 ==============================================================================
 [+] Files indexed        : 166,110
-[+] Features             : 23 (none unavailable)
+[+] Features             : 19 (none unavailable; set=final)
 [+] Review budget (5%)   : 8,306 files
 
 ------------------------------------------------------------------------------
  MODEL: Isolation Forest
 ------------------------------------------------------------------------------
- Targets caught : 8 / 34  (recall 23.5%)
- Accuracy 94.97%  Precision 0.19%  F1 0.38%  (file-level)
+ Targets caught : 16 / 34  (recall 47.1%)
+ Accuracy 94.98%  Precision 0.34%  F1 0.67%  (file-level)
  TIMESTOMPING   : UNVERIFIED (no ground-truth timestomp target defined); future_m flagged=0
- INSIDER ATTACK : NOT DETECTED
+ INSIDER ATTACK : PARTIAL
  Top 20 flagged files:
-   1. score=0.7428  _platform_specific/x86_64/pnacl_public_x86_64_pnacl_llc_nexe  
-   2. score=0.7274   (x86)/Intel/Intel(R) Processor Graphics/uninstall/Setup.exe  
-   3. score=0.7196  4.2492/_platform_specific/x86_64/pnacl_public_x86_64_ld_nexe  
-   4. score=0.7175  icrosoft.NET/Primary Interop Assemblies/Microsoft.mshtml.dll  
-   5. score=0.7152  /_platform_specific/x86_64/pnacl_public_x86_64_pnacl_sz_nexe  
-   6. score=0.7139  okakmgnkcojhhkbfbldkacnbeo/4.2.8_0/_locales/no/messages.json  
-   7. score=0.7132  lckaahabafndbhieahigkjlhalf/14.1_0/_locales/eu/messages.json  
-   8. score=0.7132  lckaahabafndbhieahigkjlhalf/14.1_0/_locales/no/messages.json  
-   9. score=0.7121  /Windows/System32/msvcr100.dll  
-  10. score=0.7103  /Windows/System32/nvcoproc.bin  [delta_mb]
-  11. score=0.7086  mmhkkegccagdldgiimedpiccmgmieda/1.0.0.4_0/images/flapper.gif  
-  12. score=0.7085  /Windows/System32/nvcpl.dll  
-  13. score=0.7083  /Windows/System32/msvcp100.dll  
-  14. score=0.7070  /Program Files/NVIDIA Corporation/Display/nvwss.dll  
-  15. score=0.7061  bafndbhieahigkjlhalf/14.1_0/_metadata/verified_contents.json  
-  16. score=0.7061  kcojhhkbfbldkacnbeo/4.2.8_0/_metadata/verified_contents.json  
-  17. score=0.7056  jhegncpnkpknbcohdijeoejaedia/8.1_0/_locales/no/messages.json  [delta_mb]
-  18. score=0.7056  jhegncpnkpknbcohdijeoejaedia/8.1_0/_locales/se/messages.json  
-  19. score=0.7050  (x86)/Common Files/microsoft shared/VSTO/10.0/VSTOLoader.dll  
-  20. score=0.7048  dy/AppData/Local/Microsoft/OneDrive/Update/OneDriveSetup.exe  
+   1. score=0.7295  _platform_specific/x86_64/pnacl_public_x86_64_pnacl_llc_nexe  
+   2. score=0.7169  ensions/lmjegmlicamnimmfhcmpkclmigmmcbeh/3.2_0/background.js  
+   3. score=0.7090  /_platform_specific/x86_64/pnacl_public_x86_64_pnacl_sz_nexe  
+   4. score=0.7085  4.2492/_platform_specific/x86_64/pnacl_public_x86_64_ld_nexe  
+   5. score=0.7067  jhegncpnkpknbcohdijeoejaedia/8.1_0/_locales/no/messages.json  [delta_mb]
+   6. score=0.7067  jhegncpnkpknbcohdijeoejaedia/8.1_0/_locales/se/messages.json  
+   7. score=0.7062  icrosoft.NET/Primary Interop Assemblies/Microsoft.mshtml.dll  
+   8. score=0.7062  /Program Files/NVIDIA Corporation/Display/nvwss.dll  
+   9. score=0.7060  okakmgnkcojhhkbfbldkacnbeo/4.2.8_0/_locales/no/messages.json  
+  10. score=0.7060   (x86)/Intel/Intel(R) Processor Graphics/uninstall/Setup.exe  
+  11. score=0.7056  /Windows/System32/nvcpl.dll  
+  12. score=0.7050  nnjooekpmoecnnnilnnbdlolhkhi/1.4_1/contentscript_bin_prod.js  
+  13. score=0.7045  ver.{F1A55424-D217-43B2-9E6F-93F765181C8D}/NvCplSetupInt.exe  
+  14. score=0.7044  /Program Files/NVIDIA Corporation/Display/nvdisps.dll  
+  15. score=0.7044  /Windows/System32/nvcoproc.bin  [size]
+  16. score=0.7042  /ghbmnnjooekpmoecnnnilnnbdlolhkhi/1.4_1/page_embed_script.js  [delta_mb]
+  17. score=0.7031  ghbmnnjooekpmoecnnnilnnbdlolhkhi/1.4_1/eventpage_bin_prod.js  
+  18. score=0.7024  Managed/Document Themes/1033/TM10001104[[fn=Feathered]].thmx  
+  19. score=0.7016  mhkkegccagdldgiimedpiccmgmieda/1.0.0.4_0/css/craw_window.css  
+  20. score=0.7011  lckaahabafndbhieahigkjlhalf/14.1_0/_locales/eu/messages.json  
  Ground-truth caught:
+   [HIT ] 2018-04-03 (3).png
+   [HIT ] 2018-04-04.png
+   [HIT ] AIRPORT INFORMATION.docx
+   [HIT ] BladeofGrass.jpg
    [HIT ] Box Sync.lnk
+   [HIT ] CubaDearmed.jpg
    [HIT ] DarkWolf.png
+   [HIT ] DemLogic.jpg
    [HIT ] Dropbox.lnk
    [HIT ] Google Drive.lnk
    [HIT ] Huckleberry.png
-   [HIT ] Jim's Notebook.url
+   [HIT ] LeftUsesBoycotts.pdf
+   [HIT ] MyTiredHead.jpg
    [HIT ] Operation 2nd Hand Smoke.pptx
+   [HIT ] Sheep.jpg
    [HIT ] The Cloudy Manifesto.docx
    [MISS] 2018-04-03 (1).png
-   [MISS] 2018-04-03 (3).png
    [MISS] 2018-04-03.png
    [MISS] 2018-04-04 (2).png
    [MISS] 2018-04-04 (3).png
    [MISS] 2018-04-04 (4).png
-   [MISS] 2018-04-04.png
-   [MISS] AIRPORT INFORMATION.docx
    [MISS] AMEN.pdf
-   [MISS] BladeofGrass.jpg
    [MISS] Brother Chat.gdoc
    [MISS] CachedImage_1366_768_POS4.jpg
    [MISS] Cloudy thoughts (4apr).docx
-   [MISS] CubaDearmed.jpg
    [MISS] DeathToll.jpg
-   [MISS] DemLogic.jpg
    [MISS] HoldMyTidePod.jpg
-   [MISS] LeftUsesBoycotts.pdf
-   [MISS] MyTiredHead.jpg
+   [MISS] Jim's Notebook.url
    [MISS] Planning.docx
    [MISS] RedGuns.jpg
    [MISS] rootkey.csv
    [MISS] SelfDefenseisMurder.pdf
-   [MISS] Sheep.jpg
    [MISS] UKknifeBan.pdf
    [MISS] Chrome Login Data database
 
 ------------------------------------------------------------------------------
  MODEL: Local Outlier Factor
 ------------------------------------------------------------------------------
- Targets caught : 2 / 34  (recall 5.9%)
- Accuracy 94.95%  Precision 0.06%  F1 0.12%  (file-level)
+ Targets caught : 6 / 34  (recall 17.6%)
+ Accuracy 94.96%  Precision 0.08%  F1 0.17%  (file-level)
  TIMESTOMPING   : UNVERIFIED (no ground-truth timestomp target defined); future_m flagged=0
  INSIDER ATTACK : NOT DETECTED
  Top 20 flagged files:
-   1. score=7546697234.0879  tIndex/Input_{fac12ad3-8b66-48f1-8fac-86f0518fbe88}/apps.csg  
-   2. score=5168080227.9146  t_{fac12ad3-8b66-48f1-8fac-86f0518fbe88}/appsconversions.txt  
-   3. score=4458478081.0493  ect/S-1-5-21-2734969515-1644526556-1039763013-1001/Preferred  
-   4. score=3348840092.5053  /$BadClus  
-   5. score=3077230441.9147  lications/Windows/Projects/SystemIndex/SecStore/CiST0000.000  
-   6. score=2699734409.0119  oft/Windows Defender/Scans/History/Mput/MputHistory/04/12283  
-   7. score=2699734409.0119  oft/Windows Defender/Scans/History/Mput/MputHistory/08/15004  
-   8. score=2699734409.0119  oft/Windows Defender/Scans/History/Mput/MputHistory/18/12284  
-   9. score=2182575249.4322  /Config.Msi/a014fbb.rbf  
-  10. score=2182575249.4322  /Config.Msi/a014fbf.rbf  
-  11. score=2157603711.2971  oft/Windows Defender/Scans/History/Mput/MputHistory/12/12282  
-  12. score=2146973781.8327  /$Extend/$Reparse  
-  13. score=2146973781.8327  /$Extend/$UsnJrnl  
-  14. score=2011354280.5359  ft/Windows Defender/Scans/History/Mput/MputHistory/02/109004  
-  15. score=2011354280.5359  ft/Windows Defender/Scans/History/Mput/MputHistory/18/109002  
-  16. score=2011354280.5359  ft/Windows Defender/Scans/History/Mput/MputHistory/22/109006  
-  17. score=2011354280.5359  ft/Windows Defender/Scans/History/Mput/MputHistory/04/109005  
-  18. score=2011354280.5359  ft/Windows Defender/Scans/History/Mput/MputHistory/22/109003  
-  19. score=1756807073.8733  /Config.Msi/a014fb4.rbf  
-  20. score=1756807073.8733  /Config.Msi/a014fba.rbf  
+   1. score=6360871670.8085  /$OrphanFiles  
+   2. score=4563945016.5757  -B380-DD4A704DDB28/3CCD5499-87A8-4B10-A215-608888DD3B55.vsch  
+   3. score=3886661979.1822  ft.Windows.Cortana_cw5n1h2txyewy/AppData/Indexed DB/temp.edb  
+   4. score=3500309824.7208  ta/Local/Microsoft/Windows/Notifications/wpnidm/ed7e77aa.jpg  
+   5. score=2991557080.7013  AppData/Local/Google/Chrome/User Data/Default/Cache/f_001a0a  
+   6. score=2746374169.5873  /Windows/rescache/_merged/1901553882/1961612424.pri  
+   7. score=2731515720.3778  a-4832-9118-54d4Bd6a0c89_cw5n1h2txyewy/Settings/roaming.lock  
+   8. score=2731515720.3778  6-4f67-841f-6a9465d9d515_cw5n1h2txyewy/Settings/roaming.lock  
+   9. score=2731515720.3778  4-4A75-9BB0-0D023378592B_cw5n1h2txyewy/Settings/roaming.lock  
+  10. score=2731515720.3778  Windows.ParentalControls_cw5n1h2txyewy/Settings/roaming.lock  
+  11. score=2435699785.0271  /Windows/rescache/_merged/2482215880/883100382.pri  
+  12. score=2420843964.2551  /Config.Msi/a014fbb.rbf  
+  13. score=2420843964.2551  /Config.Msi/a014fbf.rbf  
+  14. score=2365373091.4970  al/Microsoft/Windows/Explorer/ThumbCacheToDelete/thm82E5.tmp  
+  15. score=2365373091.4970  al/Microsoft/Windows/Explorer/ThumbCacheToDelete/thm831D.tmp  
+  16. score=2365373091.4970  al/Microsoft/Windows/Explorer/ThumbCacheToDelete/thm831E.tmp  
+  17. score=2365373091.4970  al/Microsoft/Windows/Explorer/ThumbCacheToDelete/thm830C.tmp  
+  18. score=2171969572.4554  ad364e35_10.0.16299.15_en-us_8f280e7a99d4c4e3/ftpres.dll.mui  
+  19. score=2101448317.3236  ad364e35_10.0.16299.15_none_5021336f600a5551/AppIdPolicy.xsd  
+  20. score=2045298894.0177  /Users/jcloudy/AppData/Local/Dropbox/logs/1/1-5ac18acd  
  Ground-truth caught:
-   [HIT ] Operation 2nd Hand Smoke.pptx
+   [HIT ] CubaDearmed.jpg
+   [HIT ] DeathToll.jpg
+   [HIT ] DemLogic.jpg
+   [HIT ] Planning.docx
+   [HIT ] RedGuns.jpg
    [HIT ] Sheep.jpg
    [MISS] 2018-04-03 (1).png
    [MISS] 2018-04-03 (3).png
@@ -114,10 +118,7 @@
    [MISS] Brother Chat.gdoc
    [MISS] CachedImage_1366_768_POS4.jpg
    [MISS] Cloudy thoughts (4apr).docx
-   [MISS] CubaDearmed.jpg
    [MISS] DarkWolf.png
-   [MISS] DeathToll.jpg
-   [MISS] DemLogic.jpg
    [MISS] Dropbox.lnk
    [MISS] Google Drive.lnk
    [MISS] HoldMyTidePod.jpg
@@ -125,8 +126,7 @@
    [MISS] Jim's Notebook.url
    [MISS] LeftUsesBoycotts.pdf
    [MISS] MyTiredHead.jpg
-   [MISS] Planning.docx
-   [MISS] RedGuns.jpg
+   [MISS] Operation 2nd Hand Smoke.pptx
    [MISS] rootkey.csv
    [MISS] SelfDefenseisMurder.pdf
    [MISS] The Cloudy Manifesto.docx
@@ -136,34 +136,33 @@
 ------------------------------------------------------------------------------
  MODEL: One-Class SVM
 ------------------------------------------------------------------------------
- Targets caught : 25 / 34  (recall 73.5%)
- Accuracy 95.03%  Precision 0.78%  F1 1.55%  (file-level)
+ Targets caught : 19 / 34  (recall 55.9%)
+ Accuracy 95.00%  Precision 0.53%  F1 1.05%  (file-level)
  TIMESTOMPING   : UNVERIFIED (no ground-truth timestomp target defined); future_m flagged=0
  INSIDER ATTACK : CONFIRMED
  Top 20 flagged files:
-   1. score=56.0321  /hiberfil.sys  
-   2. score=56.0321  /pagefile.sys  
-   3. score=56.0321  es/microsoft shared/MSEnv/PublicAssemblies/extensibility.dll  
-   4. score=56.0321  les (x86)/Microsoft.NET/Primary Interop Assemblies/adodb.dll  
-   5. score=56.0321  icrosoft.NET/Primary Interop Assemblies/Microsoft.mshtml.dll  
-   6. score=56.0321  osoft.NET/Primary Interop Assemblies/Microsoft.stdformat.dll  
-   7. score=56.0321  (x86)/Microsoft.NET/Primary Interop Assemblies/msdatasrc.dll  
-   8. score=56.0321  es (x86)/Microsoft.NET/Primary Interop Assemblies/stdole.dll  
-   9. score=56.0321  1e8-9b12-ecf4bb487fed}{3808876b-c176-4e48-b7ae-04046e6cc752}  
-  10. score=56.0321  1e8-9b15-28e347017777}{3808876b-c176-4e48-b7ae-04046e6cc752}  
-  11. score=56.0321  e/Chrome/User Data/CertificateTransparency/703/manifest.json  
-  12. score=56.0321  CertificateTransparency/703/_metadata/verified_contents.json  
-  13. score=56.0321  e/Chrome/User Data/CertificateTransparency/704/manifest.json  
-  14. score=56.0321  CertificateTransparency/704/_metadata/verified_contents.json  
-  15. score=56.0321  e/Chrome/User Data/CertificateTransparency/705/manifest.json  
-  16. score=56.0321  CertificateTransparency/705/_metadata/verified_contents.json  
-  17. score=56.0321  e/Chrome/User Data/CertificateTransparency/707/manifest.json  
-  18. score=56.0321  CertificateTransparency/707/_metadata/verified_contents.json  
-  19. score=56.0321  e/Chrome/User Data/CertificateTransparency/710/manifest.json  
-  20. score=56.0321  CertificateTransparency/710/_metadata/verified_contents.json  
+   1. score=44.8777  /hiberfil.sys  
+   2. score=44.8777  /pagefile.sys  
+   3. score=44.8777  es/microsoft shared/MSEnv/PublicAssemblies/extensibility.dll  
+   4. score=44.8777  les (x86)/Microsoft.NET/Primary Interop Assemblies/adodb.dll  
+   5. score=44.8777  icrosoft.NET/Primary Interop Assemblies/Microsoft.mshtml.dll  
+   6. score=44.8777  osoft.NET/Primary Interop Assemblies/Microsoft.stdformat.dll  
+   7. score=44.8777  (x86)/Microsoft.NET/Primary Interop Assemblies/msdatasrc.dll  
+   8. score=44.8777  es (x86)/Microsoft.NET/Primary Interop Assemblies/stdole.dll  
+   9. score=44.8777  1e8-9b12-ecf4bb487fed}{3808876b-c176-4e48-b7ae-04046e6cc752}  
+  10. score=44.8777  1e8-9b15-28e347017777}{3808876b-c176-4e48-b7ae-04046e6cc752}  
+  11. score=44.8777  e/Chrome/User Data/CertificateTransparency/703/manifest.json  
+  12. score=44.8777  CertificateTransparency/703/_metadata/verified_contents.json  
+  13. score=44.8777  e/Chrome/User Data/CertificateTransparency/704/manifest.json  
+  14. score=44.8777  CertificateTransparency/704/_metadata/verified_contents.json  
+  15. score=44.8777  e/Chrome/User Data/CertificateTransparency/705/manifest.json  
+  16. score=44.8777  CertificateTransparency/705/_metadata/verified_contents.json  
+  17. score=44.8777  e/Chrome/User Data/CertificateTransparency/707/manifest.json  
+  18. score=44.8777  CertificateTransparency/707/_metadata/verified_contents.json  
+  19. score=44.8777  e/Chrome/User Data/CertificateTransparency/710/manifest.json  
+  20. score=44.8777  CertificateTransparency/710/_metadata/verified_contents.json  
  Ground-truth caught:
    [HIT ] AIRPORT INFORMATION.docx
-   [HIT ] AMEN.pdf
    [HIT ] BladeofGrass.jpg
    [HIT ] Box Sync.lnk
    [HIT ] Brother Chat.gdoc
@@ -176,17 +175,12 @@
    [HIT ] Google Drive.lnk
    [HIT ] HoldMyTidePod.jpg
    [HIT ] Huckleberry.png
-   [HIT ] Jim's Notebook.url
-   [HIT ] LeftUsesBoycotts.pdf
    [HIT ] MyTiredHead.jpg
    [HIT ] Operation 2nd Hand Smoke.pptx
    [HIT ] Planning.docx
    [HIT ] RedGuns.jpg
-   [HIT ] rootkey.csv
-   [HIT ] SelfDefenseisMurder.pdf
    [HIT ] Sheep.jpg
    [HIT ] The Cloudy Manifesto.docx
-   [HIT ] UKknifeBan.pdf
    [MISS] 2018-04-03 (1).png
    [MISS] 2018-04-03 (3).png
    [MISS] 2018-04-03.png
@@ -194,5 +188,11 @@
    [MISS] 2018-04-04 (3).png
    [MISS] 2018-04-04 (4).png
    [MISS] 2018-04-04.png
+   [MISS] AMEN.pdf
    [MISS] CachedImage_1366_768_POS4.jpg
+   [MISS] Jim's Notebook.url
+   [MISS] LeftUsesBoycotts.pdf
+   [MISS] rootkey.csv
+   [MISS] SelfDefenseisMurder.pdf
+   [MISS] UKknifeBan.pdf
    [MISS] Chrome Login Data database

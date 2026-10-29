@@ -273,7 +273,7 @@ def stab_summary(tops):
 
 
 # ----------------------------------------------------------------------------
-def run_image(tag):
+def run_image(tag, skip_xai=False):
     t0 = time.time()
     spec = M.IMAGES[tag]
     df, raw, feats = load_ctx(tag)
@@ -350,7 +350,7 @@ def run_image(tag):
     sv["Isolation Forest"] = {i: sh[k] for k, i in enumerate(need)}
     print(f"[{tag}] IF TreeSHAP on {len(need)} rows {time.time()-t0:.0f}s", flush=True)
     for mo in ["Local Outlier Factor", "One-Class SVM"]:
-        sel = [b for _, b in caught[mo]][:MAX_TARGETS_KERNEL] + nontarget[mo]
+        sel = [b for _, b in caught[mo]][:MAX_TARGETS_KERNEL] + ([] if skip_xai else nontarget[mo])
         sel = list(dict.fromkeys(sel))
         sh = kernel_shap(fns[mo], bg, Xs[sel], KSHAP_N_FAITH, 0)
         sv[mo] = {i: sh[k] for k, i in enumerate(sel)}
@@ -426,114 +426,117 @@ def run_image(tag):
             ver["perModel"][mo][str(p)] = v
             ver["evaluation"][mo][str(p)] = evaluate_verdict(tag, v)
 
-    # ======================= 3. explainability =======================================
-    xai = {"faithfulness": {}, "stability": {}, "sense": [], "summary": {}}
-    ranks_of_score = lambda mo, i, new: int((base[mo] > new).sum() - (base[mo][i] > new)) + 1
-    nc = nonconst
-    for mo in M.MODELS:
-        is_t = {i for _, i in caught[mo]}
-        rows_sel = [i for i in sv[mo] if i in is_t or i in set(nontarget[mo])]
-        recs, rng2 = [], np.random.RandomState(1)
-        for i in rows_sel:
-            t3 = top3(sv[mo][i], feats)
-            f_i = fns[mo]
-            if mo == "Local Outlier Factor":
-                keep = np.ones(N, dtype=bool)
-                keep[i] = False
-                nov_i = LocalOutlierFactor(n_neighbors=20, novelty=True, n_jobs=-1).fit(Xs[keep])
-                f_i = lambda A, nv=nov_i: -nv.score_samples(A)
-            old = ranks_of_score(mo, i, base[mo][i])
-            xm = Xs[i].copy()
-            xm[t3] = 0.0
-            new = ranks_of_score(mo, i, float(f_i(xm[None, :])[0]))
-            Rm = np.repeat(Xs[i][None, :], 10, axis=0)
-            for d in range(10):
-                Rm[d, rng2.choice(nc, 3, replace=False)] = 0.0
-            rs = f_i(Rm)
-            rnd = np.mean([ranks_of_score(mo, i, float(x)) - old for x in rs])
-            recs.append((i, i in is_t, new - old, float(rnd), old))
-        a = np.array([r[2] for r in recs], float)
-        b = np.array([r[3] for r in recs], float)
-        try:
-            pw = float(wilcoxon(a, b, alternative="greater").pvalue)
-        except Exception:
-            pw = None
-        grp = lambda f: [r for r in recs if f(r)]
-        xai["faithfulness"][mo] = {
-            "n": len(recs), "nTargets": sum(r[1] for r in recs), "nNonTarget": sum(not r[1] for r in recs),
-            "medianRankChangeShapTop3": float(np.median(a)), "medianRankChangeRandom3": float(np.median(b)),
-            "meanRankChangeShapTop3": float(a.mean()), "meanRankChangeRandom3": float(b.mean()),
-            "shareShapBeatsRandom": float((a > b).mean()), "wilcoxonP": pw,
-            "targetsOnly": {"n": len(grp(lambda r: r[1])),
-                            "medianShap": float(np.median([r[2] for r in grp(lambda r: r[1])])) if grp(lambda r: r[1]) else None,
-                            "medianRandom": float(np.median([r[3] for r in grp(lambda r: r[1])])) if grp(lambda r: r[1]) else None},
-            "samples": [[paths[r[0]][-80:], r[4], r[2], round(r[3], 1)] for r in recs if r[1]][:25]}
-        print(f"[{tag}] {mo} faithfulness done {time.time()-t0:.0f}s", flush=True)
+    # ======================= 3. explainability (the site now uses reports/study_v3/final/B instead; --skip-xai omits it)
+    xai = {}
+    if not skip_xai:
+        xai = {"faithfulness": {}, "stability": {}, "sense": [], "summary": {}}
+        ranks_of_score = lambda mo, i, new: int((base[mo] > new).sum() - (base[mo][i] > new)) + 1
+        nc = nonconst
+        for mo in M.MODELS:
+            is_t = {i for _, i in caught[mo]}
+            rows_sel = [i for i in sv[mo] if i in is_t or i in set(nontarget[mo])]
+            recs, rng2 = [], np.random.RandomState(1)
+            for i in rows_sel:
+                t3 = top3(sv[mo][i], feats)
+                f_i = fns[mo]
+                if mo == "Local Outlier Factor":
+                    keep = np.ones(N, dtype=bool)
+                    keep[i] = False
+                    nov_i = LocalOutlierFactor(n_neighbors=20, novelty=True, n_jobs=-1).fit(Xs[keep])
+                    f_i = lambda A, nv=nov_i: -nv.score_samples(A)
+                old = ranks_of_score(mo, i, base[mo][i])
+                xm = Xs[i].copy()
+                xm[t3] = 0.0
+                new = ranks_of_score(mo, i, float(f_i(xm[None, :])[0]))
+                Rm = np.repeat(Xs[i][None, :], 10, axis=0)
+                for d in range(10):
+                    Rm[d, rng2.choice(nc, 3, replace=False)] = 0.0
+                rs = f_i(Rm)
+                rnd = np.mean([ranks_of_score(mo, i, float(x)) - old for x in rs])
+                recs.append((i, i in is_t, new - old, float(rnd), old))
+            a = np.array([r[2] for r in recs], float)
+            b = np.array([r[3] for r in recs], float)
+            try:
+                pw = float(wilcoxon(a, b, alternative="greater").pvalue)
+            except Exception:
+                pw = None
+            grp = lambda f: [r for r in recs if f(r)]
+            xai["faithfulness"][mo] = {
+                "n": len(recs), "nTargets": sum(r[1] for r in recs), "nNonTarget": sum(not r[1] for r in recs),
+                "medianRankChangeShapTop3": float(np.median(a)), "medianRankChangeRandom3": float(np.median(b)),
+                "meanRankChangeShapTop3": float(a.mean()), "meanRankChangeRandom3": float(b.mean()),
+                "shareShapBeatsRandom": float((a > b).mean()), "wilcoxonP": pw,
+                "targetsOnly": {"n": len(grp(lambda r: r[1])),
+                                "medianShap": float(np.median([r[2] for r in grp(lambda r: r[1])])) if grp(lambda r: r[1]) else None,
+                                "medianRandom": float(np.median([r[3] for r in grp(lambda r: r[1])])) if grp(lambda r: r[1]) else None},
+                "samples": [[paths[r[0]][-80:], r[4], r[2], round(r[3], 1)] for r in recs if r[1]][:25]}
+            print(f"[{tag}] {mo} faithfulness done {time.time()-t0:.0f}s", flush=True)
 
-        # constant-feature SHAP mass
-        S = np.abs(np.array([sv[mo][i] for i in rows_sel]))
-        tot = S.sum()
-        xai["summary"].setdefault(mo, {})["shapMassConstant"] = float(S[:, const_idx].sum() / tot) if tot else 0.0
-        xai["summary"][mo]["shapMassNearConstant"] = float(S[:, near_idx].sum() / tot) if tot else 0.0
+            # constant-feature SHAP mass
+            S = np.abs(np.array([sv[mo][i] for i in rows_sel]))
+            tot = S.sum()
+            xai["summary"].setdefault(mo, {})["shapMassConstant"] = float(S[:, const_idx].sum() / tot) if tot else 0.0
+            xai["summary"][mo]["shapMassNearConstant"] = float(S[:, near_idx].sum() / tot) if tot else 0.0
 
-        # forensic sense
-        sense_all = []
-        for name, i in caught[mo]:
-            if i not in sv[mo]:
+            # forensic sense
+            sense_all = []
+            for name, i in caught[mo]:
+                if i not in sv[mo]:
+                    continue
+                t3 = [feats[j] for j in top3(sv[mo][i], feats)]
+                exp = expected_for(name)
+                sense_all.append({"target": name, "model": mo, "top3": t3, "expected": exp,
+                                  "match": bool(set(t3) & set(exp)), "rank": int(rank_of[mo][i])})
+            xai["sense"].extend(sense_all)
+            xai["summary"][mo]["senseMatch"] = (float(np.mean([s["match"] for s in sense_all])) if sense_all else None)
+            xai["summary"][mo]["senseN"] = len(sense_all)
+            xai["summary"][mo]["targetsCaught20"] = len(caught[mo])
+
+        # ---- stability ---------------------------------------------------------------------
+        # IF: five refits, TreeSHAP of each caught target
+        tgt_rows = [b for _, b in caught["Isolation Forest"]]
+        stab = {}
+        if tgt_rows:
+            per_seed = {}
+            for sd in SEEDS:
+                fm = fitted["Isolation Forest"] if sd == 42 else M.fit_score("Isolation Forest", Xs, sd, 10000)[1]
+                sh = tree_shap(fm, Xs[tgt_rows])
+                per_seed[sd] = [top3(sh[k], feats) for k in range(len(tgt_rows))]
+            js, t1, al = [], [], []
+            for k in range(len(tgt_rows)):
+                j, a_, s_ = stab_summary({sd: per_seed[sd][k] for sd in SEEDS})
+                js.append(j); t1.append(a_); al.append(s_)
+            stab["Isolation Forest"] = {"n": len(tgt_rows), "meanJaccardTop3": float(np.mean(js)),
+                                        "top1AgreementPairwise": float(np.mean(t1)), "top1AllSeedsSame": float(np.mean(al)),
+                                        "nsamples": "exact TreeSHAP"}
+        print(f"[{tag}] IF stability done {time.time()-t0:.0f}s", flush=True)
+        for mo in ["Local Outlier Factor", "One-Class SVM"]:
+            tr = [b for _, b in caught[mo]][:MAX_STAB_KERNEL]
+            if not tr:
                 continue
-            t3 = [feats[j] for j in top3(sv[mo][i], feats)]
-            exp = expected_for(name)
-            sense_all.append({"target": name, "model": mo, "top3": t3, "expected": exp,
-                              "match": bool(set(t3) & set(exp)), "rank": int(rank_of[mo][i])})
-        xai["sense"].extend(sense_all)
-        xai["summary"][mo]["senseMatch"] = (float(np.mean([s["match"] for s in sense_all])) if sense_all else None)
-        xai["summary"][mo]["senseN"] = len(sense_all)
-        xai["summary"][mo]["targetsCaught20"] = len(caught[mo])
+            per_seed = {}
+            for sd in SEEDS:
+                if mo == "One-Class SVM" and sd != 42:
+                    f_sd = (lambda m_: (lambda A: -m_.decision_function(A)))(M.fit_score(mo, Xs, sd, 10000)[1])
+                else:
+                    f_sd = fns[mo]
+                bg_s = Xs[np.random.RandomState(sd).choice(N, KSHAP_BG, replace=False)]
+                sh = kernel_shap(f_sd, bg_s, Xs[tr], KSHAP_N_STAB, sd)
+                per_seed[sd] = [top3(sh[k], feats) for k in range(len(tr))]
+            js, t1, al = [], [], []
+            for k in range(len(tr)):
+                j, a_, s_ = stab_summary({sd: per_seed[sd][k] for sd in SEEDS})
+                js.append(j); t1.append(a_); al.append(s_)
+            stab[mo] = {"n": len(tr), "meanJaccardTop3": float(np.mean(js)), "top1AgreementPairwise": float(np.mean(t1)),
+                        "top1AllSeedsSame": float(np.mean(al)),
+                        "nsamples": f"KernelSHAP nsamples={KSHAP_N_STAB}, bg={KSHAP_BG}, <= {MAX_STAB_KERNEL} targets"}
+            print(f"[{tag}] {mo} stability done {time.time()-t0:.0f}s", flush=True)
+        xai["stability"] = stab
+        xai["notes"] = {"top3": "top-3 strongest suspicion-raising SHAP contributors (padded by |SHAP|)",
+                        "kernelCaps": f"KernelSHAP models: <= {MAX_TARGETS_KERNEL} caught targets and {N_NONTARGET_KERNEL} "
+                                      f"non-target flagged files per model (IF: all caught targets + {N_NONTARGET}); caught = within the top-20% budget",
+                        "lofNote": "LOF rescoring uses a novelty=True refit with the tested row held out (else a training point is its own neighbour), ranked against the ordinary training LOF scores"}
 
-    # ---- stability ---------------------------------------------------------------------
-    # IF: five refits, TreeSHAP of each caught target
-    tgt_rows = [b for _, b in caught["Isolation Forest"]]
-    stab = {}
-    if tgt_rows:
-        per_seed = {}
-        for sd in SEEDS:
-            fm = fitted["Isolation Forest"] if sd == 42 else M.fit_score("Isolation Forest", Xs, sd, 10000)[1]
-            sh = tree_shap(fm, Xs[tgt_rows])
-            per_seed[sd] = [top3(sh[k], feats) for k in range(len(tgt_rows))]
-        js, t1, al = [], [], []
-        for k in range(len(tgt_rows)):
-            j, a_, s_ = stab_summary({sd: per_seed[sd][k] for sd in SEEDS})
-            js.append(j); t1.append(a_); al.append(s_)
-        stab["Isolation Forest"] = {"n": len(tgt_rows), "meanJaccardTop3": float(np.mean(js)),
-                                    "top1AgreementPairwise": float(np.mean(t1)), "top1AllSeedsSame": float(np.mean(al)),
-                                    "nsamples": "exact TreeSHAP"}
-    print(f"[{tag}] IF stability done {time.time()-t0:.0f}s", flush=True)
-    for mo in ["Local Outlier Factor", "One-Class SVM"]:
-        tr = [b for _, b in caught[mo]][:MAX_STAB_KERNEL]
-        if not tr:
-            continue
-        per_seed = {}
-        for sd in SEEDS:
-            if mo == "One-Class SVM" and sd != 42:
-                f_sd = (lambda m_: (lambda A: -m_.decision_function(A)))(M.fit_score(mo, Xs, sd, 10000)[1])
-            else:
-                f_sd = fns[mo]
-            bg_s = Xs[np.random.RandomState(sd).choice(N, KSHAP_BG, replace=False)]
-            sh = kernel_shap(f_sd, bg_s, Xs[tr], KSHAP_N_STAB, sd)
-            per_seed[sd] = [top3(sh[k], feats) for k in range(len(tr))]
-        js, t1, al = [], [], []
-        for k in range(len(tr)):
-            j, a_, s_ = stab_summary({sd: per_seed[sd][k] for sd in SEEDS})
-            js.append(j); t1.append(a_); al.append(s_)
-        stab[mo] = {"n": len(tr), "meanJaccardTop3": float(np.mean(js)), "top1AgreementPairwise": float(np.mean(t1)),
-                    "top1AllSeedsSame": float(np.mean(al)),
-                    "nsamples": f"KernelSHAP nsamples={KSHAP_N_STAB}, bg={KSHAP_BG}, <= {MAX_STAB_KERNEL} targets"}
-        print(f"[{tag}] {mo} stability done {time.time()-t0:.0f}s", flush=True)
-    xai["stability"] = stab
-    xai["notes"] = {"top3": "top-3 strongest suspicion-raising SHAP contributors (padded by |SHAP|)",
-                    "kernelCaps": f"KernelSHAP models: <= {MAX_TARGETS_KERNEL} caught targets and {N_NONTARGET_KERNEL} "
-                                  f"non-target flagged files per model (IF: all caught targets + {N_NONTARGET}); caught = within the top-20% budget",
-                    "lofNote": "LOF rescoring uses a novelty=True refit with the tested row held out (else a training point is its own neighbour), ranked against the ordinary training LOF scores"}
 
     out = {"tag": tag, "label": spec["label"], "scenario": spec["scenario"], "files": N, "features": feats,
            "constantFeatures": [feats[j] for j in const_idx], "nearConstantFeatures": [feats[j] for j in near_idx],
@@ -593,7 +596,10 @@ def write_md():
             for b in ["5", "10", "15", "20"]:
                 e = v["evaluation"][mo][b]
                 L.append(f"| {SHORT[mo]} | {b}% | {e['timestomp']['correct']} | {e['insider']['correct']} | {e['hacker_tools']['correct']} |")
-        x = d["xai"]
+        x = d.get("xai")
+        if not x:
+            L.append("")
+            continue
         L += ["", "### Explainability", "",
               "| model | n | median rank change SHAP-top3 | random-3 | SHAP>random share | Wilcoxon p | Jaccard top3 | top-1 pairwise | top-1 all seeds | sense match | SHAP mass on constant |",
               "|---|---|---|---|---|---|---|---|---|---|---|"]
@@ -617,8 +623,9 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--images", nargs="+", default=[])
     ap.add_argument("--md-only", action="store_true")
+    ap.add_argument("--skip-xai", action="store_true", help="omit the explainability section (superseded by study v3 B)")
     a = ap.parse_args()
     for t in a.images:
-        run_image(t)
+        run_image(t, a.skip_xai)
     if a.md_only or not a.images:
         write_md()

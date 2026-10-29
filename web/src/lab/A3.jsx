@@ -7,7 +7,7 @@ import { fmtRaw } from './data'
 import { Part, pal, useCanvas, useThemeTick, useSettled } from './ui'
 
 const HEAVY = ['delta_mc', 'delta_mb', 'delta_ab', 'delta_si_fn', 'size']
-const MAIN = ['delta_si_fn', 'delta_mc', 'delta_mb', 'delta_ab', 'filename_entropy', 'path_depth', 'size']
+const MAIN = ['delta_si_fn', 'delta_mc', 'delta_mb', 'delta_ab', 'filename_entropy', 'path_depth', 'size', 'log_burst_count', 'log_burst_60s']
 const MAIN_FLAGS = ['after_hours_touch', 'per_file_prefetch_hit', 'is_exe', 'is_shortcut_or_trace']
 const slog = (v) => Math.sign(v) * Math.log1p(Math.abs(v))
 const sexp = (u) => Math.sign(u) * Math.expm1(Math.abs(u))
@@ -36,9 +36,9 @@ export default function A3({ d, fit, pct, setPlanted }) {
       return v
     }]
     return [
-      P('Timestomped tool', { is_exe: 1, delta_si_fn: 'hi', delta_mc: 'hi', delta_mb: 'hi', delta_ab: 'hi', future_m: 1, m_before_cr: 1, per_file_prefetch_hit: 1, user_path: 1, filename_entropy: 'hi', is_shortcut_or_trace: 0 }),
+      P('Timestomped tool', { is_exe: 1, delta_si_fn: 'hi', delta_mc: 'hi', delta_mb: 'hi', delta_ab: 'hi', m_before_cr: 1, per_file_prefetch_hit: 1, user_path: 1, filename_entropy: 'hi', is_shortcut_or_trace: 0 }),
       P('Normal Word doc', { is_exe: 0, user_path: 1, is_shortcut_or_trace: 0, after_hours_touch: 0, per_file_prefetch_hit: 0 }),
-      P('Hidden after-hours script', { is_script: 1, script_host: 1, powershell_exec: 1, after_hours_touch: 1, temp_path: 1, is_exe: 0, filename_entropy: 'hi', path_depth: 'hi', is_deleted: 1, delta_si_fn: 'hi' }),
+      P('Hidden after-hours script', { is_script: 1, after_hours_touch: 1, temp_path: 1, is_exe: 0, filename_entropy: 'hi', path_depth: 'hi', delta_si_fn: 'hi', log_burst_count: 'hi' }),
     ]
   }, [base, spec])
 

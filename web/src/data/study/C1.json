@@ -1,0 +1,619 @@
+{
+ "reference": {
+  "indicators": [
+   [
+    "timestomp",
+    "Timestamp tampering (timestomping)"
+   ],
+   [
+    "wiper",
+    "Anti-forensic wiping / cleaning tool"
+   ],
+   [
+    "usb",
+    "Removable-media use"
+   ],
+   [
+    "cloud",
+    "Cloud-sync use"
+   ],
+   [
+    "hacking_tools",
+    "Hacking / password / sniffer tools"
+   ],
+   [
+    "doc_access",
+    "Document access traces"
+   ],
+   [
+    "browser",
+    "Browser activity"
+   ],
+   [
+    "log_clearing",
+    "Event-log clearing"
+   ],
+   [
+    "malware_misc",
+    "Malware, ransomware, PowerShell or persistence"
+   ]
+  ],
+  "case": {
+   "img1": "external hacking: hacking, password-cracking and sniffer tools; Novell tools timestomped",
+   "img2": "insider data leakage via removable media and cloud, with anti-forensic wiping (Eraser, CCleaner)",
+   "img3": "insider (Lone Wolf) planning and exfiltration via documents, cloud and browser"
+  },
+  "expected": {
+   "img1": {
+    "timestomp": 1,
+    "wiper": 0,
+    "usb": 0,
+    "cloud": 0,
+    "hacking_tools": 1,
+    "doc_access": 0,
+    "browser": 0,
+    "log_clearing": 0,
+    "malware_misc": 0
+   },
+   "img2": {
+    "timestomp": 0,
+    "wiper": 1,
+    "usb": 1,
+    "cloud": 1,
+    "hacking_tools": 0,
+    "doc_access": 0,
+    "browser": 0,
+    "log_clearing": 0,
+    "malware_misc": 0
+   },
+   "img3": {
+    "timestomp": 0,
+    "wiper": 0,
+    "usb": 0,
+    "cloud": 1,
+    "hacking_tools": 0,
+    "doc_access": 1,
+    "browser": 1,
+    "log_clearing": 0,
+    "malware_misc": 0
+   }
+  }
+ },
+ "disks": {
+  "img1": {
+   "os": "Microsoft Windows XP",
+   "rows": [
+    {
+     "disk": "img1",
+     "system": "v1",
+     "budget": "20",
+     "triggered": "hacking_tools|malware_misc|timestomp|usb",
+     "expected": "timestomp|hacking_tools",
+     "triggered_n": 4,
+     "expected_n": 2,
+     "tp": 2,
+     "fp": 2,
+     "fn": 0,
+     "precision": 0.5,
+     "recall": 1.0
+    },
+    {
+     "disk": "img1",
+     "system": "v2_all",
+     "budget": "20",
+     "triggered": "doc_access|hacking_tools|timestomp|usb",
+     "expected": "timestomp|hacking_tools",
+     "triggered_n": 4,
+     "expected_n": 2,
+     "tp": 2,
+     "fp": 2,
+     "fn": 0,
+     "precision": 0.5,
+     "recall": 1.0
+    },
+    {
+     "disk": "img1",
+     "system": "v2_medium+",
+     "budget": "20",
+     "triggered": "doc_access|hacking_tools|timestomp",
+     "expected": "timestomp|hacking_tools",
+     "triggered_n": 3,
+     "expected_n": 2,
+     "tp": 2,
+     "fp": 1,
+     "fn": 0,
+     "precision": 0.6666666666666666,
+     "recall": 1.0
+    },
+    {
+     "disk": "img1",
+     "system": "v1",
+     "budget": "15",
+     "triggered": "hacking_tools|malware_misc|timestomp|usb",
+     "expected": "timestomp|hacking_tools",
+     "triggered_n": 4,
+     "expected_n": 2,
+     "tp": 2,
+     "fp": 2,
+     "fn": 0,
+     "precision": 0.5,
+     "recall": 1.0
+    },
+    {
+     "disk": "img1",
+     "system": "v2_all",
+     "budget": "15",
+     "triggered": "doc_access|hacking_tools|timestomp|usb",
+     "expected": "timestomp|hacking_tools",
+     "triggered_n": 4,
+     "expected_n": 2,
+     "tp": 2,
+     "fp": 2,
+     "fn": 0,
+     "precision": 0.5,
+     "recall": 1.0
+    },
+    {
+     "disk": "img1",
+     "system": "v2_medium+",
+     "budget": "15",
+     "triggered": "doc_access|hacking_tools|timestomp",
+     "expected": "timestomp|hacking_tools",
+     "triggered_n": 3,
+     "expected_n": 2,
+     "tp": 2,
+     "fp": 1,
+     "fn": 0,
+     "precision": 0.6666666666666666,
+     "recall": 1.0
+    }
+   ],
+   "stability": {
+    "budget_all": 1.0,
+    "budget_medplus": 1.0,
+    "budget_recs": 1.0,
+    "seeds20": 1.0,
+    "seeds15": 1.0,
+    "seeds_med20": 1.0
+   },
+   "checks": {
+    "cite": [
+     {
+      "budget": "20",
+      "rec": "hacking-tools",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "20",
+      "rec": "removable-or-cloud",
+      "files": 1,
+      "pass": true
+     },
+     {
+      "budget": "20",
+      "rec": "document-access-traces",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "20",
+      "rec": "timestamp-inconsistency",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "15",
+      "rec": "hacking-tools",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "15",
+      "rec": "removable-or-cloud",
+      "files": 1,
+      "pass": true
+     },
+     {
+      "budget": "15",
+      "rec": "document-access-traces",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "15",
+      "rec": "timestamp-inconsistency",
+      "files": 10,
+      "pass": true
+     }
+    ],
+    "evidenceCmdFails": [],
+    "changesCommented": [
+     {
+      "file": "img1/01_hacking-tools.cmd",
+      "pass": true
+     },
+     {
+      "file": "img1/02_removable-or-cloud.cmd",
+      "pass": true
+     },
+     {
+      "file": "img1/03_document-access-traces.cmd",
+      "pass": true
+     },
+     {
+      "file": "img1/04_timestamp-inconsistency.cmd",
+      "pass": true
+     },
+     {
+      "file": "img1/budget15/01_hacking-tools.cmd",
+      "pass": true
+     },
+     {
+      "file": "img1/budget15/02_removable-or-cloud.cmd",
+      "pass": true
+     },
+     {
+      "file": "img1/budget15/03_document-access-traces.cmd",
+      "pass": true
+     },
+     {
+      "file": "img1/budget15/04_timestamp-inconsistency.cmd",
+      "pass": true
+     }
+    ],
+    "osViolations": []
+   }
+  },
+  "img2": {
+   "os": "Windows 7 Ultimate",
+   "rows": [
+    {
+     "disk": "img2",
+     "system": "v1",
+     "budget": "20",
+     "triggered": "log_clearing|malware_misc|timestomp|usb",
+     "expected": "wiper|usb|cloud",
+     "triggered_n": 4,
+     "expected_n": 3,
+     "tp": 1,
+     "fp": 3,
+     "fn": 2,
+     "precision": 0.25,
+     "recall": 0.3333333333333333
+    },
+    {
+     "disk": "img2",
+     "system": "v2_all",
+     "budget": "20",
+     "triggered": "cloud|doc_access|timestomp|usb|wiper",
+     "expected": "wiper|usb|cloud",
+     "triggered_n": 5,
+     "expected_n": 3,
+     "tp": 3,
+     "fp": 2,
+     "fn": 0,
+     "precision": 0.6,
+     "recall": 1.0
+    },
+    {
+     "disk": "img2",
+     "system": "v2_medium+",
+     "budget": "20",
+     "triggered": "cloud|doc_access|wiper",
+     "expected": "wiper|usb|cloud",
+     "triggered_n": 3,
+     "expected_n": 3,
+     "tp": 2,
+     "fp": 1,
+     "fn": 1,
+     "precision": 0.6666666666666666,
+     "recall": 0.6666666666666666
+    },
+    {
+     "disk": "img2",
+     "system": "v1",
+     "budget": "15",
+     "triggered": "log_clearing|malware_misc|timestomp|usb",
+     "expected": "wiper|usb|cloud",
+     "triggered_n": 4,
+     "expected_n": 3,
+     "tp": 1,
+     "fp": 3,
+     "fn": 2,
+     "precision": 0.25,
+     "recall": 0.3333333333333333
+    },
+    {
+     "disk": "img2",
+     "system": "v2_all",
+     "budget": "15",
+     "triggered": "cloud|doc_access|timestomp|usb|wiper",
+     "expected": "wiper|usb|cloud",
+     "triggered_n": 5,
+     "expected_n": 3,
+     "tp": 3,
+     "fp": 2,
+     "fn": 0,
+     "precision": 0.6,
+     "recall": 1.0
+    },
+    {
+     "disk": "img2",
+     "system": "v2_medium+",
+     "budget": "15",
+     "triggered": "cloud|doc_access|wiper",
+     "expected": "wiper|usb|cloud",
+     "triggered_n": 3,
+     "expected_n": 3,
+     "tp": 2,
+     "fp": 1,
+     "fn": 1,
+     "precision": 0.6666666666666666,
+     "recall": 0.6666666666666666
+    }
+   ],
+   "stability": {
+    "budget_all": 1.0,
+    "budget_medplus": 1.0,
+    "budget_recs": 1.0,
+    "seeds20": 1.0,
+    "seeds15": 1.0,
+    "seeds_med20": 1.0
+   },
+   "checks": {
+    "cite": [
+     {
+      "budget": "20",
+      "rec": "anti-forensic-cleaner",
+      "files": 8,
+      "pass": true
+     },
+     {
+      "budget": "20",
+      "rec": "removable-or-cloud",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "20",
+      "rec": "document-access-traces",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "20",
+      "rec": "timestamp-inconsistency",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "15",
+      "rec": "anti-forensic-cleaner",
+      "files": 8,
+      "pass": true
+     },
+     {
+      "budget": "15",
+      "rec": "removable-or-cloud",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "15",
+      "rec": "document-access-traces",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "15",
+      "rec": "timestamp-inconsistency",
+      "files": 10,
+      "pass": true
+     }
+    ],
+    "evidenceCmdFails": [],
+    "changesCommented": [
+     {
+      "file": "img2/01_anti-forensic-cleaner.ps1",
+      "pass": true
+     },
+     {
+      "file": "img2/02_removable-or-cloud.ps1",
+      "pass": true
+     },
+     {
+      "file": "img2/03_document-access-traces.ps1",
+      "pass": true
+     },
+     {
+      "file": "img2/04_timestamp-inconsistency.ps1",
+      "pass": true
+     },
+     {
+      "file": "img2/budget15/01_anti-forensic-cleaner.ps1",
+      "pass": true
+     },
+     {
+      "file": "img2/budget15/02_removable-or-cloud.ps1",
+      "pass": true
+     },
+     {
+      "file": "img2/budget15/03_document-access-traces.ps1",
+      "pass": true
+     },
+     {
+      "file": "img2/budget15/04_timestamp-inconsistency.ps1",
+      "pass": true
+     }
+    ],
+    "osViolations": []
+   }
+  },
+  "img3": {
+   "os": "Windows 10 Education",
+   "rows": [
+    {
+     "disk": "img3",
+     "system": "v1",
+     "budget": "20",
+     "triggered": "log_clearing|malware_misc|timestomp|usb",
+     "expected": "cloud|doc_access|browser",
+     "triggered_n": 4,
+     "expected_n": 3,
+     "tp": 0,
+     "fp": 4,
+     "fn": 3,
+     "precision": 0.0,
+     "recall": 0.0
+    },
+    {
+     "disk": "img3",
+     "system": "v2_all",
+     "budget": "20",
+     "triggered": "cloud|doc_access|timestomp|usb",
+     "expected": "cloud|doc_access|browser",
+     "triggered_n": 4,
+     "expected_n": 3,
+     "tp": 2,
+     "fp": 2,
+     "fn": 1,
+     "precision": 0.5,
+     "recall": 0.6666666666666666
+    },
+    {
+     "disk": "img3",
+     "system": "v2_medium+",
+     "budget": "20",
+     "triggered": "cloud|doc_access",
+     "expected": "cloud|doc_access|browser",
+     "triggered_n": 2,
+     "expected_n": 3,
+     "tp": 2,
+     "fp": 0,
+     "fn": 1,
+     "precision": 1.0,
+     "recall": 0.6666666666666666
+    },
+    {
+     "disk": "img3",
+     "system": "v1",
+     "budget": "15",
+     "triggered": "log_clearing|malware_misc|timestomp|usb",
+     "expected": "cloud|doc_access|browser",
+     "triggered_n": 4,
+     "expected_n": 3,
+     "tp": 0,
+     "fp": 4,
+     "fn": 3,
+     "precision": 0.0,
+     "recall": 0.0
+    },
+    {
+     "disk": "img3",
+     "system": "v2_all",
+     "budget": "15",
+     "triggered": "cloud|doc_access|timestomp|usb",
+     "expected": "cloud|doc_access|browser",
+     "triggered_n": 4,
+     "expected_n": 3,
+     "tp": 2,
+     "fp": 2,
+     "fn": 1,
+     "precision": 0.5,
+     "recall": 0.6666666666666666
+    },
+    {
+     "disk": "img3",
+     "system": "v2_medium+",
+     "budget": "15",
+     "triggered": "cloud|doc_access",
+     "expected": "cloud|doc_access|browser",
+     "triggered_n": 2,
+     "expected_n": 3,
+     "tp": 2,
+     "fp": 0,
+     "fn": 1,
+     "precision": 1.0,
+     "recall": 0.6666666666666666
+    }
+   ],
+   "stability": {
+    "budget_all": 1.0,
+    "budget_medplus": 1.0,
+    "budget_recs": 1.0,
+    "seeds20": 1.0,
+    "seeds15": 1.0,
+    "seeds_med20": 1.0
+   },
+   "checks": {
+    "cite": [
+     {
+      "budget": "20",
+      "rec": "removable-or-cloud",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "20",
+      "rec": "document-access-traces",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "20",
+      "rec": "timestamp-inconsistency",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "15",
+      "rec": "removable-or-cloud",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "15",
+      "rec": "document-access-traces",
+      "files": 10,
+      "pass": true
+     },
+     {
+      "budget": "15",
+      "rec": "timestamp-inconsistency",
+      "files": 10,
+      "pass": true
+     }
+    ],
+    "evidenceCmdFails": [],
+    "changesCommented": [
+     {
+      "file": "img3/01_removable-or-cloud.ps1",
+      "pass": true
+     },
+     {
+      "file": "img3/02_document-access-traces.ps1",
+      "pass": true
+     },
+     {
+      "file": "img3/03_timestamp-inconsistency.ps1",
+      "pass": true
+     },
+     {
+      "file": "img3/budget15/01_removable-or-cloud.ps1",
+      "pass": true
+     },
+     {
+      "file": "img3/budget15/02_document-access-traces.ps1",
+      "pass": true
+     },
+     {
+      "file": "img3/budget15/03_timestamp-inconsistency.ps1",
+      "pass": true
+     }
+    ],
+    "osViolations": []
+   }
+  }
+ }
+}

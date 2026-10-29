@@ -1,10 +1,10 @@
 """
 export_site_data.py
 ===================
-Exports everything the interactive results site needs into site/data.json:
-per-image stats, exact target ranks under each model (so the browser can compute recall at any
-review budget), a 2-D PCA sample of files for the simulation view, SHAP drivers per caught target,
-ablation tables, robustness checks, verdicts and pipeline stage timings.
+Exports what the results site needs into site/data.json: per-image stats, exact target ranks under each
+model (so the browser can compute recall at any review budget), SHAP drivers per caught target, verdicts and
+pipeline stage timings. (The old 2-D sample, single-seed ablation and robustness tables are gone: the Lab and
+study v3 replace them.)
 
 Run after multimodel_eval.py and robustness_check.py:  python export_site_data.py
 """
@@ -50,11 +50,21 @@ def top_features(row, n=4):
     return [[k, round(v, 3)] for k, v in items]
 
 
+def strip_sample(sample, n_rest=220, n_tgt=40):
+    """The header's scrolling path strip only needs a few real paths and which are evidence (path, target name)."""
+    tg = [q for q in sample if q["t"]][:n_tgt]
+    rest = [q for q in sample if not q["t"]][:n_rest]
+    return [{"p": q["p"], "t": q["t"]} for q in rest + tg]
+
+
 def main():
     os.makedirs(SITE, exist_ok=True)
     results = json.load(open(os.path.join(M.OUT, "results.json")))["results"]
     main_df = pd.read_csv(os.path.join(M.OUT, "results_main.csv"))
-    abl = pd.read_csv(os.path.join(M.OUT, "results_ablation.csv"))
+    try:   # the site no longer shows the old single-seed ablation; study v3 A1/A3 replace it
+        abl = pd.read_csv(os.path.join(M.OUT, "results_ablation.csv"))
+    except pd.errors.EmptyDataError:
+        abl = pd.DataFrame(columns=["image", "config", "n_features", "model", "targets"])
     rob_p = os.path.join(M.OUT, "robustness.json")
     rob = json.load(open(rob_p)) if os.path.exists(rob_p) else {}
 
@@ -136,14 +146,14 @@ def main():
             const = [c for c in fdf.columns if c != "path" and fdf[c].nunique() <= 1]
 
         data["images"][tag] = {
-            "label": res["label"], "files": N, "K5": K5, "features": feats, "constant": const,
-            "targets": targets, "curves": curves, "sample": sample, "ablation": ablation,
+            "label": res["label"], "files": N, "K5": K5, "features": feats,
+            "targets": targets, "curves": curves, "sample": strip_sample(sample),
             "metrics": {r["model"]: {k: r[k] for k in ("targets", "target_recall", "file_recall", "accuracy",
                                                        "precision", "f1", "timestomping", "insider",
                                                        "recall_at_5.5pct", "recall_at_10pct")} for r in mrows},
             "verdicts": {m: res["models"][m]["verdicts"] for m in M.MODELS},
             "shap_global": {m: (res["models"][m]["shap"] or {}).get("mean_abs", {}) for m in M.MODELS},
-            "robustness": rob.get(tag, {}), "stage_times": stage_times(tag),
+            "stage_times": stage_times(tag),
             "scenario": spec["scenario"],
         }
 

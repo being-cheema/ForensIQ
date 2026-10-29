@@ -6,24 +6,20 @@ import Lab from './lab/Lab'
 import Verdict from './components/Verdict'
 import Plateau from './components/Plateau'
 import ToolOutput from './components/ToolOutput'
-import Reliability from './components/Reliability'
-import TrustXai from './components/TrustXai'
+import Cleanup from './components/Cleanup'
+import Ablations from './components/Ablations'
+import Explain from './components/Explain'
 import Remediation from './components/Remediation'
-import Results from './components/Results'
-import Findings from './components/Findings'
 import Evidence from './components/Evidence'
 import Pipeline from './components/Pipeline'
-import Ablation from './components/Ablation'
-import Stability from './components/Stability'
-import Firing from './components/Firing'
 import Audit from './components/Audit'
 import Limits from './components/Limits'
 import Footer from './components/Footer'
 
 export default function App() {
   const [img, setImgRaw] = useState(IMGS[0])
-  const [m, setM] = useState(2)
-  const [pct, setPct] = useState(0.15)
+  const [m, setM] = useState(0)
+  const [pct, setPct] = useState(0.2)
   const [selRaw, setSel] = useState(null)
   const [theme, setTheme] = useState(null)
   const tipRef = useRef()
@@ -51,18 +47,14 @@ export default function App() {
         <Verdict />
         <Plateau img={img} m={m} pct={pct} />
         <ToolOutput img={img} m={m} pct={pct} />
-        <Reliability img={img} m={m} pct={pct} />
-        <TrustXai img={img} m={m} />
+        <Cleanup />
+        <Ablations />
+        <Explain />
         <Remediation img={img} />
-        <Results img={img} im={im} m={m} pct={pct} />
-        <Findings im={im} />
         <Evidence img={img} im={im} m={m} K={K} pct={pct} sel={sel} setSel={setSel} />
         <Pipeline img={img} im={im} />
-        <Ablation img={img} im={im} />
-        <Stability img={img} pct={pct} />
-        <Firing img={img} />
         <Audit />
-        <Limits im={im} />
+        <Limits />
       </main>
       <Footer />
       <div className="tip" ref={tipRef}></div>

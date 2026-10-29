@@ -9,14 +9,13 @@ const loaders = {
 }
 const cache = {}
 
+/* the 19 final features (study v3): 17 clean features plus two burst counts */
 export const GROUPS = {
-  // covers both feature sets: the clean set (study v3) and the legacy 23; names absent from a disk's export are ignored
-  Temporal: ['delta_mc', 'delta_mb', 'delta_ab', 'future_m', 'm_before_cr', 'zero_size_recent', 'delta_si_fn', 'after_hours_touch'],
-  'Path / file': ['size', 'is_deleted', 'is_exe', 'is_archive', 'is_script', 'temp_path', 'user_path', 'path_depth', 'filename_entropy', 'is_shortcut_or_trace'],
-  'Execution / tool': ['credential_tool', 'sniffer_tool', 'powershell_exec', 'cmd_exec', 'script_host', 'usb_present', 'per_file_prefetch_hit'],
+  Temporal: ['delta_mc', 'delta_mb', 'delta_ab', 'delta_si_fn', 'm_before_cr', 'zero_size_recent', 'after_hours_touch'],
+  'Path / file': ['size', 'is_exe', 'is_archive', 'is_script', 'temp_path', 'user_path', 'path_depth', 'filename_entropy', 'is_shortcut_or_trace'],
+  'Execution / activity': ['per_file_prefetch_hit', 'log_burst_count', 'log_burst_60s'],
 }
 export const GROUP_NAMES = Object.keys(GROUPS)
-const NEW_6 = ['is_shortcut_or_trace', 'per_file_prefetch_hit', 'after_hours_touch', 'delta_si_fn', 'filename_entropy', 'path_depth']
 
 function prep(raw) {
   const rows = raw.rows, n = rows.length, nf = raw.features.length
@@ -59,8 +58,8 @@ export function useDisk(img) {
 /* ---------- feature masks and presets ---------- */
 export const maskOf = (d, pred) => d.features.map((f) => pred(f))
 export const PRESETS = [
-  ['All features', (d) => maskOf(d, () => true)],
-  ['Original 17', (d) => maskOf(d, (f) => !NEW_6.includes(f) && f !== 'm_before_cr' && f !== 'is_script')],
+  ['All 19 features', (d) => maskOf(d, () => true)],
+  ['Without burst features', (d) => maskOf(d, (f) => f !== 'log_burst_count' && f !== 'log_burst_60s')],
   ['Drop timestamps', (d) => maskOf(d, (f) => !GROUPS.Temporal.includes(f))],
   ['Only path features', (d) => maskOf(d, (f) => GROUPS['Path / file'].includes(f))],
 ]

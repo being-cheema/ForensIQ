@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { IMGS } from './data'
 
 /* The trust data (tool output, verdicts, explanation checks) is large, so each disk is its own chunk, loaded on demand. */
 const LOAD = {
@@ -26,17 +25,4 @@ export function useTrust(img) {
     return () => { on = false }
   }, [img])
   return { d: st.img === img ? st.d : cache[img] || null, err: st.err }
-}
-
-/* All disks at once ({img1, img2, img3}), or null until every chunk has arrived. */
-export function useTrustAll() {
-  const [all, setAll] = useState(() => (IMGS.every((t) => cache[t]) ? Object.assign({}, cache) : null))
-  const [err, setErr] = useState(false)
-  useEffect(() => {
-    let on = true
-    if (all) return
-    Promise.all(IMGS.map(loadTrust)).then((ds) => { if (on) { const o = {}; IMGS.forEach((t, i) => { o[t] = ds[i] }); setAll(o) } }).catch(() => { if (on) setErr(true) })
-    return () => { on = false }
-  }, [])
-  return { all, err }
 }

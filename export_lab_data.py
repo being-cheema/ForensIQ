@@ -32,6 +32,8 @@ INFO = {
     "filename_entropy": "Shannon entropy of the file name; random-looking names score high.",
     "path_depth": "How many folders deep the file sits.",
     "m_before_cr": "1 if the file's modified time is earlier than its creation time (0 < modified < created), a classic backdating or copy signature.",
+    "log_burst_count": "How many files on the disk share this file's exact modified second (log scale); a bulk copy or wipe stamps many files at once.",
+    "log_burst_60s": "How many files on the disk share this file's modified minute (log scale); a wider version of the burst count.",
     "is_script": "1 if the file extension is a script type (.ps1, .bat, .cmd, .vbs, .js, .wsf, .hta).",
 }
 

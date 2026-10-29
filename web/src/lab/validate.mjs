@@ -23,7 +23,7 @@ for (const img of ["img1", "img2", "img3"]) {
   t0 = performance.now();
   const sLOF = lofScores(X, 20);
   const tLof = performance.now() - t0;
-  const rec = (s) => recallAtBudget(rankOf(s), isT, 0.05).toFixed(3);
+  const rec = (s) => recallAtBudget(rankOf(s), isT, 0.20).toFixed(3);
   // trace sanity
   let pt = 0, nt = 0, cT = 0, cN = 0, bad = 0;
   X.forEach((x, i) => {
@@ -31,6 +31,6 @@ for (const img of ["img1", "img2", "img3"]) {
     for (let q = 0; q < 5; q++) { const L = isolationTrace(f, x, q).length; if (isT[i]) { pt += L; cT++; } else { nt += L; cN++; } }
     if (tr.length && !(tr[0].lo.length === x.length)) bad++;
   });
-  console.log(`${img}: IF spearman=${spearman(sIF, py.if).toFixed(3)} recall@5% js=${rec(sIF)} sk=${rec(py.if)} | LOF spearman=${spearman(sLOF, py.lof).toFixed(3)} recall@5% js=${rec(sLOF)} sk=${rec(py.lof)}`);
+  console.log(`${img}: IF spearman=${spearman(sIF, py.if).toFixed(3)} recall@20% js=${rec(sIF)} sk=${rec(py.if)} | LOF spearman=${spearman(sLOF, py.lof).toFixed(3)} recall@20% js=${rec(sLOF)} sk=${rec(py.lof)}`);
   console.log(`   fit ${tFit.toFixed(0)}ms, lof ${tLof.toFixed(0)}ms, mean trace depth target=${(pt / cT).toFixed(2)} nontarget=${(nt / cN).toFixed(2)} ${pt / cT < nt / cN ? "OK" : "FAIL"}`);
 }

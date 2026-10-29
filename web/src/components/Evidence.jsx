@@ -20,7 +20,7 @@ function Detail(p) {
         if (pos) st.left = '50%'; else st.right = '50%'
         return <div key={d[0]} className="fbar"><span>{d[0]}</span><span className="t"><i data-grow="1" data-w={w} style={st}></i></span><span className="num">{d[1] > 0 ? '+' : ''}{d[1].toFixed(2)}</span></div>
       })}<p className="small" style={{ marginTop: 14 }}>Positive values pushed this file up the suspicion ranking. Generic features such as <span className="mono">is_shortcut_or_trace</span> also fire on harmless files, so a high value is a reason for the rank, not proof of intent.</p></>
-        : <p className="small" style={{ marginTop: 14 }}>No SHAP breakdown was computed for this file under this model: SHAP ran only on files the model flagged.</p>}
+        : <p className="small" style={{ marginTop: 14 }}>No SHAP breakdown was computed for this file under this model: SHAP was computed only for files in the model’s top 5%.</p>}
     </div>
   )
 }
@@ -29,7 +29,7 @@ export default function Evidence(p) {
   const im = p.im, m = MODELS[p.m]
   const tg = im.targets.slice().sort((a, b) => a.ranks[m] - b.ranks[m])
   return (
-    <Section id="evidence" letter="J" title="Which evidence, and why did the model flag it?">
+    <Section id="evidence" letter="I" title="Which evidence, and why did the model flag it?">
       <Pr><p>Each row is one evidence target. Pick one to see the features that pushed it up the ranking. SHAP explains the ranking, not intent: ordinary files can score the same way.</p></Pr>
       <div className="ev">
         <div className="evlist" role="group" aria-label="Evidence targets">{tg.map((t) => {
