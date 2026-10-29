@@ -197,6 +197,7 @@ export default function A1({ d, fit, cfg, setCfg, pct, tipRef, history, planted 
         <div><b>{fit.ms < 10 ? fit.ms.toFixed(1) : Math.round(fit.ms)}<small>ms</small></b><span className="l">to refit {cfg.model === 'lof' ? 'LOF' : cfg.model === 'svm' ? 'the forest' : 'the forest'}</span></div>
       </div>
       <Spark vals={spark} />
+      <LabCurve ranks={ranks} d={d} pct={pct} />
       </div>
       </div>
     </Part>
@@ -225,6 +226,40 @@ function Spark({ vals }) {
         {pts.map((p, i) => i < n - 1 ? <circle key={i} cx={p[0]} cy={p[1]} r="2" fill="var(--ink)" /> : <circle key={i} className="sp-last" cx={p[0]} cy={p[1]} r="3.2" fill="var(--accent)" />)}
       </svg>
       <span className="mono sp-val">{n ? Math.round(vals[n - 1] * 100) + '%' : ''}</span>
+    </div>
+  )
+}
+
+/* Recall against budget, 0 to 100% of the sample, for the model as it is fitted right now. The ring marks where the last evidence file appears. */
+function LabCurve({ ranks, d, pct }) {
+  const ref = useRef()
+  const n = ranks.length, W = 440, H = 104, L = 30, R = 10, T = 10, B = 20, pw = W - L - R, ph = H - T - B
+  const tr = useMemo(() => d.targetIdx.map((i) => ranks[i]).sort((a, b) => a - b), [ranks, d])
+  const nT = tr.length
+  const pl = nT ? tr[nT - 1] / n : 0
+  useEffect(() => {
+    const el = ref.current && ref.current.querySelector('.lc-ring'); if (!el || !canAnim()) return
+    AN.remove(el); AN({ targets: el, r: [1, 6, 4], duration: 520, easing: 'easeOutQuart' })
+  }, [pl])
+  if (!nT) return null
+  const X = (f) => L + f * pw, Y = (r) => T + (1 - r) * ph
+  let path = 'M' + X(0) + ' ' + Y(0)
+  tr.forEach((r, i) => { const x = X(r / n); path += 'L' + x.toFixed(1) + ' ' + Y(i / nT).toFixed(1) + 'L' + x.toFixed(1) + ' ' + Y((i + 1) / nT).toFixed(1) })
+  path += 'L' + X(1) + ' ' + Y(1)
+  const px = X(pl)
+  return (
+    <div className="lcurve" ref={ref}>
+      <span className="small">Recall as the budget grows from 0 to 100% of the sample. The last evidence file appears at <b className="mono">{pl < 0.1 ? (pl * 100).toFixed(1) : Math.round(pl * 100)}%</b>; reading past that adds only false alarms.</span>
+      <svg viewBox={'0 0 ' + W + ' ' + H} role="img" aria-label={'Recall against budget for the current model: all ' + nT + ' evidence files are found by ' + Math.round(pl * 100) + '% of the sample.'}>
+        <rect x={px} y={T} width={Math.max(0, X(1) - px)} height={ph} fill="var(--ink)" opacity="0.05" />
+        {[0, 0.5, 1].map((v) => <g key={v}><line x1={L} x2={L + pw} y1={Y(v)} y2={Y(v)} stroke="var(--grid)" /><text x={L - 5} y={Y(v) + 3.5} textAnchor="end">{v * 100}</text></g>)}
+        <line x1={L} x2={L} y1={T} y2={T + ph} stroke="var(--ink)" strokeWidth=".8" /><line x1={L} x2={L + pw} y1={T + ph} y2={T + ph} stroke="var(--ink)" strokeWidth=".8" />
+        {[0, 0.25, 0.5, 0.75, 1].map((v) => <text key={v} x={X(v)} y={H - 6} textAnchor="middle">{v * 100 + '%'}</text>)}
+        <line x1={X(pct)} x2={X(pct)} y1={T} y2={T + ph} stroke="var(--accent)" strokeDasharray="3 3" />
+        <path d={path} fill="none" stroke="var(--ink)" strokeWidth="1.6" strokeLinejoin="round" />
+        <circle className="lc-ring" cx={px} cy={Y(1)} r="4" fill="var(--paper)" stroke="var(--accent)" strokeWidth="2" />
+        <text className="lc-pl" x={px + (W - R - px > 80 ? 8 : -8)} y={T + ph - 6} textAnchor={W - R - px > 80 ? 'start' : 'end'}>{'plateau ' + (pl < 0.1 ? (pl * 100).toFixed(1) : Math.round(pl * 100)) + '%'}</text>
+      </svg>
     </div>
   )
 }

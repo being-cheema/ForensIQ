@@ -29,7 +29,7 @@ export default function Evidence(p) {
   const im = p.im, m = MODELS[p.m]
   const tg = im.targets.slice().sort((a, b) => a.ranks[m] - b.ranks[m])
   return (
-    <Section id="evidence" letter="E" title="Which evidence, and why did the model flag it?">
+    <Section id="evidence" letter="F" title="Which evidence, and why did the model flag it?">
       <Pr><p>Each row is one evidence target. Pick one to see the features that pushed it up the ranking. SHAP explains the ranking, not intent: ordinary files can score the same way.</p></Pr>
       <div className="ev">
         <div className="evlist" role="group" aria-label="Evidence targets">{tg.map((t) => {

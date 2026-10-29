@@ -33,6 +33,7 @@ def sweep():
             "label": CONFIG_LABEL.get(cfg, cfg), "targets": int(g["targets_total"].iloc[0]),
             "pct": g["threshold_pct"].tolist(), "recall": g["recall_pct"].round(2).tolist(),
             "std": g["recall_std_pct"].round(2).tolist(), "hits": g["hits_mean"].round(2).tolist(),
+            "precision": g["precision_pct"].round(4).tolist(), "K": g["K_mean"].round(1).tolist(),
             "ge90": {r: v.get("first_recall_ge_90") for r, v in s.get("per_randomization", {}).items()},
             "agree90": s.get("agree", {}).get("first_recall_ge_90"),
             "agreement": s.get("per_threshold_agree_count"),

@@ -5,7 +5,7 @@ import { Pr, Flag } from '../lib/Prose'
 export default function Findings(p) {
   const im = p.im
   return (
-    <Section id="verdicts" letter="D" title="Timestomping and insider attack">
+    <Section id="verdicts" letter="E" title="Timestomping and insider attack">
       <Pr note={<>A mismatch between the two timestamp sets is a hint of tampering, not proof: ordinary file operations also cause it.</>}>
         <p>{im.scenario === 'external'
           ? 'This disk is an outside intrusion, so the insider-attack test does not apply. Timestomping is confirmed only when a known timestomped file is flagged.'

@@ -4,6 +4,7 @@ import Hero from './components/Hero'
 import ControlStrip from './components/ControlStrip'
 import Lab from './lab/Lab'
 import Verdict from './components/Verdict'
+import Plateau from './components/Plateau'
 import Results from './components/Results'
 import Findings from './components/Findings'
 import Evidence from './components/Evidence'
@@ -44,6 +45,7 @@ export default function App() {
       <main>
         <Lab img={img} m={m} pct={pct} tipRef={tipRef} />
         <Verdict />
+        <Plateau img={img} m={m} pct={pct} />
         <Results img={img} im={im} m={m} pct={pct} />
         <Findings im={im} />
         <Evidence img={img} im={im} m={m} K={K} pct={pct} sel={sel} setSel={setSel} />

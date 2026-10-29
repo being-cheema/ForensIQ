@@ -12,7 +12,7 @@ export default function Num(props) {
     if (!canAnim() || (o.v === null && !intro)) { o.v = v; el.textContent = fr.current(v); return }
     if (o.v === null) o.v = 0
     el.textContent = fr.current(o.v)
-    const dur = intro ? 900 : 500, delay = intro ? (props.delay || 0) : 0
+    const dur = intro ? 900 : (props.dur || 500), delay = intro ? (props.delay || 0) : 0
     anim.current = AN({ targets: o, v, duration: dur, delay, easing: EASE,
       update: () => { el.textContent = fr.current(o.v) }, complete: () => { el.textContent = fr.current(v) } })
     timer.current = setTimeout(() => { o.v = v; el.textContent = fr.current(v) }, dur + delay + 1200)

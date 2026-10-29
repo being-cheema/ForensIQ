@@ -10,7 +10,7 @@ export default function Stability(p) {
   const sw = SW[p.img], ref = useRef()
   useDraw(ref, [p.img])
   const intro = <p>Each model was rerun five times with 10% of ordinary files dropped at random, in three separate randomizations. The lines show mean evidence recall from a 5% to a 100% budget; the bands show the spread across runs. The legacy XP disk is excluded.</p>
-  if (!sw) return <Section id="stability" letter="H" title="Is there a review budget that holds up?"><Pr>{intro}</Pr><Pr><p className="small">The legacy XP disk is excluded from this study. Pick Image 2 or Image 3.</p></Pr></Section>
+  if (!sw) return <Section id="stability" letter="I" title="Is there a review budget that holds up?"><Pr>{intro}</Pr><Pr><p className="small">The legacy XP disk is excluded from this study. Pick Image 2 or Image 3.</p></Pr></Section>
   const W = 900, H = 380, L = 48, R = 130, T = 16, B = 44, pw = W - L - R, ph = H - T - B
   const Xs = (v) => L + (v / 100) * pw, Ys = (v) => T + (1 - v / 100) * ph
   const ends = []
@@ -24,7 +24,7 @@ export default function Stability(p) {
   const cx = Xs(p.pct * 100), i5 = (d) => d.pct.indexOf(5), a = sw['IF-23'], o = sw['OCSVM-23']
   const note = a && o ? 'At 5% Isolation Forest catches ' + a.hits[i5(a)] + ' of ' + a.targets + ' targets on average and One-Class SVM ' + o.hits[i5(o)] + '. Full recall at a 5.5% budget is not a general result: only One-Class SVM on Image 2 reaches it.' : ''
   return (
-    <Section id="stability" letter="H" title="Is there a review budget that holds up?">
+    <Section id="stability" letter="I" title="Is there a review budget that holds up?">
       <Pr note={note || null}>{intro}</Pr>
       <div ref={ref}><svg className="ch" viewBox={'0 0 ' + W + ' ' + H} role="img" aria-label="Mean recall versus review budget across randomized runs">
         <line className="axis" x1={L} x2={L} y1={T} y2={H - B} /><line className="axis" x1={L} x2={W - R} y1={H - B} y2={H - B} />

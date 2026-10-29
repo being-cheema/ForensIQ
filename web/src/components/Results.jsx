@@ -34,7 +34,7 @@ export default function Results(p) {
   const im = p.im, allRef = useRef()
   useGrow(allRef, [])
   return (
-    <Section id="recall" letter="C" title="How much evidence for how much reading?">
+    <Section id="recall" letter="D" title="How much evidence for how much reading?">
       <Pr note={<>Accuracy sits near 95% for every model by construction: a fixed 5% budget on rare evidence. Recall, precision and F1 are the numbers that separate the models.</>}>
         <p>Recall of the evidence targets as the examiner is allowed to read more files. The dashed line is the budget you chose above.</p>
       </Pr>

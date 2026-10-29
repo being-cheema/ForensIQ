@@ -8,7 +8,7 @@ export default function Ablation(p) {
   const ref = useRef()
   useGrow(ref, [p.img])
   return (
-    <Section id="ablation" letter="G" title="Which features carry the result?">
+    <Section id="ablation" letter="H" title="Which features carry the result?">
       <Pr><p>Targets caught at the 5% budget with feature groups removed or kept alone, for the selected disk.</p></Pr>
       <div className="tbl" ref={ref}><table><thead><tr><th>Feature set</th><th className="n">Features</th>{SHORT.map((n, i) => <th key={n}><i className="key" style={{ background: 'var(' + MVAR[i] + ')' }}></i>{n}</th>)}</tr></thead><tbody>{p.im.ablation.map((r) => {
         const strong = /^Full \(/.test(r.config) || /^Legacy/.test(r.config)
