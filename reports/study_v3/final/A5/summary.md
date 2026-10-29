@@ -1,6 +1,6 @@
 # A5: hyperparameter sensitivity
 
-Clean features. Isolation Forest (sklearn IsolationForest called directly; 5 seeds, mean±sd) over n_estimators x max_samples; LOF over k; One-Class SVM over nu with gamma="scale" (10,000-row fit sample). **LOF and One-Class SVM: seed 42 only.** Default = IF (200 trees, sample 256), LOF k=20, OCSVM nu=0.05; the defaults were checked to reproduce the pipeline's clean results exactly. max_samples "auto" equals min(256, n) = 256 in sklearn, so it is expected to match the 256 column.
+Final features (17 clean + 2 burst). Isolation Forest (sklearn IsolationForest called directly; 5 seeds, mean±sd) over n_estimators x max_samples; LOF over k; One-Class SVM over nu with gamma="scale" (10,000-row fit sample). **LOF and One-Class SVM: seed 42 only.** Default = IF (200 trees, sample 256), LOF k=20, OCSVM nu=0.05; the defaults were checked to reproduce the pipeline's final-set results exactly. max_samples "auto" equals min(256, n) = 256 in sklearn, so it is expected to match the 256 column.
 
 Cells are targets caught at 15% / 20% of the disk. Targets: img1 = 7, img2 = 19, img3 = 34.
 

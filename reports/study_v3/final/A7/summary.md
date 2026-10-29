@@ -1,11 +1,11 @@
-# A7: robustness
+# A7 (final feature set: 17 clean + 2 burst): robustness
 
-Isolation Forest, clean features, 200 trees, all five seeds (mean over seeds). Baseline = the unperturbed clean run with the same seeds. Budgets 15% and 20% of the (possibly reduced) disk. Targets: img1 = 7, img2 = 19, img3 = 34.
+Isolation Forest, final features (clean + burst), 200 trees, all five seeds (mean over seeds). Baseline = the unperturbed final-set run with the same seeds. Budgets 15% and 20% of the (possibly reduced) disk. Targets: img1 = 7, img2 = 19, img3 = 34.
 
 What was done exactly:
 
 - Drop variants: for each seed, a random 10% of the non-target files (variant i) or of all files (variant i-b) is removed before the model is fitted; features are recomputed over the remaining rows (standardisation on the remaining rows); the budget is a percentage of the remaining file count. "Target files" are all files matching any target pattern. In variant i-b a target whose files are all removed counts as missed.
-- Noise variant: no deltas were patched. Instead every clean time feature (delta_mc, delta_mb, delta_ab, zero_size_recent, delta_si_fn, m_before_cr, after_hours_touch) was recomputed from the raw timestamps after adding independent Gaussian noise (sd 3600 s, rounded to whole seconds) to each positive m, a, c and cr time and the $FILE_NAME modified time (zero = missing timestamps stay zero). Noise seed = model seed. The rebuild was verified to reproduce the stored columns exactly at zero noise on all three disks.
+- Noise variant: no deltas were patched. Instead every time feature (delta_mc, delta_mb, delta_ab, zero_size_recent, delta_si_fn, m_before_cr, after_hours_touch, and on the final set also the burst counts log_burst_count and log_burst_60s) was recomputed from the raw timestamps after adding independent Gaussian noise (sd 3600 s, rounded to whole seconds) to each positive m, a, c and cr time and the $FILE_NAME modified time (zero = missing timestamps stay zero). Noise seed = model seed. The rebuild was verified to reproduce the stored columns exactly at zero noise on all three disks.
 - Pass rule: headline recall (targets caught / targets) falls by <= 10% relative to the baseline seed mean, at both 15% and 20%, on every disk. Absolute drop in percentage points is shown too. Verdict (overall) uses variants (i) and (ii); (i-b) is judged separately.
 
 ## (i) drop a random 10% of non-target files (all target files kept)
