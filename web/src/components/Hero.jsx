@@ -28,7 +28,7 @@ export default function Hero(p) {
           <p className="lede">A forensic examiner can't read every file on a disk: the largest here holds {fmt(info.biggest)}. Each model ranks every file on 23 forensic features, and the examiner reads only the top slice. Pick a disk image, pick a model, and watch it triage the real files.</p>
           <div className="summary">
             <div><b><Num value={info.tot} fmt={fmt} intro={true} delay={300} /></b><span>files across {IMGS.length} real disk images</span></div>
-            <div><b>5%</b><span>of files an examiner reads per disk in the simulation below</span></div>
+            <div><b>5%</b><span>of files an examiner reads per disk in the Lab below</span></div>
             <div><b style={{ color: 'var(' + MVAR[top] + ')' }}><Num value={info.mean[top]} fmt={(v) => pc(v, 0)} intro={true} delay={400} /></b><span>mean evidence recall for {SHORT[top]} at a strict 5% budget. The best model changes with the budget: see the verdict.</span></div>
           </div>
         </div>

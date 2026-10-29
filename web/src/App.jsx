@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { D, MODELS, IMGS } from './lib/data'
 import Hero from './components/Hero'
 import ControlStrip from './components/ControlStrip'
-import Simulation from './components/Simulation'
+import Lab from './lab/Lab'
 import Verdict from './components/Verdict'
 import Results from './components/Results'
 import Findings from './components/Findings'
@@ -42,7 +42,7 @@ export default function App() {
       <Hero img={img} dark={dark} toggleTheme={() => setTheme(dark ? 'light' : 'dark')} />
       <ControlStrip img={img} m={m} pct={pct} K={K} setImg={setImg} setM={setM} setPct={setPct} />
       <main>
-        <Simulation img={img} im={im} m={m} K={K} sel={sel} tipRef={tipRef} />
+        <Lab img={img} m={m} pct={pct} tipRef={tipRef} />
         <Verdict />
         <Results img={img} im={im} m={m} pct={pct} />
         <Findings im={im} />
