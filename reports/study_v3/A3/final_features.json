@@ -1,0 +1,340 @@
+{
+ "final": [
+  "user_path",
+  "log_burst_count",
+  "log_burst_60s"
+ ],
+ "dropped": [
+  "delta_mc",
+  "delta_mb",
+  "delta_ab",
+  "delta_si_fn",
+  "m_before_cr",
+  "zero_size_recent",
+  "after_hours_touch",
+  "size",
+  "is_exe",
+  "is_archive",
+  "is_script",
+  "temp_path",
+  "path_depth",
+  "filename_entropy",
+  "is_shortcut_or_trace",
+  "per_file_prefetch_hit"
+ ],
+ "burst_included": true,
+ "reason": {
+  "delta_mc": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     0.0,
+     0.2
+    ],
+    "img3": [
+     0.8,
+     2.0
+    ]
+   }
+  },
+  "delta_mb": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     0.0,
+     0.0
+    ],
+    "img3": [
+     1.2,
+     3.0
+    ]
+   }
+  },
+  "delta_ab": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.2
+    ],
+    "img2": [
+     0.0,
+     0.2
+    ],
+    "img3": [
+     2.4,
+     3.2
+    ]
+   }
+  },
+  "delta_si_fn": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     0.0,
+     0.2
+    ],
+    "img3": [
+     1.6,
+     3.0
+    ]
+   }
+  },
+  "m_before_cr": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     -0.6,
+     0.2
+    ],
+    "img3": [
+     1.6,
+     2.0
+    ]
+   }
+  },
+  "zero_size_recent": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     0.0,
+     0.0
+    ],
+    "img3": [
+     0.6,
+     1.6
+    ]
+   }
+  },
+  "after_hours_touch": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     0.0,
+     0.0
+    ],
+    "img3": [
+     0.8,
+     3.2
+    ]
+   }
+  },
+  "size": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     -0.6,
+     0.8
+    ],
+    "img3": [
+     -8.0,
+     -4.6
+    ]
+   }
+  },
+  "is_exe": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     0.0,
+     0.8
+    ],
+    "img3": [
+     1.4,
+     2.2
+    ]
+   }
+  },
+  "is_archive": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     0.0,
+     0.2
+    ],
+    "img3": [
+     0.0,
+     1.2
+    ]
+   }
+  },
+  "is_script": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     0.0,
+     0.4
+    ],
+    "img3": [
+     1.4,
+     2.2
+    ]
+   }
+  },
+  "temp_path": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     0.0,
+     0.0
+    ],
+    "img3": [
+     1.0,
+     2.0
+    ]
+   }
+  },
+  "user_path": {
+   "decision": "kept",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     -1.0,
+     -0.8
+    ],
+    "img3": [
+     -21.6,
+     -15.4
+    ]
+   }
+  },
+  "path_depth": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     0.0,
+     0.0
+    ],
+    "img3": [
+     0.4,
+     1.2
+    ]
+   }
+  },
+  "filename_entropy": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     0.0,
+     0.4
+    ],
+    "img3": [
+     0.6,
+     2.4
+    ]
+   }
+  },
+  "is_shortcut_or_trace": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     -6.0,
+     -0.6
+    ],
+    "img3": [
+     0.8,
+     1.2
+    ]
+   }
+  },
+  "per_file_prefetch_hit": {
+   "decision": "dropped",
+   "if_mean_change_when_removed_at15_at20": {
+    "img1": [
+     0.0,
+     0.0
+    ],
+    "img2": [
+     0.0,
+     0.2
+    ],
+    "img3": [
+     0.6,
+     1.2
+    ]
+   }
+  },
+  "burst": {
+   "decision": "included",
+   "if_mean_change_when_added_at15_at20": {
+    "img1": [
+     1.0,
+     1.0
+    ],
+    "img2": [
+     1.0,
+     1.0
+    ],
+    "img3": [
+     4.2,
+     3.2
+    ]
+   },
+   "raises_on": [
+    "img1",
+    "img2",
+    "img3"
+   ],
+   "lowers_on": []
+  }
+ }
+}
