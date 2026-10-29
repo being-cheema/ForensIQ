@@ -6,7 +6,7 @@ import study_v3_common as C
 import multimodel_eval as M
 
 T0 = time.time()
-CACHE = os.path.join(M.BASE_DIR, ".cache", "study_v3")
+CACHE = os.path.join(M.BASE_DIR, ".cache", "study_v3" + M.CACHE_SUFFIX.replace("_clean", ""))
 os.makedirs(CACHE, exist_ok=True)
 DIRS = {k: os.path.join(C.OUT, k) for k in ("A2", "A4", "A6")}
 for d in DIRS.values():

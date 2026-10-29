@@ -1,0 +1,25 @@
+disk,method,kind,targets,at15,at20,knee_pct,plateau_pct
+img1,IF,model,7,7.0,7.0,12.42,12.42
+img1,LOF,model,7,4.0,5.0,35.72,35.72
+img1,OC-SVM,model,7,6.0,6.0,32.53,32.53
+img1,R1 timestamp mismatch (delta_si_fn),rule,7,5,5,24.24,24.24
+img1,R2 modified before created,rule,7,3,3,47.31,47.31
+img1,R3 location (temp+user+exe+script+archive),rule,7,6,7,15.31,15.31
+img1,R4 recency (latest m_time first),rule,7,1,1,97.64,97.64
+img1,R5 random order (mean of 5 seeds),rule,7,2.8,2.8,77.74,77.74
+img2,IF,model,19,19.0,19.0,9.85,12.93
+img2,LOF,model,19,5.0,8.0,88.25,93.18
+img2,OC-SVM,model,19,19.0,19.0,2.32,3.34
+img2,R1 timestamp mismatch (delta_si_fn),rule,19,0,0,90.37,90.38
+img2,R2 modified before created,rule,19,0,1,56.53,56.54
+img2,R3 location (temp+user+exe+script+archive),rule,19,16,16,53.81,55.72
+img2,R4 recency (latest m_time first),rule,19,16,16,95.49,95.7
+img2,R5 random order (mean of 5 seeds),rule,19,5.4,7.0,73.51,83.64
+img3,IF,model,34,32.4,34.0,13.21,16.19
+img3,LOF,model,34,15.0,19.0,43.32,84.03
+img3,OC-SVM,model,34,22.0,23.4,46.93,80.88
+img3,R1 timestamp mismatch (delta_si_fn),rule,34,0,0,70.7,70.71
+img3,R2 modified before created,rule,34,15,17,57.11,57.11
+img3,R3 location (temp+user+exe+script+archive),rule,34,34,34,11.31,11.31
+img3,R4 recency (latest m_time first),rule,34,34,34,4.87,7.54
+img3,R5 random order (mean of 5 seeds),rule,34,11.6,14.8,83.14,95.28

@@ -92,6 +92,10 @@ CACHE_SUFFIX = "" if FEATURE_SET == "legacy23" else "_" + FEATURE_SET
 if FEATURE_SET == "legacy23":
     GROUPS = GROUPS_LEGACY23
     FEATURES = LEGACY_17 + NEW_6
+elif FEATURE_SET == "final":
+    # clean + burst: the set chosen by ablation A3 (reports/study_v3/AMENDMENT.md)
+    GROUPS = dict(GROUPS_CLEAN, **{"Execution/Activity": GROUPS_CLEAN["Execution/Activity"] + BURST})
+    FEATURES = FEATURES_CLEAN + BURST
 else:
     GROUPS = GROUPS_CLEAN
     FEATURES = FEATURES_CLEAN
@@ -192,6 +196,9 @@ def build_features(art_dir, tag):
     otherwise the clean set (see build_features_clean)."""
     if FEATURE_SET == "legacy23":
         return build_features_legacy23(art_dir, tag)
+    if FEATURE_SET == "final":
+        df, raw, feats = build_features_clean(art_dir, tag)
+        return df, raw, feats + add_burst_features(df, raw)
     return build_features_clean(art_dir, tag)
 
 

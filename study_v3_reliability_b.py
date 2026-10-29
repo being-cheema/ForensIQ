@@ -28,7 +28,7 @@ DISKS, SEEDS, BUDGETS, HEADLINE = C.DISKS, C.SEEDS, C.BUDGETS, C.HEADLINE
 MODELS = M.MODELS
 IF_, LOF_, SVM_ = MODELS
 SHORT = {IF_: "IF", LOF_: "LOF", SVM_: "OCSVM"}
-CACHE = os.path.join(M.BASE_DIR, ".cache", "study_v3b")
+CACHE = os.path.join(M.BASE_DIR, ".cache", "study_v3b" + ("" if M.FEATURE_SET == "clean" else "_" + M.FEATURE_SET))  # A5/A7 keys omit the feature set
 os.makedirs(CACHE, exist_ok=True)
 OUT = C.OUT
 T0 = time.time()
@@ -123,7 +123,7 @@ for t in DISKS:
     DATA[t] = D
     LEG[t] = dict(D, df=ldf, feats=list(lfeats))
 CLEAN = DATA["img1"]["feats"]
-GROUPS = M.GROUPS_CLEAN
+GROUPS = M.GROUPS  # clean groups, or clean + burst under FEATURE_SET=final
 assert sorted(sum(GROUPS.values(), [])) == sorted(CLEAN)
 BURST = M.BURST
 TG = {t: DATA[t]["N"] for t in DISKS}
@@ -496,6 +496,12 @@ def time_features(D, sd_noise, seed):
         h = pd.to_datetime(t - bias * 60, unit="s", utc=True, errors="coerce").hour
         return (t > 0) & ((h < M.WORK_HOURS_START) | (h >= M.WORK_HOURS_END))
     out["after_hours_touch"] = (off(m) | off(a)).astype(int)
+    if "log_burst_count" in D["feats"]:  # final set: bursts are recomputed from the noisy modified times too
+        mi = pd.Series(m.astype("int64"))
+        ok = mi > 0
+        for col, key in (("log_burst_count", mi), ("log_burst_60s", mi // 60)):
+            cnt = key[ok].map(key[ok].value_counts()).reindex(mi.index).fillna(0).values.astype(float)
+            out[col] = np.log1p(cnt)
     return out
 
 
@@ -614,6 +620,10 @@ def run_A7():
 if __name__ == "__main__":
     os.makedirs(os.path.join(OUT, "A3"), exist_ok=True)
     a1 = run_A1()
+    if M.FEATURE_SET == "final":  # A3 selected the final set; it is not re-run on its own output
+        a5, a7 = run_A5(), run_A7()
+        log(f"DONE  A1={a1} A5={a5[0]} A7={a7[1]}")
+        raise SystemExit
     a3 = run_A3()
     a5 = run_A5()
     a7 = run_A7()
