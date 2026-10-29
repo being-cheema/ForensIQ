@@ -79,7 +79,10 @@
    "sha256": "7409b09714121f56be88f161450ebad92e194ff0554462be3187525eb76aa695",
    "md5": "c327db25292296ab10c2670b94ef28b5",
    "published_md5": null,
-   "status": "published hash not available locally"
+   "status": "match",
+   "sha1": "f07632faa66a47088deb07bdb45cc568e4bf650b",
+   "published_sha1": "f07632faa66a47088deb07bdb45cc568e4bf650b",
+   "published_source": "https://cfreds-archive.nist.gov/data_leakage_case/hash_values.html"
   },
   "cfreds_2015_data_leakage_pc.7z.002": {
    "disk": "img2",
@@ -87,7 +90,10 @@
    "sha256": "32d7629c2d5af9b5b5e003a6cfecdc32ced5724d838fab1e93ef516f78c7200a",
    "md5": "8a5185144c7d38c111d5505e3018ba73",
    "published_md5": null,
-   "status": "published hash not available locally"
+   "status": "match",
+   "sha1": "5dee46abf6fa833268e5ae199a13854ccf42689b",
+   "published_sha1": "5dee46abf6fa833268e5ae199a13854ccf42689b",
+   "published_source": "https://cfreds-archive.nist.gov/data_leakage_case/hash_values.html"
   },
   "cfreds_2015_data_leakage_pc.7z.003": {
    "disk": "img2",
@@ -95,7 +101,10 @@
    "sha256": "2b29ba6b9a7ade41f8de25cce24c5c440bf5e55f5a301089e638abad3e7c3119",
    "md5": "e155d374d77643a9ff44a664d628bf87",
    "published_md5": null,
-   "status": "published hash not available locally"
+   "status": "match",
+   "sha1": "1687686f819092e05047f195f102d8fa0c38ed66",
+   "published_sha1": "1687686f819092e05047f195f102d8fa0c38ed66",
+   "published_source": "https://cfreds-archive.nist.gov/data_leakage_case/hash_values.html"
   },
   "cfreds_2015_data_leakage_pc.dd": {
    "disk": "img2",
@@ -103,7 +112,7 @@
    "sha256": "026c143638295db1fbfa598c5b35bcac4860ba73ec5da1cc87b67afd598be4e2",
    "md5": "a49d1254c873808c58e6f1bcd60b5bde",
    "published_md5": null,
-   "status": "published hash not available locally"
+   "status": "extracted from the matching archive (no separate published hash)"
   },
   "LoneWolf.E01": {
    "disk": "img3",
@@ -609,5 +618,15 @@
    "mismatches": 0,
    "pass1_sha256_of_hashes": "b74684309ca83f8aeaacfd90542e9ad47451f13f64a3e401dd30c9f3d8c4cd32"
   }
+ },
+ "e01_acquisition": {
+  "disk": "img3",
+  "embedded_md5": "7af48fa65519e84246b1729e5b68f140",
+  "embedded_sha1": "694e26624d1ea029eb50d793b198edf85be4b4fc",
+  "published_md5": "7af48fa65519e84246b1729e5b68f140",
+  "published_source": "Digital Corpora 2018-lonewolf 'Forensic Outputs.zip', Axiom Example Reports/Example Axiom Case Information.txt (MD5 Image Hash, Outcome: MATCH)",
+  "status": "match",
+  "media_bytes": 512110190592,
+  "note": "embedded acquisition hash read with pyewf; full re-hash of the 512 GB media not performed"
  }
 }

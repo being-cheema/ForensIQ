@@ -21,11 +21,11 @@ export default function Integrity() {
       </tbody></table></div>
       <Pr note={<>Hashing only reads the files. Nothing in the pipeline writes to an evidence image.</>}>
         <h3>Chain of custody: were the images and extracted files unchanged?</h3>
-        <p>Every source image file was hashed (SHA-256 and MD5) and compared with the publisher's MD5 where we hold it. Every artefact extracted from the images was hashed before the analysis and hashed again after it.</p>
+        <p>Every source image file was hashed (SHA-256 and MD5) and compared with the published reference: NIST's MD5 list for Image 1, NIST's SHA-1 values for Image 2's archives, and for Image 3 the acquisition MD5 inside the E01, which equals the hash in the examiner's published verification log. Every artefact extracted from the images was hashed before the analysis and hashed again after it.</p>
       </Pr>
       <div className="tbl"><table><thead><tr><th>Disk</th><th className="n">Image files</th><th>Published hash</th><th className="n">Artefacts</th><th className="n">Size</th><th>Changed after analysis</th></tr></thead><tbody>
         {ROWS.slice(0, 3).map(([k, l]) => { const c = I.custody[k]; return (
-          <tr key={k}><td>{l}</td><td className="n">{c.segments}</td><td>{c.matched ? <><Flag kind="ok">{c.matched} match</Flag>{c.noRef ? ' · ' + c.noRef + ' without a reference' : ''}</> : 'not held locally'}</td><td className="n">{fmt(c.artefacts)}</td><td className="n">{mb(c.bytes)}</td><td>{c.artMismatch === 0 ? <Flag kind="ok">0 files</Flag> : c.artMismatch + ' files'}</td></tr>
+          <tr key={k}><td>{l}</td><td className="n">{c.segments}</td><td><Flag kind="ok">match</Flag> {c.ref}</td><td className="n">{fmt(c.artefacts)}</td><td className="n">{mb(c.bytes)}</td><td>{c.artMismatch === 0 ? <Flag kind="ok">0 files</Flag> : c.artMismatch + ' files'}</td></tr>
         ) })}
       </tbody></table></div>
     </>
