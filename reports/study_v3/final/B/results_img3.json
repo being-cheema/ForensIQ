@@ -1,0 +1,2193 @@
+{
+ "tag": "img3",
+ "N": 166110,
+ "K": {
+  "20": 33222,
+  "15": 24916
+ },
+ "features": [
+  "delta_mc",
+  "delta_mb",
+  "delta_ab",
+  "delta_si_fn",
+  "m_before_cr",
+  "zero_size_recent",
+  "after_hours_touch",
+  "size",
+  "is_exe",
+  "is_archive",
+  "is_script",
+  "temp_path",
+  "user_path",
+  "path_depth",
+  "filename_entropy",
+  "is_shortcut_or_trace",
+  "per_file_prefetch_hit",
+  "log_burst_count",
+  "log_burst_60s"
+ ],
+ "targets": 34,
+ "models": {
+  "Isolation Forest": {
+   "model": "Isolation Forest",
+   "n_targets_caught20": 34,
+   "n_targets_caught15": 33,
+   "B1": {
+    "20": {
+     "n": 334,
+     "n_targets": 34,
+     "median_drop_shap": 58878.0,
+     "median_drop_random": 3491.6000000000004,
+     "ratio": 16.862756329476458,
+     "mean_drop_shap": 63466.14071856288,
+     "mean_drop_random": 4896.165269461078,
+     "share_shap_beats_random": 1.0,
+     "wilcoxon_p": 8.370960679286944e-57,
+     "pass": true,
+     "targets_median_shap": 49617.5,
+     "targets_median_random": 4705.5
+    },
+    "15": {
+     "n": 253,
+     "n_targets": 33,
+     "median_drop_shap": 63501.0,
+     "median_drop_random": 4649.6,
+     "ratio": 13.657303854094975,
+     "mean_drop_shap": 67991.02766798419,
+     "mean_drop_random": 5854.772332015811,
+     "share_shap_beats_random": 1.0,
+     "wilcoxon_p": 1.4934054832745247e-43,
+     "pass": true,
+     "targets_median_shap": 49331.0,
+     "targets_median_random": 4587.6
+    }
+   },
+   "sense": [
+    {
+     "target": "2018-04-03 (1).png",
+     "rank": 15458,
+     "top3": [
+      "user_path",
+      "size",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "2018-04-03 (3).png",
+     "rank": 4784,
+     "top3": [
+      "size",
+      "user_path",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": false,
+     "match_expected": true
+    },
+    {
+     "target": "2018-04-03.png",
+     "rank": 21407,
+     "top3": [
+      "user_path",
+      "log_burst_60s",
+      "log_burst_count"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "2018-04-04 (2).png",
+     "rank": 23850,
+     "top3": [
+      "user_path",
+      "log_burst_60s",
+      "log_burst_count"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "2018-04-04 (3).png",
+     "rank": 24172,
+     "top3": [
+      "user_path",
+      "log_burst_60s",
+      "log_burst_count"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "2018-04-04 (4).png",
+     "rank": 16175,
+     "top3": [
+      "user_path",
+      "size",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "2018-04-04.png",
+     "rank": 5180,
+     "top3": [
+      "size",
+      "user_path",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": false,
+     "match_expected": true
+    },
+    {
+     "target": "AIRPORT INFORMATION.docx",
+     "rank": 8253,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "log_burst_count"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "AMEN.pdf",
+     "rank": 15597,
+     "top3": [
+      "user_path",
+      "size",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "BladeofGrass.jpg",
+     "rank": 6676,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "size"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Box Sync.lnk",
+     "rank": 1618,
+     "top3": [
+      "is_shortcut_or_trace",
+      "user_path",
+      "m_before_cr"
+     ],
+     "expected": [
+      "is_shortcut_or_trace"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Brother Chat.gdoc",
+     "rank": 9145,
+     "top3": [
+      "user_path",
+      "log_burst_60s",
+      "delta_ab"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "CachedImage_1366_768_POS4.jpg",
+     "rank": 8598,
+     "top3": [
+      "size",
+      "user_path",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": false,
+     "match_expected": true
+    },
+    {
+     "target": "Cloudy thoughts (4apr).docx",
+     "rank": 25554,
+     "top3": [
+      "user_path",
+      "log_burst_60s",
+      "log_burst_count"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "CubaDearmed.jpg",
+     "rank": 6983,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "DarkWolf.png",
+     "rank": 4556,
+     "top3": [
+      "user_path",
+      "size",
+      "m_before_cr"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "DeathToll.jpg",
+     "rank": 9143,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "log_burst_count"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "DemLogic.jpg",
+     "rank": 7911,
+     "top3": [
+      "user_path",
+      "log_burst_60s",
+      "m_before_cr"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Dropbox.lnk",
+     "rank": 1510,
+     "top3": [
+      "is_shortcut_or_trace",
+      "user_path",
+      "m_before_cr"
+     ],
+     "expected": [
+      "is_shortcut_or_trace"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Google Drive.lnk",
+     "rank": 1620,
+     "top3": [
+      "is_shortcut_or_trace",
+      "user_path",
+      "m_before_cr"
+     ],
+     "expected": [
+      "is_shortcut_or_trace"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "HoldMyTidePod.jpg",
+     "rank": 8395,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Huckleberry.png",
+     "rank": 5998,
+     "top3": [
+      "user_path",
+      "size",
+      "m_before_cr"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Jim's Notebook.url",
+     "rank": 9506,
+     "top3": [
+      "user_path",
+      "delta_ab",
+      "delta_mb"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "LeftUsesBoycotts.pdf",
+     "rank": 7364,
+     "top3": [
+      "size",
+      "user_path",
+      "log_burst_count"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": false,
+     "match_expected": true
+    },
+    {
+     "target": "MyTiredHead.jpg",
+     "rank": 7091,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Operation 2nd Hand Smoke.pptx",
+     "rank": 614,
+     "top3": [
+      "size",
+      "user_path",
+      "m_before_cr"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": false,
+     "match_expected": true
+    },
+    {
+     "target": "Planning.docx",
+     "rank": 10667,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "log_burst_count"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "RedGuns.jpg",
+     "rank": 8626,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "log_burst_count"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "rootkey.csv",
+     "rank": 23700,
+     "top3": [
+      "user_path",
+      "log_burst_60s",
+      "log_burst_count"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "SelfDefenseisMurder.pdf",
+     "rank": 15700,
+     "top3": [
+      "user_path",
+      "size",
+      "log_burst_count"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Sheep.jpg",
+     "rank": 5071,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "The Cloudy Manifesto.docx",
+     "rank": 1953,
+     "top3": [
+      "user_path",
+      "size",
+      "m_before_cr"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "UKknifeBan.pdf",
+     "rank": 9492,
+     "top3": [
+      "size",
+      "user_path",
+      "log_burst_count"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": false,
+     "match_expected": true
+    },
+    {
+     "target": "Chrome Login Data database",
+     "rank": 16448,
+     "top3": [
+      "user_path",
+      "delta_mb",
+      "path_depth"
+     ],
+     "expected": [
+      "is_shortcut_or_trace",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    }
+   ],
+   "sense_summary": {
+    "n": 34,
+    "top1_sensible": 0.8235294117647058,
+    "match_expected": 1.0
+   },
+   "B2": {
+    "seeds": {
+     "20": {
+      "n_common": 303,
+      "n_sample_flagged": 334,
+      "mean_jaccard": 0.8536633663366335
+     },
+     "15": {
+      "n_common": 212,
+      "n_sample_flagged": 253,
+      "mean_jaccard": 0.8670754716981132
+     }
+    },
+    "noise": {
+     "20": {
+      "n": 334,
+      "mean_jaccard": 0.7317365269461077,
+      "top1_same": 0.9011976047904192
+     },
+     "15": {
+      "n": 253,
+      "mean_jaccard": 0.7490118577075099,
+      "top1_same": 0.9051383399209486
+     }
+    }
+   },
+   "B3": {
+    "P1 timestamp forgery": {
+     "20": {
+      "n": 20,
+      "detect_pct": 44.00000000000001,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0,
+       100.0,
+       100.0,
+       100.0,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       50.0,
+       45.0,
+       50.0,
+       40.0,
+       35.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 32.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0,
+       100.0,
+       100.0,
+       100.0,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       45.0,
+       35.0,
+       25.0,
+       25.0,
+       30.0
+      ]
+     }
+    },
+    "P2 hidden executable in temp": {
+     "20": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0,
+       100.0,
+       100.0,
+       100.0,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       100.0,
+       100.0,
+       100.0,
+       100.0,
+       100.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0,
+       100.0,
+       100.0,
+       100.0,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       100.0,
+       100.0,
+       100.0,
+       100.0,
+       100.0
+      ]
+     }
+    },
+    "P3 bulk-wipe burst": {
+     "20": {
+      "n": 20,
+      "detect_pct": 6.999999999999999,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 99.0,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0,
+       100.0,
+       100.0,
+       100.0,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       15.0,
+       5.0,
+       5.0,
+       5.0,
+       5.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 1.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 99.0,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       null,
+       null,
+       null,
+       null,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       5.0
+      ]
+     }
+    },
+    "ALL": {
+     "20": {
+      "n": 60,
+      "detect_pct": 50.33333333333334,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 99.66666666666667,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0,
+       100.0,
+       100.0,
+       100.0,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       55.00000000000001,
+       50.0,
+       51.66666666666667,
+       48.333333333333336,
+       46.666666666666664
+      ]
+     },
+     "15": {
+      "n": 60,
+      "detect_pct": 44.333333333333336,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 99.66666666666667,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0,
+       100.0,
+       100.0,
+       100.0,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       48.333333333333336,
+       45.0,
+       41.66666666666667,
+       41.66666666666667,
+       45.0
+      ]
+     }
+    },
+    "examples": {
+     "P1 timestamp forgery": {
+      "rank": 25341,
+      "top3": [
+       "delta_mb",
+       "delta_si_fn",
+       "m_before_cr"
+      ]
+     },
+     "P2 hidden executable in temp": {
+      "rank": 17085,
+      "top3": [
+       "temp_path",
+       "path_depth",
+       "is_exe"
+      ]
+     },
+     "P3 bulk-wipe burst": {
+      "rank": 121787,
+      "top3": [
+       "log_burst_count",
+       "filename_entropy",
+       "log_burst_60s"
+      ]
+     }
+    }
+   }
+  },
+  "Local Outlier Factor": {
+   "model": "Local Outlier Factor",
+   "n_targets_caught20": 19,
+   "n_targets_caught15": 15,
+   "B1": {
+    "20": {
+     "n": 119,
+     "n_targets": 19,
+     "median_drop_shap": -3522.0,
+     "median_drop_random": -1110.6,
+     "ratio": null,
+     "mean_drop_shap": -1455.2268907563025,
+     "mean_drop_random": 2290.410084033613,
+     "share_shap_beats_random": 0.29411764705882354,
+     "wilcoxon_p": 0.9996722880861962,
+     "pass": false,
+     "targets_median_shap": 1163.0,
+     "targets_median_random": -290.6
+    },
+    "15": {
+     "n": 86,
+     "n_targets": 15,
+     "median_drop_shap": -821.5,
+     "median_drop_random": 2436.7,
+     "ratio": -0.33713629088521363,
+     "mean_drop_shap": 1896.2558139534883,
+     "mean_drop_random": 5768.76511627907,
+     "share_shap_beats_random": 0.3372093023255814,
+     "wilcoxon_p": 0.9884390176607798,
+     "pass": false,
+     "targets_median_shap": 4012.0,
+     "targets_median_random": 4287.4
+    }
+   },
+   "sense": [
+    {
+     "target": "AIRPORT INFORMATION.docx",
+     "rank": 17004,
+     "top3": [
+      "m_before_cr",
+      "delta_mb",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    },
+    {
+     "target": "AMEN.pdf",
+     "rank": 32308,
+     "top3": [
+      "log_burst_60s",
+      "filename_entropy",
+      "is_archive"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "BladeofGrass.jpg",
+     "rank": 16997,
+     "top3": [
+      "delta_mb",
+      "m_before_cr",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    },
+    {
+     "target": "Box Sync.lnk",
+     "rank": 13239,
+     "top3": [
+      "log_burst_60s",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "is_shortcut_or_trace"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    },
+    {
+     "target": "Cloudy thoughts (4apr).docx",
+     "rank": 30042,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "size"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "CubaDearmed.jpg",
+     "rank": 6069,
+     "top3": [
+      "filename_entropy",
+      "log_burst_60s",
+      "after_hours_touch"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": false,
+     "match_expected": true
+    },
+    {
+     "target": "DarkWolf.png",
+     "rank": 9083,
+     "top3": [
+      "m_before_cr",
+      "log_burst_60s",
+      "size"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "DeathToll.jpg",
+     "rank": 7592,
+     "top3": [
+      "m_before_cr",
+      "log_burst_60s",
+      "size"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "DemLogic.jpg",
+     "rank": 7223,
+     "top3": [
+      "log_burst_60s",
+      "m_before_cr",
+      "size"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Dropbox.lnk",
+     "rank": 13182,
+     "top3": [
+      "log_burst_60s",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "is_shortcut_or_trace"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    },
+    {
+     "target": "Google Drive.lnk",
+     "rank": 13539,
+     "top3": [
+      "log_burst_60s",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "is_shortcut_or_trace"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    },
+    {
+     "target": "HoldMyTidePod.jpg",
+     "rank": 21198,
+     "top3": [
+      "m_before_cr",
+      "delta_mb",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    },
+    {
+     "target": "Huckleberry.png",
+     "rank": 30279,
+     "top3": [
+      "m_before_cr",
+      "delta_mb",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    },
+    {
+     "target": "MyTiredHead.jpg",
+     "rank": 30283,
+     "top3": [
+      "m_before_cr",
+      "delta_mb",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    },
+    {
+     "target": "Operation 2nd Hand Smoke.pptx",
+     "rank": 10578,
+     "top3": [
+      "delta_mb",
+      "m_before_cr",
+      "is_script"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    },
+    {
+     "target": "Planning.docx",
+     "rank": 7317,
+     "top3": [
+      "log_burst_60s",
+      "m_before_cr",
+      "size"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "RedGuns.jpg",
+     "rank": 4871,
+     "top3": [
+      "m_before_cr",
+      "log_burst_60s",
+      "size"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Sheep.jpg",
+     "rank": 3253,
+     "top3": [
+      "m_before_cr",
+      "log_burst_60s",
+      "size"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "The Cloudy Manifesto.docx",
+     "rank": 9102,
+     "top3": [
+      "delta_mb",
+      "m_before_cr",
+      "is_script"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    }
+   ],
+   "sense_summary": {
+    "n": 19,
+    "top1_sensible": 0.9473684210526315,
+    "match_expected": 0.47368421052631576
+   },
+   "B2": {
+    "seeds": null,
+    "noise": {
+     "20": {
+      "n": 119,
+      "mean_jaccard": 0.1663865546218487,
+      "top1_same": 0.07563025210084033
+     },
+     "15": {
+      "n": 86,
+      "mean_jaccard": 0.1720930232558139,
+      "top1_same": 0.06976744186046512
+     }
+    }
+   },
+   "B3": {
+    "P1 timestamp forgery": {
+     "20": {
+      "n": 20,
+      "detect_pct": 95.0,
+      "attr_hit_detected_pct": 63.1578947368421,
+      "attr_hit_all_pct": 65.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       63.1578947368421
+      ],
+      "detect_pct_by_seed": [
+       95.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 95.0,
+      "attr_hit_detected_pct": 63.1578947368421,
+      "attr_hit_all_pct": 65.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       63.1578947368421
+      ],
+      "detect_pct_by_seed": [
+       95.0
+      ]
+     }
+    },
+    "P2 hidden executable in temp": {
+     "20": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 15.0,
+      "attr_hit_all_pct": 15.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       15.0
+      ],
+      "detect_pct_by_seed": [
+       100.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 15.0,
+      "attr_hit_all_pct": 15.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       15.0
+      ],
+      "detect_pct_by_seed": [
+       100.0
+      ]
+     }
+    },
+    "P3 bulk-wipe burst": {
+     "20": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 25.0,
+      "attr_hit_all_pct": 25.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       25.0
+      ],
+      "detect_pct_by_seed": [
+       100.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 25.0,
+      "attr_hit_all_pct": 25.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       25.0
+      ],
+      "detect_pct_by_seed": [
+       100.0
+      ]
+     }
+    },
+    "ALL": {
+     "20": {
+      "n": 60,
+      "detect_pct": 98.33333333333333,
+      "attr_hit_detected_pct": 33.89830508474576,
+      "attr_hit_all_pct": 35.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       33.89830508474576
+      ],
+      "detect_pct_by_seed": [
+       98.33333333333333
+      ]
+     },
+     "15": {
+      "n": 60,
+      "detect_pct": 98.33333333333333,
+      "attr_hit_detected_pct": 33.89830508474576,
+      "attr_hit_all_pct": 35.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       33.89830508474576
+      ],
+      "detect_pct_by_seed": [
+       98.33333333333333
+      ]
+     }
+    },
+    "examples": {
+     "P1 timestamp forgery": {
+      "rank": 2209,
+      "top3": [
+       "is_exe",
+       "after_hours_touch",
+       "filename_entropy"
+      ]
+     },
+     "P2 hidden executable in temp": {
+      "rank": 3069,
+      "top3": [
+       "delta_si_fn",
+       "is_archive",
+       "size"
+      ]
+     },
+     "P3 bulk-wipe burst": {
+      "rank": 15540,
+      "top3": [
+       "m_before_cr",
+       "is_script",
+       "filename_entropy"
+      ]
+     }
+    }
+   }
+  },
+  "One-Class SVM": {
+   "model": "One-Class SVM",
+   "n_targets_caught20": 25,
+   "n_targets_caught15": 24,
+   "B1": {
+    "20": {
+     "n": 125,
+     "n_targets": 25,
+     "median_drop_shap": 133243.0,
+     "median_drop_random": 19198.4,
+     "ratio": 6.940317943161929,
+     "mean_drop_shap": 124124.192,
+     "mean_drop_random": 17694.808,
+     "share_shap_beats_random": 0.952,
+     "wilcoxon_p": 2.706004229337814e-22,
+     "pass": true,
+     "targets_median_shap": 147284.0,
+     "targets_median_random": 20794.8
+    },
+    "15": {
+     "n": 101,
+     "n_targets": 24,
+     "median_drop_shap": 135908.0,
+     "median_drop_random": 19971.6,
+     "ratio": 6.805063189729417,
+     "mean_drop_shap": 129972.52475247525,
+     "mean_drop_random": 17983.43960396039,
+     "share_shap_beats_random": 0.9801980198019802,
+     "wilcoxon_p": 1.4577071530698415e-18,
+     "pass": true,
+     "targets_median_shap": 147503.5,
+     "targets_median_random": 10770.1
+    }
+   },
+   "sense": [
+    {
+     "target": "AIRPORT INFORMATION.docx",
+     "rank": 4293,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "AMEN.pdf",
+     "rank": 9026,
+     "top3": [
+      "user_path",
+      "delta_mc",
+      "path_depth"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "BladeofGrass.jpg",
+     "rank": 4453,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Box Sync.lnk",
+     "rank": 1542,
+     "top3": [
+      "is_shortcut_or_trace",
+      "user_path",
+      "m_before_cr"
+     ],
+     "expected": [
+      "is_shortcut_or_trace"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Brother Chat.gdoc",
+     "rank": 8097,
+     "top3": [
+      "user_path",
+      "delta_mc",
+      "path_depth"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Cloudy thoughts (4apr).docx",
+     "rank": 5373,
+     "top3": [
+      "user_path",
+      "delta_mc",
+      "path_depth"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "CubaDearmed.jpg",
+     "rank": 4566,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "DarkWolf.png",
+     "rank": 4621,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "DeathToll.jpg",
+     "rank": 4640,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "DemLogic.jpg",
+     "rank": 4675,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Dropbox.lnk",
+     "rank": 1530,
+     "top3": [
+      "is_shortcut_or_trace",
+      "user_path",
+      "m_before_cr"
+     ],
+     "expected": [
+      "is_shortcut_or_trace"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Google Drive.lnk",
+     "rank": 1553,
+     "top3": [
+      "is_shortcut_or_trace",
+      "user_path",
+      "m_before_cr"
+     ],
+     "expected": [
+      "is_shortcut_or_trace"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "HoldMyTidePod.jpg",
+     "rank": 4542,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Huckleberry.png",
+     "rank": 4576,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Jim's Notebook.url",
+     "rank": 30648,
+     "top3": [
+      "user_path",
+      "log_burst_60s",
+      "is_archive"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "LeftUsesBoycotts.pdf",
+     "rank": 14531,
+     "top3": [
+      "user_path",
+      "delta_mc",
+      "path_depth"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "MyTiredHead.jpg",
+     "rank": 4575,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Operation 2nd Hand Smoke.pptx",
+     "rank": 4406,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Planning.docx",
+     "rank": 4397,
+     "top3": [
+      "user_path",
+      "log_burst_60s",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "RedGuns.jpg",
+     "rank": 4765,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "rootkey.csv",
+     "rank": 9415,
+     "top3": [
+      "user_path",
+      "delta_mc",
+      "path_depth"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "SelfDefenseisMurder.pdf",
+     "rank": 14412,
+     "top3": [
+      "user_path",
+      "delta_mc",
+      "path_depth"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Sheep.jpg",
+     "rank": 4004,
+     "top3": [
+      "user_path",
+      "m_before_cr",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "The Cloudy Manifesto.docx",
+     "rank": 3501,
+     "top3": [
+      "user_path",
+      "log_burst_60s",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "UKknifeBan.pdf",
+     "rank": 19585,
+     "top3": [
+      "user_path",
+      "delta_mc",
+      "filename_entropy"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "filename_entropy",
+      "path_depth",
+      "size",
+      "user_path"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    }
+   ],
+   "sense_summary": {
+    "n": 25,
+    "top1_sensible": 1.0,
+    "match_expected": 1.0
+   },
+   "B2": {
+    "seeds": {
+     "20": {
+      "n_common": 109,
+      "n_sample_flagged": 125,
+      "mean_jaccard": 0.954954128440367
+     },
+     "15": {
+      "n_common": 80,
+      "n_sample_flagged": 101,
+      "mean_jaccard": 0.958625
+     }
+    },
+    "noise": {
+     "20": {
+      "n": 125,
+      "mean_jaccard": 0.944,
+      "top1_same": 0.968
+     },
+     "15": {
+      "n": 101,
+      "mean_jaccard": 0.9504950495049505,
+      "top1_same": 0.9702970297029703
+     }
+    }
+   },
+   "B3": {
+    "P1 timestamp forgery": {
+     "20": {
+      "n": 20,
+      "detect_pct": 55.00000000000001,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       55.00000000000001
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 50.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       50.0
+      ]
+     }
+    },
+    "P2 hidden executable in temp": {
+     "20": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       100.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       100.0
+      ]
+     }
+    },
+    "P3 bulk-wipe burst": {
+     "20": {
+      "n": 20,
+      "detect_pct": 75.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       75.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 75.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       75.0
+      ]
+     }
+    },
+    "ALL": {
+     "20": {
+      "n": 60,
+      "detect_pct": 76.66666666666667,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       76.66666666666667
+      ]
+     },
+     "15": {
+      "n": 60,
+      "detect_pct": 75.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       75.0
+      ]
+     }
+    },
+    "examples": {
+     "P1 timestamp forgery": {
+      "rank": 20256,
+      "top3": [
+       "log_burst_count",
+       "m_before_cr",
+       "filename_entropy"
+      ]
+     },
+     "P2 hidden executable in temp": {
+      "rank": 456,
+      "top3": [
+       "temp_path",
+       "path_depth",
+       "log_burst_60s"
+      ]
+     },
+     "P3 bulk-wipe burst": {
+      "rank": 9673,
+      "top3": [
+       "log_burst_count",
+       "log_burst_60s",
+       "filename_entropy"
+      ]
+     }
+    }
+   }
+  }
+ },
+ "planted_spec": {
+  "P1 timestamp forgery": {
+   "set": {
+    "delta_si_fn": 15542658.0,
+    "m_before_cr": 1.0
+   },
+   "cause": [
+    "delta_si_fn",
+    "m_before_cr",
+    "delta_mb",
+    "delta_mc"
+   ]
+  },
+  "P2 hidden executable in temp": {
+   "set": {
+    "is_exe": 1.0,
+    "temp_path": 1.0,
+    "path_depth": 10.0
+   },
+   "cause": [
+    "is_exe",
+    "temp_path",
+    "path_depth"
+   ]
+  },
+  "P3 bulk-wipe burst": {
+   "set": {
+    "log_burst_count": 7.198931240688173,
+    "log_burst_60s": 9.935083114125879
+   },
+   "cause": [
+    "log_burst_count",
+    "log_burst_60s"
+   ]
+  }
+ },
+ "runtime_s": 260.8
+}

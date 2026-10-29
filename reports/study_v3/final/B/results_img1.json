@@ -1,0 +1,1138 @@
+{
+ "tag": "img1",
+ "N": 11773,
+ "K": {
+  "20": 2355,
+  "15": 1766
+ },
+ "features": [
+  "delta_mc",
+  "delta_mb",
+  "delta_ab",
+  "delta_si_fn",
+  "m_before_cr",
+  "zero_size_recent",
+  "after_hours_touch",
+  "size",
+  "is_exe",
+  "is_archive",
+  "is_script",
+  "temp_path",
+  "user_path",
+  "path_depth",
+  "filename_entropy",
+  "is_shortcut_or_trace",
+  "per_file_prefetch_hit",
+  "log_burst_count",
+  "log_burst_60s"
+ ],
+ "targets": 7,
+ "models": {
+  "Isolation Forest": {
+   "model": "Isolation Forest",
+   "n_targets_caught20": 7,
+   "n_targets_caught15": 7,
+   "B1": {
+    "20": {
+     "n": 307,
+     "n_targets": 7,
+     "median_drop_shap": 2142.0,
+     "median_drop_random": 199.4,
+     "ratio": 10.74222668004012,
+     "mean_drop_shap": 2678.156351791531,
+     "mean_drop_random": 259.3589576547231,
+     "share_shap_beats_random": 1.0,
+     "wilcoxon_p": 2.1784073129885033e-52,
+     "pass": true,
+     "targets_median_shap": 1621.0,
+     "targets_median_random": 211.4
+    },
+    "15": {
+     "n": 238,
+     "n_targets": 7,
+     "median_drop_shap": 2022.0,
+     "median_drop_random": 203.8,
+     "ratio": 9.921491658488714,
+     "mean_drop_shap": 2627.3865546218485,
+     "mean_drop_random": 257.1949579831933,
+     "share_shap_beats_random": 1.0,
+     "wilcoxon_p": 4.2677106567532496e-41,
+     "pass": true,
+     "targets_median_shap": 1621.0,
+     "targets_median_random": 211.4
+    }
+   },
+   "sense": [
+    {
+     "target": "Cain & Abel (Cain.exe)",
+     "rank": 49,
+     "top3": [
+      "per_file_prefetch_hit",
+      "size",
+      "after_hours_touch"
+     ],
+     "expected": [
+      "credential_tool",
+      "is_exe",
+      "per_file_prefetch_hit",
+      "sniffer_tool"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Ethereal / WinPcap",
+     "rank": 56,
+     "top3": [
+      "per_file_prefetch_hit",
+      "size",
+      "after_hours_touch"
+     ],
+     "expected": [
+      "credential_tool",
+      "is_exe",
+      "per_file_prefetch_hit",
+      "sniffer_tool"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "NetStumbler",
+     "rank": 92,
+     "top3": [
+      "per_file_prefetch_hit",
+      "after_hours_touch",
+      "size"
+     ],
+     "expected": [
+      "credential_tool",
+      "is_exe",
+      "per_file_prefetch_hit",
+      "sniffer_tool"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Password wordlists (ZIP)",
+     "rank": 1,
+     "top3": [
+      "size",
+      "is_archive",
+      "delta_si_fn"
+     ],
+     "expected": [
+      "filename_entropy",
+      "is_archive",
+      "size"
+     ],
+     "top1_sensible": false,
+     "match_expected": true
+    },
+    {
+     "target": "NMEM/NGETTIME (timestomped Novell tools)",
+     "rank": 43,
+     "top3": [
+      "delta_si_fn",
+      "delta_mb",
+      "delta_mc"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "delta_ab",
+      "delta_mb",
+      "delta_mc",
+      "delta_si_fn",
+      "future_m",
+      "m_before_cr"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "123WASP (UNWISE.EXE, 123wasp.exe)",
+     "rank": 1346,
+     "top3": [
+      "log_burst_60s",
+      "log_burst_count",
+      "delta_mb"
+     ],
+     "expected": [
+      "credential_tool",
+      "is_exe",
+      "per_file_prefetch_hit",
+      "sniffer_tool"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    },
+    {
+     "target": "defrag.exe / Anonymizer",
+     "rank": 289,
+     "top3": [
+      "delta_si_fn",
+      "after_hours_touch",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "credential_tool",
+      "is_exe",
+      "per_file_prefetch_hit",
+      "sniffer_tool"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    }
+   ],
+   "sense_summary": {
+    "n": 7,
+    "top1_sensible": 0.8571428571428571,
+    "match_expected": 0.7142857142857143
+   },
+   "B2": {
+    "seeds": {
+     "20": {
+      "n_common": 282,
+      "n_sample_flagged": 307,
+      "mean_jaccard": 0.8946808510638298
+     },
+     "15": {
+      "n_common": 209,
+      "n_sample_flagged": 238,
+      "mean_jaccard": 0.9029186602870813
+     }
+    },
+    "noise": {
+     "20": {
+      "n": 307,
+      "mean_jaccard": 0.7244299674267101,
+      "top1_same": 0.9055374592833876
+     },
+     "15": {
+      "n": 238,
+      "mean_jaccard": 0.7415966386554622,
+      "top1_same": 0.9033613445378151
+     }
+    }
+   },
+   "B3": {
+    "P1 timestamp forgery": {
+     "20": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0,
+       100.0,
+       100.0,
+       100.0,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       100.0,
+       100.0,
+       100.0,
+       100.0,
+       100.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 88.00000000000001,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0,
+       100.0,
+       100.0,
+       100.0,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       85.0,
+       85.0,
+       90.0,
+       90.0,
+       90.0
+      ]
+     }
+    },
+    "P2 hidden executable in temp": {
+     "20": {
+      "n": 20,
+      "detect_pct": 41.99999999999999,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0,
+       100.0,
+       100.0,
+       100.0,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       50.0,
+       45.0,
+       35.0,
+       45.0,
+       35.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 17.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0,
+       100.0,
+       100.0,
+       100.0,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       15.0,
+       10.0,
+       15.0,
+       15.0,
+       30.0
+      ]
+     }
+    },
+    "P3 bulk-wipe burst": {
+     "20": {
+      "n": 20,
+      "detect_pct": 20.0,
+      "attr_hit_detected_pct": 30.0,
+      "attr_hit_all_pct": 37.0,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       25.0,
+       0.0,
+       25.0,
+       0.0,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       20.0,
+       20.0,
+       20.0,
+       20.0,
+       20.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 2.0,
+      "attr_hit_detected_pct": 50.0,
+      "attr_hit_all_pct": 37.0,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       null,
+       null,
+       0.0,
+       null,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       0.0,
+       0.0,
+       5.0,
+       0.0,
+       5.0
+      ]
+     }
+    },
+    "ALL": {
+     "20": {
+      "n": 60,
+      "detect_pct": 54.0,
+      "attr_hit_detected_pct": 91.45132539819446,
+      "attr_hit_all_pct": 79.0,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       91.17647058823529,
+       87.87878787878788,
+       90.32258064516128,
+       87.87878787878788,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       56.666666666666664,
+       55.00000000000001,
+       51.66666666666667,
+       55.00000000000001,
+       51.66666666666667
+      ]
+     },
+     "15": {
+      "n": 60,
+      "detect_pct": 35.66666666666667,
+      "attr_hit_detected_pct": 99.0909090909091,
+      "attr_hit_all_pct": 79.0,
+      "seeds": [
+       42,
+       1337,
+       9999,
+       7,
+       2024
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0,
+       100.0,
+       95.45454545454545,
+       100.0,
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       33.33333333333333,
+       31.666666666666664,
+       36.666666666666664,
+       35.0,
+       41.66666666666667
+      ]
+     }
+    },
+    "examples": {
+     "P1 timestamp forgery": {
+      "rank": 289,
+      "top3": [
+       "delta_si_fn",
+       "user_path",
+       "m_before_cr"
+      ]
+     },
+     "P2 hidden executable in temp": {
+      "rank": 1929,
+      "top3": [
+       "after_hours_touch",
+       "path_depth",
+       "is_exe"
+      ]
+     },
+     "P3 bulk-wipe burst": {
+      "rank": 4995,
+      "top3": [
+       "delta_ab",
+       "filename_entropy",
+       "is_exe"
+      ]
+     }
+    }
+   }
+  },
+  "Local Outlier Factor": {
+   "model": "Local Outlier Factor",
+   "n_targets_caught20": 5,
+   "n_targets_caught15": 4,
+   "B1": {
+    "20": {
+     "n": 105,
+     "n_targets": 5,
+     "median_drop_shap": 0.0,
+     "median_drop_random": 296.4,
+     "ratio": 0.0,
+     "mean_drop_shap": 2118.8190476190475,
+     "mean_drop_random": 761.6171428571429,
+     "share_shap_beats_random": 0.47619047619047616,
+     "wilcoxon_p": 0.06920722197438445,
+     "pass": false,
+     "targets_median_shap": -278.0,
+     "targets_median_random": 95.2
+    },
+    "15": {
+     "n": 81,
+     "n_targets": 4,
+     "median_drop_shap": 42.0,
+     "median_drop_random": 469.6,
+     "ratio": 0.08943781942078365,
+     "mean_drop_shap": 2629.3703703703704,
+     "mean_drop_random": 966.2370370370372,
+     "share_shap_beats_random": 0.5308641975308642,
+     "wilcoxon_p": 0.017156575857226495,
+     "pass": false,
+     "targets_median_shap": -150.0,
+     "targets_median_random": 113.6
+    }
+   },
+   "sense": [
+    {
+     "target": "Ethereal / WinPcap",
+     "rank": 717,
+     "top3": [
+      "filename_entropy",
+      "m_before_cr",
+      "delta_ab"
+     ],
+     "expected": [
+      "credential_tool",
+      "is_exe",
+      "per_file_prefetch_hit",
+      "sniffer_tool"
+     ],
+     "top1_sensible": false,
+     "match_expected": false
+    },
+    {
+     "target": "NetStumbler",
+     "rank": 1511,
+     "top3": [
+      "log_burst_count",
+      "m_before_cr",
+      "filename_entropy"
+     ],
+     "expected": [
+      "credential_tool",
+      "is_exe",
+      "per_file_prefetch_hit",
+      "sniffer_tool"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    },
+    {
+     "target": "Password wordlists (ZIP)",
+     "rank": 496,
+     "top3": [
+      "delta_mb",
+      "log_burst_count",
+      "m_before_cr"
+     ],
+     "expected": [
+      "filename_entropy",
+      "is_archive",
+      "size"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    },
+    {
+     "target": "NMEM/NGETTIME (timestomped Novell tools)",
+     "rank": 1805,
+     "top3": [
+      "delta_mc",
+      "size",
+      "m_before_cr"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "delta_ab",
+      "delta_mb",
+      "delta_mc",
+      "delta_si_fn",
+      "future_m",
+      "m_before_cr"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "defrag.exe / Anonymizer",
+     "rank": 947,
+     "top3": [
+      "m_before_cr",
+      "delta_ab",
+      "delta_mc"
+     ],
+     "expected": [
+      "credential_tool",
+      "is_exe",
+      "per_file_prefetch_hit",
+      "sniffer_tool"
+     ],
+     "top1_sensible": true,
+     "match_expected": false
+    }
+   ],
+   "sense_summary": {
+    "n": 5,
+    "top1_sensible": 0.8,
+    "match_expected": 0.2
+   },
+   "B2": {
+    "seeds": null,
+    "noise": {
+     "20": {
+      "n": 105,
+      "mean_jaccard": 0.2266666666666667,
+      "top1_same": 0.13333333333333333
+     },
+     "15": {
+      "n": 81,
+      "mean_jaccard": 0.2345679012345679,
+      "top1_same": 0.13580246913580246
+     }
+    }
+   },
+   "B3": {
+    "P1 timestamp forgery": {
+     "20": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 70.0,
+      "attr_hit_all_pct": 70.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       70.0
+      ],
+      "detect_pct_by_seed": [
+       100.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 70.0,
+      "attr_hit_all_pct": 70.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       70.0
+      ],
+      "detect_pct_by_seed": [
+       100.0
+      ]
+     }
+    },
+    "P2 hidden executable in temp": {
+     "20": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       100.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       100.0
+      ]
+     }
+    },
+    "P3 bulk-wipe burst": {
+     "20": {
+      "n": 20,
+      "detect_pct": 60.0,
+      "attr_hit_detected_pct": 66.66666666666666,
+      "attr_hit_all_pct": 75.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       66.66666666666666
+      ],
+      "detect_pct_by_seed": [
+       60.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 55.00000000000001,
+      "attr_hit_detected_pct": 63.63636363636363,
+      "attr_hit_all_pct": 75.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       63.63636363636363
+      ],
+      "detect_pct_by_seed": [
+       55.00000000000001
+      ]
+     }
+    },
+    "ALL": {
+     "20": {
+      "n": 60,
+      "detect_pct": 86.66666666666667,
+      "attr_hit_detected_pct": 80.76923076923077,
+      "attr_hit_all_pct": 81.66666666666667,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       80.76923076923077
+      ],
+      "detect_pct_by_seed": [
+       86.66666666666667
+      ]
+     },
+     "15": {
+      "n": 60,
+      "detect_pct": 85.0,
+      "attr_hit_detected_pct": 80.3921568627451,
+      "attr_hit_all_pct": 81.66666666666667,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       80.3921568627451
+      ],
+      "detect_pct_by_seed": [
+       85.0
+      ]
+     }
+    },
+    "examples": {
+     "P1 timestamp forgery": {
+      "rank": 320,
+      "top3": [
+       "is_exe",
+       "delta_mb",
+       "delta_mc"
+      ]
+     },
+     "P2 hidden executable in temp": {
+      "rank": 105,
+      "top3": [
+       "temp_path",
+       "filename_entropy",
+       "m_before_cr"
+      ]
+     },
+     "P3 bulk-wipe burst": {
+      "rank": 1947,
+      "top3": [
+       "log_burst_count",
+       "m_before_cr",
+       "is_exe"
+      ]
+     }
+    }
+   }
+  },
+  "One-Class SVM": {
+   "model": "One-Class SVM",
+   "n_targets_caught20": 6,
+   "n_targets_caught15": 6,
+   "B1": {
+    "20": {
+     "n": 106,
+     "n_targets": 6,
+     "median_drop_shap": 7683.0,
+     "median_drop_random": 59.7,
+     "ratio": 128.6934673366834,
+     "mean_drop_shap": 6944.188679245283,
+     "mean_drop_random": 533.0169811320754,
+     "share_shap_beats_random": 0.9716981132075472,
+     "wilcoxon_p": 4.418116200659037e-19,
+     "pass": true,
+     "targets_median_shap": 3402.5,
+     "targets_median_random": 271.1
+    },
+    "15": {
+     "n": 78,
+     "n_targets": 6,
+     "median_drop_shap": 8221.0,
+     "median_drop_random": 0.8,
+     "ratio": 10276.25,
+     "mean_drop_shap": 7398.025641025641,
+     "mean_drop_random": 506.651282051282,
+     "share_shap_beats_random": 0.9871794871794872,
+     "wilcoxon_p": 1.146738066229344e-14,
+     "pass": true,
+     "targets_median_shap": 3402.5,
+     "targets_median_random": 271.1
+    }
+   },
+   "sense": [
+    {
+     "target": "Cain & Abel (Cain.exe)",
+     "rank": 67,
+     "top3": [
+      "per_file_prefetch_hit",
+      "after_hours_touch",
+      "m_before_cr"
+     ],
+     "expected": [
+      "credential_tool",
+      "is_exe",
+      "per_file_prefetch_hit",
+      "sniffer_tool"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Ethereal / WinPcap",
+     "rank": 69,
+     "top3": [
+      "per_file_prefetch_hit",
+      "after_hours_touch",
+      "delta_mc"
+     ],
+     "expected": [
+      "credential_tool",
+      "is_exe",
+      "per_file_prefetch_hit",
+      "sniffer_tool"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "NetStumbler",
+     "rank": 63,
+     "top3": [
+      "per_file_prefetch_hit",
+      "after_hours_touch",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "credential_tool",
+      "is_exe",
+      "per_file_prefetch_hit",
+      "sniffer_tool"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "Password wordlists (ZIP)",
+     "rank": 2,
+     "top3": [
+      "size",
+      "is_archive",
+      "filename_entropy"
+     ],
+     "expected": [
+      "filename_entropy",
+      "is_archive",
+      "size"
+     ],
+     "top1_sensible": false,
+     "match_expected": true
+    },
+    {
+     "target": "NMEM/NGETTIME (timestomped Novell tools)",
+     "rank": 75,
+     "top3": [
+      "delta_si_fn",
+      "delta_mc",
+      "delta_mb"
+     ],
+     "expected": [
+      "after_hours_touch",
+      "delta_ab",
+      "delta_mb",
+      "delta_mc",
+      "delta_si_fn",
+      "future_m",
+      "m_before_cr"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    },
+    {
+     "target": "defrag.exe / Anonymizer",
+     "rank": 918,
+     "top3": [
+      "per_file_prefetch_hit",
+      "delta_ab",
+      "log_burst_60s"
+     ],
+     "expected": [
+      "credential_tool",
+      "is_exe",
+      "per_file_prefetch_hit",
+      "sniffer_tool"
+     ],
+     "top1_sensible": true,
+     "match_expected": true
+    }
+   ],
+   "sense_summary": {
+    "n": 6,
+    "top1_sensible": 0.8333333333333334,
+    "match_expected": 1.0
+   },
+   "B2": {
+    "seeds": {
+     "20": {
+      "n_common": 101,
+      "n_sample_flagged": 106,
+      "mean_jaccard": 0.9564356435643565
+     },
+     "15": {
+      "n_common": 73,
+      "n_sample_flagged": 78,
+      "mean_jaccard": 0.952054794520548
+     }
+    },
+    "noise": {
+     "20": {
+      "n": 106,
+      "mean_jaccard": 0.9198113207547169,
+      "top1_same": 0.9905660377358491
+     },
+     "15": {
+      "n": 78,
+      "mean_jaccard": 0.9102564102564102,
+      "top1_same": 1.0
+     }
+    }
+   },
+   "B3": {
+    "P1 timestamp forgery": {
+     "20": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       100.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       100.0
+      ]
+     }
+    },
+    "P2 hidden executable in temp": {
+     "20": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       100.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 100.0,
+      "attr_hit_detected_pct": 100.0,
+      "attr_hit_all_pct": 100.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       100.0
+      ],
+      "detect_pct_by_seed": [
+       100.0
+      ]
+     }
+    },
+    "P3 bulk-wipe burst": {
+     "20": {
+      "n": 20,
+      "detect_pct": 35.0,
+      "attr_hit_detected_pct": 71.42857142857143,
+      "attr_hit_all_pct": 90.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       71.42857142857143
+      ],
+      "detect_pct_by_seed": [
+       35.0
+      ]
+     },
+     "15": {
+      "n": 20,
+      "detect_pct": 25.0,
+      "attr_hit_detected_pct": 60.0,
+      "attr_hit_all_pct": 90.0,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       60.0
+      ],
+      "detect_pct_by_seed": [
+       25.0
+      ]
+     }
+    },
+    "ALL": {
+     "20": {
+      "n": 60,
+      "detect_pct": 78.33333333333333,
+      "attr_hit_detected_pct": 95.74468085106383,
+      "attr_hit_all_pct": 96.66666666666667,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       95.74468085106383
+      ],
+      "detect_pct_by_seed": [
+       78.33333333333333
+      ]
+     },
+     "15": {
+      "n": 60,
+      "detect_pct": 75.0,
+      "attr_hit_detected_pct": 95.55555555555556,
+      "attr_hit_all_pct": 96.66666666666667,
+      "seeds": [
+       42
+      ],
+      "attr_hit_detected_pct_by_seed": [
+       95.55555555555556
+      ],
+      "detect_pct_by_seed": [
+       75.0
+      ]
+     }
+    },
+    "examples": {
+     "P1 timestamp forgery": {
+      "rank": 15,
+      "top3": [
+       "delta_si_fn",
+       "user_path",
+       "delta_mc"
+      ]
+     },
+     "P2 hidden executable in temp": {
+      "rank": 3,
+      "top3": [
+       "temp_path",
+       "path_depth",
+       "after_hours_touch"
+      ]
+     },
+     "P3 bulk-wipe burst": {
+      "rank": 3126,
+      "top3": [
+       "is_exe",
+       "filename_entropy",
+       "log_burst_60s"
+      ]
+     }
+    }
+   }
+  }
+ },
+ "planted_spec": {
+  "P1 timestamp forgery": {
+   "set": {
+    "delta_si_fn": 363763269.0,
+    "m_before_cr": 1.0
+   },
+   "cause": [
+    "delta_si_fn",
+    "m_before_cr",
+    "delta_mb",
+    "delta_mc"
+   ]
+  },
+  "P2 hidden executable in temp": {
+   "set": {
+    "is_exe": 1.0,
+    "temp_path": 1.0,
+    "path_depth": 7.0
+   },
+   "cause": [
+    "is_exe",
+    "temp_path",
+    "path_depth"
+   ]
+  },
+  "P3 bulk-wipe burst": {
+   "set": {
+    "log_burst_count": 8.858510813033927,
+    "log_burst_60s": 8.858510813033927
+   },
+   "cause": [
+    "log_burst_count",
+    "log_burst_60s"
+   ]
+  }
+ },
+ "runtime_s": 144.8
+}

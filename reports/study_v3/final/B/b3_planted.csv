@@ -1,0 +1,73 @@
+disk,model,attack,budget_pct,n,detected_pct,attr_hit_of_detected_pct,attr_hit_of_all_pct,result_all_types
+img1,IF,P1 timestamp forgery,20,20,100.0,100.0,100.0,
+img1,IF,P1 timestamp forgery,15,20,88.00000000000001,100.0,100.0,
+img1,IF,P2 hidden executable in temp,20,20,41.99999999999999,100.0,100.0,
+img1,IF,P2 hidden executable in temp,15,20,17.0,100.0,100.0,
+img1,IF,P3 bulk-wipe burst,20,20,20.0,30.0,37.0,
+img1,IF,P3 bulk-wipe burst,15,20,2.0,50.0,37.0,
+img1,IF,ALL,20,60,54.0,91.45132539819446,79.0,PASS
+img1,IF,ALL,15,60,35.66666666666667,99.0909090909091,79.0,PASS
+img1,LOF,P1 timestamp forgery,20,20,100.0,70.0,70.0,
+img1,LOF,P1 timestamp forgery,15,20,100.0,70.0,70.0,
+img1,LOF,P2 hidden executable in temp,20,20,100.0,100.0,100.0,
+img1,LOF,P2 hidden executable in temp,15,20,100.0,100.0,100.0,
+img1,LOF,P3 bulk-wipe burst,20,20,60.0,66.66666666666666,75.0,
+img1,LOF,P3 bulk-wipe burst,15,20,55.00000000000001,63.63636363636363,75.0,
+img1,LOF,ALL,20,60,86.66666666666667,80.76923076923077,81.66666666666667,PASS
+img1,LOF,ALL,15,60,85.0,80.3921568627451,81.66666666666667,PASS
+img1,OC-SVM,P1 timestamp forgery,20,20,100.0,100.0,100.0,
+img1,OC-SVM,P1 timestamp forgery,15,20,100.0,100.0,100.0,
+img1,OC-SVM,P2 hidden executable in temp,20,20,100.0,100.0,100.0,
+img1,OC-SVM,P2 hidden executable in temp,15,20,100.0,100.0,100.0,
+img1,OC-SVM,P3 bulk-wipe burst,20,20,35.0,71.42857142857143,90.0,
+img1,OC-SVM,P3 bulk-wipe burst,15,20,25.0,60.0,90.0,
+img1,OC-SVM,ALL,20,60,78.33333333333333,95.74468085106383,96.66666666666667,PASS
+img1,OC-SVM,ALL,15,60,75.0,95.55555555555556,96.66666666666667,PASS
+img2,IF,P1 timestamp forgery,20,20,9.0,100.0,100.0,
+img2,IF,P1 timestamp forgery,15,20,6.0,100.0,100.0,
+img2,IF,P2 hidden executable in temp,20,20,94.0,100.0,100.0,
+img2,IF,P2 hidden executable in temp,15,20,81.0,100.0,100.0,
+img2,IF,P3 bulk-wipe burst,20,20,34.0,100.0,100.0,
+img2,IF,P3 bulk-wipe burst,15,20,12.000000000000002,100.0,100.0,
+img2,IF,ALL,20,60,45.666666666666664,100.0,100.0,PASS
+img2,IF,ALL,15,60,32.99999999999999,100.0,100.0,PASS
+img2,LOF,P1 timestamp forgery,20,20,55.00000000000001,100.0,100.0,
+img2,LOF,P1 timestamp forgery,15,20,50.0,100.0,100.0,
+img2,LOF,P2 hidden executable in temp,20,20,80.0,100.0,100.0,
+img2,LOF,P2 hidden executable in temp,15,20,15.0,100.0,100.0,
+img2,LOF,P3 bulk-wipe burst,20,20,95.0,63.1578947368421,60.0,
+img2,LOF,P3 bulk-wipe burst,15,20,95.0,63.1578947368421,60.0,
+img2,LOF,ALL,20,60,76.66666666666667,84.78260869565217,86.66666666666667,PASS
+img2,LOF,ALL,15,60,53.333333333333336,78.125,86.66666666666667,FAIL
+img2,OC-SVM,P1 timestamp forgery,20,20,40.0,87.5,95.0,
+img2,OC-SVM,P1 timestamp forgery,15,20,35.0,85.71428571428571,95.0,
+img2,OC-SVM,P2 hidden executable in temp,20,20,100.0,100.0,100.0,
+img2,OC-SVM,P2 hidden executable in temp,15,20,100.0,100.0,100.0,
+img2,OC-SVM,P3 bulk-wipe burst,20,20,100.0,100.0,100.0,
+img2,OC-SVM,P3 bulk-wipe burst,15,20,95.0,100.0,100.0,
+img2,OC-SVM,ALL,20,60,80.0,97.91666666666666,98.33333333333333,PASS
+img2,OC-SVM,ALL,15,60,76.66666666666667,97.82608695652173,98.33333333333333,PASS
+img3,IF,P1 timestamp forgery,20,20,44.00000000000001,100.0,100.0,
+img3,IF,P1 timestamp forgery,15,20,32.0,100.0,100.0,
+img3,IF,P2 hidden executable in temp,20,20,100.0,100.0,100.0,
+img3,IF,P2 hidden executable in temp,15,20,100.0,100.0,100.0,
+img3,IF,P3 bulk-wipe burst,20,20,6.999999999999999,100.0,99.0,
+img3,IF,P3 bulk-wipe burst,15,20,1.0,100.0,99.0,
+img3,IF,ALL,20,60,50.33333333333334,100.0,99.66666666666667,PASS
+img3,IF,ALL,15,60,44.333333333333336,100.0,99.66666666666667,PASS
+img3,LOF,P1 timestamp forgery,20,20,95.0,63.1578947368421,65.0,
+img3,LOF,P1 timestamp forgery,15,20,95.0,63.1578947368421,65.0,
+img3,LOF,P2 hidden executable in temp,20,20,100.0,15.0,15.0,
+img3,LOF,P2 hidden executable in temp,15,20,100.0,15.0,15.0,
+img3,LOF,P3 bulk-wipe burst,20,20,100.0,25.0,25.0,
+img3,LOF,P3 bulk-wipe burst,15,20,100.0,25.0,25.0,
+img3,LOF,ALL,20,60,98.33333333333333,33.89830508474576,35.0,FAIL
+img3,LOF,ALL,15,60,98.33333333333333,33.89830508474576,35.0,FAIL
+img3,OC-SVM,P1 timestamp forgery,20,20,55.00000000000001,100.0,100.0,
+img3,OC-SVM,P1 timestamp forgery,15,20,50.0,100.0,100.0,
+img3,OC-SVM,P2 hidden executable in temp,20,20,100.0,100.0,100.0,
+img3,OC-SVM,P2 hidden executable in temp,15,20,100.0,100.0,100.0,
+img3,OC-SVM,P3 bulk-wipe burst,20,20,75.0,100.0,100.0,
+img3,OC-SVM,P3 bulk-wipe burst,15,20,75.0,100.0,100.0,
+img3,OC-SVM,ALL,20,60,76.66666666666667,100.0,100.0,PASS
+img3,OC-SVM,ALL,15,60,75.0,100.0,100.0,PASS
