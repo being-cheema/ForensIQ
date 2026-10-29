@@ -37,7 +37,7 @@ warnings.filterwarnings("ignore")
 BASE = M.BASE_DIR
 TRUST_DIR = os.path.join(BASE, "web", "src", "data", "trust")
 REPORT_DIR = os.path.join(BASE, "reports", "trust_eval")
-CACHE = os.path.join(BASE, ".cache", "trust_eval")
+CACHE = os.path.join(BASE, ".cache", "trust_eval" + M.CACHE_SUFFIX)
 BUDGET_PCTS = [5, 10, 15, 20]
 MAX_ROWS = 3000
 SEEDS = [42, 1337, 9999, 7, 2024]
@@ -55,7 +55,7 @@ SUPPORT_CAP = 25
 # Hand-written forensic expectation: which features SHOULD explain a target of this type
 # (first regex that matches the target name wins)
 # ----------------------------------------------------------------------------
-TIME = ["delta_mc", "delta_mb", "delta_ab", "delta_si_fn", "after_hours_touch", "future_m"]
+TIME = ["delta_mc", "delta_mb", "delta_ab", "delta_si_fn", "after_hours_touch", "future_m", "m_before_cr"]
 EXPECTED_RULES = [
     (r"NMEM|NGETTIME|timestomp", set(TIME)),
     (r"wiped via eraser", set(TIME + ["size"])),

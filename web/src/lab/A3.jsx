@@ -36,9 +36,9 @@ export default function A3({ d, fit, pct, setPlanted }) {
       return v
     }]
     return [
-      P('Timestomped tool', { is_exe: 1, delta_si_fn: 'hi', delta_mc: 'hi', delta_mb: 'hi', delta_ab: 'hi', future_m: 1, per_file_prefetch_hit: 1, user_path: 1, filename_entropy: 'hi', is_shortcut_or_trace: 0 }),
+      P('Timestomped tool', { is_exe: 1, delta_si_fn: 'hi', delta_mc: 'hi', delta_mb: 'hi', delta_ab: 'hi', future_m: 1, m_before_cr: 1, per_file_prefetch_hit: 1, user_path: 1, filename_entropy: 'hi', is_shortcut_or_trace: 0 }),
       P('Normal Word doc', { is_exe: 0, user_path: 1, is_shortcut_or_trace: 0, after_hours_touch: 0, per_file_prefetch_hit: 0 }),
-      P('Hidden after-hours script', { script_host: 1, powershell_exec: 1, after_hours_touch: 1, temp_path: 1, is_exe: 0, filename_entropy: 'hi', path_depth: 'hi', is_deleted: 1, delta_si_fn: 'hi' }),
+      P('Hidden after-hours script', { is_script: 1, script_host: 1, powershell_exec: 1, after_hours_touch: 1, temp_path: 1, is_exe: 0, filename_entropy: 'hi', path_depth: 'hi', is_deleted: 1, delta_si_fn: 'hi' }),
     ]
   }, [base, spec])
 

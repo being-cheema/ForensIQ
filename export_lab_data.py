@@ -31,6 +31,8 @@ INFO = {
     "delta_si_fn": "Seconds of disagreement between the two MFT timestamp sets ($STANDARD_INFORMATION vs $FILE_NAME); nonzero is strong timestomping evidence.",
     "filename_entropy": "Shannon entropy of the file name; random-looking names score high.",
     "path_depth": "How many folders deep the file sits.",
+    "m_before_cr": "1 if the file's modified time is earlier than its creation time (0 < modified < created), a classic backdating or copy signature.",
+    "is_script": "1 if the file extension is a script type (.ps1, .bat, .cmd, .vbs, .js, .wsf, .hta).",
 }
 
 

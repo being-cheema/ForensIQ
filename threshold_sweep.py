@@ -32,7 +32,7 @@ import pandas as pd
 import multimodel_eval as M
 
 OUT = os.path.join(M.BASE_DIR, "reports", "threshold_sweep")
-CACHE = os.path.join(M.BASE_DIR, ".cache", "threshold_sweep")
+CACHE = os.path.join(M.BASE_DIR, ".cache", "threshold_sweep" + M.CACHE_SUFFIX)
 OLD = os.path.join(M.BASE_DIR, "reports")
 
 IMAGES = ["img2", "img3"]

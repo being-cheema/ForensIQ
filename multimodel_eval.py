@@ -52,7 +52,7 @@ LEGACY_17 = list(fe.FEATURE_COLUMNS)
 NEW_6 = ["is_shortcut_or_trace", "per_file_prefetch_hit", "after_hours_touch",
          "delta_si_fn", "filename_entropy", "path_depth"]
 
-GROUPS = {
+GROUPS_LEGACY23 = {
     "Temporal": ["delta_mc", "delta_mb", "delta_ab", "future_m", "zero_size_recent",
                  "delta_si_fn", "after_hours_touch"],
     "Path/File": ["size", "is_deleted", "is_exe", "is_archive", "temp_path", "user_path",
@@ -60,6 +60,41 @@ GROUPS = {
     "Execution/Tool": ["credential_tool", "sniffer_tool", "powershell_exec", "cmd_exec",
                        "script_host", "usb_present", "per_file_prefetch_hit"],
 }
+
+# Study v3 feature sets. "clean" (default) or "legacy23" (the 23 features used up to study v2).
+FEATURE_SET = os.environ.get("FORENSIQ_FEATURE_SET", "clean")
+
+# Legacy columns removed in the clean set (disk-level constants, or constant by construction / on all disks).
+CLEAN_DROPPED = ["credential_tool", "sniffer_tool", "powershell_exec", "cmd_exec", "script_host",
+                 "usb_present", "future_m", "is_deleted"]
+FEATURES_CLEAN = [
+    # Temporal
+    "delta_mc", "delta_mb", "delta_ab", "delta_si_fn", "m_before_cr", "zero_size_recent", "after_hours_touch",
+    # Path / File
+    "size", "is_exe", "is_archive", "is_script", "temp_path", "user_path", "path_depth",
+    "filename_entropy", "is_shortcut_or_trace",
+    # Execution / Activity
+    "per_file_prefetch_hit",
+]
+GROUPS_CLEAN = {
+    "Temporal": ["delta_mc", "delta_mb", "delta_ab", "delta_si_fn", "m_before_cr", "zero_size_recent",
+                 "after_hours_touch"],
+    "Path/File": ["size", "is_exe", "is_archive", "is_script", "temp_path", "user_path", "path_depth",
+                  "filename_entropy", "is_shortcut_or_trace"],
+    "Execution/Activity": ["per_file_prefetch_hit"],
+}
+# Candidate features (Phase 2 decides); NOT part of the clean default.
+BURST = ["log_burst_count", "log_burst_60s"]
+
+# downstream scripts append this to their own cache dirs so clean and legacy results never mix
+CACHE_SUFFIX = "" if FEATURE_SET == "legacy23" else "_" + FEATURE_SET
+
+if FEATURE_SET == "legacy23":
+    GROUPS = GROUPS_LEGACY23
+    FEATURES = LEGACY_17 + NEW_6
+else:
+    GROUPS = GROUPS_CLEAN
+    FEATURES = FEATURES_CLEAN
 
 MODELS = ["Isolation Forest", "Local Outlier Factor", "One-Class SVM"]
 
@@ -153,6 +188,14 @@ def shannon(s):
 
 
 def build_features(art_dir, tag):
+    """Feature table for one disk. FEATURE_SET=legacy23 -> the 23 legacy features (unchanged);
+    otherwise the clean set (see build_features_clean)."""
+    if FEATURE_SET == "legacy23":
+        return build_features_legacy23(art_dir, tag)
+    return build_features_clean(art_dir, tag)
+
+
+def build_features_legacy23(art_dir, tag):
     """17 legacy features via the canonical pipeline code + 6 new per-file features."""
     feat_tmp = os.path.join(CACHE, f"{tag}_feat")
     os.makedirs(feat_tmp, exist_ok=True)
@@ -194,6 +237,103 @@ def build_features(art_dir, tag):
     df["path_depth"] = path.str.count("/")
 
     feats = [c for c in LEGACY_17 + NEW_6 if c in df.columns]
+    return df, raw, feats
+
+
+# ----------------------------------------------------------------------------
+# Study v3 clean feature set
+# ----------------------------------------------------------------------------
+SCRIPT_EXTS = [".ps1", ".bat", ".cmd", ".vbs", ".js", ".wsf", ".hta"]
+
+
+def local_utc_bias_minutes(art_dir):
+    """Machine time-zone bias (minutes; UTC = local + bias) from SYSTEM hive
+    ControlSet00x\\Control\\TimeZoneInformation (ActiveTimeBias, else Bias).
+    Returns (bias_minutes, source_string). Falls back to (0, 'fallback-UTC: ...') on failure."""
+    hive = os.path.join(art_dir, "registry", "SYSTEM")
+    try:
+        from regipy.registry import RegistryHive
+        h = RegistryHive(hive)
+        cur = 1
+        try:
+            cur = int({v.name: v.value for v in h.get_key("\\Select").iter_values()}.get("Current", 1))
+        except Exception:
+            pass
+        for cs in [cur] + [c for c in (1, 2, 3) if c != cur]:
+            try:
+                vals = {v.name: v.value for v in
+                        h.get_key("\\ControlSet%03d\\Control\\TimeZoneInformation" % cs).iter_values()}
+            except Exception:
+                continue
+            for k in ("ActiveTimeBias", "Bias"):
+                if k in vals and isinstance(vals[k], int):
+                    b = int(vals[k])
+                    if b >= 2 ** 31:
+                        b -= 2 ** 32
+                    return b, "ControlSet%03d %s" % (cs, k)
+        return 0, "fallback-UTC: TimeZoneInformation not found"
+    except Exception as e:  # regipy missing or hive unreadable
+        return 0, "fallback-UTC: %s" % type(e).__name__
+
+
+def prefetch_keys(art_dir, raw):
+    """Executable names with Prefetch evidence: names from prefetch_list.json plus every *.pf file name
+    present in the MFT under a /Prefetch/ directory (the json under-extracts). Returns
+    (exact_keys, prefix29_keys): Prefetch stores at most 29 characters of the executable name."""
+    keys = set()
+    for p in fe.load_json(os.path.join(art_dir, "prefetch", "prefetch_list.json"), []):
+        keys.add(p.get("name", "").upper().rsplit("-", 1)[0])
+    pfm = raw["path"].astype(str)
+    pfm = pfm[pfm.str.contains(r"/prefetch/[^/]+\.pf$", case=False, regex=True)]
+    for n in pfm.str.rsplit("/", n=1).str[-1]:
+        keys.add(n.upper().rsplit("-", 1)[0])
+    keys.discard("")
+    return keys, {k for k in keys if len(k) >= 29}
+
+
+def add_burst_features(df, raw):
+    """Candidate features (see burst_detection.py): log1p(#files sharing the same m_time second / minute).
+    Rows without a valid m_time get 0. Adds columns to df in place and returns BURST."""
+    m = pd.to_numeric(raw["m_time"], errors="coerce").fillna(0).astype("int64")
+    ok = m > 0
+    cnt_s = m[ok].map(m[ok].value_counts())
+    mm = m // 60
+    cnt_m = mm[ok].map(mm[ok].value_counts())
+    df["log_burst_count"] = np.log1p(cnt_s.reindex(df.index).fillna(0).astype(float))
+    df["log_burst_60s"] = np.log1p(cnt_m.reindex(df.index).fillna(0).astype(float))
+    return BURST
+
+
+def build_features_clean(art_dir, tag):
+    """Clean per-file feature set. Starts from the legacy-23 table (kept in df for reference and for
+    verdicts) and returns the column list FEATURES_CLEAN only."""
+    df, raw, _ = build_features_legacy23(art_dir, tag)
+    path = df["path"].astype(str)
+    name = path.str.rsplit("/", n=1).str[-1]
+    ext = name.str.extract(r"(\.[^.]+)$")[0].fillna("").str.lower()
+
+    # modified-before-created signature (replaces future_m, which was 0 by construction)
+    df["m_before_cr"] = ((raw["m_time"] > 0) & (raw["m_time"] < raw["cr_time"])).astype(int)
+    df["is_script"] = ext.isin(SCRIPT_EXTS).astype(int)
+
+    # after-hours in the machine's local time
+    bias, src = local_utc_bias_minutes(art_dir)
+    df.attrs["tz_bias_minutes"], df.attrs["tz_source"] = bias, src
+
+    def off_hours(t):
+        h = pd.to_datetime(t - bias * 60, unit="s", utc=True, errors="coerce").dt.hour
+        return (t > 0) & ((h < WORK_HOURS_START) | (h >= WORK_HOURS_END))
+    df["after_hours_touch"] = (off_hours(raw["m_time"]) | off_hours(raw["a_time"])).astype(int)
+
+    # prefetch match: json + MFT-listed .pf names; 29-char truncated names matched by prefix
+    exact, pref = prefetch_keys(art_dir, raw)
+    up = name.str.upper()
+    hit = up.isin(exact)
+    for k in pref:
+        hit |= up.str.startswith(k)
+    df["per_file_prefetch_hit"] = hit.astype(int)
+
+    feats = [c for c in FEATURES_CLEAN if c in df.columns]
     return df, raw, feats
 
 
@@ -341,7 +481,7 @@ def tool_output(tag, spec, N, feats, res, shaps, df, scores):
     L.append(f" FORENSIQ TRIAGE TOOL OUTPUT - {spec['label']}")
     L.append("=" * 78)
     L.append(f"[+] Files indexed        : {N:,}")
-    L.append(f"[+] Features             : {len(feats)} ({', '.join(f for f in NEW_6 if f not in feats) or 'none'} unavailable)")
+    L.append(f"[+] Features             : {len(feats)} ({', '.join(f for f in (NEW_6 if FEATURE_SET == 'legacy23' else []) if f not in feats) or 'none'} unavailable; set={FEATURE_SET})")
     L.append(f"[+] Review budget (5%)   : {res['Isolation Forest']['m']['flagged']:,} files")
     for model in MODELS:
         r = res[model]
@@ -444,10 +584,12 @@ def main():
         if not a.skip_ablation:
             configs = {"Full (all available)": feats,
                        "Legacy 17 only": [f for f in feats if f in LEGACY_17]}
+            if FEATURE_SET != "legacy23":
+                configs.pop("Legacy 17 only")
             for g, cols in GROUPS.items():
                 configs[f"Only {g}"] = [f for f in feats if f in cols]
                 configs[f"Without {g}"] = [f for f in feats if f not in cols]
-            for nf in NEW_6:
+            for nf in (NEW_6 if FEATURE_SET == "legacy23" else feats):
                 if nf in feats:
                     configs[f"Full minus {nf}"] = [f for f in feats if f != nf]
             for cname, cols in configs.items():

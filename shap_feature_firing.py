@@ -182,7 +182,7 @@ def build_ctx(tag, probe, tmp_cache):
 
     # ---- 23-feature frame (rebuilt through the benchmark code; scratch cache so repo cache is untouched)
     M.CACHE = tmp_cache
-    df, raw, feats = M.build_features(art, tag)
+    df, raw, feats = M.build_features_legacy23(art, tag)  # legacy audit: always the 23-set
     same = np.allclose(df[F17].values.astype(float), macb[F17].values.astype(float))
     ctx.update(df23=df, raw23=raw, feats23=feats, build_matches_pipeline=bool(same))
     Xs = M.standardize(df[feats].values.astype(float))

@@ -1,0 +1,10 @@
+image,model,files,K,targets,target_recall,file_recall,accuracy,precision,f1,timestomping,future_m_flagged,insider,recall_at_5.5pct,recall_at_10pct,seed_mean,seed_std
+Image 1: XP Hacking (SCHARDT.001),Isolation Forest,11773,589,5/7,0.7143,0.4667,0.9499,0.0119,0.0232,YES,0,N/A (external intrusion),0.7143,1.0,0.7143,0.0
+Image 1: XP Hacking (SCHARDT.001),Local Outlier Factor,11773,589,1/7,0.1429,0.1333,0.949,0.0034,0.0066,NO,0,N/A (external intrusion),0.1429,0.5714,,
+Image 1: XP Hacking (SCHARDT.001),One-Class SVM,11773,589,5/7,0.7143,0.4667,0.9499,0.0119,0.0232,YES,0,N/A (external intrusion),0.7143,0.8571,,
+Image 2: Win7 Data Leakage,Isolation Forest,85017,4251,17/19,0.8947,0.7105,0.9502,0.0064,0.0126,YES,0,CONFIRMED,0.8947,0.8947,0.8947,0.0
+Image 2: Win7 Data Leakage,Local Outlier Factor,85017,4251,2/19,0.1053,0.0526,0.9496,0.0005,0.0009,NO,0,NOT DETECTED,0.1053,0.1579,,
+Image 2: Win7 Data Leakage,One-Class SVM,85017,4251,19/19,1.0,0.8947,0.9504,0.008,0.0159,YES,0,CONFIRMED,1.0,1.0,,
+Image 3: Win10 Lone Wolf,Isolation Forest,166110,8306,8/34,0.2353,0.1882,0.9497,0.0019,0.0038,UNVERIFIED,0,NOT DETECTED,0.2647,0.8235,0.3294,0.1075
+Image 3: Win10 Lone Wolf,Local Outlier Factor,166110,8306,2/34,0.0588,0.0588,0.9495,0.0006,0.0012,UNVERIFIED,0,NOT DETECTED,0.0588,0.0882,,
+Image 3: Win10 Lone Wolf,One-Class SVM,166110,8306,25/34,0.7353,0.7647,0.9503,0.0078,0.0155,UNVERIFIED,0,CONFIRMED,0.7353,0.7353,,

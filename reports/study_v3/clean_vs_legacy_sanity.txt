@@ -1,0 +1,6 @@
+img1 legacy23: 23 feats, targets matched 7 (15 files) | 15%: 7/7 | 20%: 7/7
+img1 clean: 17 feats, targets matched 7 (15 files) | 15%: 6/7 | 20%: 6/7
+img2 legacy23: 23 feats, targets matched 19 (38 files) | 15%: 17/19 | 20%: 19/19
+img2 clean: 17 feats, targets matched 19 (38 files) | 15%: 18/19 | 20%: 18/19
+img3 legacy23: 23 feats, targets matched 34 (85 files) | 15%: 33/34 | 20%: 34/34
+img3 clean: 17 feats, targets matched 34 (85 files) | 15%: 28/34 | 20%: 32/34
