@@ -11,10 +11,10 @@ import { Pr } from '../lib/Prose'
 
 const TW = (s, fs) => s.length * fs * 0.56
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v))
-const imgName = (img) => short(D.images[img].label)
+export const imgName = (img) => short(D.images[img].label)
 
 /* width of an element, kept current with a ResizeObserver */
-function useBox(ref) {
+export function useBox(ref) {
   const [w, setW] = useState(0)
   useLayoutEffect(() => {
     const el = ref.current; if (!el) return
@@ -280,7 +280,7 @@ const YieldFig = memo(function YieldFig({ img, pct }) {
 const v0 = (arr, i) => i >= 0 && arr[i] > 0.05
 
 /* ---------------- figure frame ---------------- */
-function Fig({ n, name, caption, children }) {
+export function Fig({ n, name, caption, children }) {
   const ref = useRef()
   const dl = () => exportSvg(ref.current, 'forensiq-figure-' + n + '-' + name)
   return (
@@ -316,25 +316,27 @@ function Readout({ img, b, hovering }) {
 
 /* ---------------- ledger ---------------- */
 const budgetCell = (b) => (b == null ? 'never' : fb(b))
-function Ledger({ img }) {
+function Ledger({ img, pct }) {
+  const b = pct * 100
   const rows = []
   IMGS.forEach((im) => curveSet(im).forEach((c, i) => {
-    const a5 = c.at(5), a15 = c.at(15)
-    rows.push({ im, first: i === 0, c, k90: c.knee, pl: c.plateau, dead15: c.dead(15), fa5: a5.fa, fa15: a15.fa, pr15: a15.prec })
+    const ab = c.at(Math.max(b, 5)), a5 = c.at(5), a15 = c.at(15)
+    rows.push({ im, first: i === 0, c, k90: c.knee, pl: c.plateau, deadB: c.dead(b), faB: ab.fa, prB: ab.prec, fa5: a5.fa, fa15: a15.fa })
   }))
   return (
     <div className="tbl ledger"><table>
-      <thead><tr><th>Disk</th><th>Model</th><th className="n">Budget for 90%</th><th className="n">Budget for last evidence</th><th className="n">Dead reads at 15%</th><th className="n">False alarms at 5%</th><th className="n">False alarms at 15%</th><th className="n">Precision at 15%</th></tr></thead>
+      <thead><tr><th>Disk</th><th>Model</th><th className="n">Budget for 90%</th><th className="n">Budget for last evidence</th><th className="n">Dead reads at {fb(b)}</th><th className="n">False alarms at {fb(b)}</th><th className="n">Precision at {fb(b)}</th><th className="n">False alarms at strict 5%</th><th className="n">False alarms at 15%</th></tr></thead>
       <tbody>{rows.map((r) => (
         <tr key={r.im + r.c.cfg.id} className={(r.first ? 'grp' : '') + (r.im === img ? ' cur' : '')}>
           <td>{r.first ? imgName(r.im) : ''}</td>
           <td><i className="key" style={{ background: 'var(' + r.c.cfg.v + ')' }}></i>{r.c.cfg.lab}</td>
           <td className="n">{budgetCell(r.k90)}</td>
           <td className="n">{r.pl.partial ? 'tops out at ' + fn1(r.pl.fm) + '%' : fb(r.pl.b)}</td>
-          <td className="n">{r.dead15 > 0 ? fmt(Math.round(r.dead15)) : 'none'}</td>
+          <td className="n">{r.deadB > 0 ? fmt(Math.round(r.deadB)) : 'none'}</td>
+          <td className="n">{fmt(Math.round(r.faB))}</td>
+          <td className="n">{r.prB == null ? '–' : r.prB.toFixed(2) + '%'}</td>
           <td className="n">{fmt(Math.round(r.fa5))}</td>
           <td className="n">{fmt(Math.round(r.fa15))}</td>
-          <td className="n">{r.pr15 == null ? '–' : r.pr15.toFixed(2) + '%'}</td>
         </tr>))}</tbody></table></div>
   )
 }
@@ -399,7 +401,7 @@ export default function Plateau({ img, m, pct }) {
       </div>
       <div className="ledgerwrap">
         <h3 className="cap">Where each model stops finding evidence</h3>
-        <Ledger img={img} />
+        <Ledger img={img} pct={pct} />
         <Pr><p className="small" style={{ marginTop: 10 }}>Dead reads are the files read after a model’s last evidence was found. False alarms are files read that are not evidence. Image 1 rows use the exact ranks of one run; Images 2 and 3 use sweep means from 5% upward.</p></Pr>
       </div>
     </Section>

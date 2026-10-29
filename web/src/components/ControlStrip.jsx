@@ -14,7 +14,7 @@ export default function ControlStrip(p) {
       <div className="fld ruler"><label htmlFor="bud">Budget</label>
         <div className="ruler-in">
           <input id="bud" type="range" min={MIN} max={MAX} step="0.1" value={p.pct * 100} onChange={(e) => p.setPct(parseFloat(e.target.value) / 100)} aria-valuetext={pc(p.pct) + ' of files'} />
-          <div className="ticks" aria-hidden="true">{[5, 10, 15, 20].map((v) => <i key={v} title={v === 15 ? '15%: the recommended budget' : undefined} className={v === 15 ? 'rec' : ''} style={{ left: pos(v) + '%' }}><span>{v === 15 ? '15%' : v}</span></i>)}</div>
+          <div className="ticks" aria-hidden="true">{[[5, '5% strict', '5%: the strict equal-budget comparison point'], [10, '10', ''], [15, '15% recommended', '15%: the recommended budget'], [20, '20', '']].map(([v, t, ttl]) => <i key={v} title={ttl || undefined} className={v === 15 ? 'rec' : v === 5 ? 'strict' : ''} style={{ left: pos(v) + '%' }}><span>{t}</span></i>)}</div>
         </div>
         <output htmlFor="bud">{pc(p.pct)} · {fmt(p.K)} files</output></div>
     </div></div></div>

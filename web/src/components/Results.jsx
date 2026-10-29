@@ -30,36 +30,48 @@ function Curve(p) {
   )
 }
 
+const kOf = (x, pct) => Math.max(1, Math.round(pct * x.files))
+const caught = (x, m, K) => x.targets.filter((t) => t.ranks[m] <= K).length
+
 export default function Results(p) {
-  const im = p.im, allRef = useRef()
-  useGrow(allRef, [])
+  const im = p.im, allRef = useRef(), K = kOf(im, p.pct)
+  useGrow(allRef, [p.pct])
   return (
-    <Section id="recall" letter="D" title="How much evidence for how much reading?">
-      <Pr note={<>Accuracy sits near 95% for every model by construction: a fixed 5% budget on rare evidence. Recall, precision and F1 are the numbers that separate the models.</>}>
-        <p>Recall of the evidence targets as the examiner is allowed to read more files. The dashed line is the budget you chose above.</p>
+    <Section id="recall" letter="G" title="How much evidence for how much reading?">
+      <Pr note={<>The 5% tables further down are the equal-budget comparison. Accuracy sits near 95% for every model there by construction, because 95% of files are left unflagged. Recall, precision and F1 are the numbers that separate the models.</>}>
+        <p>Recall of the evidence targets as the examiner is allowed to read more files, up to 20% of the disk. The dashed line is the budget you chose above, {pc(p.pct)}. The Plateau exhibit above follows the same curves out to 100%.</p>
       </Pr>
       <div className="chartwrap"><Curve im={im} img={p.img} m={p.m} pct={p.pct} /></div>
       <div className="split">
         <div>
-          <h3 className="cap">{short(im.label)} at the 5% budget ({fmt(im.K5)} of {fmt(im.files)} files)</h3>
-          <div className="tbl"><table><thead><tr><th>Model</th><th className="n">Targets</th><th className="n">Recall</th><th className="n">Precision</th><th className="n">F1</th><th className="n">Accuracy</th></tr></thead><tbody>{MODELS.map((m, i) => {
-            const x = im.metrics[m]
-            return <tr key={m}><td><i className="key" style={{ background: 'var(' + MVAR[i] + ')' }}></i>{SHORT[i]}</td><td className="n">{x.targets}</td><td className="n">{pc(x.target_recall)}</td><td className="n">{pc(x.precision, 2)}</td><td className="n">{pc(x.f1, 2)}</td><td className="n">{pc(x.accuracy, 2)}</td></tr>
+          <h3 className="cap">{short(im.label)} at your {pc(p.pct)} budget ({fmt(K)} of {fmt(im.files)} files)</h3>
+          <div className="tbl"><table><thead><tr><th>Model</th><th className="n">Targets caught</th><th className="n">Recall</th><th className="n">Files read</th><th className="n">False alarms</th></tr></thead><tbody>{MODELS.map((m, i) => {
+            const c = caught(im, m, K), n = im.targets.length
+            return <tr key={m}><td><i className="key" style={{ background: 'var(' + MVAR[i] + ')' }}></i>{SHORT[i]}</td><td className="n">{c}/{n}</td><td className="n">{pc(c / n)}</td><td className="n">{fmt(K)}</td><td className="n">{fmt(K - c)}</td></tr>
           })}</tbody></table></div>
+          <p className="small" style={{ marginTop: 8 }}>Counted from the full-disk ranks of one run (seed 42). A false alarm is a file read that is not a target.</p>
         </div>
         <div ref={allRef}>
-          <h3 className="cap">All three disks at the 5% budget</h3>
+          <h3 className="cap">All three disks at your {pc(p.pct)} budget</h3>
           <div style={{ display: 'grid', gap: 22 }}>{IMGS.map((t) => {
-            const x = D.images[t], best = Math.max.apply(null, MODELS.map((m) => parseFloat(x.metrics[m].target_recall)))
+            const x = D.images[t], Kx = kOf(x, p.pct), n = x.targets.length, cs = MODELS.map((m) => caught(x, m, Kx)), best = Math.max.apply(null, cs)
             return (
-              <div key={t}><div style={{ font: '500 16px var(--serif)' }}>{short(x.label)} <span className="small">{x.label.split(': ')[1] || ''} · {fmt(x.files)} files · {x.targets.length} targets</span></div>
+              <div key={t}><div style={{ font: '500 16px var(--serif)' }}>{short(x.label)} <span className="small">{x.label.split(': ')[1] || ''} · {fmt(x.files)} files · {n} targets</span></div>
                 {MODELS.map((m, i) => {
-                  const r = parseFloat(x.metrics[m].target_recall)
-                  return <div key={m} className={'mrow' + (r === best ? ' best' : '')}><span className="mn">{SHORT[i]}</span><div className="bar1"><i data-grow="1" data-w={r * 100} style={{ width: (r * 100) + '%', background: 'var(' + MVAR[i] + ')' }}></i></div><span className="num">{x.metrics[m].targets}</span></div>
+                  const r = cs[i] / n
+                  return <div key={m} className={'mrow' + (cs[i] === best ? ' best' : '')}><span className="mn">{SHORT[i]}</span><div className="bar1"><i data-grow="1" data-w={r * 100} style={{ width: (r * 100) + '%', background: 'var(' + MVAR[i] + ')' }}></i></div><span className="num">{cs[i]}/{n}</span></div>
                 })}</div>
             )
           })}</div>
         </div>
+      </div>
+      <div className="ledgerwrap">
+        <h3 className="cap">Equal-budget comparison at a strict 5%</h3>
+        <div className="tbl ledger"><table><thead><tr><th>Disk</th><th>Model</th><th className="n">Targets</th><th className="n">Recall</th><th className="n">Precision</th><th className="n">F1</th><th className="n">Accuracy</th></tr></thead><tbody>{IMGS.map((t) => MODELS.map((m, i) => {
+          const x = D.images[t], y = x.metrics[m]
+          return <tr key={t + m} className={i === 0 ? 'grp' : ''}><td>{i === 0 ? short(x.label) + ' · ' + fmt(x.K5) + ' of ' + fmt(x.files) + ' files' : ''}</td><td><i className="key" style={{ background: 'var(' + MVAR[i] + ')' }}></i>{SHORT[i]}</td><td className="n">{y.targets}</td><td className="n">{pc(y.target_recall)}</td><td className="n">{pc(y.precision, 2)}</td><td className="n">{pc(y.f1, 2)}</td><td className="n">{pc(y.accuracy, 2)}</td></tr>
+        }))}</tbody></table></div>
+        <p className="small" style={{ marginTop: 10 }}>This table is fixed at 5% on purpose: it is the one budget at which all three models were scored on the same footing, and it does not move with the slider. Precision, F1 and accuracy are file-level and were only computed at 5%.</p>
       </div>
     </Section>
   )

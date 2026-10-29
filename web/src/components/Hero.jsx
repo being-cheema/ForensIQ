@@ -1,17 +1,18 @@
 import { useMemo } from 'react'
 import { D, MODELS, SHORT, MVAR, IMGS, short, fmt, pc } from '../lib/data'
 import Num from '../lib/Num'
+import { curve } from '../lib/curves'
 import LogStrip from './LogStrip'
 
 export default function Hero(p) {
   const info = useMemo(() => {
-    const tot = IMGS.reduce((a, t) => a + D.images[t].files, 0), best = [0, 0, 0]
+    const tot = IMGS.reduce((a, t) => a + D.images[t].files, 0)
     const biggest = Math.max.apply(null, IMGS.map((t) => D.images[t].files))
-    IMGS.forEach((t) => { MODELS.forEach((m, i) => { best[i] += parseFloat(D.images[t].metrics[m].target_recall) }) })
-    const mean = best.map((b) => b / IMGS.length)
-    return { tot, biggest, mean, top: mean.indexOf(Math.max.apply(null, mean)) }
+    return { tot, biggest }
   }, [])
-  const top = info.top, im = D.images[p.img]
+  /* mean evidence recall over the three disks at the selected budget, per model */
+  const mean = useMemo(() => MODELS.map((m, i) => IMGS.reduce((a, t) => a + curve(t, ['IF-23', 'LOF-23', 'OCSVM-23'][i]).at(p.pct * 100).recall, 0) / IMGS.length / 100), [p.pct])
+  const top = mean.indexOf(Math.max.apply(null, mean)), im = D.images[p.img]
   const date = new Date().toISOString().slice(0, 10)
   return (
     <header className="wrap">
@@ -28,8 +29,8 @@ export default function Hero(p) {
           <p className="lede">A forensic examiner can't read every file on a disk: the largest here holds {fmt(info.biggest)}. Each model ranks every file on 23 forensic features, and the examiner reads only the top slice. Pick a disk image, pick a model, and watch it triage the real files.</p>
           <div className="summary">
             <div><b><Num value={info.tot} fmt={fmt} intro={true} delay={300} /></b><span>files across {IMGS.length} real disk images</span></div>
-            <div><b>5%</b><span>of files an examiner reads per disk in the Lab below</span></div>
-            <div><b style={{ color: 'var(' + MVAR[top] + ')' }}><Num value={info.mean[top]} fmt={(v) => pc(v, 0)} intro={true} delay={400} /></b><span>mean evidence recall for {SHORT[top]} at a strict 5% budget. The best model changes with the budget: see the verdict.</span></div>
+            <div><b><Num value={p.pct * 100} fmt={(v) => v.toFixed(1) + '%'} /></b><span>of files an examiner reads per disk, set by the budget control below. 15% is the recommended setting.</span></div>
+            <div><b style={{ color: 'var(' + MVAR[top] + ')' }}><Num value={mean[top]} fmt={(v) => pc(v, 0)} intro={true} delay={400} /></b><span>mean evidence recall for {SHORT[top]} across the three disks at a {pc(p.pct)} budget. The best model changes with the budget: see the verdict.</span></div>
           </div>
         </div>
         <LogStrip />

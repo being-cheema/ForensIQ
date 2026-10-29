@@ -15,7 +15,7 @@ export default function Firing(p) {
   useGrow(ref, [p.img])
   const rows = f ? f.features.slice().sort((a, b) => ((b.s23 || {}).shap || 0) - ((a.s23 || {}).shap || 0)) : []
   return (
-    <Section id="firing" letter="J" title="Which features does the model actually use?">
+    <Section id="firing" letter="M" title="Which features does the model actually use?">
       <Pr><p>A feature "fires" when its mean SHAP value is above zero. Features that never vary across files can never fire, whatever happened on the disk.</p></Pr>
       <div ref={ref}>
         {f ? <><div className="fcounts">{f.counts.map((c, i) => (

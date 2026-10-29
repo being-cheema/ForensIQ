@@ -5,6 +5,9 @@ import ControlStrip from './components/ControlStrip'
 import Lab from './lab/Lab'
 import Verdict from './components/Verdict'
 import Plateau from './components/Plateau'
+import ToolOutput from './components/ToolOutput'
+import Reliability from './components/Reliability'
+import TrustXai from './components/TrustXai'
 import Results from './components/Results'
 import Findings from './components/Findings'
 import Evidence from './components/Evidence'
@@ -19,7 +22,7 @@ import Footer from './components/Footer'
 export default function App() {
   const [img, setImgRaw] = useState(IMGS[0])
   const [m, setM] = useState(2)
-  const [pct, setPct] = useState(0.05)
+  const [pct, setPct] = useState(0.15)
   const [selRaw, setSel] = useState(null)
   const [theme, setTheme] = useState(null)
   const tipRef = useRef()
@@ -40,12 +43,15 @@ export default function App() {
       <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true" focusable="false">
         <filter id="rough" x="-5%" y="-10%" width="110%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n" /><feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" /></filter>
       </svg>
-      <Hero img={img} dark={dark} toggleTheme={() => setTheme(dark ? 'light' : 'dark')} />
+      <Hero img={img} pct={pct} dark={dark} toggleTheme={() => setTheme(dark ? 'light' : 'dark')} />
       <ControlStrip img={img} m={m} pct={pct} K={K} setImg={setImg} setM={setM} setPct={setPct} />
       <main>
         <Lab img={img} m={m} pct={pct} tipRef={tipRef} />
         <Verdict />
         <Plateau img={img} m={m} pct={pct} />
+        <ToolOutput img={img} m={m} pct={pct} />
+        <Reliability img={img} m={m} pct={pct} />
+        <TrustXai img={img} m={m} />
         <Results img={img} im={im} m={m} pct={pct} />
         <Findings im={im} />
         <Evidence img={img} im={im} m={m} K={K} pct={pct} sel={sel} setSel={setSel} />

@@ -12,7 +12,7 @@ export default function Audit() {
   const list = all.filter((c) => af === 0 || (af === 1 ? c.verdict === 'FALSE' : c.verdict === 'TRUE'))
   const nf = all.filter((c) => c.verdict === 'FALSE').length
   return (
-    <Section id="audit" letter="K" title="What the earlier results got right and wrong">
+    <Section id="audit" letter="N" title="What the earlier results got right and wrong">
       <Pr><p>Each claim from the earlier results was re-tested against this run. Many earlier Image 1 numbers matched an older, buggier version of the pipeline; others were not produced by any code.</p></Pr>
       <div className="auditbar">
         <Seg label="Filter claims" items={['All', 'Wrong', 'Correct']} value={af} onPick={setAf} /><span className="small">{nf} of {all.length} checked claims did not hold up.</span></div>
