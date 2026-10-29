@@ -9,30 +9,30 @@
 - Detected OS: **Windows 10 Education** (version 6.3, build 16299)
 - Detected by: SOFTWARE hive, Microsoft\Windows NT\CurrentVersion: ProductName, CurrentVersion, CurrentBuildNumber, CSDVersion. Path check: profiles under 'Users' (14191 paths); system folder 'Windows' (128505).
 - Shell for the scripts: Windows PowerShell 5.1
-- Operating point: Isolation Forest, 23 features, 15% budget (recommended); the 20% budget is shown after it.
+- Operating point: Isolation Forest, 19 features, seed 42; the 20% budget is the headline, the 15% budget is shown for comparison.
 
-## 15% budget (24,916 flagged files) - recommended
+## 15% budget (24,916 flagged files)
 
 ### 1. Removable-device and cloud-sync artifacts
 
-- Technique: T1052.001 Exfiltration Over Physical Medium: Exfiltration over USB
-- Confidence: **high**. 22 client-specific files from Box Sync, Google Drive, Dropbox are in the flagged set (963 flagged files in all).
+- Technique: T1567.002 Exfiltration Over Web Service: Exfiltration to Cloud Storage
+- Confidence: **high**. 23 client-specific files from Box Sync, Google Drive, Dropbox are in the flagged set (1030 flagged files in all).
 - Scope: live environment the disk came from - never run on the evidence
 - Requires approval: yes, it contains system-changing commands
-- Trigger: 963 flagged files; 22 client-specific, 3 generic OS files among the 25 listed.
+- Trigger: 1030 flagged files; 23 client-specific, 2 generic OS files among the 25 listed.
 
 Supporting flagged files (rank, path):
 
-- 20  `/Users/jcloudy/AppData/Local/Microsoft/OneDrive/Update/OneDriveSetup.exe`
-- 130  `/Program Files/Box/Box Sync/cacert.pem`
-- 144  `/Users/jcloudy/AppData/Local/Microsoft/OneDrive/18.044.0301.0006/OneDriveSetup.exe`
-- 202  `/Users/jcloudy/AppData/Local/Google/Drive/user_default/sync_log.log`
-- 215  `/Program Files/Google/Drive/googledrivesync.exe`
-- 238  `/Users/jcloudy/AppData/Local/Box Sync/Logs/Box Sync-4.0.7900.log`
-- 248  `/Program Files/Box/Box Sync/BoxSync.exe`
-- 266  `/Users/jcloudy/AppData/Local/Microsoft/OneDrive/OneDrive.exe`
-- 479  `/Users/jcloudy/AppData/Local/Box Sync/Logs/Box Sync-4.0.7886.log`
-- 701  `/Users/jcloudy/AppData/Local/Google/Drive/user_default/cloud_graph/cloud_graph.db`
+- 74  `/Users/jcloudy/AppData/Local/Microsoft/OneDrive/Update/OneDriveSetup.exe`
+- 209  `/Users/jcloudy/AppData/Local/Microsoft/OneDrive/18.044.0301.0006/OneDriveSetup.exe`
+- 212  `/Users/jcloudy/AppData/Local/Box Sync/Logs/Box Sync-4.0.7900.log`
+- 235  `/Users/jcloudy/AppData/Local/Google/Drive/user_default/sync_log.log`
+- 313  `/Program Files (x86)/Dropbox/Update/Download/{CC46080E-4C33-4981-859A-BBA2F780F31E}/46.4.65/DropboxClient_46.4.65.exe`
+- 462  `/Program Files/Google/Drive/googledrivesync.exe`
+- 480  `/Program Files/Box/Box Sync/cacert.pem`
+- 490  `/Program Files (x86)/Dropbox/Client/Qt5WebEngineCore.dll`
+- 496  `/Program Files/Box/Box Sync/BoxSync.exe`
+- 508  `/Program Files (x86)/Dropbox/Client/icudt56.dll`
 
 Actions:
 
@@ -78,7 +78,7 @@ Commands:
 - Show the Box Sync sync client folder and its logs [READ-ONLY]
 
   ```powershell
-  Get-ChildItem -Force -Recurse "C:\Program Files\Box\Box Sync" -ErrorAction SilentlyContinue | Where-Object { $_.Extension -match "\.(log|db)$" } | Sort-Object LastWriteTime -Descending | Select-Object -First 30 FullName, LastWriteTime
+  Get-ChildItem -Force -Recurse "C:\Users\jcloudy\AppData\Local\Box Sync" -ErrorAction SilentlyContinue | Where-Object { $_.Extension -match "\.(log|db)$" } | Sort-Object LastWriteTime -Descending | Select-Object -First 30 FullName, LastWriteTime
   ```
 
 - List local accounts [READ-ONLY]
@@ -86,14 +86,6 @@ Commands:
   ```bat
   net user
   ```
-
-- Block new USB storage devices (changes the system) [CHANGES SYSTEM - requires approval]
-
-  ```bat
-  reg add HKLM\SYSTEM\CurrentControlSet\Services\USBSTOR /v Start /t REG_DWORD /d 4 /f
-  ```
-
-  Note: Stops all USB mass storage, including legitimate devices; set Start back to 3 to undo. Needs a policy decision.
 
 - Reset the password of jcloudy, whose profile holds the flagged files (changes the system) [CHANGES SYSTEM - requires approval]
 
@@ -113,16 +105,16 @@ Commands:
 
 Supporting flagged files (rank, path):
 
-- 2,084  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Downloads.lnk`
-- 2,232  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/DemGun.lnk`
-- 2,471  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/OneDrive.lnk`
-- 2,698  `/Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Planning.LNK`
-- 2,700  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Planning.lnk`
-- 2,807  `/Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Desktop.LNK`
-- 2,915  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/AIRPORT INFORMATION.lnk`
-- 2,950  `/Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/AIRPORT INFORMATION.LNK`
-- 2,951  `/Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Templates.LNK`
-- 3,167  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Sheep.lnk`
+- 1,308  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Downloads.lnk`
+- 3,016  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/OneDrive.lnk`
+- 3,406  `/Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Planning.LNK`
+- 3,904  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Sheep.lnk`
+- 4,054  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/DemGun.lnk`
+- 4,243  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Planning.lnk`
+- 4,328  `/Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Desktop.LNK`
+- 4,568  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/DeathToll.lnk`
+- 4,930  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/AIRPORT INFORMATION.lnk`
+- 5,104  `/Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Templates.LNK`
 
 Actions:
 
@@ -157,20 +149,20 @@ Commands:
 - Confidence: **low**. Low: not enriched, likely normal. The flagged set has a lower timestamp-gap rate than the whole disk (enrichment 0.82).
 - Scope: live environment the disk came from - never run on the evidence
 - Requires approval: no system-changing command is offered
-- Trigger: 11185 flagged files; enrichment 0.82 over the disk rate (46.19% of flagged against 56.62% of the disk).
+- Trigger: 10838 flagged files; enrichment 0.82 over the disk rate (46.59% of flagged against 56.62% of the disk).
 
 Supporting flagged files (rank, path):
 
-- 4  `/Program Files (x86)/Microsoft.NET/Primary Interop Assemblies/Microsoft.mshtml.dll`
-- 19  `/Program Files (x86)/Common Files/microsoft shared/VSTO/10.0/VSTOLoader.dll`
-- 21  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/AddInViews/Microsoft.VisualStudio.Tools.Applications.Runtime.v9.0.dll`
-- 22  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/HostSideAdapters/Microsoft.VisualStudio.Tools.Office.Word.HostAdapter.v10.0.dll`
-- 23  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/HostSideAdapters/Microsoft.VisualStudio.Tools.Office.HostAdapter.v10.0.dll`
-- 24  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/AddInViews/Microsoft.Office.Tools.v9.0.dll`
-- 29  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/Contracts/Microsoft.VisualStudio.Tools.Office.Contract.v9.0.dll`
-- 37  `/Program Files (x86)/Common Files/microsoft shared/VSTA/AppInfoDocument/Microsoft.VisualStudio.Tools.Office.AppInfoDocument/Microsoft.VisualStudio.Tools.Office.AppInfoDocument.v9.0.dll`
-- 41  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/AddInSideAdapters/Microsoft.VisualStudio.Tools.Applications.AddInAdapter.v10.0.dll`
-- 42  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/AddInSideAdapters/Microsoft.VisualStudio.Tools.Applications.AddInAdapter.v9.0.dll`
+- 7  `/Program Files (x86)/Microsoft.NET/Primary Interop Assemblies/Microsoft.mshtml.dll`
+- 91  `/Program Files (x86)/Microsoft.NET/Primary Interop Assemblies/adodb.dll`
+- 120  `/Windows/System32/config/COMPONENTS`
+- 122  `/Program Files (x86)/Microsoft.NET/Primary Interop Assemblies/stdole.dll`
+- 129  `/Program Files (x86)/Microsoft.NET/Primary Interop Assemblies/Microsoft.stdformat.dll`
+- 130  `/Users/jcloudy/AppData/Roaming/Microsoft/InputMethod/Chs/ChsPinyinEUDP_RoamUp.lex`
+- 131  `/Program Files (x86)/Common Files/microsoft shared/VSTA/AppInfoDocument/Microsoft.VisualStudio.Tools.Office.AppInfoDocument/Microsoft.VisualStudio.Tools.Office.AppInfoDocument.v9.0.dll`
+- 132  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/AddInViews/Microsoft.VisualStudio.Tools.Applications.Runtime.v9.0.dll`
+- 138  `/Windows/SysWOW64/opencl.dll`
+- 140  `/Users/jcloudy/AppData/Roaming/Microsoft/InputMethod/Chs/ChsPinyinUDL_RoamUp.dat`
 
 Actions:
 
@@ -194,16 +186,16 @@ Commands:
   Get-Item -Force "C:\Program Files (x86)\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
   ```
 
-- Read the visible timestamps of VSTOLoader.dll [READ-ONLY]
+- Read the visible timestamps of adodb.dll [READ-ONLY]
 
   ```powershell
-  Get-Item -Force "C:\Program Files (x86)\Common Files\microsoft shared\VSTO\10.0\VSTOLoader.dll" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
+  Get-Item -Force "C:\Program Files (x86)\Microsoft.NET\Primary Interop Assemblies\adodb.dll" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
   ```
 
-- Read the visible timestamps of Microsoft.VisualStudio.Tools.Applications.Runtime.v9.0.dll [READ-ONLY]
+- Read the visible timestamps of stdole.dll [READ-ONLY]
 
   ```powershell
-  Get-Item -Force "C:\Program Files (x86)\Common Files\microsoft shared\VSTA\Pipeline.v10.0\AddInViews\Microsoft.VisualStudio.Tools.Applications.Runtime.v9.0.dll" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
+  Get-Item -Force "C:\Program Files (x86)\Microsoft.NET\Primary Interop Assemblies\stdole.dll" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
   ```
 
 - Show the current file-system audit policy [READ-ONLY]
@@ -217,28 +209,28 @@ Not triggered:
 - Wiper or cleaner executed: 0 of the 24,916 flagged files matched: (a) no wiper, cleaner or shredder executable or Prefetch record among the flagged files.
 - Hacking tools: 0 of the 24,916 flagged files matched: (d) no hacking-tool name among the flagged files.
 
-## 20% budget (33,222 flagged files)
+## 20% budget (33,222 flagged files) - headline
 
 ### 1. Removable-device and cloud-sync artifacts
 
-- Technique: T1052.001 Exfiltration Over Physical Medium: Exfiltration over USB
-- Confidence: **high**. 22 client-specific files from Box Sync, Google Drive, Dropbox are in the flagged set (1317 flagged files in all).
+- Technique: T1567.002 Exfiltration Over Web Service: Exfiltration to Cloud Storage
+- Confidence: **high**. 23 client-specific files from Box Sync, Google Drive, Dropbox are in the flagged set (1442 flagged files in all).
 - Scope: live environment the disk came from - never run on the evidence
 - Requires approval: yes, it contains system-changing commands
-- Trigger: 1317 flagged files; 22 client-specific, 3 generic OS files among the 25 listed.
+- Trigger: 1442 flagged files; 23 client-specific, 2 generic OS files among the 25 listed.
 
 Supporting flagged files (rank, path):
 
-- 20  `/Users/jcloudy/AppData/Local/Microsoft/OneDrive/Update/OneDriveSetup.exe`
-- 130  `/Program Files/Box/Box Sync/cacert.pem`
-- 144  `/Users/jcloudy/AppData/Local/Microsoft/OneDrive/18.044.0301.0006/OneDriveSetup.exe`
-- 202  `/Users/jcloudy/AppData/Local/Google/Drive/user_default/sync_log.log`
-- 215  `/Program Files/Google/Drive/googledrivesync.exe`
-- 238  `/Users/jcloudy/AppData/Local/Box Sync/Logs/Box Sync-4.0.7900.log`
-- 248  `/Program Files/Box/Box Sync/BoxSync.exe`
-- 266  `/Users/jcloudy/AppData/Local/Microsoft/OneDrive/OneDrive.exe`
-- 479  `/Users/jcloudy/AppData/Local/Box Sync/Logs/Box Sync-4.0.7886.log`
-- 701  `/Users/jcloudy/AppData/Local/Google/Drive/user_default/cloud_graph/cloud_graph.db`
+- 74  `/Users/jcloudy/AppData/Local/Microsoft/OneDrive/Update/OneDriveSetup.exe`
+- 209  `/Users/jcloudy/AppData/Local/Microsoft/OneDrive/18.044.0301.0006/OneDriveSetup.exe`
+- 212  `/Users/jcloudy/AppData/Local/Box Sync/Logs/Box Sync-4.0.7900.log`
+- 235  `/Users/jcloudy/AppData/Local/Google/Drive/user_default/sync_log.log`
+- 313  `/Program Files (x86)/Dropbox/Update/Download/{CC46080E-4C33-4981-859A-BBA2F780F31E}/46.4.65/DropboxClient_46.4.65.exe`
+- 462  `/Program Files/Google/Drive/googledrivesync.exe`
+- 480  `/Program Files/Box/Box Sync/cacert.pem`
+- 490  `/Program Files (x86)/Dropbox/Client/Qt5WebEngineCore.dll`
+- 496  `/Program Files/Box/Box Sync/BoxSync.exe`
+- 508  `/Program Files (x86)/Dropbox/Client/icudt56.dll`
 
 Actions:
 
@@ -284,7 +276,7 @@ Commands:
 - Show the Box Sync sync client folder and its logs [READ-ONLY]
 
   ```powershell
-  Get-ChildItem -Force -Recurse "C:\Program Files\Box\Box Sync" -ErrorAction SilentlyContinue | Where-Object { $_.Extension -match "\.(log|db)$" } | Sort-Object LastWriteTime -Descending | Select-Object -First 30 FullName, LastWriteTime
+  Get-ChildItem -Force -Recurse "C:\Users\jcloudy\AppData\Local\Box Sync" -ErrorAction SilentlyContinue | Where-Object { $_.Extension -match "\.(log|db)$" } | Sort-Object LastWriteTime -Descending | Select-Object -First 30 FullName, LastWriteTime
   ```
 
 - List local accounts [READ-ONLY]
@@ -292,14 +284,6 @@ Commands:
   ```bat
   net user
   ```
-
-- Block new USB storage devices (changes the system) [CHANGES SYSTEM - requires approval]
-
-  ```bat
-  reg add HKLM\SYSTEM\CurrentControlSet\Services\USBSTOR /v Start /t REG_DWORD /d 4 /f
-  ```
-
-  Note: Stops all USB mass storage, including legitimate devices; set Start back to 3 to undo. Needs a policy decision.
 
 - Reset the password of jcloudy, whose profile holds the flagged files (changes the system) [CHANGES SYSTEM - requires approval]
 
@@ -312,23 +296,23 @@ Commands:
 ### 2. Recently opened documents are recorded for jcloudy
 
 - Technique: none claimed
-- Confidence: **medium**. 64 flagged shortcut / jump-list traces. Recent-file shortcuts exist on every used profile, so this shows access, not copying or removal; it is never rated higher than medium.
+- Confidence: **medium**. 65 flagged shortcut / jump-list traces. Recent-file shortcuts exist on every used profile, so this shows access, not copying or removal; it is never rated higher than medium.
 - Scope: live environment the disk came from - never run on the evidence
 - Requires approval: no system-changing command is offered
-- Trigger: 64 flagged .lnk or jump-list files under profile(s) jcloudy.
+- Trigger: 65 flagged .lnk or jump-list files under profile(s) jcloudy.
 
 Supporting flagged files (rank, path):
 
-- 2,084  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Downloads.lnk`
-- 2,232  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/DemGun.lnk`
-- 2,471  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/OneDrive.lnk`
-- 2,698  `/Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Planning.LNK`
-- 2,700  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Planning.lnk`
-- 2,807  `/Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Desktop.LNK`
-- 2,915  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/AIRPORT INFORMATION.lnk`
-- 2,950  `/Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/AIRPORT INFORMATION.LNK`
-- 2,951  `/Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Templates.LNK`
-- 3,167  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Sheep.lnk`
+- 1,308  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Downloads.lnk`
+- 3,016  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/OneDrive.lnk`
+- 3,406  `/Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Planning.LNK`
+- 3,904  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Sheep.lnk`
+- 4,054  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/DemGun.lnk`
+- 4,243  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Planning.lnk`
+- 4,328  `/Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Desktop.LNK`
+- 4,568  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/DeathToll.lnk`
+- 4,930  `/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/AIRPORT INFORMATION.lnk`
+- 5,104  `/Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Templates.LNK`
 
 Actions:
 
@@ -360,27 +344,27 @@ Commands:
 ### 3. File creation times earlier than their filename-record time
 
 - Technique: T1070.006 Indicator Removal: Timestomp
-- Confidence: **low**. Low: not enriched, likely normal. The flagged set has a lower timestamp-gap rate than the whole disk (enrichment 0.72).
+- Confidence: **low**. Low: not enriched, likely normal. The flagged set has a lower timestamp-gap rate than the whole disk (enrichment 0.77).
 - Scope: live environment the disk came from - never run on the evidence
 - Requires approval: no system-changing command is offered
-- Trigger: 12650 flagged files; enrichment 0.72 over the disk rate (40.83% of flagged against 56.62% of the disk).
+- Trigger: 12509 flagged files; enrichment 0.77 over the disk rate (43.32% of flagged against 56.62% of the disk).
 
 Supporting flagged files (rank, path):
 
-- 4  `/Program Files (x86)/Microsoft.NET/Primary Interop Assemblies/Microsoft.mshtml.dll`
-- 19  `/Program Files (x86)/Common Files/microsoft shared/VSTO/10.0/VSTOLoader.dll`
-- 21  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/AddInViews/Microsoft.VisualStudio.Tools.Applications.Runtime.v9.0.dll`
-- 22  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/HostSideAdapters/Microsoft.VisualStudio.Tools.Office.Word.HostAdapter.v10.0.dll`
-- 23  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/HostSideAdapters/Microsoft.VisualStudio.Tools.Office.HostAdapter.v10.0.dll`
-- 24  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/AddInViews/Microsoft.Office.Tools.v9.0.dll`
-- 29  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/Contracts/Microsoft.VisualStudio.Tools.Office.Contract.v9.0.dll`
-- 37  `/Program Files (x86)/Common Files/microsoft shared/VSTA/AppInfoDocument/Microsoft.VisualStudio.Tools.Office.AppInfoDocument/Microsoft.VisualStudio.Tools.Office.AppInfoDocument.v9.0.dll`
-- 41  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/AddInSideAdapters/Microsoft.VisualStudio.Tools.Applications.AddInAdapter.v10.0.dll`
-- 42  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/AddInSideAdapters/Microsoft.VisualStudio.Tools.Applications.AddInAdapter.v9.0.dll`
+- 7  `/Program Files (x86)/Microsoft.NET/Primary Interop Assemblies/Microsoft.mshtml.dll`
+- 91  `/Program Files (x86)/Microsoft.NET/Primary Interop Assemblies/adodb.dll`
+- 120  `/Windows/System32/config/COMPONENTS`
+- 122  `/Program Files (x86)/Microsoft.NET/Primary Interop Assemblies/stdole.dll`
+- 129  `/Program Files (x86)/Microsoft.NET/Primary Interop Assemblies/Microsoft.stdformat.dll`
+- 130  `/Users/jcloudy/AppData/Roaming/Microsoft/InputMethod/Chs/ChsPinyinEUDP_RoamUp.lex`
+- 131  `/Program Files (x86)/Common Files/microsoft shared/VSTA/AppInfoDocument/Microsoft.VisualStudio.Tools.Office.AppInfoDocument/Microsoft.VisualStudio.Tools.Office.AppInfoDocument.v9.0.dll`
+- 132  `/Program Files (x86)/Common Files/microsoft shared/VSTA/Pipeline.v10.0/AddInViews/Microsoft.VisualStudio.Tools.Applications.Runtime.v9.0.dll`
+- 138  `/Windows/SysWOW64/opencl.dll`
+- 140  `/Users/jcloudy/AppData/Roaming/Microsoft/InputMethod/Chs/ChsPinyinUDL_RoamUp.dat`
 
 Actions:
 
-1. No containment. Low: not enriched, likely normal. The flagged set has a lower timestamp-gap rate than the whole disk (enrichment 0.72).
+1. No containment. Low: not enriched, likely normal. The flagged set has a lower timestamp-gap rate than the whole disk (enrichment 0.77).
 2. Visible timestamps cannot show this; only an offline comparison of the two time sets in the MFT can. The MFT export keeps whole seconds, so the sub-second test cannot run.
 3. Do not act on this indicator unless another recommendation here also fires.
 
@@ -400,16 +384,16 @@ Commands:
   Get-Item -Force "C:\Program Files (x86)\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
   ```
 
-- Read the visible timestamps of VSTOLoader.dll [READ-ONLY]
+- Read the visible timestamps of adodb.dll [READ-ONLY]
 
   ```powershell
-  Get-Item -Force "C:\Program Files (x86)\Common Files\microsoft shared\VSTO\10.0\VSTOLoader.dll" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
+  Get-Item -Force "C:\Program Files (x86)\Microsoft.NET\Primary Interop Assemblies\adodb.dll" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
   ```
 
-- Read the visible timestamps of Microsoft.VisualStudio.Tools.Applications.Runtime.v9.0.dll [READ-ONLY]
+- Read the visible timestamps of stdole.dll [READ-ONLY]
 
   ```powershell
-  Get-Item -Force "C:\Program Files (x86)\Common Files\microsoft shared\VSTA\Pipeline.v10.0\AddInViews\Microsoft.VisualStudio.Tools.Applications.Runtime.v9.0.dll" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
+  Get-Item -Force "C:\Program Files (x86)\Microsoft.NET\Primary Interop Assemblies\stdole.dll" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
   ```
 
 - Show the current file-system audit policy [READ-ONLY]

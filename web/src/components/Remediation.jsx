@@ -6,7 +6,7 @@ import Seg from '../lib/Seg'
 import { Pr } from '../lib/Prose'
 import { imgName } from './Plateau'
 
-const BUDS = ['15', '20']
+const BUDS = ['20', '15']
 const CONF = { low: 1, medium: 2, high: 3 }
 
 const Conf = ({ c }) => (
@@ -81,13 +81,13 @@ export default function Remediation({ img }) {
           <div><dt>Operating system</dt><dd><b>{o.product}</b> · version {o.version}, build {o.build}{o.servicePack ? ', ' + o.servicePack : ''}</dd></div>
           <div><dt>How it was detected</dt><dd>{o.method}. Path check: {o.pathCheck}.</dd></div>
           <div><dt>Commands written for</dt><dd>{o.shell}; scripts are <span className="mono">.{o.scriptExt}</span></dd></div>
-          <div><dt>Operating point</dt><dd>Isolation Forest, 23 features, {bud}% budget ({fmt(op.K)} files){bud === '15' ? ', the recommended one' : ''}</dd></div>
+          <div><dt>Operating point</dt><dd>Isolation Forest, {R.meta.operatingPoint.features} features, {bud}% budget ({fmt(op.K)} files){bud === '20' ? ', the headline one' : ''}</dd></div>
         </dl>
         <p className="rm-warn"><b>Live environment only.</b> Every step needs human approval. Never run any of it against seized evidence (ISO/IEC 27037).</p>
       </div>
 
       <div className="auditbar rm-bar">
-        <Seg label="Review budget" items={['15% (recommended)', '20%']} value={bi} onPick={setBi} />
+        <Seg label="Review budget" items={['20% (headline)', '15%']} value={bi} onPick={setBi} />
         <Seg label="Show" items={['All recommendations', 'Medium and high only']} value={cf} onPick={setCf} />
       </div>
 
@@ -111,7 +111,7 @@ export default function Remediation({ img }) {
       </div>
       <div className="tbl ledger rm-new"><table>
         <thead><tr><th>New recommendation</th><th>Confidence</th><th>Needs approval</th></tr></thead>
-        <tbody>{d.ops['15'].recs.map((r) => <tr key={r.id}><td>{r.title}</td><td><Conf c={r.confidence} /></td><td>{r.requiresApproval ? 'yes, for the change commands' : 'no change offered'}</td></tr>)}</tbody>
+        <tbody>{d.ops['20'].recs.map((r) => <tr key={r.id}><td>{r.title}</td><td><Conf c={r.confidence} /></td><td>{r.requiresApproval ? 'yes, for the change commands' : 'no change offered'}</td></tr>)}</tbody>
       </table></div>
 
       <h3 className="rel-h"><span>4</span>What the old scripts claimed, against what the code does</h3>

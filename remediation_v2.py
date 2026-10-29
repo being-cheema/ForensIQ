@@ -3,9 +3,10 @@ remediation_v2.py
 =================
 Evidence-based containment advice for the LIVE environment a disk image came from.
 
-Inputs  : web/src/data/trust/{img}.json  (fair verdict indicators, produced by trust_eval.py)
-          runs/{img}/artifacts/registry/SOFTWARE  (OS detection), runs/{img}/artifacts/usb/usb_devices.txt
-Operating point: Isolation Forest, 23 features, 15% review budget (recommended) and 20%.
+Inputs  : the final feature set (19 features), scored by Isolation Forest (seed 42); indicators are computed from the
+          paths and raw times of the flagged files only (trust_eval indicator regexes). Ground truth is never read.
+          runs/{img}/artifacts/registry/SOFTWARE  (OS detection), runs/{img}/artifacts/usb/usb_devices.txt (context only)
+Operating point: Isolation Forest, 19 features, seed 42, 20% review budget (headline) and 15%.
 Outputs : reports/remediation_v2/{img}/playbook.md, per-recommendation .cmd (XP) / .ps1 (Win7, Win10) scripts,
           reports/remediation_v2/AUDIT.md, web/src/data/remediation.json
 
@@ -19,7 +20,13 @@ import json
 import struct
 from collections import OrderedDict
 
+import numpy as np
 import pandas as pd
+
+os.environ.setdefault("FORENSIQ_FEATURE_SET", "final")   # 19 features: 17 clean + 2 burst
+import multimodel_eval as M            # noqa: E402
+import study_v3_common as S            # noqa: E402
+import trust_eval as T                 # noqa: E402  (indicator regexes and the timestomp test only)
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 TRUST = os.path.join(BASE, "web", "src", "data", "trust")
@@ -27,6 +34,9 @@ OUT = os.path.join(BASE, "reports", "remediation_v2")
 JSON_OUT = os.path.join(BASE, "web", "src", "data", "remediation.json")
 MODEL = "Isolation Forest"
 BUDGETS = ["15", "20"]
+HEADLINE = "20"
+SEED = 42
+N_FEATURES = len(M.FEATURES)
 IMGS = ["img1", "img2", "img3"]
 SCOPE = "live environment the disk came from - never run on the evidence"
 STANDARD = "ISO/IEC 27037"
@@ -401,13 +411,11 @@ def rec_cloud(ctx):
     usb = ctx["usb"]
     usb_specific = any(re.search(r"usbstor", p, re.I) and not RX_GENERIC.search(p) for r, p in files)
     n = ind["count"]
-    if nspec == 0 and not usb:
+    if nspec == 0:
+        # the disk-level device list is context only: it is not a flagged-file indicator and never raises confidence
         conf = "low"
         why = (f"The {n} flagged file(s) are only Windows' own setupapi / usbstor files, which exist on every install. "
                "They become evidence only if they list removable devices.")
-    elif nspec == 0 and usb:
-        conf = "medium"
-        why = "Only generic Windows files are flagged, but the extracted device list names removable disks."
     elif not third_party:
         conf = "low"
         why = f"Only {', '.join(clouds)}, which is built into this Windows version, is flagged."
@@ -417,7 +425,7 @@ def rec_cloud(ctx):
     mitre = None
     both = []
     if conf != "low":
-        if usb:
+        if usb_specific:
             both.append("T1052.001")
         if third_party:
             both.append("T1567.002")
@@ -451,7 +459,7 @@ def rec_cloud(ctx):
                        xp=f'dir /a /s /o-d "{d}" | findstr /i ".log .db"', w7=f'PS:Get-ChildItem -Force -Recurse "{d}" -ErrorAction SilentlyContinue | Where-Object {{ $_.Extension -match "\\.(log|db)$" }} | Sort-Object LastWriteTime -Descending | Select-Object -First 30 FullName, LastWriteTime'))
     specs.append(C("List local accounts", "read", xp="net user", w7="net user"))
     if conf != "low":
-        if usb or usb_specific:
+        if usb_specific:
             specs.append(C("Block new USB storage devices (changes the system)", "change",
                            xp='reg add HKLM\\SYSTEM\\CurrentControlSet\\Services\\USBSTOR /v Start /t REG_DWORD /d 4 /f',
                            w7='reg add HKLM\\SYSTEM\\CurrentControlSet\\Services\\USBSTOR /v Start /t REG_DWORD /d 4 /f',
@@ -473,7 +481,7 @@ def rec_cloud(ctx):
             acts.append("Consider resetting the passwords of " + ", ".join(accs[:2]) + " (approval required).")
     else:
         acts.append("No containment is advised: these are generic OS files. Only act if the setup log lists removable disks.")
-    ttl = ("Removable-device and cloud-sync artifacts" if usb or third_party else "Device-install logs are present")
+    ttl = ("Removable-device and cloud-sync artifacts" if usb_specific or third_party else "Device-install logs are present")
     return dict(id="removable-or-cloud", title=ttl, mitre=mitre, mitreName=mitre_name, mitreAlso=[x for x in both[1:]],
                 conf=conf, why=why,
                 trigger={"indicator": "(c) removable-device or cloud-sync artifacts", "count": n,
@@ -597,9 +605,32 @@ INDICATORS = [("a_wiper_executed", "Wiper or cleaner executed", "(a) no wiper, c
               ("d_hacking_tools", "Hacking tools", "(d) no hacking-tool name among the flagged files", rec_hack)]
 
 
-def build_op(tag, d, osinfo, bud):
-    v = d["verdicts"]["perModel"][MODEL][bud]
-    K = d["budgets"][bud]
+_CACHE = {}
+
+
+def flagged_verdicts(tag, seed=SEED, budgets=BUDGETS):
+    """Isolation Forest on the final features -> {bud: (K, verdict)} from the flagged files only.
+    Also returns the ranked order (best first) so callers can reuse the same flagged set."""
+    key = (tag, seed)
+    if key not in _CACHE:
+        D = S.load(tag)
+        sc = S.score(D, MODEL, M.FEATURES, seed)
+        order = np.argsort(-sc, kind="stable")
+        rank_of = np.empty(len(sc), dtype=np.int64)
+        rank_of[order] = np.arange(1, len(sc) + 1)
+        ind = T.indicator_arrays(D["df"], D["raw"])
+        _CACHE[key] = (D, order, rank_of, ind)
+    D, order, rank_of, ind = _CACHE[key]
+    N = D["N"]
+    out = {}
+    for b in budgets:
+        K = int(round(int(b) / 100 * N))
+        out[b] = (K, T.evidence_verdict(order[:K], ind, D["df"], rank_of, N))
+    return out
+
+
+def build_op(tag, osinfo, bud, seed=SEED):
+    K, v = flagged_verdicts(tag, seed)[bud]
     ctx = {"ind": v["indicators"], "ts": v["timestomp"], "os": osinfo, "usb": usb_devices(tag)}
     recs, nt = [], []
     fam = osinfo["family"]
@@ -624,7 +655,7 @@ def build_op(tag, d, osinfo, bud):
             ("id", r["id"]), ("title", r["title"]), ("mitre", r["mitre"]), ("mitreName", r.get("mitreName")),
             ("mitreAlso", r.get("mitreAlso") or []),
             ("trigger", OrderedDict([("indicator", r["trigger"]["indicator"]), ("detail", r["trigger"]["detail"]),
-                                     ("count", r["trigger"]["count"]), ("operatingPoint", f"{MODEL}, 23 features, {bud}% budget ({K:,} files)"),
+                                     ("count", r["trigger"]["count"]), ("operatingPoint", f"{MODEL}, {N_FEATURES} features, seed {seed}, {bud}% budget ({K:,} files)"),
                                      ("files", [OrderedDict([("path", s["path"]), ("rank", s["rank"]), ("generic", s["generic"])]) for s in r["support"]])] +
                                     [(k, r["trigger"][k]) for k in ("tools", "clients", "usbDevices", "enrichment", "fisherP", "flaggedRate", "diskRate", "indicated") if k in r["trigger"]])),
             ("confidence", r["conf"]), ("confidenceWhy", r["why"]),
@@ -689,27 +720,57 @@ CLAIMS = [
 ]
 
 
-def old_run(tag, d):
-    import remediation as R
-    R.FEAT_DIR = os.path.join(BASE, "runs", tag, "features")
-    R.OUT_DIR = os.path.join(BASE, "runs", tag, "artifacts")
-    fired = R.detect_breach_types()
-    f = pd.read_csv(os.path.join(R.FEAT_DIR, "flagged_anomalies.csv"))
-    lg = pd.read_csv(os.path.join(R.FEAT_DIR, "log_gap_features.csv"))
-    vals = {"timestamp_backdating": f"{int((f['delta_mb'] < 60).sum()):,} of {len(f):,} flagged rows have delta_mb < 60",
-            "log_clearing": f"{int((lg['gap'] == 1).sum()):,} no-event hours",
-            "usb_exfiltration": f"usb_devices.txt present; usb_present set on {int(f['usb_present'].sum()):,} of {len(f):,} flagged rows",
-            "credential_dumping": f"credential_tool set on {int(f['credential_tool'].sum()):,} of {len(f):,} flagged rows",
-            "network_beaconing": f"sniffer_tool set on {int(f['sniffer_tool'].sum()):,} of {len(f):,} flagged rows",
-            "malware_detected": f"{int(((f['temp_path'] == 1) & (f['is_exe'] == 1)).sum())} flagged executable(s) in temp paths",
-            "ransomware": f"{int(f['is_archive'].sum())} flagged archives"}
-    rundir = os.path.join(BASE, "runs", tag, "reports", "remediation")
-    made = sorted(os.listdir(rundir)) if os.path.isdir(rundir) else []
+def v1_triggers(tag, idx=None, seed=SEED, budget=20):
+    """The trigger conditions of remediation.py (detect_breach_types), evaluated without writing any script.
+    The flagged rows are the top `budget` % of the final-feature Isolation Forest; the columns the old rules read
+    (credential_tool, sniffer_tool, usb_present ...) come from the legacy 23-feature table of the same disk, joined by path,
+    because the final set no longer carries them.  Returns (fired list, values dict)."""
+    D = S.load(tag)
+    if idx is None:
+        flagged_verdicts(tag, seed, [str(budget)])
+        _, order, _, _ = _CACHE[(tag, seed)]
+        idx = order[:int(round(budget / 100 * D["N"]))]
+    leg_key = ("legacy", tag)
+    if leg_key not in _CACHE:
+        L, _, _ = M.build_features_legacy23(M.IMAGES[tag]["art_dir"], tag)
+        _CACHE[leg_key] = L.drop_duplicates("path").set_index("path")
+    L = _CACHE[leg_key]
+    fl = D["df"].iloc[idx]
+    col = lambda c: fl["path"].map(L[c]).fillna(0).astype(float) if c in L.columns else pd.Series(0.0, index=fl.index)
+    fd = D["df"].iloc[idx]
+    art = M.IMAGES[tag]["art_dir"]
+    lgp = os.path.join(BASE, "runs", tag, "features", "log_gap_features.csv")
+    lg = pd.read_csv(lgp) if os.path.exists(lgp) else pd.DataFrame()
+    cnt = lambda m: int(m.sum())
+    dmb = fd["delta_mb"] if "delta_mb" in fd.columns else col("delta_mb")
+    vals = OrderedDict()
+    fired = []
+    rules = [
+        ("timestamp_backdating", cnt(dmb < 60) > 50, f"{cnt(dmb < 60):,} of {len(fd):,} flagged rows have delta_mb < 60"),
+        ("log_clearing", (lg["gap"] == 1).sum() > 3 if "gap" in lg.columns else False, f"{int((lg['gap'] == 1).sum()) if 'gap' in lg.columns else 0:,} no-event hours"),
+        ("usb_exfiltration", cnt(col("usb_present")) > 0 or os.path.exists(os.path.join(art, "usb", "usb_devices.txt")),
+         f"usb_devices.txt present; usb_present set on {cnt(col('usb_present')):,} of {len(fd):,} flagged rows"),
+        ("credential_dumping", cnt(col("credential_tool")) > 0, f"credential_tool set on {cnt(col('credential_tool')):,} of {len(fd):,} flagged rows"),
+        ("powershell_attack", cnt(col("powershell_exec")) > 0, f"powershell_exec set on {cnt(col('powershell_exec')):,} of {len(fd):,} flagged rows"),
+        ("network_beaconing", cnt(col("sniffer_tool")) > 0, f"sniffer_tool set on {cnt(col('sniffer_tool')):,} of {len(fd):,} flagged rows"),
+        ("malware_detected", cnt((fd["temp_path"] == 1) & (fd["is_exe"] == 1)) > 0, f"{cnt((fd['temp_path'] == 1) & (fd['is_exe'] == 1))} flagged executable(s) in temp paths"),
+        ("ransomware", cnt(fd["is_archive"]) > 20, f"{cnt(fd['is_archive'])} flagged archives"),
+        ("persistence", cnt(col("script_host")) > 0, f"script_host set on {cnt(col('script_host')):,} of {len(fd):,} flagged rows"),
+    ]
+    for b, f, v in rules:
+        vals[b] = v
+        if f:
+            fired.append(b)
+    return fired, vals
+
+
+def old_run(tag):
+    fired, vals = v1_triggers(tag)
     out = []
     for b in fired:
         s, rule, fault = OLD_FAULTS[b]
         out.append(OrderedDict([("breach", b), ("script", s), ("rule", rule), ("value", vals.get(b, "")), ("fault", fault),
-                                ("generated", s in made), ("replacedBy", REPLACED_BY.get(b))]))
+                                ("generated", True), ("replacedBy", REPLACED_BY.get(b))]))
     return out
 
 
@@ -731,7 +792,7 @@ def script_text(r, osinfo, tag, label, bud, K):
         L.append(cm + h)
     L.append(cm + f"Recommendation: {r['title']}  [confidence: {r['confidence']}]")
     L.append(cm + f"Source disk: {label}; detected OS: {osinfo['product']} ({osinfo['version']}, build {osinfo['build']})")
-    L.append(cm + f"Trigger: {r['trigger']['indicator']} at {MODEL} 23 features, {bud}% budget ({K:,} files)")
+    L.append(cm + f"Trigger: {r['trigger']['indicator']} at {MODEL} {N_FEATURES} features, {bud}% budget ({K:,} files)")
     L.append(cm + f"Why this confidence: {r['confidenceWhy']}")
     L.append(cm + "Supporting flagged files (rank  path):")
     for f in r["trigger"]["files"]:
@@ -767,10 +828,10 @@ def playbook_text(tag, label, osinfo, ops):
          + (f", {osinfo['servicePack']}" if osinfo.get('servicePack') else "") + ")",
          f"- Detected by: {osinfo['method']}. Path check: {osinfo['pathCheck']}.",
          f"- Shell for the scripts: {osinfo['shell']}",
-         f"- Operating point: {MODEL}, 23 features, 15% budget (recommended); the 20% budget is shown after it.", ""]
+         f"- Operating point: {MODEL}, {N_FEATURES} features, seed {SEED}; the 20% budget is the headline, the 15% budget is shown for comparison.", ""]
     for bud in BUDGETS:
         op = ops[bud]
-        L += [f"## {bud}% budget ({op['K']:,} flagged files)" + (" - recommended" if bud == "15" else ""), ""]
+        L += [f"## {bud}% budget ({op['K']:,} flagged files)" + (" - headline" if bud == HEADLINE else ""), ""]
         if not op["recs"]:
             L += ["No indicator fired. No recommendation.", ""]
         for i, r in enumerate(op["recs"], 1):
@@ -816,7 +877,7 @@ def audit_md(old):
           "- Win10-only or Server-only features: `Set-ProcessMitigation` (Windows 10), `vssadmin create shadow` (Windows Server), RunAsPPL (Windows 8.1+).",
           "- Nothing in any old script is tied to a specific file. The new version cites the flagged files and their ranks for every recommendation.", "",
           "## 4. What replaced it", "",
-          "`remediation_v2.py` takes only the fair indicators from `trust_eval.py` (Isolation Forest, 23 features, 15% and 20% budgets), detects the Windows version from the SOFTWARE hive, "
+          "`remediation_v2.py` takes only the fair indicators from `trust_eval.py` (Isolation Forest, 19 features, 20% (headline) and 15% budgets), detects the Windows version from the SOFTWARE hive, "
           "and writes advice that is read-only by default, OS-specific, tied to named files, and marked for human approval. See `reports/remediation_v2/<img>/playbook.md`.", ""]
     return "\n".join(L)
 
@@ -826,10 +887,11 @@ def write_all():
     data = OrderedDict()
     oldall = {}
     for tag in IMGS:
-        d = json.load(open(os.path.join(TRUST, f"{tag}.json")))
+        D = S.load(tag)
+        d = {"label": D["label"], "files": int(D["N"])}
         osinfo = detect_os(tag)
-        ops = {b: build_op(tag, d, osinfo, b) for b in BUDGETS}
-        old = old_run(tag, d)
+        ops = {b: build_op(tag, osinfo, b) for b in BUDGETS}
+        old = old_run(tag)
         oldall[tag] = old
         idir = os.path.join(OUT, tag)
         os.makedirs(idir, exist_ok=True)
@@ -837,24 +899,28 @@ def write_all():
             fp = os.path.join(idir, fn)
             if os.path.isfile(fp):
                 os.remove(fp)
+            elif fn.startswith("budget"):
+                import shutil
+                shutil.rmtree(fp)
         with open(os.path.join(idir, "playbook.md"), "w") as f:
             f.write(playbook_text(tag, d["label"], osinfo, ops))
         for bud in BUDGETS:
-            sub = idir if bud == "15" else os.path.join(idir, "budget20")
+            sub = idir if bud == HEADLINE else os.path.join(idir, "budget" + bud)
             os.makedirs(sub, exist_ok=True)
             for i, r in enumerate(ops[bud]["recs"], 1):
                 p = os.path.join(sub, f"{i:02d}_{r['id']}.{osinfo['scriptExt']}")
                 with open(p, "w", newline="") as f:
                     f.write(script_text(r, osinfo, tag, d["label"], bud, ops[bud]["K"]))
         new15 = [{"id": r["id"], "title": r["title"], "confidence": r["confidence"]} for r in ops["15"]["recs"]]
+        new20 = [{"id": r["id"], "title": r["title"], "confidence": r["confidence"]} for r in ops["20"]["recs"]]
         data[tag] = OrderedDict([
             ("label", d["label"]), ("files", d["files"]), ("os", osinfo), ("ops", ops),
-            ("oldVsNew", OrderedDict([("old", old), ("new15", new15),
-                                      ("dropped", [e["breach"] for e in old if e["replacedBy"] is None or e["replacedBy"] not in [n["id"] for n in new15]])]))])
+            ("oldVsNew", OrderedDict([("old", old), ("new15", new15), ("new20", new20),
+                                      ("dropped", [e["breach"] for e in old if e["replacedBy"] is None or e["replacedBy"] not in [n["id"] for n in new20]])]))])
     with open(os.path.join(OUT, "AUDIT.md"), "w") as f:
         f.write(audit_md(oldall))
     meta = OrderedDict([
-        ("operatingPoint", {"model": MODEL, "features": 23, "budgets": [15, 20], "recommended": 15}),
+        ("operatingPoint", {"model": MODEL, "features": N_FEATURES, "featureSet": "final (17 clean + 2 burst)", "seed": SEED, "budgets": [15, 20], "recommended": 20}),
         ("scope", SCOPE), ("standard", STANDARD),
         ("warning", "Advice for the live environment the disk came from. Every step needs human approval. Never run against seized evidence (ISO/IEC 27037)."),
         ("claims", CLAIMS)])

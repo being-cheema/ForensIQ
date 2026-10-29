@@ -21,14 +21,14 @@ Scope: `remediation.py` (unchanged, still used by `run_pipeline.py`) against wha
 
 | Breach type | Rule in the code | Fault | Fired on |
 |---|---|---|---|
-| `timestamp_backdating` | delta_mb < 60 on more than 50 flagged files | A small modify-to-birth gap is the normal state of installed or copied files; it says nothing about $SI vs $FN, and it fires on any large flagged set. | Image 1 (226 of 589 flagged rows have delta_mb < 60); Image 2 (2,467 of 4,240 flagged rows have delta_mb < 60); Image 3 (1,754 of 8,306 flagged rows have delta_mb < 60) |
+| `timestamp_backdating` | delta_mb < 60 on more than 50 flagged files | A small modify-to-birth gap is the normal state of installed or copied files; it says nothing about $SI vs $FN, and it fires on any large flagged set. | Image 1 (1,059 of 2,355 flagged rows have delta_mb < 60); Image 2 (11,504 of 17,003 flagged rows have delta_mb < 60); Image 3 (16,696 of 33,222 flagged rows have delta_mb < 60) |
 | `log_clearing` | more than 3 hours with no log events (log_gap) | Hours with no events are the norm on a workstation that is switched off or idle; it is not an event-log clearing record (event 1102). | Image 2 (17,428 no-event hours); Image 3 (80 no-event hours) |
-| `usb_exfiltration` | usb_devices.txt exists, or any flagged row has usb_present | The extractor always writes usb_devices.txt and usb_present is set for every flagged row, so this fired on every disk whether or not a device was ever connected. | Image 1 (usb_devices.txt present; usb_present set on 589 of 589 flagged rows); Image 2 (usb_devices.txt present; usb_present set on 4,240 of 4,240 flagged rows); Image 3 (usb_devices.txt present; usb_present set on 8,306 of 8,306 flagged rows) |
-| `credential_dumping` | any flagged row has credential_tool | credential_tool is a per-disk constant: either every flagged row has it or none does. It names no file. | Image 1 (credential_tool set on 589 of 589 flagged rows) |
+| `usb_exfiltration` | usb_devices.txt exists, or any flagged row has usb_present | The extractor always writes usb_devices.txt and usb_present is set for every flagged row, so this fired on every disk whether or not a device was ever connected. | Image 1 (usb_devices.txt present; usb_present set on 2,355 of 2,355 flagged rows); Image 2 (usb_devices.txt present; usb_present set on 17,003 of 17,003 flagged rows); Image 3 (usb_devices.txt present; usb_present set on 33,222 of 33,222 flagged rows) |
+| `credential_dumping` | any flagged row has credential_tool | credential_tool is a per-disk constant: either every flagged row has it or none does. It names no file. | Image 1 (credential_tool set on 2,355 of 2,355 flagged rows) |
 | `powershell_attack` | any flagged row has powershell_exec | No file is named; never fired on these disks. | none of the three disks |
-| `network_beaconing` | any flagged row has sniffer_tool | sniffer_tool is a per-disk constant, like credential_tool; no beaconing was measured. | Image 1 (sniffer_tool set on 589 of 589 flagged rows) |
-| `malware_detected` | at least one flagged .exe in a temp path | One executable in a temp folder is routine (installers, updaters); this fires on every disk. | Image 1 (1 flagged executable(s) in temp paths); Image 2 (35 flagged executable(s) in temp paths); Image 3 (34 flagged executable(s) in temp paths) |
-| `ransomware` | more than 20 flagged archives | Archives are not encryption. It fires on the XP hacking case, which contains no ransomware. | Image 1 (44 flagged archives) |
+| `network_beaconing` | any flagged row has sniffer_tool | sniffer_tool is a per-disk constant, like credential_tool; no beaconing was measured. | Image 1 (sniffer_tool set on 2,355 of 2,355 flagged rows) |
+| `malware_detected` | at least one flagged .exe in a temp path | One executable in a temp folder is routine (installers, updaters); this fires on every disk. | Image 1 (1 flagged executable(s) in temp paths); Image 2 (45 flagged executable(s) in temp paths); Image 3 (157 flagged executable(s) in temp paths) |
+| `ransomware` | more than 20 flagged archives | Archives are not encryption. It fires on the XP hacking case, which contains no ransomware. | Image 1 (48 flagged archives); Image 3 (26 flagged archives) |
 | `persistence` | any flagged row has script_host | No file is named; never fired on these disks. | none of the three disks |
 
 ## 3. The scripts cannot run on the source OS
@@ -40,4 +40,4 @@ Scope: `remediation.py` (unchanged, still used by `run_pipeline.py`) against wha
 
 ## 4. What replaced it
 
-`remediation_v2.py` takes only the fair indicators from `trust_eval.py` (Isolation Forest, 23 features, 15% and 20% budgets), detects the Windows version from the SOFTWARE hive, and writes advice that is read-only by default, OS-specific, tied to named files, and marked for human approval. See `reports/remediation_v2/<img>/playbook.md`.
+`remediation_v2.py` takes only the fair indicators from `trust_eval.py` (Isolation Forest, 19 features, 20% (headline) and 15% budgets), detects the Windows version from the SOFTWARE hive, and writes advice that is read-only by default, OS-specific, tied to named files, and marked for human approval. See `reports/remediation_v2/<img>/playbook.md`.

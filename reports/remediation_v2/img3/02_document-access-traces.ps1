@@ -3,19 +3,19 @@
 # Lines marked CHANGES SYSTEM are commented out. Un-commenting one is an approved action, not a default.
 # Recommendation: Recently opened documents are recorded for jcloudy  [confidence: medium]
 # Source disk: Image 3: Win10 Lone Wolf; detected OS: Windows 10 Education (6.3, build 16299)
-# Trigger: (b) shortcut / jump-list traces of documents at Isolation Forest 23 features, 15% budget (24,916 files)
-# Why this confidence: 62 flagged shortcut / jump-list traces. Recent-file shortcuts exist on every used profile, so this shows access, not copying or removal; it is never rated higher than medium.
+# Trigger: (b) shortcut / jump-list traces of documents at Isolation Forest 19 features, 20% budget (33,222 files)
+# Why this confidence: 65 flagged shortcut / jump-list traces. Recent-file shortcuts exist on every used profile, so this shows access, not copying or removal; it is never rated higher than medium.
 # Supporting flagged files (rank  path):
-#      2084  /Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Downloads.lnk
-#      2232  /Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/DemGun.lnk
-#      2471  /Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/OneDrive.lnk
-#      2698  /Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Planning.LNK
-#      2700  /Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Planning.lnk
-#      2807  /Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Desktop.LNK
-#      2915  /Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/AIRPORT INFORMATION.lnk
-#      2950  /Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/AIRPORT INFORMATION.LNK
-#      2951  /Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Templates.LNK
-#      3167  /Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Sheep.lnk
+#      1308  /Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Downloads.lnk
+#      3016  /Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/OneDrive.lnk
+#      3406  /Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Planning.LNK
+#      3904  /Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Sheep.lnk
+#      4054  /Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/DemGun.lnk
+#      4243  /Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Planning.lnk
+#      4328  /Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Desktop.LNK
+#      4568  /Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/DeathToll.lnk
+#      4930  /Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/AIRPORT INFORMATION.lnk
+#      5104  /Users/jcloudy/AppData/Roaming/Microsoft/Office/Recent/Templates.LNK
 
 if ($env:FORENSIQ_LIVE_OK -ne 'YES') { Write-Host 'Set FORENSIQ_LIVE_OK=YES only on the live machine, with approval. Never on evidence.'; exit 1 }
 

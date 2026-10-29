@@ -3,19 +3,19 @@
 # Lines marked CHANGES SYSTEM are commented out. Un-commenting one is an approved action, not a default.
 # Recommendation: Removable-device and cloud-sync artifacts  [confidence: high]
 # Source disk: Image 2: Win7 Data Leakage; detected OS: Windows 7 Ultimate (6.1, build 7601)
-# Trigger: (c) removable-device or cloud-sync artifacts at Isolation Forest 23 features, 15% budget (12,753 files)
-# Why this confidence: 15 client-specific files from Google Drive, iCloud are in the flagged set (36 flagged files in all).
+# Trigger: (c) removable-device or cloud-sync artifacts at Isolation Forest 19 features, 20% budget (17,003 files)
+# Why this confidence: 14 client-specific files from Google Drive, iCloud are in the flagged set (49 flagged files in all).
 # Supporting flagged files (rank  path):
-#        54  /Program Files (x86)/Google/Drive/googledrivesync.exe
-#       238  /Users/informant/Downloads/icloudsetup.exe
-#       264  /Users/informant/AppData/Local/Google/Drive/user_default/sync_log.log
-#       564  /Windows/Prefetch/GOOGLEDRIVESYNC.EXE-841A0D94.pf
-#       645  /Users/informant/Downloads/googledrivesync.exe
-#       732  /Users/informant/AppData/Local/Temp/icloudsetupE88.log
-#       875  /Users/informant/AppData/Local/Google/Drive/user_default/cloud_graph/dict_2.db
-#      1626  /Users/informant/AppData/Local/Google/Drive/user_default/sync_config.db
-#      1742  /Users/informant/AppData/Local/Google/Drive/user_default/snapshot.db
-#      1823  /Users/informant/AppData/Local/Google/Drive/user_default/sync_log.log
+#       153  /Program Files (x86)/Google/Drive/googledrivesync.exe
+#       220  /Users/informant/Downloads/icloudsetup.exe
+#       278  /Users/informant/AppData/Local/Google/Drive/user_default/sync_log.log
+#       505  /Users/informant/AppData/Local/Temp/icloudsetupE88.log
+#       519  /Users/informant/Downloads/googledrivesync.exe
+#       586  /Users/informant/AppData/Local/Google/Drive/user_default/cloud_graph/dict_2.db
+#       980  /Users/informant/AppData/Local/Google/Drive/user_default/sync_config.db
+#      1004  /Users/informant/AppData/Local/Google/Drive/user_default/snapshot.db
+#      1043  /Users/informant/AppData/Local/Google/Drive/user_default/sync_log.log
+#      3417  /Windows/Prefetch/GOOGLEDRIVESYNC.EXE-841A0D94.pf
 
 if ($env:FORENSIQ_LIVE_OK -ne 'YES') { Write-Host 'Set FORENSIQ_LIVE_OK=YES only on the live machine, with approval. Never on evidence.'; exit 1 }
 
@@ -37,10 +37,6 @@ Get-ChildItem -Force -Recurse "C:\Users\informant\Downloads" -ErrorAction Silent
 
 # List local accounts
 net user
-
-# Block new USB storage devices (changes the system)  -- CHANGES SYSTEM (requires approval)
-# Note: Stops all USB mass storage, including legitimate devices; set Start back to 3 to undo. Needs a policy decision.
-# [CHANGES SYSTEM] reg add HKLM\SYSTEM\CurrentControlSet\Services\USBSTOR /v Start /t REG_DWORD /d 4 /f
 
 # Reset the password of informant, whose profile holds the flagged files (changes the system)  -- CHANGES SYSTEM (requires approval)
 # Note: Prompts for the new password; do not put it in the script.

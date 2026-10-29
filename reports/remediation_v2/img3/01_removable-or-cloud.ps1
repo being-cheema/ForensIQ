@@ -3,19 +3,19 @@
 # Lines marked CHANGES SYSTEM are commented out. Un-commenting one is an approved action, not a default.
 # Recommendation: Removable-device and cloud-sync artifacts  [confidence: high]
 # Source disk: Image 3: Win10 Lone Wolf; detected OS: Windows 10 Education (6.3, build 16299)
-# Trigger: (c) removable-device or cloud-sync artifacts at Isolation Forest 23 features, 15% budget (24,916 files)
-# Why this confidence: 22 client-specific files from Box Sync, Google Drive, Dropbox are in the flagged set (963 flagged files in all).
+# Trigger: (c) removable-device or cloud-sync artifacts at Isolation Forest 19 features, 20% budget (33,222 files)
+# Why this confidence: 23 client-specific files from Box Sync, Google Drive, Dropbox are in the flagged set (1442 flagged files in all).
 # Supporting flagged files (rank  path):
-#        20  /Users/jcloudy/AppData/Local/Microsoft/OneDrive/Update/OneDriveSetup.exe
-#       130  /Program Files/Box/Box Sync/cacert.pem
-#       144  /Users/jcloudy/AppData/Local/Microsoft/OneDrive/18.044.0301.0006/OneDriveSetup.exe
-#       202  /Users/jcloudy/AppData/Local/Google/Drive/user_default/sync_log.log
-#       215  /Program Files/Google/Drive/googledrivesync.exe
-#       238  /Users/jcloudy/AppData/Local/Box Sync/Logs/Box Sync-4.0.7900.log
-#       248  /Program Files/Box/Box Sync/BoxSync.exe
-#       266  /Users/jcloudy/AppData/Local/Microsoft/OneDrive/OneDrive.exe
-#       479  /Users/jcloudy/AppData/Local/Box Sync/Logs/Box Sync-4.0.7886.log
-#       701  /Users/jcloudy/AppData/Local/Google/Drive/user_default/cloud_graph/cloud_graph.db
+#        74  /Users/jcloudy/AppData/Local/Microsoft/OneDrive/Update/OneDriveSetup.exe
+#       209  /Users/jcloudy/AppData/Local/Microsoft/OneDrive/18.044.0301.0006/OneDriveSetup.exe
+#       212  /Users/jcloudy/AppData/Local/Box Sync/Logs/Box Sync-4.0.7900.log
+#       235  /Users/jcloudy/AppData/Local/Google/Drive/user_default/sync_log.log
+#       313  /Program Files (x86)/Dropbox/Update/Download/{CC46080E-4C33-4981-859A-BBA2F780F31E}/46.4.65/DropboxClient_46.4.65.exe
+#       462  /Program Files/Google/Drive/googledrivesync.exe
+#       480  /Program Files/Box/Box Sync/cacert.pem
+#       490  /Program Files (x86)/Dropbox/Client/Qt5WebEngineCore.dll
+#       496  /Program Files/Box/Box Sync/BoxSync.exe
+#       508  /Program Files (x86)/Dropbox/Client/icudt56.dll
 
 if ($env:FORENSIQ_LIVE_OK -ne 'YES') { Write-Host 'Set FORENSIQ_LIVE_OK=YES only on the live machine, with approval. Never on evidence.'; exit 1 }
 
@@ -36,14 +36,10 @@ Get-ChildItem -Force -Recurse "C:\Users\jcloudy\AppData\Local\Google\Drive\user_
 Get-ChildItem -Force -Recurse "C:\Program Files (x86)\Dropbox" -ErrorAction SilentlyContinue | Where-Object { $_.Extension -match "\.(log|db)$" } | Sort-Object LastWriteTime -Descending | Select-Object -First 30 FullName, LastWriteTime
 
 # Show the Box Sync sync client folder and its logs
-Get-ChildItem -Force -Recurse "C:\Program Files\Box\Box Sync" -ErrorAction SilentlyContinue | Where-Object { $_.Extension -match "\.(log|db)$" } | Sort-Object LastWriteTime -Descending | Select-Object -First 30 FullName, LastWriteTime
+Get-ChildItem -Force -Recurse "C:\Users\jcloudy\AppData\Local\Box Sync" -ErrorAction SilentlyContinue | Where-Object { $_.Extension -match "\.(log|db)$" } | Sort-Object LastWriteTime -Descending | Select-Object -First 30 FullName, LastWriteTime
 
 # List local accounts
 net user
-
-# Block new USB storage devices (changes the system)  -- CHANGES SYSTEM (requires approval)
-# Note: Stops all USB mass storage, including legitimate devices; set Start back to 3 to undo. Needs a policy decision.
-# [CHANGES SYSTEM] reg add HKLM\SYSTEM\CurrentControlSet\Services\USBSTOR /v Start /t REG_DWORD /d 4 /f
 
 # Reset the password of jcloudy, whose profile holds the flagged files (changes the system)  -- CHANGES SYSTEM (requires approval)
 # Note: Prompts for the new password; do not put it in the script.

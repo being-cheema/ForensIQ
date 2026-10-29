@@ -9,9 +9,9 @@
 - Detected OS: **Windows 7 Ultimate** (version 6.1, build 7601, Service Pack 1)
 - Detected by: SOFTWARE hive, Microsoft\Windows NT\CurrentVersion: ProductName, CurrentVersion, CurrentBuildNumber, CSDVersion. Path check: profiles under 'Users' (5786 paths); system folder 'Windows' (72059).
 - Shell for the scripts: Windows PowerShell 2.0-compatible cmdlets only
-- Operating point: Isolation Forest, 23 features, 15% budget (recommended); the 20% budget is shown after it.
+- Operating point: Isolation Forest, 19 features, seed 42; the 20% budget is the headline, the 15% budget is shown for comparison.
 
-## 15% budget (12,753 flagged files) - recommended
+## 15% budget (12,753 flagged files)
 
 ### 1. A data-wiping or cleaning tool was installed and has run
 
@@ -23,14 +23,14 @@
 
 Supporting flagged files (rank, path):
 
-- 349  `/Program Files/Eraser/Eraser.exe`
-- 657  `/Windows/Prefetch/CCLEANER64.EXE-779BD542.pf`
-- 724  `/Windows/Prefetch/ERASER.EXE-CE61944A.pf`
-- 889  `/Windows/Prefetch/CCSETUP504.EXE-6BA2F6A1.pf`
-- 928  `/Windows/Prefetch/ERASER 6.2.0.2962.EXE-BE552234.pf`
-- 1,333  `/Users/informant/Desktop/Download/Eraser 6.2.0.2962.exe`
-- 1,386  `/Users/informant/Desktop/Download/ccsetup504.exe`
-- 1,432  `/Windows/Installer/{C6E287F1-2E47-45F0-BB51-94F815CFFB48}/Eraser.exe`  (generic OS file)
+- 358  `/Program Files/Eraser/Eraser.exe`
+- 779  `/Users/informant/Desktop/Download/Eraser 6.2.0.2962.exe`
+- 810  `/Users/informant/Desktop/Download/ccsetup504.exe`
+- 3,391  `/Windows/Prefetch/ERASER.EXE-CE61944A.pf`
+- 3,894  `/Windows/Prefetch/CCSETUP504.EXE-6BA2F6A1.pf`
+- 4,927  `/Windows/Prefetch/CCLEANER64.EXE-779BD542.pf`
+- 6,392  `/Windows/Prefetch/ERASER 6.2.0.2962.EXE-BE552234.pf`
+- 2,561  `/Windows/Installer/{C6E287F1-2E47-45F0-BB51-94F815CFFB48}/Eraser.exe`  (generic OS file)
 
 Actions:
 
@@ -79,24 +79,24 @@ Commands:
 
 ### 2. Removable-device and cloud-sync artifacts
 
-- Technique: T1052.001 Exfiltration Over Physical Medium: Exfiltration over USB
-- Confidence: **high**. 15 client-specific files from Google Drive, iCloud are in the flagged set (36 flagged files in all).
+- Technique: T1567.002 Exfiltration Over Web Service: Exfiltration to Cloud Storage
+- Confidence: **high**. 14 client-specific files from Google Drive, iCloud are in the flagged set (47 flagged files in all).
 - Scope: live environment the disk came from - never run on the evidence
 - Requires approval: yes, it contains system-changing commands
-- Trigger: 36 flagged files; 15 client-specific, 10 generic OS files among the 25 listed.
+- Trigger: 47 flagged files; 14 client-specific, 11 generic OS files among the 25 listed.
 
 Supporting flagged files (rank, path):
 
-- 54  `/Program Files (x86)/Google/Drive/googledrivesync.exe`
-- 238  `/Users/informant/Downloads/icloudsetup.exe`
-- 264  `/Users/informant/AppData/Local/Google/Drive/user_default/sync_log.log`
-- 564  `/Windows/Prefetch/GOOGLEDRIVESYNC.EXE-841A0D94.pf`
-- 645  `/Users/informant/Downloads/googledrivesync.exe`
-- 732  `/Users/informant/AppData/Local/Temp/icloudsetupE88.log`
-- 875  `/Users/informant/AppData/Local/Google/Drive/user_default/cloud_graph/dict_2.db`
-- 1,626  `/Users/informant/AppData/Local/Google/Drive/user_default/sync_config.db`
-- 1,742  `/Users/informant/AppData/Local/Google/Drive/user_default/snapshot.db`
-- 1,823  `/Users/informant/AppData/Local/Google/Drive/user_default/sync_log.log`
+- 153  `/Program Files (x86)/Google/Drive/googledrivesync.exe`
+- 220  `/Users/informant/Downloads/icloudsetup.exe`
+- 278  `/Users/informant/AppData/Local/Google/Drive/user_default/sync_log.log`
+- 505  `/Users/informant/AppData/Local/Temp/icloudsetupE88.log`
+- 519  `/Users/informant/Downloads/googledrivesync.exe`
+- 586  `/Users/informant/AppData/Local/Google/Drive/user_default/cloud_graph/dict_2.db`
+- 980  `/Users/informant/AppData/Local/Google/Drive/user_default/sync_config.db`
+- 1,004  `/Users/informant/AppData/Local/Google/Drive/user_default/snapshot.db`
+- 1,043  `/Users/informant/AppData/Local/Google/Drive/user_default/sync_log.log`
+- 3,417  `/Windows/Prefetch/GOOGLEDRIVESYNC.EXE-841A0D94.pf`
 
 Actions:
 
@@ -145,14 +145,6 @@ Commands:
   net user
   ```
 
-- Block new USB storage devices (changes the system) [CHANGES SYSTEM - requires approval]
-
-  ```bat
-  reg add HKLM\SYSTEM\CurrentControlSet\Services\USBSTOR /v Start /t REG_DWORD /d 4 /f
-  ```
-
-  Note: Stops all USB mass storage, including legitimate devices; set Start back to 3 to undo. Needs a policy decision.
-
 - Reset the password of informant, whose profile holds the flagged files (changes the system) [CHANGES SYSTEM - requires approval]
 
   ```bat
@@ -164,23 +156,23 @@ Commands:
 ### 3. Recently opened documents are recorded for informant, admin11
 
 - Technique: none claimed
-- Confidence: **medium**. 49 flagged shortcut / jump-list traces. Recent-file shortcuts exist on every used profile, so this shows access, not copying or removal; it is never rated higher than medium.
+- Confidence: **medium**. 36 flagged shortcut / jump-list traces. Recent-file shortcuts exist on every used profile, so this shows access, not copying or removal; it is never rated higher than medium.
 - Scope: live environment the disk came from - never run on the evidence
 - Requires approval: no system-changing command is offered
-- Trigger: 49 flagged .lnk or jump-list files under profile(s) informant, admin11.
+- Trigger: 36 flagged .lnk or jump-list files under profile(s) informant, admin11.
 
 Supporting flagged files (rank, path):
 
-- 546  `/Users/informant/AppData/Roaming/Microsoft/Office/Recent/Resignation_Letter_(Iaman_Informant).docx.LNK`
-- 651  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/Resignation_Letter_(Iaman_Informant).docx.lnk`
-- 874  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/winter_whether_advisory.zip.lnk`
-- 918  `/Users/informant/AppData/Roaming/Microsoft/Office/Recent/(secret_project)_pricing_decision.xlsx.LNK`
-- 970  `/Users/informant/AppData/Roaming/Microsoft/Office/Recent/[secret_project]_final_meeting.pptx.LNK`
-- 979  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/[secret_project]_final_meeting.pptx.lnk`
-- 980  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/(secret_project)_pricing_decision.xlsx.lnk`
-- 1,008  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/[secret_project]_design_concept.lnk`
-- 1,033  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/final.lnk`
-- 1,046  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/[secret_project]_proposal.lnk`
+- 440  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/winter_whether_advisory.zip.lnk`
+- 509  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/Resignation_Letter_(Iaman_Informant).docx.lnk`
+- 720  `/Users/informant/AppData/Roaming/Microsoft/Office/Recent/Resignation_Letter_(Iaman_Informant).docx.LNK`
+- 844  `/Users/informant/AppData/Roaming/Microsoft/Office/Recent/(secret_project)_pricing_decision.xlsx.LNK`
+- 936  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/Koala.jpg.lnk`
+- 946  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/CD Drive.lnk`
+- 955  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/[secret_project]_proposal.lnk`
+- 979  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/Tulips.jpg.lnk`
+- 1,049  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/secret.lnk`
+- 1,181  `/Users/informant/AppData/Roaming/Microsoft/Office/Recent/[secret_project]_proposal.LNK`
 
 Actions:
 
@@ -218,27 +210,27 @@ Commands:
 ### 4. File creation times earlier than their filename-record time
 
 - Technique: T1070.006 Indicator Removal: Timestomp
-- Confidence: **low**. Low: not enriched, likely normal. The flagged set has a lower timestamp-gap rate than the whole disk (enrichment 0.44).
+- Confidence: **low**. Low: not enriched, likely normal. The flagged set has a lower timestamp-gap rate than the whole disk (enrichment 0.62).
 - Scope: live environment the disk came from - never run on the evidence
 - Requires approval: no system-changing command is offered
-- Trigger: 4641 flagged files; enrichment 0.44 over the disk rate (37.64% of flagged against 84.98% of the disk).
+- Trigger: 6307 flagged files; enrichment 0.62 over the disk rate (52.40% of flagged against 84.98% of the disk).
 
 Supporting flagged files (rank, path):
 
-- 3  `/Windows/System32/config/SYSTEM`
-- 4  `/Windows/System32/SMI/Store/Machine/SCHEMA.DAT`
-- 5  `/Windows/System32/config/SOFTWARE`
+- 5  `/Windows/System32/config/SYSTEM`
 - 6  `/Windows/System32/config/COMPONENTS`
-- 10  `/Windows/System32/catroot2/edb.log`
-- 12  `/Windows/Microsoft.NET/Framework/v4.0.30319/clr.dll`
-- 17  `/Windows/System32/Msdtc/MSDTC.LOG`
-- 21  `/Windows/System32/config/SAM`
-- 46  `/Windows/Microsoft.NET/Framework/v4.0.30319/ngen.exe`
-- 47  `/Windows/Microsoft.NET/Framework/v4.0.30319/csc.exe`
+- 7  `/Windows/System32/Msdtc/MSDTC.LOG`
+- 9  `/Windows/System32/config/SOFTWARE`
+- 12  `/Windows/System32/SMI/Store/Machine/SCHEMA.DAT`
+- 13  `/Windows/System32/catroot2/edb.log`
+- 41  `/Windows/System32/catroot2/{F750E6C3-38EE-11D1-85E5-00C04FC295EE}/catdb`
+- 42  `/Users/Default/NTUSER.DAT`
+- 84  `/Windows/setupact.log`
+- 90  `/Windows/System32/wbem/Repository/OBJECTS.DATA`
 
 Actions:
 
-1. No containment. Low: not enriched, likely normal. The flagged set has a lower timestamp-gap rate than the whole disk (enrichment 0.44).
+1. No containment. Low: not enriched, likely normal. The flagged set has a lower timestamp-gap rate than the whole disk (enrichment 0.62).
 2. Visible timestamps cannot show this; only an offline comparison of the two time sets in the MFT can. The MFT export keeps whole seconds, so the sub-second test cannot run.
 3. Do not act on this indicator unless another recommendation here also fires.
 
@@ -252,6 +244,12 @@ Commands:
 
   Note: Needs an elevated prompt.
 
+- Read the visible timestamps of MSDTC.LOG [READ-ONLY]
+
+  ```powershell
+  Get-Item -Force "C:\Windows\System32\Msdtc\MSDTC.LOG" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
+  ```
+
 - Read the visible timestamps of SCHEMA.DAT [READ-ONLY]
 
   ```powershell
@@ -262,12 +260,6 @@ Commands:
 
   ```powershell
   Get-Item -Force "C:\Windows\System32\catroot2\edb.log" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
-  ```
-
-- Read the visible timestamps of clr.dll [READ-ONLY]
-
-  ```powershell
-  Get-Item -Force "C:\Windows\Microsoft.NET\Framework\v4.0.30319\clr.dll" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
   ```
 
 - Show the current file-system audit policy [READ-ONLY]
@@ -280,7 +272,7 @@ Not triggered:
 
 - Hacking tools: 0 of the 12,753 flagged files matched: (d) no hacking-tool name among the flagged files.
 
-## 20% budget (17,003 flagged files)
+## 20% budget (17,003 flagged files) - headline
 
 ### 1. A data-wiping or cleaning tool was installed and has run
 
@@ -292,14 +284,14 @@ Not triggered:
 
 Supporting flagged files (rank, path):
 
-- 349  `/Program Files/Eraser/Eraser.exe`
-- 657  `/Windows/Prefetch/CCLEANER64.EXE-779BD542.pf`
-- 724  `/Windows/Prefetch/ERASER.EXE-CE61944A.pf`
-- 889  `/Windows/Prefetch/CCSETUP504.EXE-6BA2F6A1.pf`
-- 928  `/Windows/Prefetch/ERASER 6.2.0.2962.EXE-BE552234.pf`
-- 1,333  `/Users/informant/Desktop/Download/Eraser 6.2.0.2962.exe`
-- 1,386  `/Users/informant/Desktop/Download/ccsetup504.exe`
-- 1,432  `/Windows/Installer/{C6E287F1-2E47-45F0-BB51-94F815CFFB48}/Eraser.exe`  (generic OS file)
+- 358  `/Program Files/Eraser/Eraser.exe`
+- 779  `/Users/informant/Desktop/Download/Eraser 6.2.0.2962.exe`
+- 810  `/Users/informant/Desktop/Download/ccsetup504.exe`
+- 3,391  `/Windows/Prefetch/ERASER.EXE-CE61944A.pf`
+- 3,894  `/Windows/Prefetch/CCSETUP504.EXE-6BA2F6A1.pf`
+- 4,927  `/Windows/Prefetch/CCLEANER64.EXE-779BD542.pf`
+- 6,392  `/Windows/Prefetch/ERASER 6.2.0.2962.EXE-BE552234.pf`
+- 2,561  `/Windows/Installer/{C6E287F1-2E47-45F0-BB51-94F815CFFB48}/Eraser.exe`  (generic OS file)
 
 Actions:
 
@@ -348,24 +340,24 @@ Commands:
 
 ### 2. Removable-device and cloud-sync artifacts
 
-- Technique: T1052.001 Exfiltration Over Physical Medium: Exfiltration over USB
-- Confidence: **high**. 15 client-specific files from Google Drive, iCloud are in the flagged set (105 flagged files in all).
+- Technique: T1567.002 Exfiltration Over Web Service: Exfiltration to Cloud Storage
+- Confidence: **high**. 14 client-specific files from Google Drive, iCloud are in the flagged set (49 flagged files in all).
 - Scope: live environment the disk came from - never run on the evidence
 - Requires approval: yes, it contains system-changing commands
-- Trigger: 105 flagged files; 15 client-specific, 10 generic OS files among the 25 listed.
+- Trigger: 49 flagged files; 14 client-specific, 11 generic OS files among the 25 listed.
 
 Supporting flagged files (rank, path):
 
-- 54  `/Program Files (x86)/Google/Drive/googledrivesync.exe`
-- 238  `/Users/informant/Downloads/icloudsetup.exe`
-- 264  `/Users/informant/AppData/Local/Google/Drive/user_default/sync_log.log`
-- 564  `/Windows/Prefetch/GOOGLEDRIVESYNC.EXE-841A0D94.pf`
-- 645  `/Users/informant/Downloads/googledrivesync.exe`
-- 732  `/Users/informant/AppData/Local/Temp/icloudsetupE88.log`
-- 875  `/Users/informant/AppData/Local/Google/Drive/user_default/cloud_graph/dict_2.db`
-- 1,626  `/Users/informant/AppData/Local/Google/Drive/user_default/sync_config.db`
-- 1,742  `/Users/informant/AppData/Local/Google/Drive/user_default/snapshot.db`
-- 1,823  `/Users/informant/AppData/Local/Google/Drive/user_default/sync_log.log`
+- 153  `/Program Files (x86)/Google/Drive/googledrivesync.exe`
+- 220  `/Users/informant/Downloads/icloudsetup.exe`
+- 278  `/Users/informant/AppData/Local/Google/Drive/user_default/sync_log.log`
+- 505  `/Users/informant/AppData/Local/Temp/icloudsetupE88.log`
+- 519  `/Users/informant/Downloads/googledrivesync.exe`
+- 586  `/Users/informant/AppData/Local/Google/Drive/user_default/cloud_graph/dict_2.db`
+- 980  `/Users/informant/AppData/Local/Google/Drive/user_default/sync_config.db`
+- 1,004  `/Users/informant/AppData/Local/Google/Drive/user_default/snapshot.db`
+- 1,043  `/Users/informant/AppData/Local/Google/Drive/user_default/sync_log.log`
+- 3,417  `/Windows/Prefetch/GOOGLEDRIVESYNC.EXE-841A0D94.pf`
 
 Actions:
 
@@ -414,14 +406,6 @@ Commands:
   net user
   ```
 
-- Block new USB storage devices (changes the system) [CHANGES SYSTEM - requires approval]
-
-  ```bat
-  reg add HKLM\SYSTEM\CurrentControlSet\Services\USBSTOR /v Start /t REG_DWORD /d 4 /f
-  ```
-
-  Note: Stops all USB mass storage, including legitimate devices; set Start back to 3 to undo. Needs a policy decision.
-
 - Reset the password of informant, whose profile holds the flagged files (changes the system) [CHANGES SYSTEM - requires approval]
 
   ```bat
@@ -433,23 +417,23 @@ Commands:
 ### 3. Recently opened documents are recorded for informant, admin11
 
 - Technique: none claimed
-- Confidence: **medium**. 49 flagged shortcut / jump-list traces. Recent-file shortcuts exist on every used profile, so this shows access, not copying or removal; it is never rated higher than medium.
+- Confidence: **medium**. 43 flagged shortcut / jump-list traces. Recent-file shortcuts exist on every used profile, so this shows access, not copying or removal; it is never rated higher than medium.
 - Scope: live environment the disk came from - never run on the evidence
 - Requires approval: no system-changing command is offered
-- Trigger: 49 flagged .lnk or jump-list files under profile(s) informant, admin11.
+- Trigger: 43 flagged .lnk or jump-list files under profile(s) informant, admin11.
 
 Supporting flagged files (rank, path):
 
-- 546  `/Users/informant/AppData/Roaming/Microsoft/Office/Recent/Resignation_Letter_(Iaman_Informant).docx.LNK`
-- 651  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/Resignation_Letter_(Iaman_Informant).docx.lnk`
-- 874  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/winter_whether_advisory.zip.lnk`
-- 918  `/Users/informant/AppData/Roaming/Microsoft/Office/Recent/(secret_project)_pricing_decision.xlsx.LNK`
-- 970  `/Users/informant/AppData/Roaming/Microsoft/Office/Recent/[secret_project]_final_meeting.pptx.LNK`
-- 979  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/[secret_project]_final_meeting.pptx.lnk`
-- 980  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/(secret_project)_pricing_decision.xlsx.lnk`
-- 1,008  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/[secret_project]_design_concept.lnk`
-- 1,033  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/final.lnk`
-- 1,046  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/[secret_project]_proposal.lnk`
+- 440  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/winter_whether_advisory.zip.lnk`
+- 509  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/Resignation_Letter_(Iaman_Informant).docx.lnk`
+- 720  `/Users/informant/AppData/Roaming/Microsoft/Office/Recent/Resignation_Letter_(Iaman_Informant).docx.LNK`
+- 844  `/Users/informant/AppData/Roaming/Microsoft/Office/Recent/(secret_project)_pricing_decision.xlsx.LNK`
+- 936  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/Koala.jpg.lnk`
+- 946  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/CD Drive.lnk`
+- 955  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/[secret_project]_proposal.lnk`
+- 979  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/Tulips.jpg.lnk`
+- 1,049  `/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/secret.lnk`
+- 1,181  `/Users/informant/AppData/Roaming/Microsoft/Office/Recent/[secret_project]_proposal.LNK`
 
 Actions:
 
@@ -487,27 +471,27 @@ Commands:
 ### 4. File creation times earlier than their filename-record time
 
 - Technique: T1070.006 Indicator Removal: Timestomp
-- Confidence: **low**. Low: not enriched, likely normal. The flagged set has a lower timestamp-gap rate than the whole disk (enrichment 0.46).
+- Confidence: **low**. Low: not enriched, likely normal. The flagged set has a lower timestamp-gap rate than the whole disk (enrichment 0.62).
 - Scope: live environment the disk came from - never run on the evidence
 - Requires approval: no system-changing command is offered
-- Trigger: 6310 flagged files; enrichment 0.46 over the disk rate (39.22% of flagged against 84.98% of the disk).
+- Trigger: 8203 flagged files; enrichment 0.62 over the disk rate (52.97% of flagged against 84.98% of the disk).
 
 Supporting flagged files (rank, path):
 
-- 3  `/Windows/System32/config/SYSTEM`
-- 4  `/Windows/System32/SMI/Store/Machine/SCHEMA.DAT`
-- 5  `/Windows/System32/config/SOFTWARE`
+- 5  `/Windows/System32/config/SYSTEM`
 - 6  `/Windows/System32/config/COMPONENTS`
-- 10  `/Windows/System32/catroot2/edb.log`
-- 12  `/Windows/Microsoft.NET/Framework/v4.0.30319/clr.dll`
-- 17  `/Windows/System32/Msdtc/MSDTC.LOG`
-- 21  `/Windows/System32/config/SAM`
-- 46  `/Windows/Microsoft.NET/Framework/v4.0.30319/ngen.exe`
-- 47  `/Windows/Microsoft.NET/Framework/v4.0.30319/csc.exe`
+- 7  `/Windows/System32/Msdtc/MSDTC.LOG`
+- 9  `/Windows/System32/config/SOFTWARE`
+- 12  `/Windows/System32/SMI/Store/Machine/SCHEMA.DAT`
+- 13  `/Windows/System32/catroot2/edb.log`
+- 41  `/Windows/System32/catroot2/{F750E6C3-38EE-11D1-85E5-00C04FC295EE}/catdb`
+- 42  `/Users/Default/NTUSER.DAT`
+- 84  `/Windows/setupact.log`
+- 90  `/Windows/System32/wbem/Repository/OBJECTS.DATA`
 
 Actions:
 
-1. No containment. Low: not enriched, likely normal. The flagged set has a lower timestamp-gap rate than the whole disk (enrichment 0.46).
+1. No containment. Low: not enriched, likely normal. The flagged set has a lower timestamp-gap rate than the whole disk (enrichment 0.62).
 2. Visible timestamps cannot show this; only an offline comparison of the two time sets in the MFT can. The MFT export keeps whole seconds, so the sub-second test cannot run.
 3. Do not act on this indicator unless another recommendation here also fires.
 
@@ -521,6 +505,12 @@ Commands:
 
   Note: Needs an elevated prompt.
 
+- Read the visible timestamps of MSDTC.LOG [READ-ONLY]
+
+  ```powershell
+  Get-Item -Force "C:\Windows\System32\Msdtc\MSDTC.LOG" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
+  ```
+
 - Read the visible timestamps of SCHEMA.DAT [READ-ONLY]
 
   ```powershell
@@ -531,12 +521,6 @@ Commands:
 
   ```powershell
   Get-Item -Force "C:\Windows\System32\catroot2\edb.log" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
-  ```
-
-- Read the visible timestamps of clr.dll [READ-ONLY]
-
-  ```powershell
-  Get-Item -Force "C:\Windows\Microsoft.NET\Framework\v4.0.30319\clr.dll" | Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime | Format-List
   ```
 
 - Show the current file-system audit policy [READ-ONLY]
