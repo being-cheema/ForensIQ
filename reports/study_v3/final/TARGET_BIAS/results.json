@@ -1,0 +1,67 @@
+{
+ "per_disk": {
+  "img1": {
+   "N": 11773,
+   "targets": 7,
+   "targets_in_profile": 0,
+   "IF_at15_all": 7.0,
+   "IF_at15_noloc": 7.0,
+   "IF_at15_profile": null,
+   "IF_at15_other": 7.0,
+   "R3_at15_profile": 0,
+   "R3_at15_other": 6,
+   "IF_at20_all": 7.0,
+   "IF_at20_noloc": 7.0,
+   "IF_at20_profile": null,
+   "IF_at20_other": 7.0,
+   "R3_at20_profile": 0,
+   "R3_at20_other": 7
+  },
+  "img2": {
+   "N": 85017,
+   "targets": 19,
+   "targets_in_profile": 13,
+   "IF_at15_all": 19.0,
+   "IF_at15_noloc": 17.0,
+   "IF_at15_profile": 13.0,
+   "IF_at15_other": 6.0,
+   "R3_at15_profile": 13,
+   "R3_at15_other": 3,
+   "IF_at20_all": 19.0,
+   "IF_at20_noloc": 17.0,
+   "IF_at20_profile": 13.0,
+   "IF_at20_other": 6.0,
+   "R3_at20_profile": 13,
+   "R3_at20_other": 3
+  },
+  "img3": {
+   "N": 166110,
+   "targets": 34,
+   "targets_in_profile": 34,
+   "IF_at15_all": 32.4,
+   "IF_at15_noloc": 13.6,
+   "IF_at15_profile": 32.4,
+   "IF_at15_other": null,
+   "R3_at15_profile": 34,
+   "R3_at15_other": 0,
+   "IF_at20_all": 34.0,
+   "IF_at20_noloc": 23.2,
+   "IF_at20_profile": 34.0,
+   "IF_at20_other": null,
+   "R3_at20_profile": 34,
+   "R3_at20_other": 0
+  }
+ },
+ "leave_one_out": {
+  "15": {
+   "pooled_recall_pct": 97.3,
+   "loo_min": 97.3,
+   "loo_max": 98.6
+  },
+  "20": {
+   "pooled_recall_pct": 100.0,
+   "loo_min": 100.0,
+   "loo_max": 100.0
+  }
+ }
+}
