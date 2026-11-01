@@ -35,6 +35,7 @@ BUDGETS = {"20": 0.20, "15": 0.15}
 N_OTHER = {"Isolation Forest": 300, "Local Outlier Factor": 100, "One-Class SVM": 100}
 NS, BG_N = 200, 20
 N_DRAWS = 5
+ONLY = [x for x in os.environ.get("MODELS_ONLY", "").split(",") if x] or None   # e.g. MODELS_ONLY="Isolation Forest": per-file arrays for intervals
 NOISE_FRAC = 0.01
 PASS_P, PASS_SEED, PASS_NOISE, PASS_ATTR = 0.01, 0.7, 0.6, 0.80
 WEAK = {"filename_entropy", "path_depth", "size"}     # not a convincing reason on its own
@@ -171,7 +172,7 @@ def run_disk(tag):
     cause = {tn: {col[f] for f in c} for tn, (_, c) in types.items()}
     res["planted_spec"] = {tn: {"set": m, "cause": c} for tn, (m, c) in types.items()}
 
-    for mo in MODELS:
+    for mo in [m_ for m_ in MODELS if ONLY is None or m_ in ONLY]:
         fit = base[mo]
         R = {"model": mo}
         # ---- flagged sets, sample
@@ -225,6 +226,8 @@ def run_disk(tag):
                       "targets_median_shap": float(np.median(d_shap[tt])) if tt.any() else None,
                       "targets_median_random": float(np.median(d_rand[tt])) if tt.any() else None}
         R["B1"] = b1
+        m20 = pos_rows <= K["20"]
+        R["B1_perfile"] = {"drop_shap": [float(x) for x in d_shap[m20]], "drop_random": [float(x) for x in d_rand[m20]]}
         log(f"{SHORT[mo]} B1 done")
 
         # ---- forensic sense (descriptive)
@@ -255,7 +258,7 @@ def run_disk(tag):
                 js = []
                 for k in range(len(cr)):
                     js.append(np.mean([jaccard(tp[a][k], tp[b][k]) for a, b in itertools.combinations(C.SEEDS, 2)]))
-                seeds_res[bk] = {"n_common": len(cr), "n_sample_flagged": int((pos_rows <= K[bk]).sum()),
+                seeds_res[bk] = {"per_file": [float(x) for x in js], "n_common": len(cr), "n_sample_flagged": int((pos_rows <= K[bk]).sum()),
                                  "mean_jaccard": float(np.mean(js)) if js else None}
             b2["seeds"] = seeds_res
             log(f"{SHORT[mo]} B2 seeds done")
@@ -271,7 +274,7 @@ def run_disk(tag):
         noise_res = {}
         for bk in BUDGETS:
             m_ = np.where(pos_rows <= K[bk])[0]
-            noise_res[bk] = {"n": int(len(m_)),
+            noise_res[bk] = {"per_file": [jaccard(T3[k], Tn[k]) for k in m_], "n": int(len(m_)),
                              "mean_jaccard": jac_mean([T3[k] for k in m_], [Tn[k] for k in m_]),
                              "top1_same": float(np.mean([T3[k][0] == Tn[k][0] for k in m_])) if len(m_) else None}
         b2["noise"] = noise_res
@@ -296,6 +299,9 @@ def run_disk(tag):
                     hit = np.array([bool(set(ptop[k]) & cause[tn]) for k in idx])
                     recs[(tn, bk)] = (det, hit)
             per_seed.append((s_, recs, prank, ptop))
+        b3["raw20"] = {str(s_): {"detected": np.concatenate([recs[(k_, "20")][0] for k_ in types]).astype(int).tolist(),
+                                 "named": np.concatenate([recs[(k_, "20")][1] for k_ in types]).astype(int).tolist()}
+                       for s_, recs, _, _ in per_seed}
         for tn in list(types) + ["ALL"]:
             for bk in BUDGETS:
                 vals = []
@@ -325,7 +331,7 @@ def run_disk(tag):
 
     res["runtime_s"] = round(time.time() - t0, 1)
     os.makedirs(OUT, exist_ok=True)
-    json.dump(res, open(os.path.join(OUT, f"results_{tag}.json"), "w"), indent=1, default=float)
+    json.dump(res, open(os.path.join(OUT, f"results_{tag}" + ("_perfile" if ONLY else "") + ".json"), "w"), indent=1, default=float)
     log("written")
 
 

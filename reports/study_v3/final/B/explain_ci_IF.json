@@ -1,0 +1,257 @@
+{
+ "img1": {
+  "B1": {
+   "n": 307,
+   "ratio": 10.74,
+   "ci": [
+    9.036,
+    13.607
+   ]
+  },
+  "B2_seeds": {
+   "n": 282,
+   "mean": 0.895,
+   "ci": [
+    0.877,
+    0.911
+   ]
+  },
+  "B2_noise": {
+   "n": 307,
+   "mean": 0.724,
+   "ci": [
+    0.694,
+    0.754
+   ]
+  },
+  "B3_detected": {
+   "n_files": 60,
+   "seeds": 5,
+   "value": 54.0,
+   "ci": [
+    41.7,
+    66.0
+   ]
+  },
+  "B3_named_of_detected": {
+   "value": 91.4,
+   "ci": [
+    82.4,
+    98.7
+   ]
+  },
+  "B3_named_files_wilson": {
+   "detected_files": 35,
+   "named_every_time": 31,
+   "share": 88.6,
+   "wilson": [
+    74.0,
+    95.5
+   ]
+  }
+ },
+ "img2": {
+  "B1": {
+   "n": 319,
+   "ratio": 12.14,
+   "ci": [
+    10.275,
+    14.712
+   ]
+  },
+  "B2_seeds": {
+   "n": 279,
+   "mean": 0.804,
+   "ci": [
+    0.785,
+    0.824
+   ]
+  },
+  "B2_noise": {
+   "n": 319,
+   "mean": 0.705,
+   "ci": [
+    0.673,
+    0.736
+   ]
+  },
+  "B3_detected": {
+   "n_files": 60,
+   "seeds": 5,
+   "value": 45.7,
+   "ci": [
+    34.3,
+    57.3
+   ]
+  },
+  "B3_named_of_detected": {
+   "value": 100.0,
+   "ci": [
+    100.0,
+    100.0
+   ]
+  },
+  "B3_named_files_wilson": {
+   "detected_files": 34,
+   "named_every_time": 34,
+   "share": 100.0,
+   "wilson": [
+    89.8,
+    100.0
+   ]
+  }
+ },
+ "img3": {
+  "B1": {
+   "n": 334,
+   "ratio": 16.86,
+   "ci": [
+    12.25,
+    20.354
+   ]
+  },
+  "B2_seeds": {
+   "n": 303,
+   "mean": 0.854,
+   "ci": [
+    0.836,
+    0.871
+   ]
+  },
+  "B2_noise": {
+   "n": 334,
+   "mean": 0.732,
+   "ci": [
+    0.702,
+    0.761
+   ]
+  },
+  "B3_detected": {
+   "n_files": 60,
+   "seeds": 5,
+   "value": 50.3,
+   "ci": [
+    38.3,
+    62.7
+   ]
+  },
+  "B3_named_of_detected": {
+   "value": 100.0,
+   "ci": [
+    100.0,
+    100.0
+   ]
+  },
+  "B3_named_files_wilson": {
+   "detected_files": 33,
+   "named_every_time": 33,
+   "share": 100.0,
+   "wilson": [
+    89.6,
+    100.0
+   ]
+  }
+ },
+ "img4": {
+  "B1": {
+   "n": 301,
+   "ratio": 12.17,
+   "ci": [
+    10.728,
+    13.405
+   ]
+  },
+  "B2_seeds": {
+   "n": 269,
+   "mean": 0.879,
+   "ci": [
+    0.861,
+    0.896
+   ]
+  },
+  "B2_noise": {
+   "n": 301,
+   "mean": 0.857,
+   "ci": [
+    0.831,
+    0.883
+   ]
+  },
+  "B3_detected": {
+   "n_files": 60,
+   "seeds": 5,
+   "value": 23.3,
+   "ci": [
+    14.0,
+    33.7
+   ]
+  },
+  "B3_named_of_detected": {
+   "value": 100.0,
+   "ci": [
+    100.0,
+    100.0
+   ]
+  },
+  "B3_named_files_wilson": {
+   "detected_files": 17,
+   "named_every_time": 17,
+   "share": 100.0,
+   "wilson": [
+    81.6,
+    100.0
+   ]
+  }
+ },
+ "img5": {
+  "B1": {
+   "n": 304,
+   "ratio": 17.67,
+   "ci": [
+    14.81,
+    20.066
+   ]
+  },
+  "B2_seeds": {
+   "n": 246,
+   "mean": 0.932,
+   "ci": [
+    0.917,
+    0.946
+   ]
+  },
+  "B2_noise": {
+   "n": 304,
+   "mean": 0.787,
+   "ci": [
+    0.757,
+    0.816
+   ]
+  },
+  "B3_detected": {
+   "n_files": 60,
+   "seeds": 5,
+   "value": 45.7,
+   "ci": [
+    33.7,
+    58.0
+   ]
+  },
+  "B3_named_of_detected": {
+   "value": 96.4,
+   "ci": [
+    89.3,
+    100.0
+   ]
+  },
+  "B3_named_files_wilson": {
+   "detected_files": 30,
+   "named_every_time": 28,
+   "share": 93.3,
+   "wilson": [
+    78.7,
+    98.2
+   ]
+  }
+ }
+}
