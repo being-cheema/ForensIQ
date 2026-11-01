@@ -189,6 +189,12 @@ IMG5_TARGETS = [
     {"name": "secret.zip (staged, exfiltrated)", "patterns": ["secret.zip"]},
 ]
 
+# Amendment 1 to the Image 4 and 5 target lists (model-blind: written from file names only, before re-scoring):
+# (a) the key spells "PortalGunsPlans.txt" but the file on the server is "PortalGunPlans.txt";
+# (b) loot.zip was deleted, but its Recent-folder shortcut loot.lnk exists, and the other targets already match through their shortcuts.
+IMG4_TARGETS_AMENDED = [dict(t, patterns=t["patterns"] + (["loot.lnk"] if t["name"].startswith("loot.zip") else [])) for t in IMG4_TARGETS]
+IMG5_TARGETS_AMENDED = [dict(t, patterns=(["portalgunplans"] if t["name"].startswith("PortalGunsPlans") else t["patterns"])) for t in IMG5_TARGETS]
+
 
 IMAGES = {
     "img1": {"label": "Image 1: XP Hacking (SCHARDT.001)", "scenario": "external",
@@ -201,6 +207,8 @@ IMAGES = {
              "targets": IMG4_TARGETS, "art_dir": os.path.join(BASE_DIR, "runs", "img4", "artifacts")},
     "img5": {"label": "Image 5: Server 2012 R2 Szechuan Sauce DC (blind check)", "scenario": "external",
              "targets": IMG5_TARGETS, "art_dir": os.path.join(BASE_DIR, "runs", "img5", "artifacts")},
+    "img4_am": {"label": "Image 4, amended targets", "scenario": "external", "targets": IMG4_TARGETS_AMENDED, "art_dir": os.path.join(BASE_DIR, "runs", "img4", "artifacts")},
+    "img5_am": {"label": "Image 5, amended targets", "scenario": "external", "targets": IMG5_TARGETS_AMENDED, "art_dir": os.path.join(BASE_DIR, "runs", "img5", "artifacts")},
 }
 
 

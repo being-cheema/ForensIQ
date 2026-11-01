@@ -1,0 +1,132 @@
+{
+ "N": 105028,
+ "features": 19,
+ "targets_defined": 3,
+ "targets_on_disk": 2,
+ "target_files": 3,
+ "target_names": [
+  "coreupdater.exe (meterpreter payload) and its traces",
+  "loot.zip (staged for exfiltration)"
+ ],
+ "IF": [
+  {
+   "seed": 42,
+   "best_rank": [
+    2813,
+    915
+   ],
+   "best_rank_pct": [
+    2.678,
+    0.871
+   ],
+   "targets": 2,
+   "at15": 2,
+   "at20": 2,
+   "knee_pct": 2.68,
+   "plateau_pct": 2.68
+  },
+  {
+   "seed": 1337,
+   "best_rank": [
+    4945,
+    1005
+   ],
+   "best_rank_pct": [
+    4.708,
+    0.957
+   ],
+   "targets": 2,
+   "at15": 2,
+   "at20": 2,
+   "knee_pct": 4.71,
+   "plateau_pct": 4.71
+  },
+  {
+   "seed": 9999,
+   "best_rank": [
+    3796,
+    707
+   ],
+   "best_rank_pct": [
+    3.614,
+    0.673
+   ],
+   "targets": 2,
+   "at15": 2,
+   "at20": 2,
+   "knee_pct": 3.61,
+   "plateau_pct": 3.61
+  },
+  {
+   "seed": 7,
+   "best_rank": [
+    4148,
+    878
+   ],
+   "best_rank_pct": [
+    3.949,
+    0.836
+   ],
+   "targets": 2,
+   "at15": 2,
+   "at20": 2,
+   "knee_pct": 3.95,
+   "plateau_pct": 3.95
+  },
+  {
+   "seed": 2024,
+   "best_rank": [
+    5370,
+    816
+   ],
+   "best_rank_pct": [
+    5.113,
+    0.777
+   ],
+   "targets": 2,
+   "at15": 2,
+   "at20": 2,
+   "knee_pct": 5.11,
+   "plateau_pct": 5.11
+  }
+ ],
+ "R3": {
+  "targets": 2,
+  "at15": 1,
+  "at20": 2,
+  "knee_pct": 16.1,
+  "plateau_pct": 16.1,
+  "best_rank_pct": [
+   16.104,
+   5.414
+  ]
+ },
+ "R4": {
+  "targets": 2,
+  "at15": 2,
+  "at20": 2,
+  "knee_pct": 0.76,
+  "plateau_pct": 0.76,
+  "best_rank_pct": [
+   0.765,
+   0.643
+  ]
+ },
+ "IF_at15": {
+  "mean": 2.0,
+  "worst": 2,
+  "wilson": [
+   34.2,
+   100.0
+  ]
+ },
+ "IF_at20": {
+  "mean": 2.0,
+  "worst": 2,
+  "wilson": [
+   34.2,
+   100.0
+  ]
+ },
+ "seconds": 24.2
+}

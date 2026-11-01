@@ -24,3 +24,9 @@ Image: `DC01-E01.zip`, Windows Server 2012 R2 (CITADEL-DC01), same site. Same fr
 Targets, from the files the public key names on the domain controller (`IMG5_TARGETS`): coreupdater.exe (pattern `coreupdate`),
 Szechuan Sauce.txt, Secret_Beth.txt, Beth_Secret.txt, PortalGunsPlans.txt and secret.zip. Targets with no file on the disk are dropped and reported.
 Prefetch is normally off on servers, so the Prefetch features may fire weakly; this is noted, not patched.
+
+## Amendment 1 (after the first scoring, written from file names only)
+Both corrections concern which files a target matches, not the model, features or budgets:
+- Image 5: the key spells `PortalGunsPlans.txt`, the file on the server is `PortalGunPlans.txt` (pattern corrected to `portalgunplans`); the first list missed it.
+- Image 4: `loot.zip` was deleted, but its Recent-folder shortcut `loot.lnk` exists; the other targets already match through their shortcuts, so `loot.lnk` is added to the `loot.zip` target.
+The original list stays the primary result; the amended list is reported next to it as a secondary result. Targets that have no file on the disk are still dropped.
