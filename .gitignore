@@ -30,3 +30,5 @@ artifacts/prefetch/SYSTEMSETTINGSADMINFLOWS.EXE-B5F2FFDC.pf
 .DS_Store
 runs/
 paper/_input/
+
+.claude/
