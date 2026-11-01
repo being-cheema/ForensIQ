@@ -1,0 +1,108 @@
+{
+ "img4": {
+  "extraction_seconds": 68.0,
+  "artefacts": 227,
+  "artefacts_identical_to_first_extraction": 226,
+  "artefacts_first_extraction": 227,
+  "differing": [
+   "prefetch/prefetch_list.json"
+  ],
+  "img4": {
+   "files": 105028,
+   "targets": 1,
+   "at15": [
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "at20": [
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "best_rank_identical_to_saved": true
+  },
+  "img4_am": {
+   "files": 105028,
+   "targets": 2,
+   "at15": [
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "at20": [
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "best_rank_identical_to_saved": true
+  },
+  "records": {
+   "n": 21006,
+   "byte_identical_two_passes": true,
+   "sha256": "3143e2698226e56dfa68e4702250d92243ae14dc2add855a601b9f8cd981b606",
+   "feature_table_sha256": "99450c0a0e8efdeff24341bb53970c1998b36faa6b9d241f8da0d20de9c9b3a3"
+  },
+  "artefacts_unchanged_after_analysis": true
+ },
+ "img5": {
+  "extraction_seconds": 48.5,
+  "artefacts": 23,
+  "artefacts_identical_to_first_extraction": 23,
+  "artefacts_first_extraction": 23,
+  "differing": [],
+  "img5": {
+   "files": 92783,
+   "targets": 4,
+   "at15": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "at20": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "best_rank_identical_to_saved": true
+  },
+  "img5_am": {
+   "files": 92783,
+   "targets": 5,
+   "at15": [
+    5,
+    5,
+    5,
+    5,
+    5
+   ],
+   "at20": [
+    5,
+    5,
+    5,
+    5,
+    5
+   ],
+   "best_rank_identical_to_saved": true
+  },
+  "records": {
+   "n": 18557,
+   "byte_identical_two_passes": true,
+   "sha256": "d718d78ba25d208fb9d08cea800c92852f2adc73487ad4c56f00281c1936ee5d",
+   "feature_table_sha256": "f5bee383354e031dcd20b10f1d28e2b311a162b412e69f589dd42703f2105e24"
+  },
+  "artefacts_unchanged_after_analysis": true
+ }
+}
