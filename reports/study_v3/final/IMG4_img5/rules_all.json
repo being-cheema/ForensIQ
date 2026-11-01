@@ -1,0 +1,88 @@
+{
+ "img4": {
+  "R1": {
+   "targets": 1,
+   "at15": 0,
+   "at20": 0,
+   "knee_pct": 94.63,
+   "plateau_pct": 94.63
+  },
+  "R2": {
+   "targets": 1,
+   "at15": 0,
+   "at20": 0,
+   "knee_pct": 48.96,
+   "plateau_pct": 48.96
+  },
+  "R3": {
+   "targets": 1,
+   "at15": 0,
+   "at20": 1,
+   "knee_pct": 16.1,
+   "plateau_pct": 16.1
+  },
+  "R4": {
+   "targets": 1,
+   "at15": 1,
+   "at20": 1,
+   "knee_pct": 0.76,
+   "plateau_pct": 0.76
+  },
+  "R5": {
+   "at15": 0.2,
+   "at20": 0.6,
+   "knee_pct": 26.927999999999997,
+   "plateau_pct": 26.927999999999997
+  },
+  "IF": {
+   "at15": 1.0,
+   "at20": 1.0,
+   "knee_pct": 4.012,
+   "plateau_pct": 4.012
+  },
+  "T": 1
+ },
+ "img5": {
+  "R1": {
+   "targets": 4,
+   "at15": 0,
+   "at20": 0,
+   "knee_pct": 89.65,
+   "plateau_pct": 89.65
+  },
+  "R2": {
+   "targets": 4,
+   "at15": 0,
+   "at20": 0,
+   "knee_pct": 76.17,
+   "plateau_pct": 76.17
+  },
+  "R3": {
+   "targets": 4,
+   "at15": 4,
+   "at20": 4,
+   "knee_pct": 7.6,
+   "plateau_pct": 7.6
+  },
+  "R4": {
+   "targets": 4,
+   "at15": 4,
+   "at20": 4,
+   "knee_pct": 0.09,
+   "plateau_pct": 0.09
+  },
+  "R5": {
+   "at15": 1.0,
+   "at20": 1.2,
+   "knee_pct": 65.672,
+   "plateau_pct": 65.672
+  },
+  "IF": {
+   "at15": 4.0,
+   "at20": 4.0,
+   "knee_pct": 3.146,
+   "plateau_pct": 3.146
+  },
+  "T": 4
+ }
+}

@@ -1,0 +1,486 @@
+{
+ "rows": [
+  {
+   "image": "img1",
+   "class": "other",
+   "targets": 5,
+   "budget": 15,
+   "IF": 5.0,
+   "R1": 3,
+   "R3": 4,
+   "R4": 0
+  },
+  {
+   "image": "img1",
+   "class": "other",
+   "targets": 5,
+   "budget": 20,
+   "IF": 5.0,
+   "R1": 3,
+   "R3": 5,
+   "R4": 0
+  },
+  {
+   "image": "img1",
+   "class": "system folder",
+   "targets": 2,
+   "budget": 15,
+   "IF": 2.0,
+   "R1": 2,
+   "R3": 2,
+   "R4": 1
+  },
+  {
+   "image": "img1",
+   "class": "system folder",
+   "targets": 2,
+   "budget": 20,
+   "IF": 2.0,
+   "R1": 2,
+   "R3": 2,
+   "R4": 1
+  },
+  {
+   "image": "img2",
+   "class": "other",
+   "targets": 5,
+   "budget": 15,
+   "IF": 5.0,
+   "R1": 0,
+   "R3": 3,
+   "R4": 5
+  },
+  {
+   "image": "img2",
+   "class": "other",
+   "targets": 5,
+   "budget": 20,
+   "IF": 5.0,
+   "R1": 0,
+   "R3": 3,
+   "R4": 5
+  },
+  {
+   "image": "img2",
+   "class": "system folder",
+   "targets": 1,
+   "budget": 15,
+   "IF": 1.0,
+   "R1": 0,
+   "R3": 0,
+   "R4": 1
+  },
+  {
+   "image": "img2",
+   "class": "system folder",
+   "targets": 1,
+   "budget": 20,
+   "IF": 1.0,
+   "R1": 0,
+   "R3": 0,
+   "R4": 1
+  },
+  {
+   "image": "img2",
+   "class": "user folder",
+   "targets": 13,
+   "budget": 15,
+   "IF": 13.0,
+   "R1": 0,
+   "R3": 13,
+   "R4": 10
+  },
+  {
+   "image": "img2",
+   "class": "user folder",
+   "targets": 13,
+   "budget": 20,
+   "IF": 13.0,
+   "R1": 0,
+   "R3": 13,
+   "R4": 10
+  },
+  {
+   "image": "img3",
+   "class": "user folder",
+   "targets": 34,
+   "budget": 15,
+   "IF": 32.4,
+   "R1": 0,
+   "R3": 34,
+   "R4": 34
+  },
+  {
+   "image": "img3",
+   "class": "user folder",
+   "targets": 34,
+   "budget": 20,
+   "IF": 34.0,
+   "R1": 0,
+   "R3": 34,
+   "R4": 34
+  },
+  {
+   "image": "img4",
+   "class": "system folder",
+   "targets": 1,
+   "budget": 15,
+   "IF": 1.0,
+   "R1": 0,
+   "R3": 0,
+   "R4": 1
+  },
+  {
+   "image": "img4",
+   "class": "system folder",
+   "targets": 1,
+   "budget": 20,
+   "IF": 1.0,
+   "R1": 0,
+   "R3": 1,
+   "R4": 1
+  },
+  {
+   "image": "img5",
+   "class": "other",
+   "targets": 2,
+   "budget": 15,
+   "IF": 2.0,
+   "R1": 0,
+   "R3": 2,
+   "R4": 2
+  },
+  {
+   "image": "img5",
+   "class": "other",
+   "targets": 2,
+   "budget": 20,
+   "IF": 2.0,
+   "R1": 0,
+   "R3": 2,
+   "R4": 2
+  },
+  {
+   "image": "img5",
+   "class": "system folder",
+   "targets": 1,
+   "budget": 15,
+   "IF": 1.0,
+   "R1": 0,
+   "R3": 1,
+   "R4": 1
+  },
+  {
+   "image": "img5",
+   "class": "system folder",
+   "targets": 1,
+   "budget": 20,
+   "IF": 1.0,
+   "R1": 0,
+   "R3": 1,
+   "R4": 1
+  },
+  {
+   "image": "img5",
+   "class": "user folder",
+   "targets": 1,
+   "budget": 15,
+   "IF": 1.0,
+   "R1": 0,
+   "R3": 1,
+   "R4": 1
+  },
+  {
+   "image": "img5",
+   "class": "user folder",
+   "targets": 1,
+   "budget": 20,
+   "IF": 1.0,
+   "R1": 0,
+   "R3": 1,
+   "R4": 1
+  }
+ ],
+ "targets": {
+  "img1": {
+   "names": [
+    [
+     "Cain & Abel (Cain.exe)",
+     "other"
+    ],
+    [
+     "Ethereal / WinPcap",
+     "system folder"
+    ],
+    [
+     "NetStumbler",
+     "other"
+    ],
+    [
+     "Password wordlists (ZIP)",
+     "other"
+    ],
+    [
+     "NMEM/NGETTIME (timestomped Novell tools)",
+     "other"
+    ],
+    [
+     "123WASP (UNWISE.EXE, 123wasp.exe)",
+     "other"
+    ],
+    [
+     "defrag.exe / Anonymizer",
+     "system folder"
+    ]
+   ]
+  },
+  "img2": {
+   "names": [
+    [
+     "Eraser.exe (Installed Wiping Tool)",
+     "other"
+    ],
+    [
+     "Eraser 6.2.0.2962.exe (Downloaded Installer)",
+     "other"
+    ],
+    [
+     "ccsetup504.exe (Downloaded CCleaner)",
+     "other"
+    ],
+    [
+     "CCleaner64.exe (CCleaner Prefetch)",
+     "other"
+    ],
+    [
+     "[secret_project]_proposal.docx (LNK)",
+     "user folder"
+    ],
+    [
+     "[secret_project]_design_concept.ppt (LNK)",
+     "user folder"
+    ],
+    [
+     "(secret_project)_pricing_decision.xlsx (LNK)",
+     "user folder"
+    ],
+    [
+     "[secret_project]_final_meeting.pptx (LNK)",
+     "user folder"
+    ],
+    [
+     "happy_holiday.jpg (Confidential Pricing)",
+     "user folder"
+    ],
+    [
+     "winter_whether_advisory.zip (Masqueraded Design)",
+     "user folder"
+    ],
+    [
+     "sync_log.log (Google Drive Sync Log)",
+     "user folder"
+    ],
+    [
+     "sync_config.db / snapshot.db (GDrive DBs)",
+     "user folder"
+    ],
+    [
+     "Chrysanthemum.jpg (Wiped via Eraser)",
+     "user folder"
+    ],
+    [
+     "Koala.jpg (Decoy burned to CD-R)",
+     "user folder"
+    ],
+    [
+     "Penguins.jpg (Decoy burned to CD-R)",
+     "user folder"
+    ],
+    [
+     "Tulips.jpg (Decoy burned to CD-R)",
+     "user folder"
+    ],
+    [
+     "Resignation_Letter_(Iaman_Informant).docx / .xps",
+     "user folder"
+    ],
+    [
+     "setupapi.dev.log (USB Connection Log)",
+     "other"
+    ],
+    [
+     "System.evtx (Removable Drive Events)",
+     "system folder"
+    ]
+   ]
+  },
+  "img3": {
+   "names": [
+    [
+     "2018-04-03 (1).png",
+     "user folder"
+    ],
+    [
+     "2018-04-03 (3).png",
+     "user folder"
+    ],
+    [
+     "2018-04-03.png",
+     "user folder"
+    ],
+    [
+     "2018-04-04 (2).png",
+     "user folder"
+    ],
+    [
+     "2018-04-04 (3).png",
+     "user folder"
+    ],
+    [
+     "2018-04-04 (4).png",
+     "user folder"
+    ],
+    [
+     "2018-04-04.png",
+     "user folder"
+    ],
+    [
+     "AIRPORT INFORMATION.docx",
+     "user folder"
+    ],
+    [
+     "AMEN.pdf",
+     "user folder"
+    ],
+    [
+     "BladeofGrass.jpg",
+     "user folder"
+    ],
+    [
+     "Box Sync.lnk",
+     "user folder"
+    ],
+    [
+     "Brother Chat.gdoc",
+     "user folder"
+    ],
+    [
+     "CachedImage_1366_768_POS4.jpg",
+     "user folder"
+    ],
+    [
+     "Cloudy thoughts (4apr).docx",
+     "user folder"
+    ],
+    [
+     "CubaDearmed.jpg",
+     "user folder"
+    ],
+    [
+     "DarkWolf.png",
+     "user folder"
+    ],
+    [
+     "DeathToll.jpg",
+     "user folder"
+    ],
+    [
+     "DemLogic.jpg",
+     "user folder"
+    ],
+    [
+     "Dropbox.lnk",
+     "user folder"
+    ],
+    [
+     "Google Drive.lnk",
+     "user folder"
+    ],
+    [
+     "HoldMyTidePod.jpg",
+     "user folder"
+    ],
+    [
+     "Huckleberry.png",
+     "user folder"
+    ],
+    [
+     "Jim's Notebook.url",
+     "user folder"
+    ],
+    [
+     "LeftUsesBoycotts.pdf",
+     "user folder"
+    ],
+    [
+     "MyTiredHead.jpg",
+     "user folder"
+    ],
+    [
+     "Operation 2nd Hand Smoke.pptx",
+     "user folder"
+    ],
+    [
+     "Planning.docx",
+     "user folder"
+    ],
+    [
+     "RedGuns.jpg",
+     "user folder"
+    ],
+    [
+     "rootkey.csv",
+     "user folder"
+    ],
+    [
+     "SelfDefenseisMurder.pdf",
+     "user folder"
+    ],
+    [
+     "Sheep.jpg",
+     "user folder"
+    ],
+    [
+     "The Cloudy Manifesto.docx",
+     "user folder"
+    ],
+    [
+     "UKknifeBan.pdf",
+     "user folder"
+    ],
+    [
+     "Chrome Login Data database",
+     "user folder"
+    ]
+   ]
+  },
+  "img4": {
+   "names": [
+    [
+     "coreupdater.exe (meterpreter payload) and its traces",
+     "system folder"
+    ]
+   ]
+  },
+  "img5": {
+   "names": [
+    [
+     "coreupdater.exe (malware) and its traces",
+     "system folder"
+    ],
+    [
+     "Szechuan Sauce.txt",
+     "other"
+    ],
+    [
+     "Secret_Beth.txt (deleted from the share)",
+     "user folder"
+    ],
+    [
+     "Beth_Secret.txt (created, timestomped)",
+     "other"
+    ]
+   ]
+  }
+ }
+}
