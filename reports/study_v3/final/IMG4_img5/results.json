@@ -1,0 +1,158 @@
+{
+ "N": 92783,
+ "features": 19,
+ "targets_defined": 6,
+ "targets_on_disk": 4,
+ "target_files": 6,
+ "target_names": [
+  "coreupdater.exe (malware) and its traces",
+  "Szechuan Sauce.txt",
+  "Secret_Beth.txt (deleted from the share)",
+  "Beth_Secret.txt (created, timestomped)"
+ ],
+ "IF": [
+  {
+   "seed": 42,
+   "best_rank": [
+    2850,
+    14,
+    12,
+    70
+   ],
+   "best_rank_pct": [
+    3.072,
+    0.015,
+    0.013,
+    0.075
+   ],
+   "targets": 4,
+   "at15": 4,
+   "at20": 4,
+   "knee_pct": 3.07,
+   "plateau_pct": 3.07
+  },
+  {
+   "seed": 1337,
+   "best_rank": [
+    3100,
+    55,
+    54,
+    331
+   ],
+   "best_rank_pct": [
+    3.341,
+    0.059,
+    0.058,
+    0.357
+   ],
+   "targets": 4,
+   "at15": 4,
+   "at20": 4,
+   "knee_pct": 3.34,
+   "plateau_pct": 3.34
+  },
+  {
+   "seed": 9999,
+   "best_rank": [
+    2433,
+    28,
+    29,
+    64
+   ],
+   "best_rank_pct": [
+    2.622,
+    0.03,
+    0.031,
+    0.069
+   ],
+   "targets": 4,
+   "at15": 4,
+   "at20": 4,
+   "knee_pct": 2.62,
+   "plateau_pct": 2.62
+  },
+  {
+   "seed": 7,
+   "best_rank": [
+    3354,
+    49,
+    44,
+    90
+   ],
+   "best_rank_pct": [
+    3.615,
+    0.053,
+    0.047,
+    0.097
+   ],
+   "targets": 4,
+   "at15": 4,
+   "at20": 4,
+   "knee_pct": 3.61,
+   "plateau_pct": 3.61
+  },
+  {
+   "seed": 2024,
+   "best_rank": [
+    2865,
+    26,
+    29,
+    61
+   ],
+   "best_rank_pct": [
+    3.088,
+    0.028,
+    0.031,
+    0.066
+   ],
+   "targets": 4,
+   "at15": 4,
+   "at20": 4,
+   "knee_pct": 3.09,
+   "plateau_pct": 3.09
+  }
+ ],
+ "R3": {
+  "targets": 4,
+  "at15": 4,
+  "at20": 4,
+  "knee_pct": 7.6,
+  "plateau_pct": 7.6,
+  "best_rank_pct": [
+   7.604,
+   1.007,
+   1.004,
+   0.997
+  ]
+ },
+ "R4": {
+  "targets": 4,
+  "at15": 4,
+  "at20": 4,
+  "knee_pct": 0.09,
+  "plateau_pct": 0.09,
+  "best_rank_pct": [
+   0.087,
+   0.067,
+   0.068,
+   0.064
+  ]
+ },
+ "IF_at15": {
+  "mean": 4.0,
+  "worst": 4,
+  "wilson": [
+   51.0,
+   100.0
+  ]
+ },
+ "IF_at20": {
+  "mean": 4.0,
+  "worst": 4,
+  "wilson": [
+   51.0,
+   100.0
+  ]
+ },
+ "seconds": 25.8
+}

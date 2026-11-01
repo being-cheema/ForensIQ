@@ -1,0 +1,26 @@
+{
+ "img1": {
+  "N": 11773,
+  "flagged_first": 62,
+  "uncaught_targets": 7,
+  "mean_pct": 71.7,
+  "p5": 42.7,
+  "p95": 95.8
+ },
+ "img2": {
+  "N": 85017,
+  "flagged_first": 764,
+  "uncaught_targets": 6,
+  "mean_pct": 81.2,
+  "p5": 51.4,
+  "p95": 98.7
+ },
+ "img3": {
+  "N": 166110,
+  "flagged_first": 437,
+  "uncaught_targets": 14,
+  "mean_pct": 91.4,
+  "p5": 75.7,
+  "p95": 99.5
+ }
+}

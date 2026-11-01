@@ -1,0 +1,23 @@
+WARNING: A terminally deprecated method in java.lang.System has been called
+WARNING: System::setSecurityManager has been called by org.netbeans.TopSecurityManager (file:/Users/cheema/ForensIQ/tools/autopsy/app/autopsy-4.23.1/platform/lib/boot.jar)
+WARNING: Please consider reporting this to the maintainers of org.netbeans.TopSecurityManager
+WARNING: System::setSecurityManager will be removed in a future release
+/Users/cheema/ForensIQ/tools/autopsy/app/autopsy-4.23.1/bin/../platform/lib/nbexec: line 434:   371 Killed: 9               "/Users/cheema/ForensIQ/tools/autopsy/jdk/jdk-17.0.21.0.3-full.jdk/bin/java" -Djdk.home="/Users/cheema/ForensIQ/tools/autopsy/jdk/jdk-17.0.21.0.3-full.jdk" -classpath "/Users/cheema/ForensIQ/tools/autopsy/app/autopsy-4.23.1/platform/lib/boot.jar:/Users/cheema/ForensIQ/tools/autopsy/app/autopsy-4.23.1/platform/lib/org-openide-modules.jar:/Users/cheema/ForensIQ/tools/autopsy/app/autopsy-4.23.1/platform/lib/org-openide-util-lookup.jar:/Users/cheema/ForensIQ/tools/autopsy/app/autopsy-4.23.1/platform/lib/org-openide-util-ui.jar:/Users/cheema/ForensIQ/tools/autopsy/app/autopsy-4.23.1/platform/lib/org-openide-util.jar" -Dnetbeans.dirs="/Users/cheema/ForensIQ/tools/autopsy/app/autopsy-4.23.1/autopsy:/Users/cheema/ForensIQ/tools/autopsy/app/autopsy-4.23.1/CoreTestLibs:/Users/cheema/ForensIQ/tools/autopsy/app/autopsy-4.23.1/harness:/Users/cheema/ForensIQ/tools/autopsy/app/autopsy-4.23.1/java:" -Djava.library.path="/Users/cheema/ForensIQ/tools/autopsy/tsk/lib:/opt/homebrew/lib" -Djna.library.path="/usr/local/lib" -Dnetbeans.home="/Users/cheema/ForensIQ/tools/autopsy/app/autopsy-4.23.1/platform" '-Xdock:name=autopsy' '-Xdock:icon=/Users/cheema/ForensIQ/tools/autopsy/app/autopsy-4.23.1/bin/../../autopsy.icns' '-Djava.library.path=/Users/cheema/ForensIQ/tools/autopsy/tsk/lib:/opt/homebrew/lib' '-Xms24m' '-XX:+UseStringDeduplication' '-Dprism.order=sw' '--add-opens=java.base/java.lang=ALL-UNNAMED' '--add-opens=java.base/java.net=ALL-UNNAMED' '--add-opens=java.desktop/javax.swing=ALL-UNNAMED' '--add-opens=javafx.controls/javafx.scene.control.skin=ALL-UNNAMED' '--add-exports=java.desktop/sun.awt=ALL-UNNAMED' '--add-exports=javafx.controls/com.sun.javafx.scene.control.inputmap=ALL-UNNAMED' '--add-exports=javafx.base/com.sun.javafx.event=ALL-UNNAMED' -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath="/Users/cheema/ForensIQ/tools/autopsy/userdir_img3/var/log/heapdump.hprof" -Djava.security.manager=allow org.netbeans.Main --cachedir "/Users/cheema/Library/Caches/autopsy/dev" --userdir "/Users/cheema/ForensIQ/tools/autopsy/userdir_img3" "--branding" "autopsy" --nosplash "--createCase" "--caseName=img3" "--caseBaseDir=/Users/cheema/ForensIQ/tools/autopsy/autopsy_cases" "--addDataSource" "--dataSourcePath=/Users/cheema/ForensIQ/images/lonewolf/LoneWolf.E01" "--runIngest" "--generateReports" 0<&0
+     4654.32 real      4169.36 user       238.54 sys
+          1884766208  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             1569779  page reclaims
+               11616  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                 115  messages sent
+                 174  messages received
+                 202  signals received
+              823737  voluntary context switches
+             9482750  involuntary context switches
+           226949629  instructions retired
+           130205220  cycles elapsed
+             1999256  peak memory footprint

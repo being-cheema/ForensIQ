@@ -1,0 +1,1256 @@
+{
+ "case_dir": "/Users/cheema/ForensIQ/tools/autopsy/autopsy_cases/img2_2026_11_01_20_12_56",
+ "tsk_files_total": 213509,
+ "by_type": {
+  "0": 140616,
+  "2": 1689,
+  "4": 8,
+  "6": 2,
+  "7": 71194
+ },
+ "by_dir_type": {
+  "0": 803,
+  "3": 54888,
+  "5": 157816,
+  "11": 2
+ },
+ "regular_files_meta1_all": 154118,
+ "regular_fs_files_alloc": 152196,
+ "regular_fs_files_unalloc": 1349,
+ "directories": 53736,
+ "derived_or_carved_files": 1697,
+ "bytes_regular_files_allocated": 66286755834,
+ "image_size_bytes": 21474836480,
+ "datasource_count": 1,
+ "artifacts_by_type": [
+  {
+   "type": "TSK_ASSOCIATED_OBJECT",
+   "display": "Associated Object",
+   "category": 0,
+   "artifacts": 2076,
+   "distinct_objs": 2063
+  },
+  {
+   "type": "TSK_WEB_CACHE",
+   "display": "Web Cache",
+   "category": 0,
+   "artifacts": 2038,
+   "distinct_objs": 2
+  },
+  {
+   "type": "TSK_WEB_HISTORY",
+   "display": "Web History",
+   "category": 0,
+   "artifacts": 1339,
+   "distinct_objs": 5
+  },
+  {
+   "type": "TSK_WEB_COOKIE",
+   "display": "Web Cookies",
+   "category": 0,
+   "artifacts": 371,
+   "distinct_objs": 127
+  },
+  {
+   "type": "RA_SHELL_BAG",
+   "display": "Shell Bags",
+   "category": 0,
+   "artifacts": 118,
+   "distinct_objs": 4
+  },
+  {
+   "type": "TSK_INSTALLED_PROG",
+   "display": "Installed Programs",
+   "category": 0,
+   "artifacts": 114,
+   "distinct_objs": 2
+  },
+  {
+   "type": "TSK_EXT_MISMATCH_DETECTED",
+   "display": "Extension Mismatch Detected",
+   "category": 1,
+   "artifacts": 76,
+   "distinct_objs": 76
+  },
+  {
+   "type": "TSK_RECENT_OBJ",
+   "display": "Recent Documents",
+   "category": 0,
+   "artifacts": 66,
+   "distinct_objs": 55
+  },
+  {
+   "type": "TSK_CHROME_EXTENSIONS",
+   "display": "Chromium Extensions",
+   "category": 0,
+   "artifacts": 42,
+   "distinct_objs": 2
+  },
+  {
+   "type": "TSK_WEB_SEARCH_QUERY",
+   "display": "Web Search",
+   "category": 0,
+   "artifacts": 37,
+   "distinct_objs": 2
+  },
+  {
+   "type": "TSK_WEB_BOOKMARK",
+   "display": "Web Bookmarks",
+   "category": 0,
+   "artifacts": 25,
+   "distinct_objs": 25
+  },
+  {
+   "type": "TSK_METADATA_EXIF",
+   "display": "EXIF Metadata",
+   "category": 1,
+   "artifacts": 18,
+   "distinct_objs": 18
+  },
+  {
+   "type": "TSK_USER_CONTENT_SUSPECTED",
+   "display": "User Content Suspected",
+   "category": 1,
+   "artifacts": 18,
+   "distinct_objs": 18
+  },
+  {
+   "type": "TSK_DEVICE_ATTACHED",
+   "display": "USB Device Attached",
+   "category": 0,
+   "artifacts": 16,
+   "distinct_objs": 2
+  },
+  {
+   "type": "TSK_EMAIL_MSG",
+   "display": "E-Mail Messages",
+   "category": 0,
+   "artifacts": 14,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_ENCRYPTION_SUSPECTED",
+   "display": "Encryption Suspected",
+   "category": 1,
+   "artifacts": 13,
+   "distinct_objs": 13
+  },
+  {
+   "type": "TSK_WEB_DOWNLOAD",
+   "display": "Web Downloads",
+   "category": 0,
+   "artifacts": 9,
+   "distinct_objs": 5
+  },
+  {
+   "type": "TSK_INTERESTING_ITEM",
+   "display": "Interesting Items",
+   "category": 1,
+   "artifacts": 7,
+   "distinct_objs": 7
+  },
+  {
+   "type": "TSK_WEB_CATEGORIZATION",
+   "display": "Web Categories",
+   "category": 1,
+   "artifacts": 6,
+   "distinct_objs": 3
+  },
+  {
+   "type": "TSK_LOCAL_STATE",
+   "display": "Chromium Profiles",
+   "category": 0,
+   "artifacts": 2,
+   "distinct_objs": 2
+  },
+  {
+   "type": "TSK_ACCOUNT",
+   "display": "Accounts",
+   "category": 0,
+   "artifacts": 1,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_DATA_SOURCE_USAGE",
+   "display": "Data Source Usage",
+   "category": 1,
+   "artifacts": 1,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_OS_INFO",
+   "display": "Operating System Information",
+   "category": 0,
+   "artifacts": 1,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_RECYCLE_BIN",
+   "display": "Recycle Bin",
+   "category": 0,
+   "artifacts": 1,
+   "distinct_objs": 1
+  }
+ ],
+ "artifacts_total": 6409,
+ "artifacts_on_files": 6407,
+ "flags_by_type_on_files": {
+  "TSK_ASSOCIATED_OBJECT": 2076,
+  "TSK_WEB_CACHE": 2038,
+  "TSK_WEB_HISTORY": 1339,
+  "TSK_WEB_COOKIE": 371,
+  "RA_SHELL_BAG": 118,
+  "TSK_INSTALLED_PROG": 114,
+  "TSK_EXT_MISMATCH_DETECTED": 76,
+  "TSK_RECENT_OBJ": 66,
+  "TSK_CHROME_EXTENSIONS": 42,
+  "TSK_WEB_SEARCH_QUERY": 37,
+  "TSK_WEB_BOOKMARK": 25,
+  "TSK_USER_CONTENT_SUSPECTED": 18,
+  "TSK_METADATA_EXIF": 18,
+  "TSK_DEVICE_ATTACHED": 16,
+  "TSK_EMAIL_MSG": 14,
+  "TSK_ENCRYPTION_SUSPECTED": 13,
+  "TSK_WEB_DOWNLOAD": 9,
+  "TSK_INTERESTING_ITEM": 7,
+  "TSK_WEB_CATEGORIZATION": 6,
+  "TSK_LOCAL_STATE": 2,
+  "TSK_ACCOUNT": 1,
+  "TSK_RECYCLE_BIN": 1
+ },
+ "distinct_files_by_type": {
+  "TSK_ASSOCIATED_OBJECT": 2063,
+  "TSK_WEB_COOKIE": 127,
+  "TSK_EXT_MISMATCH_DETECTED": 76,
+  "TSK_RECENT_OBJ": 55,
+  "TSK_WEB_BOOKMARK": 25,
+  "TSK_METADATA_EXIF": 18,
+  "TSK_USER_CONTENT_SUSPECTED": 18,
+  "TSK_ENCRYPTION_SUSPECTED": 13,
+  "TSK_INTERESTING_ITEM": 7,
+  "TSK_WEB_HISTORY": 5,
+  "TSK_WEB_DOWNLOAD": 5,
+  "RA_SHELL_BAG": 4,
+  "TSK_WEB_CATEGORIZATION": 3,
+  "TSK_LOCAL_STATE": 2,
+  "TSK_INSTALLED_PROG": 2,
+  "TSK_WEB_CACHE": 2,
+  "TSK_DEVICE_ATTACHED": 2,
+  "TSK_CHROME_EXTENSIONS": 2,
+  "TSK_WEB_SEARCH_QUERY": 2,
+  "TSK_ACCOUNT": 1,
+  "TSK_RECYCLE_BIN": 1,
+  "TSK_EMAIL_MSG": 1
+ },
+ "detection_flag_types": [
+  "TSK_ENCRYPTION_DETECTED",
+  "TSK_ENCRYPTION_SUSPECTED",
+  "TSK_EXT_MISMATCH_DETECTED",
+  "TSK_HASHSET_HIT",
+  "TSK_INTERESTING_FILE_HIT",
+  "TSK_INTERESTING_ITEM",
+  "TSK_KEYWORD_HIT",
+  "TSK_OBJECT_DETECTED",
+  "TSK_USER_CONTENT_SUSPECTED",
+  "TSK_VERIFICATION_FAILED",
+  "TSK_YARA_HIT"
+ ],
+ "distinct_files_flagged_detection": 114,
+ "distinct_files_flagged_any_artifact": 2407,
+ "distinct_files_flagged_any_excluding_ds": 2403,
+ "explanation_examples": {
+  "TSK_RECYCLE_BIN": [
+   {
+    "file": "/$Recycle.Bin/S-1-5-21-2425377081-3129163575-2985601102-1000/$RKXD1U3.jpg",
+    "attributes": {
+     "Path": "C:\\Users\\informant\\AppData\\Local\\Microsoft\\Windows\\Burn\\Burn\\Chrysanthemum.jpg",
+     "Time Deleted": 1427227902,
+     "Username": null
+    }
+   }
+  ],
+  "TSK_RECENT_OBJ": [
+   {
+    "file": "/Users/temporary/AppData/Roaming/Microsoft/Windows/Recent/AutomaticDestinations/7e4dca80246863e3.automaticDestinations-ms/No preferred path found.lnk",
+    "attributes": {
+     "Path": "No preferred path found",
+     "Path ID": -1,
+     "Date Accessed": 0
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/CD Drive (2).lnk",
+    "attributes": {
+     "Path": "D:\\",
+     "Path ID": 6,
+     "Date Accessed": 1427230871
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/CD Drive.lnk",
+    "attributes": {
+     "Path": "D:\\",
+     "Path ID": 6,
+     "Date Accessed": 1427230042
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/AutomaticDestinations/1b4dd67f29cb1962.automaticDestinations-ms/E:\\.lnk",
+    "attributes": {
+     "Path": "E:\\",
+     "Path ID": 6,
+     "Date Accessed": 0
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Roaming/Microsoft/Windows/Recent/AutomaticDestinations/1b4dd67f29cb1962.automaticDestinations-ms/D:\\.lnk",
+    "attributes": {
+     "Path": "D:\\",
+     "Path ID": 6,
+     "Date Accessed": 0
+    }
+   }
+  ],
+  "TSK_METADATA_EXIF": [
+   {
+    "file": "/ProgramData/Microsoft/Windows NT/MSScan/WelcomeScan.jpg",
+    "attributes": {
+     "Date Created": 1081478820
+    }
+   },
+   {
+    "file": "/Users/Public/Pictures/Sample Pictures/Chrysanthemum.jpg",
+    "attributes": {
+     "Date Created": 1205483366
+    }
+   },
+   {
+    "file": "/Users/Public/Pictures/Sample Pictures/Desert.jpg",
+    "attributes": {
+     "Date Created": 1205483366
+    }
+   },
+   {
+    "file": "/Users/Public/Pictures/Sample Pictures/Hydrangeas.jpg",
+    "attributes": {
+     "Date Created": 1206357113
+    }
+   },
+   {
+    "file": "/Users/Public/Pictures/Sample Pictures/Jellyfish.jpg",
+    "attributes": {
+     "Date Created": 1202709744
+    }
+   }
+  ],
+  "TSK_USER_CONTENT_SUSPECTED": [
+   {
+    "file": "/ProgramData/Microsoft/Windows NT/MSScan/WelcomeScan.jpg",
+    "attributes": {
+     "Comment": "EXIF metadata data exists for this file."
+    }
+   },
+   {
+    "file": "/Users/Public/Pictures/Sample Pictures/Chrysanthemum.jpg",
+    "attributes": {
+     "Comment": "EXIF metadata data exists for this file."
+    }
+   },
+   {
+    "file": "/Users/Public/Pictures/Sample Pictures/Desert.jpg",
+    "attributes": {
+     "Comment": "EXIF metadata data exists for this file."
+    }
+   },
+   {
+    "file": "/Users/Public/Pictures/Sample Pictures/Hydrangeas.jpg",
+    "attributes": {
+     "Comment": "EXIF metadata data exists for this file."
+    }
+   },
+   {
+    "file": "/Users/Public/Pictures/Sample Pictures/Jellyfish.jpg",
+    "attributes": {
+     "Comment": "EXIF metadata data exists for this file."
+    }
+   }
+  ],
+  "TSK_ASSOCIATED_OBJECT": [
+   {
+    "file": "/",
+    "attributes": {
+     "Associated Artifact": -9223372036854775804
+    }
+   },
+   {
+    "file": "/",
+    "attributes": {
+     "Associated Artifact": -9223372036854775801
+    }
+   },
+   {
+    "file": "/",
+    "attributes": {
+     "Associated Artifact": -9223372036854775799
+    }
+   },
+   {
+    "file": "/",
+    "attributes": {
+     "Associated Artifact": -9223372036854775797
+    }
+   },
+   {
+    "file": "/Users/informant/Desktop",
+    "attributes": {
+     "Associated Artifact": -9223372036854775795
+    }
+   }
+  ],
+  "TSK_INTERESTING_ITEM": [
+   {
+    "file": "/Users/informant/Downloads/googledrivesync.exe",
+    "attributes": {
+     "Set Name": "Cloud Storage",
+     "Category": "Google Drive"
+    }
+   },
+   {
+    "file": "/Program Files (x86)/Google/Drive/googledrivesync.exe",
+    "attributes": {
+     "Set Name": "Cloud Storage",
+     "Category": "Google Drive"
+    }
+   },
+   {
+    "file": "/Windows/System32/mstsc.exe",
+    "attributes": {
+     "Set Name": "Remote Monitoring Management Programs",
+     "Category": "mstsc"
+    }
+   },
+   {
+    "file": "/Windows/SysWOW64/mstsc.exe",
+    "attributes": {
+     "Set Name": "Remote Monitoring Management Programs",
+     "Category": "mstsc"
+    }
+   },
+   {
+    "file": "/Windows/System32/config/SYSTEM.LOG",
+    "attributes": {
+     "Set Name": "Remote Monitoring Management Programs",
+     "Category": "Kaseya (VSA)"
+    }
+   }
+  ],
+  "TSK_ENCRYPTION_SUSPECTED": [
+   {
+    "file": "/Users/Public/Recorded TV/Sample Media/win7_scenic-demoshort_raw.wtv",
+    "attributes": {
+     "Comment": "Suspected encryption due to high entropy (7.638412)."
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Microsoft/Windows/Temporary Internet Files/Low/Content.IE5/BU7W71VG/659159[1].dat",
+    "attributes": {
+     "Comment": "Suspected encryption due to high entropy (7.876996)."
+    }
+   },
+   {
+    "file": "/Windows/Prefetch/AgCx_SC3_04B1D710D6B1061D.db",
+    "attributes": {
+     "Comment": "Suspected encryption due to high entropy (7.739371)."
+    }
+   },
+   {
+    "file": "/Windows/Prefetch/AgCx_SC4.db",
+    "attributes": {
+     "Comment": "Suspected encryption due to high entropy (7.848708)."
+    }
+   },
+   {
+    "file": "/Windows/Prefetch/AgGlFaultHistory.db",
+    "attributes": {
+     "Comment": "Suspected encryption due to high entropy (7.923138)."
+    }
+   }
+  ],
+  "TSK_EXT_MISMATCH_DETECTED": [],
+  "TSK_EMAIL_MSG": [
+   {
+    "file": "/Users/informant/AppData/Local/Microsoft/Outlook/iaman.informant@nist.gov.ost",
+    "attributes": {
+     "E-Mail From": "iaman </o=ExchangeLabs/ou=Exchange Administrative Group (FYDIBOHF23SPDLT)/cn=Recipients/cn=25fb3fee58f74a5497f8807234114f65-iaman>",
+     "E-Mail To": "spy",
+     "Subject": "RE: Watch out!",
+     "Date Received": 1427225640,
+     "Date Sent": 1427225640,
+     "Message (Plaintext)": "I am trying.\r\n\r\n-----Original Message-----\r\nFrom: spy \r\nSent: Tuesday, March 24, 2015 3:33 PM\r\nTo: iaman\r\nSubject: Watch out!\r\n\r\nUSB device may be easily detected. \r\n\r\nSo, try another method.",
+     "Message ID": "2105284",
+     "Path": "\\\\Root - Mailbox\\IPM_SUBTREE\\Deleted Items",
+     "Thread ID": "6f66ab38-07a5-482f-abfc-ebd9103973ad"
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Microsoft/Outlook/iaman.informant@nist.gov.ost",
+    "attributes": {
+     "E-Mail From": "iaman </o=ExchangeLabs/ou=Exchange Administrative Group (FYDIBOHF23SPDLT)/cn=Recipients/cn=25fb3fee58f74a5497f8807234114f65-iaman>",
+     "E-Mail To": "spy",
+     "Subject": "RE: Last request",
+     "Date Received": 1427204100,
+     "Date Sent": 1427204100,
+     "Message ID": "2104484",
+     "Path": "\\\\Root - Mailbox\\IPM_SUBTREE\\Deleted Items",
+     "Message (HTML)": "<html xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" xmlns:m=\"http://schemas.microsoft.com/office/2004/12/omml\" xmlns=\"http://www.w3.org/TR/REC-html40\"><head><META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; charset=us-ascii\"><meta name=Generator content=\"Microsoft Word 15 (filtered medium)\"><style><!--\r\n/* Font Definitions */\r\n@font-face\r\n\t{font-family:\"Cambria Math\";\r\n\tpanose-1:0 0 0 0 0 0 0 0 0 0;}\r\n@font-face\r\n\t{font-family:Calibri;\r\n\tpanose-1:2 15 5 2 2 2 4 3 2 4;}\r\n/* Style Definitions */\r\np.MsoNormal, li.MsoNormal, div.MsoNormal\r\n\t{margin:0in;\r\n\tmargin-bottom:.0001pt;\r\n\tfont-size:11.0pt;\r\n\tfont-family:\"Calibri\",\"sans-serif\";}\r\na:link, span.MsoHyperlink\r\n\t{mso-style-priority:99;\r\n\tcolor:#0563C1;\r\n\ttext-decoration:underline;}\r\na:visited, span.MsoHyperlinkFollowed\r\n\t{mso-style-priority:99;\r\n\tcolor:#954F72;\r\n\ttext-decoration:underline;}\r\nspan.EmailStyle17\r\n\t{mso-style-type:personal;\r\n\tfont-family:\"Calibri\",\"sans-serif\";\r\n\tcolor:windowtext;}\r\nspan.EmailStyle18\r\n\t{mso-style-type:personal;\r\n\tfont-family:\"Calibri\",\"sans-serif\";\r\n\tcolor:#1F497D;}\r\nspan.EmailStyle19\r\n\t{mso-style-type:personal;\r\n\tfont-family:\"Calibri\",\"sans-serif\";\r\n\tcolor:#1F497D;}\r\nspan.EmailStyle20\r\n\t{mso-style-type:personal-reply;\r\n\tfont-family:\"Calibri\",\"sans-serif\";\r\n\tcolor:#1F497D;}\r\n.MsoChpDefault\r\n\t{mso-style-type:export-only;\r\n\tfont-size:10.0pt;}\r\n@page WordSection1\r\n\t{size:8.5in 11.0in;\r\n\tmargin:1.0in 1.0in 1.0in 1.0in;}\r\ndiv.WordSection1\r\n\t{page:WordSection1;}\r\n--></style><!--[if gte mso 9]><xml>\r\n<o:shapedefaults v:ext=\"edit\" spidmax=\"1026\" />\r\n</xml><![endif]--><!--[if gte mso 9]><xml>\r\n<o:shapelayout v:ext=\"edit\">\r\n<o:idmap v:ext=\"edit\" data=\"1\" />\r\n</o:shapelayout></xml><![endif]--></head><body lang=EN-US link=\"#0563C1\" vlink=\"#954F72\"><div class=WordSection1><p class=MsoNormal><span style='color:#1F497D'>This is the last time..<o:p></o:p></span></p><p class=MsoNormal><span style='color:#1F497D'><o:p>&nbsp;</o:p></span></p><div><div style='border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in 0in 0in'><p class=MsoNormal><b>From:</b> spy <br><b>Sent:</b> Tuesday, March 24, 2015 9:34 AM<br><b>To:</b> iaman<br><b>Subject:</b> RE: Last request<o:p></o:p></p></div></div><p class=MsoNormal><o:p>&nbsp;</o:p></p><p class=MsoNormal><span style='color:#1F497D'>No problem.<o:p></o:p></span></p><p class=MsoNormal><span style='color:#1F497D'>U can directly deliver storage devices that stored it.<o:p></o:p></span></p><p class=MsoNormal><span style='color:#1F497D'><o:p>&nbsp;</o:p></span></p><div><div style='border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in 0in 0in'><p class=MsoNormal><b>From:</b> iaman <br><b>Sent:</b> Tuesday, March 24, 2015 9:30 AM<br><b>To:</b> spy<br><b>Subject:</b> RE: Last request<o:p></o:p></p></div></div><p class=MsoNormal><o:p>&nbsp;</o:p></p><p class=MsoNormal><span style='color:#1F497D'>Stop it! <o:p></o:p></span></p><p class=MsoNormal><span style='color:#1F497D'>It is very hard to transfer all data over the internet!<o:p></o:p></span></p><p class=MsoNormal><span style='color:#1F497D'><o:p>&nbsp;</o:p></span></p><div><div style='border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in 0in 0in'><p class=MsoNormal><b>From:</b> spy <br><b>Sent:</b> Tuesday, March 24, 2015 9:26 AM<br><b>To:</b> iaman<br><b>Subject:</b> Last request<o:p></o:p></p></div></div><p class=MsoNormal><o:p>&nbsp;</o:p></p><p class=MsoNormal>This is the last request.<o:p></o:p></p><p class=MsoNormal>I want to get the remaining data.<o:p></o:p></p><p class=MsoNormal><o:p>&nbsp;</o:p></p></div></body></html>",
+     "Thread ID": "b8bcdca5-090e-4794-86c0-949a39ae5f99"
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Microsoft/Outlook/iaman.informant@nist.gov.ost",
+    "attributes": {
+     "Headers": "-----HEADERS-----\n\nReceived: from BN1PR09MB108.namprd09.prod.outlook.com (10.255.199.24) by\r\n BL2PR09MB099.namprd09.prod.outlook.com (10.255.230.152) with Microsoft SMTP\r\n Server (TLS) id 15.1.106.15 via Mailbox Transport; Mon, 23 Mar 2015 20:41:22\r\n +0000\r\nReceived: from BN1PR09MB0156.namprd09.prod.outlook.com (10.255.192.146) by\r\n BN1PR09MB108.namprd09.prod.outlook.com (10.255.199.24) with Microsoft SMTP\r\n Server (TLS) id 15.1.99.14; Mon, 23 Mar 2015 20:41:20 +0000\r\nReceived: from BN1PR09MB0156.namprd09.prod.outlook.com ([10.255.192.146]) by\r\n BN1PR09MB0156.namprd09.prod.outlook.com ([10.255.192.146]) with mapi id\r\n 15.01.0112.000; Mon, 23 Mar 2015 20:41:20 +0000\r\nContent-Type: application/ms-tnef; name=\"winmail.dat\"\r\nContent-Transfer-Encoding: binary\r\nFrom: spy <spy.conspirator@nist.gov>\r\nTo: iaman <iaman.informant@nist.gov>\r\nSubject: RE: It's me\r\nThread-Topic: It's me\r\nThread-Index: AdBlqKQgSctCqgsFRUG2ZYqmDYtu6AAAQhCQ\r\nDate: Mon, 23 Mar 2015 20:41:19 +0000\r\nMessage-ID: <BN1PR09MB0156F9850927FC57F4601E378C0D0@BN1PR09MB0156.namprd09.prod.outlook.com>\r\nReferences: <BL2PR09MB099FBF1529018A3E8AE5727840D0@BL2PR09MB099.namprd09.prod.outlook.com>\r\nIn-Reply-To: <BL2PR09MB099FBF1529018A3E8AE5727840D0@BL2PR09MB099.namprd09.prod.outlook.com>\r\nAccept-Language: en-US\r\nContent-Language: en-US\r\nX-MS-Has-Attach:\r\nX-MS-Exchange-Organization-SCL: -1\r\nX-MS-TNEF-Correlator: <BN1PR09MB0156F9850927FC57F4601E378C0D0@BN1PR09MB0156.namprd09.prod.outlook.com>\r\nMIME-Version: 1.0\r\nX-MS-Exchange-Organization-MessageDirectionality: Originating\r\nX-MS-Exchange-Organization-AuthSource: BN1PR09MB0156.namprd09.prod.outlook.com\r\nX-MS-Exchange-Organization-AuthAs: Internal\r\nX-MS-Exchange-Organization-AuthMechanism: 03\r\nX-Originating-IP: [129.6.58.42]\r\nX-MS-Exchange-Organization-Network-Message-Id: 1f85d7a2-6ad7-4c3c-b670-08d233c0da54\r\nReturn-Path: spy.conspirator@nist.gov\r\nAuthentication-Results: nist.gov; dkim=none (message not signed)\r\n header.d=none;\r\nX-Microsoft-Antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:BN1PR09MB108;\r\nX-MS-Exchange-Organization-AVStamp-Service: 1.0\r\nX-Exchange-Antispam-Report-Test: UriScan:;\r\nX-Exchange-Antispam-Report-CFA-Test: BCL:0;PCL:0;RULEID:(601004);SRVR:BN1PR09MB108;BCL:0;PCL:0;RULEID:;SRVR:BN1PR09MB108;\r\nX-Forefront-Antispam-Report: SFV:SKI;SFS:;DIR:INB;SFP:;SCL:-1;SRVR:BN1PR09MB108;H:BN1PR09MB0156.namprd09.prod.outlook.com;FPR:;SPF:None;LANG:en;\r\nX-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2015 20:41:19.9883\r\n (UTC)\r\nX-MS-Exchange-CrossTenant-FromEntityHeader: Hosted\r\nX-MS-Exchange-CrossTenant-Id: 2ab5d82f-d8fa-4797-a93e-054655c61dec\r\nX-MS-Exchange-Transport-CrossTenantHeadersStamped: BN1PR09MB108\r\nX-MS-Exchange-Transport-EndToEndLatency: 00:00:02.1009838\r\n\n\n---END HEADERS--",
+     "E-Mail From": "spy <spy.conspirator@nist.gov>",
+     "Subject": "RE: It's me",
+     "Date Received": 1427143282,
+     "Date Sent": 1427143282,
+     "Message ID": "2103300",
+     "Path": "\\\\Root - Mailbox\\IPM_SUBTREE\\Deleted Items",
+     "Message (HTML)": "<html xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" xmlns:m=\"http://schemas.microsoft.com/office/2004/12/omml\" xmlns=\"http://www.w3.org/TR/REC-html40\"><head><META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; charset=us-ascii\"><meta name=Generator content=\"Microsoft Word 15 (filtered medium)\"><style><!--\r\n/* Font Definitions */\r\n@font-face\r\n\t{font-family:\"Cambria Math\";\r\n\tpanose-1:0 0 0 0 0 0 0 0 0 0;}\r\n@font-face\r\n\t{font-family:Calibri;\r\n\tpanose-1:2 15 5 2 2 2 4 3 2 4;}\r\n/* Style Definitions */\r\np.MsoNormal, li.MsoNormal, div.MsoNormal\r\n\t{margin:0in;\r\n\tmargin-bottom:.0001pt;\r\n\tfont-size:11.0pt;\r\n\tfont-family:\"Calibri\",\"sans-serif\";}\r\na:link, span.MsoHyperlink\r\n\t{mso-style-priority:99;\r\n\tcolor:#0563C1;\r\n\ttext-decoration:underline;}\r\na:visited, span.MsoHyperlinkFollowed\r\n\t{mso-style-priority:99;\r\n\tcolor:#954F72;\r\n\ttext-decoration:underline;}\r\nspan.EmailStyle17\r\n\t{mso-style-type:personal;\r\n\tfont-family:\"Calibri\",\"sans-serif\";\r\n\tcolor:windowtext;}\r\nspan.EmailStyle18\r\n\t{mso-style-type:personal-reply;\r\n\tfont-family:\"Calibri\",\"sans-serif\";\r\n\tcolor:#1F497D;}\r\n.MsoChpDefault\r\n\t{mso-style-type:export-only;\r\n\tfont-size:10.0pt;}\r\n@page WordSection1\r\n\t{size:8.5in 11.0in;\r\n\tmargin:1.0in 1.0in 1.0in 1.0in;}\r\ndiv.WordSection1\r\n\t{page:WordSection1;}\r\n--></style><!--[if gte mso 9]><xml>\r\n<o:shapedefaults v:ext=\"edit\" spidmax=\"1026\" />\r\n</xml><![endif]--><!--[if gte mso 9]><xml>\r\n<o:shapelayout v:ext=\"edit\">\r\n<o:idmap v:ext=\"edit\" data=\"1\" />\r\n</o:shapelayout></xml><![endif]--></head><body lang=EN-US link=\"#0563C1\" vlink=\"#954F72\"><div class=WordSection1><p class=MsoNormal><span style='color:#1F497D'>I got it.<o:p></o:p></span></p><p class=MsoNormal><span style='color:#1F497D'><o:p>&nbsp;</o:p></span></p><div><div style='border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in 0in 0in'><p class=MsoNormal><b>From:</b> iaman <br><b>Sent:</b> Monday, March 23, 2015 4:39 PM<br><b>To:</b> spy<br><b>Subject:</b> It's me<o:p></o:p></p></div></div><p class=MsoNormal><o:p>&nbsp;</o:p></p><p class=MsoNormal>Use links below,<o:p></o:p></p><p class=MsoNormal><o:p>&nbsp;</o:p></p><p class=MsoNormal><a href=\"https://drive.google.com/file/d/0Bz0ye6gXtiZaVl8yVU5mWHlGbWc/view?usp=sharing\">https://drive.google.com/file/d/0Bz0ye6gXtiZaVl8yVU5mWHlGbWc/view?usp=sharing</a><o:p></o:p></p><p class=MsoNormal><o:p>&nbsp;</o:p></p><p class=MsoNormal><a href=\"https://drive.google.com/file/d/0Bz0ye6gXtiZaakx6d3R3c0JmM1U/view?usp=sharing\">https://drive.google.com/file/d/0Bz0ye6gXtiZaakx6d3R3c0JmM1U/view?usp=sharing</a><o:p></o:p></p><p class=MsoNormal><o:p>&nbsp;</o:p></p><p class=MsoNormal><o:p>&nbsp;</o:p></p></div></body></html>",
+     "Thread ID": "499d2acb-e455-49ca-a9d3-37cb7256cd9e"
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Microsoft/Outlook/iaman.informant@nist.gov.ost",
+    "attributes": {
+     "E-Mail From": "iaman </o=ExchangeLabs/ou=Exchange Administrative Group (FYDIBOHF23SPDLT)/cn=Recipients/cn=25fb3fee58f74a5497f8807234114f65-iaman>",
+     "E-Mail To": "spy",
+     "Subject": "Done",
+     "Date Received": 1427231100,
+     "Date Sent": 1427231100,
+     "Message ID": "2105860",
+     "Path": "\\\\Root - Mailbox\\IPM_SUBTREE\\Deleted Items",
+     "Message (HTML)": "<html xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" xmlns:m=\"http://schemas.microsoft.com/office/2004/12/omml\" xmlns=\"http://www.w3.org/TR/REC-html40\"><head><META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; charset=us-ascii\"><meta name=Generator content=\"Microsoft Word 15 (filtered medium)\"><style><!--\r\n/* Font Definitions */\r\n@font-face\r\n\t{font-family:\"Cambria Math\";\r\n\tpanose-1:0 0 0 0 0 0 0 0 0 0;}\r\n@font-face\r\n\t{font-family:Calibri;\r\n\tpanose-1:2 15 5 2 2 2 4 3 2 4;}\r\n/* Style Definitions */\r\np.MsoNormal, li.MsoNormal, div.MsoNormal\r\n\t{margin:0in;\r\n\tmargin-bottom:.0001pt;\r\n\tfont-size:11.0pt;\r\n\tfont-family:\"Calibri\",\"sans-serif\";}\r\na:link, span.MsoHyperlink\r\n\t{mso-style-priority:99;\r\n\tcolor:#0563C1;\r\n\ttext-decoration:underline;}\r\na:visited, span.MsoHyperlinkFollowed\r\n\t{mso-style-priority:99;\r\n\tcolor:#954F72;\r\n\ttext-decoration:underline;}\r\nspan.EmailStyle17\r\n\t{mso-style-type:personal-compose;\r\n\tfont-family:\"Calibri\",\"sans-serif\";\r\n\tcolor:windowtext;}\r\n.MsoChpDefault\r\n\t{mso-style-type:export-only;\r\n\tfont-family:\"Calibri\",\"sans-serif\";}\r\n@page WordSection1\r\n\t{size:8.5in 11.0in;\r\n\tmargin:1.0in 1.0in 1.0in 1.0in;}\r\ndiv.WordSection1\r\n\t{page:WordSection1;}\r\n--></style><!--[if gte mso 9]><xml>\r\n<o:shapedefaults v:ext=\"edit\" spidmax=\"1026\" />\r\n</xml><![endif]--><!--[if gte mso 9]><xml>\r\n<o:shapelayout v:ext=\"edit\">\r\n<o:idmap v:ext=\"edit\" data=\"1\" />\r\n</o:shapelayout></xml><![endif]--></head><body lang=EN-US link=\"#0563C1\" vlink=\"#954F72\"><div class=WordSection1><p class=MsoNormal>It&#8217;s done. &nbsp;See you tomorrow.<o:p></o:p></p></div></body></html>",
+     "Thread ID": "41a6bd1c-f64b-4579-b9e1-1b2970df14fa"
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Microsoft/Outlook/iaman.informant@nist.gov.ost",
+    "attributes": {
+     "Headers": "-----HEADERS-----\n\nReceived: from BN1PR09MB106.namprd09.prod.outlook.com (10.255.199.152) by\r\n BL2PR09MB099.namprd09.prod.outlook.com (10.255.230.152) with Microsoft SMTP\r\n Server (TLS) id 15.1.106.15 via Mailbox Transport; Mon, 23 Mar 2015 17:29:28\r\n +0000\r\nReceived: from BN1PR09MB0156.namprd09.prod.outlook.com (10.255.192.146) by\r\n BN1PR09MB106.namprd09.prod.outlook.com (10.255.199.152) with Microsoft SMTP\r\n Server (TLS) id 15.1.99.14; Mon, 23 Mar 2015 17:29:27 +0000\r\nReceived: from BN1PR09MB0156.namprd09.prod.outlook.com ([10.255.192.146]) by\r\n BN1PR09MB0156.namprd09.prod.outlook.com ([10.255.192.146]) with mapi id\r\n 15.01.0112.000; Mon, 23 Mar 2015 17:29:28 +0000\r\nContent-Type: application/ms-tnef; name=\"winmail.dat\"\r\nContent-Transfer-Encoding: binary\r\nFrom: spy <spy.conspirator@nist.gov>\r\nTo: iaman <iaman.informant@nist.gov>\r\nSubject: Hello, Iaman\r\nThread-Topic: Hello, Iaman\r\nThread-Index: AdBljiMTazfn92nEQs+TAeoYNpc6Iw==\r\nDate: Mon, 23 Mar 2015 17:29:27 +0000\r\nMessage-ID: <BN1PR09MB0156C790B3BF198BDDCD14748C0D0@BN1PR09MB0156.namprd09.prod.outlook.com>\r\nAccept-Language: en-US\r\nContent-Language: en-US\r\nX-MS-Has-Attach:\r\nX-MS-Exchange-Organization-SCL: -1\r\nX-MS-TNEF-Correlator: <BN1PR09MB0156C790B3BF198BDDCD14748C0D0@BN1PR09MB0156.namprd09.prod.outlook.com>\r\nMIME-Version: 1.0\r\nX-MS-Exchange-Organization-MessageDirectionality: Originating\r\nX-MS-Exchange-Organization-AuthSource: BN1PR09MB0156.namprd09.prod.outlook.com\r\nX-MS-Exchange-Organization-AuthAs: Internal\r\nX-MS-Exchange-Organization-AuthMechanism: 03\r\nX-Originating-IP: [129.6.58.42]\r\nX-MS-Exchange-Organization-Network-Message-Id: 0c95b84a-9925-47f8-c785-08d233a60c82\r\nReturn-Path: spy.conspirator@nist.gov\r\nAuthentication-Results: nist.gov; dkim=none (message not signed)\r\n header.d=none;\r\nX-Microsoft-Antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:BN1PR09MB106;\r\nX-MS-Exchange-Organization-AVStamp-Service: 1.0\r\nX-Exchange-Antispam-Report-Test: UriScan:;\r\nX-Exchange-Antispam-Report-CFA-Test: BCL:0;PCL:0;RULEID:(601004);SRVR:BN1PR09MB106;BCL:0;PCL:0;RULEID:;SRVR:BN1PR09MB106;\r\nX-Forefront-Antispam-Report: SFV:SKI;SFS:;DIR:INB;SFP:;SCL:-1;SRVR:BN1PR09MB106;H:BN1PR09MB0156.namprd09.prod.outlook.com;FPR:;SPF:None;LANG:en;\r\nX-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2015 17:29:27.8271\r\n (UTC)\r\nX-MS-Exchange-CrossTenant-FromEntityHeader: Hosted\r\nX-MS-Exchange-CrossTenant-Id: 2ab5d82f-d8fa-4797-a93e-054655c61dec\r\nX-MS-Exchange-Transport-CrossTenantHeadersStamped: BN1PR09MB106\r\nX-MS-Exchange-Transport-EndToEndLatency: 00:00:01.0883415\r\n\n\n---END HEADERS--",
+     "E-Mail From": "spy <spy.conspirator@nist.gov>",
+     "Subject": "Hello, Iaman",
+     "Date Received": 1427131769,
+     "Date Sent": 1427131769,
+     "Message ID": "2098340",
+     "Path": "\\\\Root - Mailbox\\IPM_SUBTREE\\Inbox",
+     "Message (HTML)": "<html xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" xmlns:m=\"http://schemas.microsoft.com/office/2004/12/omml\" xmlns=\"http://www.w3.org/TR/REC-html40\"><head><meta http-equiv=Content-Type content=\"text/html; charset=us-ascii\"><meta name=Generator content=\"Microsoft Word 15 (filtered medium)\"><style><!--\r\n/* Font Definitions */\r\n@font-face\r\n\t{font-family:\"Cambria Math\";\r\n\tpanose-1:2 4 5 3 5 4 6 3 2 4;}\r\n@font-face\r\n\t{font-family:Calibri;\r\n\tpanose-1:2 15 5 2 2 2 4 3 2 4;}\r\n/* Style Definitions */\r\np.MsoNormal, li.MsoNormal, div.MsoNormal\r\n\t{margin:0in;\r\n\tmargin-bottom:.0001pt;\r\n\tfont-size:11.0pt;\r\n\tfont-family:\"Calibri\",\"sans-serif\";}\r\na:link, span.MsoHyperlink\r\n\t{mso-style-priority:99;\r\n\tcolor:#0563C1;\r\n\ttext-decoration:underline;}\r\na:visited, span.MsoHyperlinkFollowed\r\n\t{mso-style-priority:99;\r\n\tcolor:#954F72;\r\n\ttext-decoration:underline;}\r\nspan.EmailStyle17\r\n\t{mso-style-type:personal-compose;\r\n\tfont-family:\"Calibri\",\"sans-serif\";\r\n\tcolor:windowtext;}\r\n.MsoChpDefault\r\n\t{mso-style-type:export-only;}\r\n@page WordSection1\r\n\t{size:8.5in 11.0in;\r\n\tmargin:1.0in 1.0in 1.0in 1.0in;}\r\ndiv.WordSection1\r\n\t{page:WordSection1;}\r\n--></style><!--[if gte mso 9]><xml>\r\n<o:shapedefaults v:ext=\"edit\" spidmax=\"1026\" />\r\n</xml><![endif]--><!--[if gte mso 9]><xml>\r\n<o:shapelayout v:ext=\"edit\">\r\n<o:idmap v:ext=\"edit\" data=\"1\" />\r\n</o:shapelayout></xml><![endif]--></head><body lang=EN-US link=\"#0563C1\" vlink=\"#954F72\"><div class=WordSection1><p class=MsoNormal>How are you doing?<o:p></o:p></p><p class=MsoNormal><o:p>&nbsp;</o:p></p></div></body></html>",
+     "Thread ID": "717d9913-551c-42bf-a8ba-28a3f2db4392"
+    }
+   }
+  ],
+  "TSK_ACCOUNT": [
+   {
+    "file": "/Users/informant/AppData/Local/Microsoft/Outlook/iaman.informant@nist.gov.ost",
+    "attributes": {
+     "Account Type": "EMAIL",
+     "ID": "spy.conspirator@nist.gov"
+    }
+   }
+  ],
+  "RA_SHELL_BAG": [
+   {
+    "file": "/Users/informant/NTUSER.DAT",
+    "attributes": {
+     "Path": "Recycle Bin",
+     "Key": "Software\\Microsoft\\Windows\\Shell\\Bags\\1\\Desktop",
+     "Last Write": 1427277654
+    }
+   },
+   {
+    "file": "/Users/informant/NTUSER.DAT",
+    "attributes": {
+     "Path": "Google Chrome.lnk",
+     "Key": "Software\\Microsoft\\Windows\\Shell\\Bags\\1\\Desktop",
+     "Last Write": 1427277654,
+     "Date Modified": 1427017314,
+     "Date Created": 1427017314,
+     "Date Accessed": 1427017314
+    }
+   },
+   {
+    "file": "/Users/informant/NTUSER.DAT",
+    "attributes": {
+     "Path": "Download",
+     "Key": "Software\\Microsoft\\Windows\\Shell\\Bags\\1\\Desktop",
+     "Last Write": 1427277654,
+     "Date Modified": 1427276746,
+     "Date Created": 1427017104,
+     "Date Accessed": 1427276746
+    }
+   },
+   {
+    "file": "/Users/informant/NTUSER.DAT",
+    "attributes": {
+     "Path": "Resignation_Letter_(Iaman_Informant).docx",
+     "Key": "Software\\Microsoft\\Windows\\Shell\\Bags\\1\\Desktop",
+     "Last Write": 1427277654,
+     "Date Modified": 1427203772,
+     "Date Created": 1427203122,
+     "Date Accessed": 1427203772
+    }
+   },
+   {
+    "file": "/Users/informant/NTUSER.DAT",
+    "attributes": {
+     "Path": "Resignation_Letter_(Iaman_Informant).xps",
+     "Key": "Software\\Microsoft\\Windows\\Shell\\Bags\\1\\Desktop",
+     "Last Write": 1427277654,
+     "Date Modified": 1427277516,
+     "Date Created": 1427277514,
+     "Date Accessed": 1427277514
+    }
+   }
+  ],
+  "TSK_DEVICE_ATTACHED": [
+   {
+    "file": "/Windows/System32/config/RegBack/SYSTEM",
+    "attributes": {
+     "Date/Time": 1427288735,
+     "Device Make": null,
+     "Device Model": "ROOT_HUB",
+     "Device ID": "5&3bb57b&0"
+    }
+   },
+   {
+    "file": "/Windows/System32/config/RegBack/SYSTEM",
+    "attributes": {
+     "Date/Time": 1427288735,
+     "Device Make": null,
+     "Device Model": "ROOT_HUB20",
+     "Device ID": "5&299e1c9f&0"
+    }
+   },
+   {
+    "file": "/Windows/System32/config/RegBack/SYSTEM",
+    "attributes": {
+     "Date/Time": 1427204280,
+     "Device Make": "SanDisk Corp.",
+     "Device Model": "Cruzer Fit",
+     "Device ID": "4C530012450531101593"
+    }
+   },
+   {
+    "file": "/Windows/System32/config/RegBack/SYSTEM",
+    "attributes": {
+     "Date/Time": 1427225889,
+     "Device Make": "SanDisk Corp.",
+     "Device Model": "Cruzer Fit",
+     "Device ID": "4C530012550531106501"
+    }
+   },
+   {
+    "file": "/Windows/System32/config/RegBack/SYSTEM",
+    "attributes": {
+     "Date/Time": 1427288736,
+     "Device Make": "VMware, Inc.",
+     "Device Model": "Virtual USB Hub",
+     "Device ID": "6&b77da92&0&2"
+    }
+   }
+  ],
+  "TSK_INSTALLED_PROG": [
+   {
+    "file": "/Windows/System32/config/RegBack/SOFTWARE",
+    "attributes": {
+     "Program Name": "DXM_Runtime",
+     "Date/Time": 1427258721
+    }
+   },
+   {
+    "file": "/Windows/System32/config/RegBack/SOFTWARE",
+    "attributes": {
+     "Program Name": "MPlayer2",
+     "Date/Time": 1427258721
+    }
+   },
+   {
+    "file": "/Windows/System32/config/RegBack/SOFTWARE",
+    "attributes": {
+     "Program Name": "iCloud v.4.0.6.28",
+     "Date/Time": 1427121114
+    }
+   },
+   {
+    "file": "/Windows/System32/config/RegBack/SOFTWARE",
+    "attributes": {
+     "Program Name": "Bonjour v.3.0.0.10",
+     "Date/Time": 1427121058
+    }
+   },
+   {
+    "file": "/Windows/System32/config/RegBack/SOFTWARE",
+    "attributes": {
+     "Program Name": "Microsoft Office Professional Plus 2013 v.15.0.4420.1017",
+     "Date/Time": 1427016854
+    }
+   }
+  ],
+  "TSK_OS_INFO": [
+   {
+    "file": null,
+    "attributes": {
+     "Name": "INFORMANT-PC",
+     "Program Name": "Windows 7 Ultimate Service Pack 1",
+     "Processor Architecture": "AMD64",
+     "Temporary Files Directory": "%SystemRoot%\\TEMP",
+     "Path": "C:\\Windows",
+     "Product ID": "00426-292-0000007-85262",
+     "Owner": "informant"
+    }
+   }
+  ],
+  "TSK_DATA_SOURCE_USAGE": [
+   {
+    "file": null,
+    "attributes": {
+     "Description": "OS Drive (Windows 7 Ultimate Service Pack 1)"
+    }
+   }
+  ],
+  "TSK_LOCAL_STATE": [
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Local State",
+    "attributes": {
+     "Path": "Default",
+     "User ID": null,
+     "Domain": null,
+     "Short Cut": null,
+     "Name": "Person 1",
+     "Username": null,
+     "Program Name": "Google Chrome"
+    }
+   },
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Local State",
+    "attributes": {
+     "Path": "Default",
+     "User ID": null,
+     "Domain": null,
+     "Short Cut": null,
+     "Name": "First user",
+     "Username": null,
+     "Program Name": "Google Chrome"
+    }
+   }
+  ],
+  "TSK_CHROME_EXTENSIONS": [
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Default/Secure Preferences",
+    "attributes": {
+     "ID": "aapocclcgogkmnckokdopfmhonfmgoek",
+     "Name": "Google Slides",
+     "Description": "Create and edit presentations",
+     "Version": "0.9",
+     "Flag": "Enabled",
+     "Permissions": null,
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   },
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Default/Secure Preferences",
+    "attributes": {
+     "ID": "ahfgeienlihckogmohjhadlkjgocpleb",
+     "Name": "Web Store",
+     "Description": "Discover great apps, games, extensions and themes for Google Chrome.",
+     "Version": "0.2",
+     "Flag": "Enabled",
+     "Permissions": "management, system.display, system.storage, webstorePrivate, system.cpu, system.memory, system.network",
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   },
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Default/Secure Preferences",
+    "attributes": {
+     "ID": "aohghmighlieiainnegkcijnfilokake",
+     "Name": "Google Docs",
+     "Description": "Create and edit documents",
+     "Version": "0.9",
+     "Flag": "Enabled",
+     "Permissions": null,
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   },
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Default/Secure Preferences",
+    "attributes": {
+     "ID": "apdfllckaahabafndbhieahigkjlhalf",
+     "Name": "Google Drive",
+     "Description": "Google Drive: create, share and keep all your stuff in one place.",
+     "Version": "6.4",
+     "Flag": "Enabled",
+     "Permissions": "background, clipboardRead, clipboardWrite, notifications, unlimitedStorage",
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   },
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Default/Secure Preferences",
+    "attributes": {
+     "ID": "bepbmhgboaologfdajaanbcjmnhjmhfn",
+     "Name": null,
+     "Description": null,
+     "Version": null,
+     "Flag": "Disabled",
+     "Permissions": null,
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   }
+  ],
+  "TSK_WEB_HISTORY": [
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "URL": "http://tools.google.com/chrome/intl/en/welcome.html",
+     "Date Accessed": 1427039728,
+     "Referrer URL": "http://tools.google.com/chrome/intl/en/welcome.html",
+     "Title": "Getting Started",
+     "Program Name": "Google Chrome",
+     "Domain": "google.com",
+     "Username": "Default"
+    }
+   },
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "URL": "https://www.google.com/intl/en/chrome/browser/welcome.html",
+     "Date Accessed": 1427039728,
+     "Referrer URL": "https://www.google.com/intl/en/chrome/browser/welcome.html",
+     "Title": "Getting Started",
+     "Program Name": "Google Chrome",
+     "Domain": "google.com",
+     "Username": "Default"
+    }
+   },
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "URL": "https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8",
+     "Date Accessed": 1427039740,
+     "Referrer URL": "https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8",
+     "Program Name": "Google Chrome",
+     "Domain": "google.com",
+     "Username": "Default"
+    }
+   },
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "URL": "https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=comapny",
+     "Date Accessed": 1427039744,
+     "Referrer URL": "https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=comapny",
+     "Program Name": "Google Chrome",
+     "Domain": "google.com",
+     "Username": "Default"
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "URL": "http://windows.microsoft.com/en-us/internet-explorer/ie-11-worldwide-languages",
+     "Date Accessed": 1427037024,
+     "Referrer URL": "http://windows.microsoft.com/en-us/internet-explorer/ie-11-worldwide-languages",
+     "Title": "Download Internet Explorer 11 (Offline installer) - Internet Explorer",
+     "Program Name": "Google Chrome",
+     "Domain": "microsoft.com",
+     "Username": "Default"
+    }
+   }
+  ],
+  "TSK_WEB_COOKIE": [
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Default/Cookies",
+    "attributes": {
+     "URL": ".youtube.com",
+     "Date Accessed": 1427039730,
+     "Name": "VISITOR_INFO1_LIVE",
+     "Value": null,
+     "Program Name": "Google Chrome",
+     "Domain": "youtube.com",
+     "Username": "Default"
+    }
+   },
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Default/Cookies",
+    "attributes": {
+     "URL": ".google.com",
+     "Date Accessed": 1427039730,
+     "Name": "__utmt",
+     "Value": null,
+     "Program Name": "Google Chrome",
+     "Domain": "google.com",
+     "Username": "Default"
+    }
+   },
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Default/Cookies",
+    "attributes": {
+     "URL": ".google.com",
+     "Date Accessed": 1427039730,
+     "Name": "__utma",
+     "Value": null,
+     "Program Name": "Google Chrome",
+     "Domain": "google.com",
+     "Username": "Default"
+    }
+   },
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Default/Cookies",
+    "attributes": {
+     "URL": ".google.com",
+     "Date Accessed": 1427039730,
+     "Name": "__utmb",
+     "Value": null,
+     "Program Name": "Google Chrome",
+     "Domain": "google.com",
+     "Username": "Default"
+    }
+   },
+   {
+    "file": "/Users/admin11/AppData/Local/Google/Chrome/User Data/Default/Cookies",
+    "attributes": {
+     "URL": ".google.com",
+     "Date Accessed": 1427039730,
+     "Name": "__utmz",
+     "Value": null,
+     "Program Name": "Google Chrome",
+     "Domain": "google.com",
+     "Username": "Default"
+    }
+   }
+  ],
+  "TSK_WEB_DOWNLOAD": [
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Path": "C:\\Users\\informant\\Downloads\\icloudsetup.exe",
+     "Path ID": 13902,
+     "URL": "https://support.apple.com/downloads/DL1455/en_US/icloudsetup.exe",
+     "Date Accessed": 1427140547,
+     "Domain": "apple.com",
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Path": "C:\\Users\\informant\\Downloads\\icloudsetup.exe",
+     "Path ID": 13902,
+     "URL": "http://download.info.apple.com/Mac_OS_X/031-13122.20141208.abbfo/icloudsetup.exe",
+     "Date Accessed": 1427140547,
+     "Domain": "apple.com",
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Path": "C:\\Users\\informant\\Downloads\\icloudsetup.exe",
+     "Path ID": 13902,
+     "URL": "http://supportdownload.apple.com/download.info.apple.com/Apple_Support_Area/Apple_Software_Updates/Mac_OS_X/downloads/031-13122.20141208.abbfo/icloudsetup.exe",
+     "Date Accessed": 1427140547,
+     "Domain": "apple.com",
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Path": "C:\\Users\\informant\\Downloads\\googledrivesync.exe",
+     "Path ID": 13899,
+     "URL": "http://dl.google.com/tag/s/appguid%3D%7B3C122445-AECE-4309-90B7-85A6AEF42AC0%7D%26iid%3D%7B135CA63E-67F7-63DE-B9FE-7A9DD0A1CCE9%7D%26lang%3Den%26browser%3D4%26usagestats%3D0%26appname%3DGoogle%2520Drive%26needsadmin%3Dtrue/drive/googledrivesync.exe",
+     "Date Accessed": 1427140590,
+     "Domain": "google.com",
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Path": "C:\\Users\\informant\\Downloads\\googledrivesync.exe",
+     "Path ID": 13899,
+     "URL": "https://dl.google.com/tag/s/appguid%3D%7B3C122445-AECE-4309-90B7-85A6AEF42AC0%7D%26iid%3D%7B135CA63E-67F7-63DE-B9FE-7A9DD0A1CCE9%7D%26lang%3Den%26browser%3D4%26usagestats%3D0%26appname%3DGoogle%2520Drive%26needsadmin%3Dtrue/drive/googledrivesync.exe",
+     "Date Accessed": 1427140590,
+     "Domain": "google.com",
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   }
+  ],
+  "TSK_WEB_CACHE": [
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/Cache/data_1",
+    "attributes": {
+     "URL": "http://upload.wikimedia.org/wikipedia/commons/thumb/8/86/FLETC_Glynco-aerial.gif/220px-FLETC_Glynco-aerial.gif",
+     "Domain": "wikimedia.org",
+     "Date Created": 1427134550,
+     "Headers": "date :  Mon, 23 Mar 2015 18:15:49 GMT \ncontent-length :  43314 \nx-timestamp :  1383135567.17901 \nx-varnish :  3526319901 3490643416, 3126485011 \nvia :  1.1 varnish, 1.1 varnish \naccess-control-expose-headers :  Age, Date, Content-Length, Content-Range, X-Content-Duration, X-Cache, X-Varnish \naccess-control-allow-origin :  * \nlast-modified :  Wed, 30 Oct 2013 12:19:28 GMT \nx-trans-id :  tx1f5ae47508ea42bcb0199-00551020e3 \netag :  1cd9cc309e25658730d7d9426d050cee \ncontent-type :  image/gif \nx-cache :  cp1061 hit (53), cp1049 frontend miss (0) \ntiming-allow-origin :  * \naccept-ranges :  bytes \nage :  14194",
+     "Path": "/img_cfreds_2015_data_leakage_pc.dd/vol_vol3/Users/informant/AppData/Local/Google/Chrome/User Data/Default/Cache/f_0000d0",
+     "Path ID": 4346
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/Cache/data_1",
+    "attributes": {
+     "URL": "http://media.mediapost.com.s3.amazonaws.com/dam/cropped/2015/03/23/alan-smith-188.jpg",
+     "Domain": "com.s3.amazonaws.com",
+     "Date Created": 1427133929,
+     "Headers": null,
+     "Path": "/img_cfreds_2015_data_leakage_pc.dd/vol_vol3/Users/informant/AppData/Local/Google/Chrome/User Data/Default/Cache/data_3/data_3__c30303c4",
+     "Path ID": 212790
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/Cache/data_1",
+    "attributes": {
+     "URL": "https://www.google.com/s?sclient=psy-ab&hl=en&biw=950&bih=499&site=webhp&q=intellectual%20property%20theft&oq=&gs_l=&pbx=1&bav=on.2,or.&bvm=bv.88528373,d.cWc&fp",
+     "Domain": "google.com",
+     "Date Created": 1427133947,
+     "Headers": null,
+     "Path": "/img_cfreds_2015_data_leakage_pc.dd/vol_vol3/Users/informant/AppData/Local/Google/Chrome/User Data/Default/Cache/data_1/data_1__a10107f2",
+     "Path ID": 212793
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/Cache/data_1",
+    "attributes": {
+     "URL": "http://www.bing.com/th?id=OS.RTNews_7c3i75KVgaPKvr3k&w=150&h=75&c=7&rs=2&qlt=80&pcl=f9f9f9&cdv=1&pid=PopNow",
+     "Domain": "bing.com",
+     "Date Created": 1427037132,
+     "Headers": "date :  Mon, 23 Mar 2015 15:00:11 GMT \ncontent-length :  4929 \nserver :  Microsoft-IIS/8.5 \nx-msedge-ref :  Ref A: 85E0CFD7194C4BCEB900926BB82906F2 Ref B: 09305A06D3487540B35F48B535A96F11 Ref C: Mon Mar 23 08:00:12 2015 PST \ncontent-type :  image/jpeg \ncache-control :  public, max-age=1209600",
+     "Path": "/img_cfreds_2015_data_leakage_pc.dd/vol_vol3/Users/informant/AppData/Local/Google/Chrome/User Data/Default/Cache/data_3/data_3__c103013a",
+     "Path ID": 212796
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/Cache/data_1",
+    "attributes": {
+     "URL": "http://cdn-wac.emirates247.com/polopoly_fs/1.585123.1427108700!/image/2789275595.JPG_gen/derivatives/rectangular_320/2789275595.JPG",
+     "Domain": "emirates247.com",
+     "Date Created": 1427133898,
+     "Headers": null,
+     "Path": "/img_cfreds_2015_data_leakage_pc.dd/vol_vol3/Users/informant/AppData/Local/Google/Chrome/User Data/Default/Cache/data_3/data_3__c3030320",
+     "Path ID": 212799
+    }
+   }
+  ],
+  "TSK_WEB_BOOKMARK": [
+   {
+    "file": "/Users/informant/Favorites/MSN Websites/MSN Money.url",
+    "attributes": {
+     "URL": "http://go.microsoft.com/fwlink/?LinkId=68923",
+     "Title": "MSN Money.url",
+     "Date Created": 1427034897,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "microsoft.com"
+    }
+   },
+   {
+    "file": "/Users/informant/Favorites/MSN Websites/MSNBC News.url",
+    "attributes": {
+     "URL": "http://go.microsoft.com/fwlink/?LinkId=68922",
+     "Title": "MSNBC News.url",
+     "Date Created": 1427034897,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "microsoft.com"
+    }
+   },
+   {
+    "file": "/Users/informant/Favorites/Windows Live/Windows Live Spaces.url",
+    "attributes": {
+     "URL": "http://go.microsoft.com/fwlink/?LinkId=68927",
+     "Title": "Windows Live Spaces.url",
+     "Date Created": 1427034897,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "microsoft.com"
+    }
+   },
+   {
+    "file": "/Users/informant/Favorites/Links/Suggested Sites.url",
+    "attributes": {
+     "URL": "https://ieonline.microsoft.com/#ieslice",
+     "Title": "Suggested Sites.url",
+     "Date Created": 1427036957,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "microsoft.com"
+    }
+   },
+   {
+    "file": "/Users/informant/Favorites/MSN Websites/MSN Entertainment.url",
+    "attributes": {
+     "URL": "http://go.microsoft.com/fwlink/?LinkId=68924",
+     "Title": "MSN Entertainment.url",
+     "Date Created": 1427034897,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "microsoft.com"
+    }
+   }
+  ],
+  "TSK_WEB_SEARCH_QUERY": [
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "google.com",
+     "Text": "internet explorer 11",
+     "Program Name": "Google Chrome",
+     "Date Accessed": 1427037052
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "google.com",
+     "Text": "data leakage methods",
+     "Program Name": "Google Chrome",
+     "Date Accessed": 1427133729
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "google.com",
+     "Text": "leaking confidential information",
+     "Program Name": "Google Chrome",
+     "Date Accessed": 1427133764
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "google.com",
+     "Text": "information leakage cases",
+     "Program Name": "Google Chrome",
+     "Date Accessed": 1427133820
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "google.com",
+     "Text": "information leakage cases",
+     "Program Name": "Google Chrome",
+     "Date Accessed": 1427133918
+    }
+   }
+  ],
+  "TSK_WEB_CATEGORIZATION": [
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/Cookies",
+    "attributes": {
+     "Domain": "bing.com",
+     "Host": ".bing.com",
+     "Name": "Search Engine"
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "google.com",
+     "Host": "www.google.com",
+     "Name": "Search Engine"
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/Cookies",
+    "attributes": {
+     "Domain": "login.live.com",
+     "Host": "login.live.com",
+     "Name": "Web Email"
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/Cookies",
+    "attributes": {
+     "Domain": "yahoo.com",
+     "Host": ".yahoo.com",
+     "Name": "Search Engine"
+    }
+   },
+   {
+    "file": "/Users/informant/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "icloud.com",
+     "Host": "www.icloud.com",
+     "Name": "Web Email"
+    }
+   }
+  ]
+ },
+ "coverage_any_artifact_on_file": {
+  "targets_caught": 13,
+  "targets_total": 19,
+  "target_files_caught": 24,
+  "target_files_total": 38,
+  "caught_names": [
+   "Eraser 6.2.0.2962.exe (Downloaded Installer)",
+   "ccsetup504.exe (Downloaded CCleaner)",
+   "[secret_project]_proposal.docx (LNK)",
+   "[secret_project]_design_concept.ppt (LNK)",
+   "(secret_project)_pricing_decision.xlsx (LNK)",
+   "[secret_project]_final_meeting.pptx (LNK)",
+   "winter_whether_advisory.zip (Masqueraded Design)",
+   "Chrysanthemum.jpg (Wiped via Eraser)",
+   "Koala.jpg (Decoy burned to CD-R)",
+   "Penguins.jpg (Decoy burned to CD-R)",
+   "Tulips.jpg (Decoy burned to CD-R)",
+   "Resignation_Letter_(Iaman_Informant).docx / .xps",
+   "setupapi.dev.log (USB Connection Log)"
+  ],
+  "missed_names": [
+   "Eraser.exe (Installed Wiping Tool)",
+   "CCleaner64.exe (CCleaner Prefetch)",
+   "happy_holiday.jpg (Confidential Pricing)",
+   "sync_log.log (Google Drive Sync Log)",
+   "sync_config.db / snapshot.db (GDrive DBs)",
+   "System.evtx (Removable Drive Events)"
+  ]
+ },
+ "coverage_detection_types_only": {
+  "targets_caught": 4,
+  "targets_total": 19,
+  "target_files_caught": 4,
+  "target_files_total": 38,
+  "caught_names": [
+   "Chrysanthemum.jpg (Wiped via Eraser)",
+   "Koala.jpg (Decoy burned to CD-R)",
+   "Penguins.jpg (Decoy burned to CD-R)",
+   "Tulips.jpg (Decoy burned to CD-R)"
+  ],
+  "missed_names": [
+   "Eraser.exe (Installed Wiping Tool)",
+   "Eraser 6.2.0.2962.exe (Downloaded Installer)",
+   "ccsetup504.exe (Downloaded CCleaner)",
+   "CCleaner64.exe (CCleaner Prefetch)",
+   "[secret_project]_proposal.docx (LNK)",
+   "[secret_project]_design_concept.ppt (LNK)",
+   "(secret_project)_pricing_decision.xlsx (LNK)",
+   "[secret_project]_final_meeting.pptx (LNK)",
+   "happy_holiday.jpg (Confidential Pricing)",
+   "winter_whether_advisory.zip (Masqueraded Design)",
+   "sync_log.log (Google Drive Sync Log)",
+   "sync_config.db / snapshot.db (GDrive DBs)",
+   "Resignation_Letter_(Iaman_Informant).docx / .xps",
+   "setupapi.dev.log (USB Connection Log)",
+   "System.evtx (Removable Drive Events)"
+  ]
+ },
+ "target_files_present_in_autopsy_listing": 38
+}

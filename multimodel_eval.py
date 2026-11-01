@@ -122,6 +122,15 @@ IMG1_TARGETS = [  # reconstructed from the SCHARDT case notes; family hit = any 
 
 IMG2_TARGETS = [dict(t, timestomp=(t["name"].startswith("Eraser.exe"))) for t in GT_IMG2]
 
+# Image 4 (blind check): DFIR Madness Case 001 "Stolen Szechuan Sauce", Windows 10 desktop (DESKTOP-SDN1RPT).
+# Targets were written from the public answer key before the image was unpacked or any model was run
+# (reports/study_v3/IMG4_PREREGISTRATION.md). They are the desktop files that key names.
+IMG4_TARGETS = [
+    {"name": "coreupdater.exe (meterpreter payload) and its traces", "patterns": ["coreupdate"]},
+    {"name": "loot.zip (staged for exfiltration)", "patterns": ["loot.zip"]},
+    {"name": "Szechuan Sauce.txt", "patterns": ["szechuan sauce"]},
+]
+
 AXIOM_TAGS_DIR = os.path.join(BASE_DIR, "images", "lonewolf_public", "outputs", "Axiom Tagged Files Listing")
 AXIOM_NAME_COLS = {"All Desktop Files.csv": "Name", "Word Documents.csv": "Filename", "PDF Documents.csv": "Filename",
                    "PowerPoint Documents.csv": "Filename", "Pictures.csv": "File Name",
@@ -169,6 +178,17 @@ def img3_targets(paths):
     targets.append({"name": "Chrome Login Data database", "patterns": ["/Chrome/User Data/Default/Login Data"]})
     return targets
 
+# Image 5 (blind check): DFIR Madness Case 001, Windows Server 2012 R2 domain controller (CITADEL-DC01).
+# Targets written from the public answer key before the image was unpacked (reports/study_v3/IMG4_PREREGISTRATION.md).
+IMG5_TARGETS = [
+    {"name": "coreupdater.exe (malware) and its traces", "patterns": ["coreupdate"]},
+    {"name": "Szechuan Sauce.txt", "patterns": ["szechuan sauce"]},
+    {"name": "Secret_Beth.txt (deleted from the share)", "patterns": ["secret_beth"]},
+    {"name": "Beth_Secret.txt (created, timestomped)", "patterns": ["beth_secret"]},
+    {"name": "PortalGunsPlans.txt (timestamp reference)", "patterns": ["portalgunsplans"]},
+    {"name": "secret.zip (staged, exfiltrated)", "patterns": ["secret.zip"]},
+]
+
 
 IMAGES = {
     "img1": {"label": "Image 1: XP Hacking (SCHARDT.001)", "scenario": "external",
@@ -177,6 +197,10 @@ IMAGES = {
              "targets": IMG2_TARGETS, "art_dir": os.path.join(BASE_DIR, "runs", "img2", "artifacts")},
     "img3": {"label": "Image 3: Win10 Lone Wolf", "scenario": "insider",
              "targets": img3_targets, "art_dir": os.path.join(BASE_DIR, "runs", "img3", "artifacts")},
+    "img4": {"label": "Image 4: Win10 Szechuan Sauce (blind check)", "scenario": "external",
+             "targets": IMG4_TARGETS, "art_dir": os.path.join(BASE_DIR, "runs", "img4", "artifacts")},
+    "img5": {"label": "Image 5: Server 2012 R2 Szechuan Sauce DC (blind check)", "scenario": "external",
+             "targets": IMG5_TARGETS, "art_dir": os.path.join(BASE_DIR, "runs", "img5", "artifacts")},
 }
 
 

@@ -1,0 +1,1038 @@
+{
+ "case_dir": "/Users/cheema/ForensIQ/tools/autopsy/autopsy_cases/img3_2026_11_01_20_34_58",
+ "tsk_files_total": 384810,
+ "by_type": {
+  "0": 258658,
+  "2": 66,
+  "4": 454,
+  "6": 3,
+  "7": 125629
+ },
+ "by_dir_type": {
+  "0": 2844,
+  "3": 89180,
+  "5": 292780,
+  "10": 3,
+  "11": 3
+ },
+ "regular_files_meta1_all": 282606,
+ "regular_fs_files_alloc": 276916,
+ "regular_fs_files_unalloc": 2855,
+ "directories": 87286,
+ "derived_or_carved_files": 520,
+ "bytes_regular_files_allocated": 1068200071536,
+ "image_size_bytes": 512110190592,
+ "datasource_count": 1,
+ "artifacts_by_type": [
+  {
+   "type": "TSK_WEB_HISTORY",
+   "display": "Web History",
+   "category": 0,
+   "artifacts": 2293,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_EXT_MISMATCH_DETECTED",
+   "display": "Extension Mismatch Detected",
+   "category": 1,
+   "artifacts": 298,
+   "distinct_objs": 298
+  },
+  {
+   "type": "TSK_WEB_SEARCH_QUERY",
+   "display": "Web Search",
+   "category": 0,
+   "artifacts": 241,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_RECENT_OBJ",
+   "display": "Recent Documents",
+   "category": 0,
+   "artifacts": 92,
+   "distinct_objs": 80
+  },
+  {
+   "type": "TSK_ASSOCIATED_OBJECT",
+   "display": "Associated Object",
+   "category": 0,
+   "artifacts": 84,
+   "distinct_objs": 48
+  },
+  {
+   "type": "TSK_INSTALLED_PROG",
+   "display": "Installed Programs",
+   "category": 0,
+   "artifacts": 50,
+   "distinct_objs": 1
+  },
+  {
+   "type": "RA_SHELL_BAG",
+   "display": "Shell Bags",
+   "category": 0,
+   "artifacts": 29,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_PROG_RUN",
+   "display": "Run Programs",
+   "category": 0,
+   "artifacts": 28,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_CHROME_EXTENSIONS",
+   "display": "Chromium Extensions",
+   "category": 0,
+   "artifacts": 18,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_INTERESTING_ITEM",
+   "display": "Interesting Items",
+   "category": 1,
+   "artifacts": 17,
+   "distinct_objs": 17
+  },
+  {
+   "type": "TSK_WEB_DOWNLOAD",
+   "display": "Web Downloads",
+   "category": 0,
+   "artifacts": 14,
+   "distinct_objs": 14
+  },
+  {
+   "type": "TSK_DEVICE_ATTACHED",
+   "display": "USB Device Attached",
+   "category": 0,
+   "artifacts": 10,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_METADATA_EXIF",
+   "display": "EXIF Metadata",
+   "category": 1,
+   "artifacts": 7,
+   "distinct_objs": 7
+  },
+  {
+   "type": "TSK_USER_CONTENT_SUSPECTED",
+   "display": "User Content Suspected",
+   "category": 1,
+   "artifacts": 7,
+   "distinct_objs": 7
+  },
+  {
+   "type": "TSK_WEB_CATEGORIZATION",
+   "display": "Web Categories",
+   "category": 1,
+   "artifacts": 5,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_ENCRYPTION_SUSPECTED",
+   "display": "Encryption Suspected",
+   "category": 1,
+   "artifacts": 3,
+   "distinct_objs": 3
+  },
+  {
+   "type": "TSK_DATA_SOURCE_USAGE",
+   "display": "Data Source Usage",
+   "category": 1,
+   "artifacts": 1,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_LOCAL_STATE",
+   "display": "Chromium Profiles",
+   "category": 0,
+   "artifacts": 1,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_OS_INFO",
+   "display": "Operating System Information",
+   "category": 0,
+   "artifacts": 1,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_RECYCLE_BIN",
+   "display": "Recycle Bin",
+   "category": 0,
+   "artifacts": 1,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_WEB_BOOKMARK",
+   "display": "Web Bookmarks",
+   "category": 0,
+   "artifacts": 1,
+   "distinct_objs": 1
+  }
+ ],
+ "artifacts_total": 3201,
+ "artifacts_on_files": 3199,
+ "flags_by_type_on_files": {
+  "TSK_WEB_HISTORY": 2293,
+  "TSK_EXT_MISMATCH_DETECTED": 298,
+  "TSK_WEB_SEARCH_QUERY": 241,
+  "TSK_RECENT_OBJ": 92,
+  "TSK_ASSOCIATED_OBJECT": 84,
+  "TSK_INSTALLED_PROG": 50,
+  "RA_SHELL_BAG": 29,
+  "TSK_PROG_RUN": 28,
+  "TSK_CHROME_EXTENSIONS": 18,
+  "TSK_INTERESTING_ITEM": 17,
+  "TSK_WEB_DOWNLOAD": 14,
+  "TSK_DEVICE_ATTACHED": 10,
+  "TSK_USER_CONTENT_SUSPECTED": 7,
+  "TSK_METADATA_EXIF": 7,
+  "TSK_WEB_CATEGORIZATION": 5,
+  "TSK_ENCRYPTION_SUSPECTED": 3,
+  "TSK_LOCAL_STATE": 1,
+  "TSK_RECYCLE_BIN": 1,
+  "TSK_WEB_BOOKMARK": 1
+ },
+ "distinct_files_by_type": {
+  "TSK_EXT_MISMATCH_DETECTED": 298,
+  "TSK_RECENT_OBJ": 80,
+  "TSK_ASSOCIATED_OBJECT": 48,
+  "TSK_INTERESTING_ITEM": 17,
+  "TSK_WEB_DOWNLOAD": 14,
+  "TSK_METADATA_EXIF": 7,
+  "TSK_USER_CONTENT_SUSPECTED": 7,
+  "TSK_ENCRYPTION_SUSPECTED": 3,
+  "TSK_RECYCLE_BIN": 1,
+  "TSK_WEB_HISTORY": 1,
+  "TSK_WEB_CATEGORIZATION": 1,
+  "TSK_WEB_BOOKMARK": 1,
+  "RA_SHELL_BAG": 1,
+  "TSK_PROG_RUN": 1,
+  "TSK_LOCAL_STATE": 1,
+  "TSK_INSTALLED_PROG": 1,
+  "TSK_DEVICE_ATTACHED": 1,
+  "TSK_CHROME_EXTENSIONS": 1,
+  "TSK_WEB_SEARCH_QUERY": 1
+ },
+ "detection_flag_types": [
+  "TSK_ENCRYPTION_DETECTED",
+  "TSK_ENCRYPTION_SUSPECTED",
+  "TSK_EXT_MISMATCH_DETECTED",
+  "TSK_HASHSET_HIT",
+  "TSK_INTERESTING_FILE_HIT",
+  "TSK_INTERESTING_ITEM",
+  "TSK_KEYWORD_HIT",
+  "TSK_OBJECT_DETECTED",
+  "TSK_USER_CONTENT_SUSPECTED",
+  "TSK_VERIFICATION_FAILED",
+  "TSK_YARA_HIT"
+ ],
+ "distinct_files_flagged_detection": 325,
+ "distinct_files_flagged_any_artifact": 471,
+ "distinct_files_flagged_any_excluding_ds": 458,
+ "explanation_examples": {
+  "TSK_RECYCLE_BIN": [
+   {
+    "file": "/$Recycle.Bin/S-1-5-21-2734969515-1644526556-1039763013-1001/$RYRY5PT.jpg",
+    "attributes": {
+     "Path": "C:\\Users\\jcloudy\\Downloads\\DemGun.jpg",
+     "Time Deleted": 1523003361,
+     "Username": null
+    }
+   }
+  ],
+  "TSK_RECENT_OBJ": [
+   {
+    "file": "/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/The Internet.lnk",
+    "attributes": {
+     "Path": "No preferred path found",
+     "Path ID": -1,
+     "Date Accessed": 1522142832
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/System and Security.lnk",
+    "attributes": {
+     "Path": "No preferred path found",
+     "Path ID": -1,
+     "Date Accessed": 1522143140
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Hardware and Sound.lnk",
+    "attributes": {
+     "Path": "No preferred path found",
+     "Path ID": -1,
+     "Date Accessed": 1523003510
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/Power Options.lnk",
+    "attributes": {
+     "Path": "No preferred path found",
+     "Path ID": -1,
+     "Date Accessed": 1523003510
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Roaming/Microsoft/Windows/Recent/System.lnk",
+    "attributes": {
+     "Path": "No preferred path found",
+     "Path ID": -1,
+     "Date Accessed": 1522143140
+    }
+   }
+  ],
+  "TSK_INTERESTING_ITEM": [
+   {
+    "file": "/Users/jcloudy/Downloads/s3browser-7-6-9.exe",
+    "attributes": {
+     "Set Name": "Remote Monitoring Management Programs",
+     "Category": "S3 Browser"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Microsoft/CLR_v4.0/UsageLogs/s3browser-win32.exe.log",
+    "attributes": {
+     "Set Name": "Remote Monitoring Management Programs",
+     "Category": "S3 Browser"
+    }
+   },
+   {
+    "file": "/Program Files (x86)/Dropbox/Client/qt.conf",
+    "attributes": {
+     "Set Name": "Remote Monitoring Management Programs",
+     "Category": "Aspia"
+    }
+   },
+   {
+    "file": "/Program Files (x86)/Dropbox/Client/Dropbox.exe",
+    "attributes": {
+     "Set Name": "Cloud Storage",
+     "Category": "DropBox Installer"
+    }
+   },
+   {
+    "file": "/Program Files (x86)/Dropbox/OldBinaries/bin_r0q7s5/Client/Dropbox.exe",
+    "attributes": {
+     "Set Name": "Cloud Storage",
+     "Category": "DropBox Installer"
+    }
+   }
+  ],
+  "TSK_EXT_MISMATCH_DETECTED": [],
+  "TSK_ASSOCIATED_OBJECT": [
+   {
+    "file": "/",
+    "attributes": {
+     "Associated Artifact": -9223372036854775795
+    }
+   },
+   {
+    "file": "/Users/jcloudy/Desktop",
+    "attributes": {
+     "Associated Artifact": -9223372036854775791
+    }
+   },
+   {
+    "file": "/Users/jcloudy/Desktop/AMEN.pdf",
+    "attributes": {
+     "Associated Artifact": -9223372036854775789
+    }
+   },
+   {
+    "file": "/Users/jcloudy/Desktop/RedGuns.jpg",
+    "attributes": {
+     "Associated Artifact": -9223372036854775787
+    }
+   },
+   {
+    "file": "/Users/jcloudy/OneDrive",
+    "attributes": {
+     "Associated Artifact": -9223372036854775785
+    }
+   }
+  ],
+  "RA_SHELL_BAG": [
+   {
+    "file": "/Users/jcloudy/AppData/Local/Microsoft/Windows/UsrClass.dat",
+    "attributes": {
+     "Path": "My Games",
+     "Key": "Local Settings\\Software\\Microsoft\\Windows\\Shell\\BagMRU\\0\\"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Microsoft/Windows/UsrClass.dat",
+    "attributes": {
+     "Path": "Explorer",
+     "Key": "Local Settings\\Software\\Microsoft\\Windows\\Shell\\BagMRU\\1\\"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Microsoft/Windows/UsrClass.dat",
+    "attributes": {
+     "Path": "Explorer\\AKMonitor",
+     "Key": "Local Settings\\Software\\Microsoft\\Windows\\Shell\\BagMRU\\1\\0\\",
+     "Last Write": 1522122766,
+     "Date Modified": 1521667244,
+     "Date Created": 1521667244,
+     "Date Accessed": 1521667242
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Microsoft/Windows/UsrClass.dat",
+    "attributes": {
+     "Path": "Explorer\\AKMonitor\\logs",
+     "Key": "Local Settings\\Software\\Microsoft\\Windows\\Shell\\BagMRU\\1\\0\\0\\",
+     "Last Write": 1522122768,
+     "Date Modified": 1522122156,
+     "Date Created": 1522122156,
+     "Date Accessed": 1522122154
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Microsoft/Windows/UsrClass.dat",
+    "attributes": {
+     "Path": "Explorer\\AKMonitor\\logs\\pic",
+     "Key": "Local Settings\\Software\\Microsoft\\Windows\\Shell\\BagMRU\\1\\0\\0\\0\\",
+     "Last Write": 1522508378,
+     "Date Modified": 1522173888,
+     "Date Created": 1522173888,
+     "Date Accessed": 1522173886
+    }
+   }
+  ],
+  "TSK_DEVICE_ATTACHED": [
+   {
+    "file": "/Windows/System32/config/SYSTEM",
+    "attributes": {
+     "Date/Time": 1522187142,
+     "Device Make": null,
+     "Device Model": "ROOT_HUB20",
+     "Device ID": "4&1671a21&0"
+    }
+   },
+   {
+    "file": "/Windows/System32/config/SYSTEM",
+    "attributes": {
+     "Date/Time": 1522187142,
+     "Device Make": null,
+     "Device Model": "ROOT_HUB20",
+     "Device ID": "4&b21407d&0"
+    }
+   },
+   {
+    "file": "/Windows/System32/config/SYSTEM",
+    "attributes": {
+     "Date/Time": 1522187143,
+     "Device Make": null,
+     "Device Model": "ROOT_HUB30",
+     "Device ID": "4&2d689036&0&0"
+    }
+   },
+   {
+    "file": "/Windows/System32/config/SYSTEM",
+    "attributes": {
+     "Date/Time": 1522152796,
+     "Device Make": "SanDisk Corp.",
+     "Device Model": "SDCZ80 Flash Drive",
+     "Device ID": "AA010215170355310594"
+    }
+   },
+   {
+    "file": "/Windows/System32/config/SYSTEM",
+    "attributes": {
+     "Date/Time": 1522187144,
+     "Device Make": "SanDisk Corp.",
+     "Device Model": "SDCZ80 Flash Drive",
+     "Device ID": "AA010603160707470215"
+    }
+   }
+  ],
+  "TSK_PROG_RUN": [
+   {
+    "file": "/Windows/System32/config/SYSTEM",
+    "attributes": {
+     "Program Name": "Microsoft.Windows.CloudExperienceHost_cw5n1h2txyewy",
+     "Username": "S-1-5-21-2734969515-1644526556-1039763013-1000",
+     "Date/Time": 1522142398,
+     "Comment": "Recently Executed according to Background Activity Moderator (BAM)"
+    }
+   },
+   {
+    "file": "/Windows/System32/config/SYSTEM",
+    "attributes": {
+     "Program Name": "Microsoft.Windows.OOBENetworkConnectionFlow_cw5n1h2txyewy",
+     "Username": "S-1-5-21-2734969515-1644526556-1039763013-1000",
+     "Date/Time": 1522142194,
+     "Comment": "Recently Executed according to Background Activity Moderator (BAM)"
+    }
+   },
+   {
+    "file": "/Windows/System32/config/SYSTEM",
+    "attributes": {
+     "Program Name": "Microsoft.Windows.ShellExperienceHost_cw5n1h2txyewy",
+     "Username": null,
+     "Date/Time": 1522197864,
+     "Comment": "Recently Executed according to Background Activity Moderator (BAM)"
+    }
+   },
+   {
+    "file": "/Windows/System32/config/SYSTEM",
+    "attributes": {
+     "Program Name": "Microsoft.Windows.Cortana_cw5n1h2txyewy",
+     "Username": null,
+     "Date/Time": 1522997873,
+     "Comment": "Recently Executed according to Background Activity Moderator (BAM)"
+    }
+   },
+   {
+    "file": "/Windows/System32/config/SYSTEM",
+    "attributes": {
+     "Program Name": "\\Program Files\\DellTPad\\Apoint.exe",
+     "Username": null,
+     "Date/Time": 1522193387,
+     "Comment": "Recently Executed according to Background Activity Moderator (BAM)"
+    }
+   }
+  ],
+  "TSK_METADATA_EXIF": [
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/Cache/f_001bb5",
+    "attributes": {
+     "Date Created": 1403791014,
+     "Device Model": "Canon EOS 5D Mark III",
+     "Device Make": "Canon"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/Cache/f_001e65",
+    "attributes": {
+     "Date Created": 1519357501,
+     "Device Model": "SM-N915P",
+     "Device Make": "samsung"
+    }
+   },
+   {
+    "file": "/ProgramData/Microsoft/Windows NT/MSScan/WelcomeScan.jpg",
+    "attributes": {
+     "Date Created": 1081478820
+    }
+   },
+   {
+    "file": "/Program Files/WindowsApps/microsoft.windowscommunicationsapps_17.9126.21425.0_x64__8wekyb3d8bbwe/images/bg1a_thumb.png",
+    "attributes": {
+     "Date Created": 1506508512
+    }
+   },
+   {
+    "file": "/Program Files/WindowsApps/Microsoft.Windows.Photos_2018.18022.15810.0_x64__8wekyb3d8bbwe/AppCS/Assets/PhotosInking_GettyImages-543345687_1920x1080.jpg",
+    "attributes": {
+     "Date Created": 1506754219
+    }
+   }
+  ],
+  "TSK_USER_CONTENT_SUSPECTED": [
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/Cache/f_001bb5",
+    "attributes": {
+     "Comment": "EXIF metadata data exists for this file."
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/Cache/f_001e65",
+    "attributes": {
+     "Comment": "EXIF metadata data exists for this file."
+    }
+   },
+   {
+    "file": "/ProgramData/Microsoft/Windows NT/MSScan/WelcomeScan.jpg",
+    "attributes": {
+     "Comment": "EXIF metadata data exists for this file."
+    }
+   },
+   {
+    "file": "/Program Files/WindowsApps/microsoft.windowscommunicationsapps_17.9126.21425.0_x64__8wekyb3d8bbwe/images/bg1a_thumb.png",
+    "attributes": {
+     "Comment": "EXIF metadata data exists for this file."
+    }
+   },
+   {
+    "file": "/Program Files/WindowsApps/Microsoft.Windows.Photos_2018.18022.15810.0_x64__8wekyb3d8bbwe/AppCS/Assets/PhotosInking_GettyImages-543345687_1920x1080.jpg",
+    "attributes": {
+     "Comment": "EXIF metadata data exists for this file."
+    }
+   }
+  ],
+  "TSK_ENCRYPTION_SUSPECTED": [
+   {
+    "file": "/ProgramData/Microsoft/Windows Defender/Scans/mpenginedb.db",
+    "attributes": {
+     "Comment": "Suspected encryption due to high entropy (7.994132)."
+    }
+   },
+   {
+    "file": "/Windows/Resources/Maps/resource.db",
+    "attributes": {
+     "Comment": "Suspected encryption due to high entropy (7.989225)."
+    }
+   },
+   {
+    "file": "/Windows/WinSxS/amd64_microsoft-windows-mapcontrol_31bf3856ad364e35_10.0.16299.15_none_364147e87bb770f9/resource.db",
+    "attributes": {
+     "Comment": "Suspected encryption due to high entropy (7.989225)."
+    }
+   }
+  ],
+  "TSK_INSTALLED_PROG": [
+   {
+    "file": "/Windows/System32/config/SOFTWARE",
+    "attributes": {
+     "Program Name": "Box Sync v.4.0.7900.0",
+     "Date/Time": 1522335197
+    }
+   },
+   {
+    "file": "/Windows/System32/config/SOFTWARE",
+    "attributes": {
+     "Program Name": "S3 Browser version 7.6.9 v.7.6.9.0",
+     "Date/Time": 1522175239
+    }
+   },
+   {
+    "file": "/Windows/System32/config/SOFTWARE",
+    "attributes": {
+     "Program Name": "Backup and Sync from Google v.3.40.8921.5350",
+     "Date/Time": 1522174600
+    }
+   },
+   {
+    "file": "/Windows/System32/config/SOFTWARE",
+    "attributes": {
+     "Program Name": "NVIDIA HD Audio Driver 1.3.34.17 v.1.3.34.17",
+     "Date/Time": 1522127747
+    }
+   },
+   {
+    "file": "/Windows/System32/config/SOFTWARE",
+    "attributes": {
+     "Program Name": "NVIDIA Install Application v.2.1002.236.2037",
+     "Date/Time": 1522127747
+    }
+   }
+  ],
+  "TSK_OS_INFO": [
+   {
+    "file": null,
+    "attributes": {
+     "Name": "DESKTOP-PM6C56D",
+     "Program Name": "Windows 10 Education",
+     "Processor Architecture": "AMD64",
+     "Temporary Files Directory": "%SystemRoot%\\TEMP",
+     "Path": "C:\\Windows",
+     "Product ID": "00328-00089-23637-AA141",
+     "Owner": "Windows User"
+    }
+   }
+  ],
+  "TSK_DATA_SOURCE_USAGE": [
+   {
+    "file": null,
+    "attributes": {
+     "Description": "OS Drive (Windows 10 Education)"
+    }
+   }
+  ],
+  "TSK_LOCAL_STATE": [
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Local State",
+    "attributes": {
+     "Path": "Default",
+     "User ID": "111256729592432613619",
+     "Domain": null,
+     "Short Cut": null,
+     "Name": "Person 1",
+     "Username": "jimcloudy1@gmail.com",
+     "Program Name": "Google Chrome"
+    }
+   }
+  ],
+  "TSK_CHROME_EXTENSIONS": [
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/Secure Preferences",
+    "attributes": {
+     "ID": "aapocclcgogkmnckokdopfmhonfmgoek",
+     "Name": "Slides",
+     "Description": "Create and edit presentations",
+     "Version": "0.10",
+     "Flag": "Enabled",
+     "Permissions": null,
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/Secure Preferences",
+    "attributes": {
+     "ID": "ahfgeienlihckogmohjhadlkjgocpleb",
+     "Name": "Web Store",
+     "Description": "Discover great apps, games, extensions and themes for Google Chrome.",
+     "Version": "0.2",
+     "Flag": "Enabled",
+     "Permissions": "management, system.display, system.storage, webstorePrivate, system.cpu, system.memory, system.network",
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/Secure Preferences",
+    "attributes": {
+     "ID": "aohghmighlieiainnegkcijnfilokake",
+     "Name": "Docs",
+     "Description": "Create and edit documents",
+     "Version": "0.10",
+     "Flag": "Enabled",
+     "Permissions": null,
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/Secure Preferences",
+    "attributes": {
+     "ID": "apdfllckaahabafndbhieahigkjlhalf",
+     "Name": "Google Drive",
+     "Description": "Google Drive: create, share and keep all your stuff in one place.",
+     "Version": "14.1",
+     "Flag": "Enabled",
+     "Permissions": "background, clipboardRead, clipboardWrite, notifications, unlimitedStorage",
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/Secure Preferences",
+    "attributes": {
+     "ID": "blpcfgokakmgnkcojhhkbfbldkacnbeo",
+     "Name": "YouTube",
+     "Description": null,
+     "Version": "4.2.8",
+     "Flag": "Enabled",
+     "Permissions": null,
+     "Username": "Default",
+     "Program Name": "Google Chrome"
+    }
+   }
+  ],
+  "TSK_WEB_HISTORY": [
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "URL": "file:///C:/Users/jcloudy/OneDrive/Getting%20started%20with%20OneDrive.pdf",
+     "Date Accessed": 1522144280,
+     "Referrer URL": "file:///C:/Users/jcloudy/OneDrive/Getting%20started%20with%20OneDrive.pdf",
+     "Title": "Getting Started with OneDrive",
+     "Program Name": "Google Chrome",
+     "Domain": null,
+     "Username": "Default"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "URL": "https://login.microsoftonline.com/common/oauth2/authorize?client_id=00000006-0000-0ff1-ce00-000000000000&response_mode=form_post&response_type=code+id_token&scope=openid+profile&state=OpenIdConnect.AuthenticationProperties%3dGu-pVjMrxhokQ3b6eqTx0tzVinXpFqpCbbt8ULCnVq_uUkLoOq0l6wSEzAjnJnqtF6o_ibERWbtpVHcjlPwHGDs4qMCx4TPfTArDRJ75ROYxD_9dXRVKldAFL2ovhiQshaTY-xzZk9qPJSudS1L5e_0REqxLrhstZSbMpM4tEELwg47JVocUx3cuq5_jC3bR&nonce=636572852975375794.MGMyMWNiNDEtM2FlMy00YzhhLWE4ODQtZmRiYWFjYTMzZjkyNmExOGZhYTMtZjBhMy00YmNkLThlM2EtN2ExZWFkNzY0ZmMw&redirect_uri=https%3a%2f%2fportal.office.com%2flanding&ui_locales=en-US&mkt=en-US&client-request-id=72c89cb4-209e-4121-ae5d-c3cd9c7fdae3&msafed=0",
+     "Date Accessed": 1521688544,
+     "Referrer URL": "https://login.microsoftonline.com/common/oauth2/authorize?client_id=00000006-0000-0ff1-ce00-000000000000&response_mode=form_post&response_type=code+id_token&scope=openid+profile&state=OpenIdConnect.AuthenticationProperties%3dGu-pVjMrxhokQ3b6eqTx0tzVinXpFqpCbbt8ULCnVq_uUkLoOq0l6wSEzAjnJnqtF6o_ibERWbtpVHcjlPwHGDs4qMCx4TPfTArDRJ75ROYxD_9dXRVKldAFL2ovhiQshaTY-xzZk9qPJSudS1L5e_0REqxLrhstZSbMpM4tEELwg47JVocUx3cuq5_jC3bR&nonce=636572852975375794.MGMyMWNiNDEtM2FlMy00YzhhLWE4ODQtZmRiYWFjYTMzZjkyNmExOGZhYTMtZjBhMy00YmNkLThlM2EtN2ExZWFkNzY0ZmMw&redirect_uri=https%3a%2f%2fportal.office.com%2flanding&ui_locales=en-US&mkt=en-US&client-request-id=72c89cb4-209e-4121-ae5d-c3cd9c7fdae3&msafed=0",
+     "Title": "Sign in to your account",
+     "Program Name": "Google Chrome",
+     "Domain": "microsoftonline.com",
+     "Username": "Default"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "URL": "http://portal.office.com/",
+     "Date Accessed": 1521688544,
+     "Referrer URL": "http://portal.office.com/",
+     "Title": "Sign in to your account",
+     "Program Name": "Google Chrome",
+     "Domain": "office.com",
+     "Username": "Default"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "URL": "https://portal.office.com/login?IdentityProvider=aad&ru=%2Fdefault.aspx",
+     "Date Accessed": 1521688544,
+     "Referrer URL": "https://portal.office.com/login?IdentityProvider=aad&ru=%2Fdefault.aspx",
+     "Title": "Sign in to your account",
+     "Program Name": "Google Chrome",
+     "Domain": "office.com",
+     "Username": "Default"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "URL": "https://portal.office.com/",
+     "Date Accessed": 1521688544,
+     "Referrer URL": "https://portal.office.com/",
+     "Title": "Sign in to your account",
+     "Program Name": "Google Chrome",
+     "Domain": "office.com",
+     "Username": "Default"
+    }
+   }
+  ],
+  "TSK_WEB_BOOKMARK": [
+   {
+    "file": "/Users/jcloudy/Favorites/Bing.url",
+    "attributes": {
+     "URL": "http://go.microsoft.com/fwlink/p/?LinkId=255142",
+     "Title": "Bing.url",
+     "Date Created": 1522142400,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "microsoft.com"
+    }
+   }
+  ],
+  "TSK_WEB_SEARCH_QUERY": [
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "google.com",
+     "Text": "can i sync a file to multiple cloud storage locations",
+     "Program Name": "Google Chrome",
+     "Date Accessed": 1522193648
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "google.com",
+     "Text": "cloud storage solutions",
+     "Program Name": "Google Chrome",
+     "Date Accessed": 1522194155
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "google.com",
+     "Text": "amazon cloud storage",
+     "Program Name": "Google Chrome",
+     "Date Accessed": 1522194392
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "google.com",
+     "Text": "can i use amazon s3 for free",
+     "Program Name": "Google Chrome",
+     "Date Accessed": 1522194433
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "google.com",
+     "Text": "sync amazon s3 from desktop?",
+     "Program Name": "Google Chrome",
+     "Date Accessed": 1522194477
+    }
+   }
+  ],
+  "TSK_WEB_DOWNLOAD": [
+   {
+    "file": "/$Recycle.Bin/S-1-5-21-2734969515-1644526556-1039763013-1001/$RYRY5PT.jpg:Zone.Identifier",
+    "attributes": {
+     "Path": "/$Recycle.Bin/S-1-5-21-2734969515-1644526556-1039763013-1001/$RYRY5PT.jpg",
+     "Path ID": 36777,
+     "URL": "https://images.dailykos.com/images/389211/story_image/AP_16166769545984.jpg?1492230268",
+     "Domain": "dailykos.com",
+     "Program Name": null,
+     "Comment": "Internet Zone"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/Desktop/MyTiredHead.jpg:Zone.Identifier",
+    "attributes": {
+     "Path": "/Users/jcloudy/Desktop/MyTiredHead.jpg",
+     "Path ID": 34785,
+     "URL": "https://i.ytimg.com/vi/zg_XS0HDtR0/maxresdefault.jpg",
+     "Domain": "ytimg.com",
+     "Program Name": null,
+     "Comment": "Internet Zone"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/Desktop/DarkWolf.png:Zone.Identifier",
+    "attributes": {
+     "Path": "/Users/jcloudy/Desktop/DarkWolf.png",
+     "Path ID": 34771,
+     "URL": "http://wallfocus.com/cache/images/1/a/f/d/b/1afdb04f27398267de7387b7e046b7f6307088dc.png",
+     "Domain": "wallfocus.com",
+     "Program Name": null,
+     "Comment": "Internet Zone"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/Desktop/RedGuns.jpg:Zone.Identifier",
+    "attributes": {
+     "Path": "/Users/jcloudy/Desktop/RedGuns.jpg",
+     "Path ID": 34806,
+     "URL": "https://img.memecdn.com/you-cannot-invade-the-mainland-united-states-there-would-be-a-rifle-behind-every-blade-of-grass_o_7020053.jpg",
+     "Domain": "memecdn.com",
+     "Program Name": null,
+     "Comment": "Internet Zone"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/MicrosoftEdgeBackups/backups/MicrosoftEdgeBackup20180329/MicrosoftEdgeFavoritesBackup.html:Zone.Identifier",
+    "attributes": {
+     "Path": "/Users/jcloudy/MicrosoftEdgeBackups/backups/MicrosoftEdgeBackup20180329/MicrosoftEdgeFavoritesBackup.html",
+     "Path ID": 36054,
+     "URL": null,
+     "Domain": null,
+     "Program Name": null,
+     "Comment": "Internet Zone"
+    }
+   }
+  ],
+  "TSK_WEB_CATEGORIZATION": [
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "live.com",
+     "Host": "login.live.com",
+     "Name": "Web Email"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "yahoo.com",
+     "Host": "www.yahoo.com",
+     "Name": "Search Engine"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "google.com",
+     "Host": "google.com",
+     "Name": "Search Engine"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "google.com",
+     "Host": "mail.google.com",
+     "Name": "Web Email"
+    }
+   },
+   {
+    "file": "/Users/jcloudy/AppData/Local/Google/Chrome/User Data/Default/History",
+    "attributes": {
+     "Domain": "facebook.com",
+     "Host": "www.facebook.com",
+     "Name": "Web Email"
+    }
+   }
+  ]
+ },
+ "coverage_any_artifact_on_file": {
+  "targets_caught": 20,
+  "targets_total": 34,
+  "target_files_caught": 21,
+  "target_files_total": 85,
+  "caught_names": [
+   "AIRPORT INFORMATION.docx",
+   "AMEN.pdf",
+   "BladeofGrass.jpg",
+   "Cloudy thoughts (4apr).docx",
+   "CubaDearmed.jpg",
+   "DarkWolf.png",
+   "DeathToll.jpg",
+   "DemLogic.jpg",
+   "HoldMyTidePod.jpg",
+   "Huckleberry.png",
+   "LeftUsesBoycotts.pdf",
+   "MyTiredHead.jpg",
+   "Operation 2nd Hand Smoke.pptx",
+   "Planning.docx",
+   "RedGuns.jpg",
+   "rootkey.csv",
+   "SelfDefenseisMurder.pdf",
+   "Sheep.jpg",
+   "The Cloudy Manifesto.docx",
+   "UKknifeBan.pdf"
+  ],
+  "missed_names": [
+   "2018-04-03 (1).png",
+   "2018-04-03 (3).png",
+   "2018-04-03.png",
+   "2018-04-04 (2).png",
+   "2018-04-04 (3).png",
+   "2018-04-04 (4).png",
+   "2018-04-04.png",
+   "Box Sync.lnk",
+   "Brother Chat.gdoc",
+   "CachedImage_1366_768_POS4.jpg",
+   "Dropbox.lnk",
+   "Google Drive.lnk",
+   "Jim's Notebook.url",
+   "Chrome Login Data database"
+  ]
+ },
+ "coverage_detection_types_only": {
+  "targets_caught": 0,
+  "targets_total": 34,
+  "target_files_caught": 0,
+  "target_files_total": 85,
+  "caught_names": [],
+  "missed_names": [
+   "2018-04-03 (1).png",
+   "2018-04-03 (3).png",
+   "2018-04-03.png",
+   "2018-04-04 (2).png",
+   "2018-04-04 (3).png",
+   "2018-04-04 (4).png",
+   "2018-04-04.png",
+   "AIRPORT INFORMATION.docx",
+   "AMEN.pdf",
+   "BladeofGrass.jpg",
+   "Box Sync.lnk",
+   "Brother Chat.gdoc",
+   "CachedImage_1366_768_POS4.jpg",
+   "Cloudy thoughts (4apr).docx",
+   "CubaDearmed.jpg",
+   "DarkWolf.png",
+   "DeathToll.jpg",
+   "DemLogic.jpg",
+   "Dropbox.lnk",
+   "Google Drive.lnk",
+   "HoldMyTidePod.jpg",
+   "Huckleberry.png",
+   "Jim's Notebook.url",
+   "LeftUsesBoycotts.pdf",
+   "MyTiredHead.jpg",
+   "Operation 2nd Hand Smoke.pptx",
+   "Planning.docx",
+   "RedGuns.jpg",
+   "rootkey.csv",
+   "SelfDefenseisMurder.pdf",
+   "Sheep.jpg",
+   "The Cloudy Manifesto.docx",
+   "UKknifeBan.pdf",
+   "Chrome Login Data database"
+  ]
+ },
+ "target_files_present_in_autopsy_listing": 85
+}

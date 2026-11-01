@@ -1,0 +1,106 @@
+[+] MACB features computed: 11,773 files -> /Users/cheema/ForensIQ/.cache/multimodel_eval/img1_feat/macb_features.csv
+{
+ "case_dir": "/Users/cheema/ForensIQ/tools/autopsy/autopsy_cases/img1_2026_11_01_20_05_40",
+ "tsk_files_total": 20093,
+ "by_type": {
+  "0": 14076,
+  "4": 6,
+  "6": 1,
+  "7": 6010
+ },
+ "by_dir_type": {
+  "0": 3,
+  "3": 2303,
+  "5": 17786,
+  "11": 1
+ },
+ "regular_files_meta1_all": 17521,
+ "regular_fs_files_alloc": 17406,
+ "regular_fs_files_unalloc": 112,
+ "directories": 2301,
+ "derived_or_carved_files": 6,
+ "bytes_regular_files_allocated": 11656883637,
+ "image_size_bytes": 4871301120,
+ "datasource_count": 1,
+ "artifacts_total": 1035,
+ "artifacts_on_files": 1033,
+ "flags_by_type_on_files": {
+  "TSK_WEB_HISTORY": 887,
+  "RA_SHELL_BAG": 51,
+  "TSK_INSTALLED_PROG": 32,
+  "TSK_WEB_COOKIE": 24,
+  "TSK_EXT_MISMATCH_DETECTED": 8,
+  "TSK_RECENT_OBJ": 8,
+  "TSK_WEB_BOOKMARK": 6,
+  "TSK_INTERESTING_ITEM": 4,
+  "TSK_WEB_CATEGORIZATION": 4,
+  "TSK_WEB_SEARCH_QUERY": 4,
+  "TSK_ASSOCIATED_OBJECT": 2,
+  "TSK_ENCRYPTION_SUSPECTED": 2,
+  "TSK_DEVICE_ATTACHED": 1
+ },
+ "distinct_files_by_type": {
+  "TSK_WEB_COOKIE": 24,
+  "TSK_EXT_MISMATCH_DETECTED": 8,
+  "TSK_RECENT_OBJ": 8,
+  "TSK_WEB_BOOKMARK": 6,
+  "TSK_WEB_HISTORY": 6,
+  "TSK_INTERESTING_ITEM": 4,
+  "TSK_WEB_CATEGORIZATION": 3,
+  "TSK_ASSOCIATED_OBJECT": 2,
+  "TSK_ENCRYPTION_SUSPECTED": 2,
+  "TSK_WEB_SEARCH_QUERY": 2,
+  "RA_SHELL_BAG": 1,
+  "TSK_DEVICE_ATTACHED": 1,
+  "TSK_INSTALLED_PROG": 1
+ },
+ "detection_flag_types": [
+  "TSK_ENCRYPTION_DETECTED",
+  "TSK_ENCRYPTION_SUSPECTED",
+  "TSK_EXT_MISMATCH_DETECTED",
+  "TSK_HASHSET_HIT",
+  "TSK_INTERESTING_FILE_HIT",
+  "TSK_INTERESTING_ITEM",
+  "TSK_KEYWORD_HIT",
+  "TSK_OBJECT_DETECTED",
+  "TSK_USER_CONTENT_SUSPECTED",
+  "TSK_VERIFICATION_FAILED",
+  "TSK_YARA_HIT"
+ ],
+ "distinct_files_flagged_detection": 14,
+ "distinct_files_flagged_any_artifact": 63,
+ "distinct_files_flagged_any_excluding_ds": 62,
+ "coverage_any_artifact_on_file": {
+  "targets_caught": 0,
+  "targets_total": 7,
+  "target_files_caught": 0,
+  "target_files_total": 15,
+  "caught_names": [],
+  "missed_names": [
+   "Cain & Abel (Cain.exe)",
+   "Ethereal / WinPcap",
+   "NetStumbler",
+   "Password wordlists (ZIP)",
+   "NMEM/NGETTIME (timestomped Novell tools)",
+   "123WASP (UNWISE.EXE, 123wasp.exe)",
+   "defrag.exe / Anonymizer"
+  ]
+ },
+ "coverage_detection_types_only": {
+  "targets_caught": 0,
+  "targets_total": 7,
+  "target_files_caught": 0,
+  "target_files_total": 15,
+  "caught_names": [],
+  "missed_names": [
+   "Cain & Abel (Cain.exe)",
+   "Ethereal / WinPcap",
+   "NetStumbler",
+   "Password wordlists (ZIP)",
+   "NMEM/NGETTIME (timestomped Novell tools)",
+   "123WASP (UNWISE.EXE, 123wasp.exe)",
+   "defrag.exe / Anonymizer"
+  ]
+ },
+ "target_files_present_in_autopsy_listing": 15
+}

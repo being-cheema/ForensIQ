@@ -1,0 +1,661 @@
+{
+ "case_dir": "/Users/cheema/ForensIQ/tools/autopsy/autopsy_cases/img1_2026_11_01_20_05_40",
+ "tsk_files_total": 20093,
+ "by_type": {
+  "0": 14076,
+  "4": 6,
+  "6": 1,
+  "7": 6010
+ },
+ "by_dir_type": {
+  "0": 3,
+  "3": 2303,
+  "5": 17786,
+  "11": 1
+ },
+ "regular_files_meta1_all": 17521,
+ "regular_fs_files_alloc": 17406,
+ "regular_fs_files_unalloc": 112,
+ "directories": 2301,
+ "derived_or_carved_files": 6,
+ "bytes_regular_files_allocated": 11656883637,
+ "image_size_bytes": 4871301120,
+ "datasource_count": 1,
+ "artifacts_by_type": [
+  {
+   "type": "TSK_WEB_HISTORY",
+   "display": "Web History",
+   "category": 0,
+   "artifacts": 887,
+   "distinct_objs": 6
+  },
+  {
+   "type": "RA_SHELL_BAG",
+   "display": "Shell Bags",
+   "category": 0,
+   "artifacts": 51,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_INSTALLED_PROG",
+   "display": "Installed Programs",
+   "category": 0,
+   "artifacts": 32,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_WEB_COOKIE",
+   "display": "Web Cookies",
+   "category": 0,
+   "artifacts": 24,
+   "distinct_objs": 24
+  },
+  {
+   "type": "TSK_EXT_MISMATCH_DETECTED",
+   "display": "Extension Mismatch Detected",
+   "category": 1,
+   "artifacts": 8,
+   "distinct_objs": 8
+  },
+  {
+   "type": "TSK_RECENT_OBJ",
+   "display": "Recent Documents",
+   "category": 0,
+   "artifacts": 8,
+   "distinct_objs": 8
+  },
+  {
+   "type": "TSK_WEB_BOOKMARK",
+   "display": "Web Bookmarks",
+   "category": 0,
+   "artifacts": 6,
+   "distinct_objs": 6
+  },
+  {
+   "type": "TSK_INTERESTING_ITEM",
+   "display": "Interesting Items",
+   "category": 1,
+   "artifacts": 4,
+   "distinct_objs": 4
+  },
+  {
+   "type": "TSK_WEB_CATEGORIZATION",
+   "display": "Web Categories",
+   "category": 1,
+   "artifacts": 4,
+   "distinct_objs": 3
+  },
+  {
+   "type": "TSK_WEB_SEARCH_QUERY",
+   "display": "Web Search",
+   "category": 0,
+   "artifacts": 4,
+   "distinct_objs": 2
+  },
+  {
+   "type": "TSK_ASSOCIATED_OBJECT",
+   "display": "Associated Object",
+   "category": 0,
+   "artifacts": 2,
+   "distinct_objs": 2
+  },
+  {
+   "type": "TSK_ENCRYPTION_SUSPECTED",
+   "display": "Encryption Suspected",
+   "category": 1,
+   "artifacts": 2,
+   "distinct_objs": 2
+  },
+  {
+   "type": "TSK_DATA_SOURCE_USAGE",
+   "display": "Data Source Usage",
+   "category": 1,
+   "artifacts": 1,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_DEVICE_ATTACHED",
+   "display": "USB Device Attached",
+   "category": 0,
+   "artifacts": 1,
+   "distinct_objs": 1
+  },
+  {
+   "type": "TSK_OS_INFO",
+   "display": "Operating System Information",
+   "category": 0,
+   "artifacts": 1,
+   "distinct_objs": 1
+  }
+ ],
+ "artifacts_total": 1035,
+ "artifacts_on_files": 1033,
+ "flags_by_type_on_files": {
+  "TSK_WEB_HISTORY": 887,
+  "RA_SHELL_BAG": 51,
+  "TSK_INSTALLED_PROG": 32,
+  "TSK_WEB_COOKIE": 24,
+  "TSK_EXT_MISMATCH_DETECTED": 8,
+  "TSK_RECENT_OBJ": 8,
+  "TSK_WEB_BOOKMARK": 6,
+  "TSK_INTERESTING_ITEM": 4,
+  "TSK_WEB_CATEGORIZATION": 4,
+  "TSK_WEB_SEARCH_QUERY": 4,
+  "TSK_ASSOCIATED_OBJECT": 2,
+  "TSK_ENCRYPTION_SUSPECTED": 2,
+  "TSK_DEVICE_ATTACHED": 1
+ },
+ "distinct_files_by_type": {
+  "TSK_WEB_COOKIE": 24,
+  "TSK_EXT_MISMATCH_DETECTED": 8,
+  "TSK_RECENT_OBJ": 8,
+  "TSK_WEB_BOOKMARK": 6,
+  "TSK_WEB_HISTORY": 6,
+  "TSK_INTERESTING_ITEM": 4,
+  "TSK_WEB_CATEGORIZATION": 3,
+  "TSK_ASSOCIATED_OBJECT": 2,
+  "TSK_ENCRYPTION_SUSPECTED": 2,
+  "TSK_WEB_SEARCH_QUERY": 2,
+  "RA_SHELL_BAG": 1,
+  "TSK_DEVICE_ATTACHED": 1,
+  "TSK_INSTALLED_PROG": 1
+ },
+ "detection_flag_types": [
+  "TSK_ENCRYPTION_DETECTED",
+  "TSK_ENCRYPTION_SUSPECTED",
+  "TSK_EXT_MISMATCH_DETECTED",
+  "TSK_HASHSET_HIT",
+  "TSK_INTERESTING_FILE_HIT",
+  "TSK_INTERESTING_ITEM",
+  "TSK_KEYWORD_HIT",
+  "TSK_OBJECT_DETECTED",
+  "TSK_USER_CONTENT_SUSPECTED",
+  "TSK_VERIFICATION_FAILED",
+  "TSK_YARA_HIT"
+ ],
+ "distinct_files_flagged_detection": 14,
+ "distinct_files_flagged_any_artifact": 63,
+ "distinct_files_flagged_any_excluding_ds": 62,
+ "explanation_examples": {
+  "TSK_RECENT_OBJ": [
+   {
+    "file": "/Documents and Settings/Mr. Evil/Recent/GhostWare.lnk",
+    "attributes": {
+     "Path": "D:\\Drivers\\GhostWare",
+     "Path ID": -1,
+     "Date Accessed": 1093014556
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Recent/Anonyymizer.lnk",
+    "attributes": {
+     "Path": "D:\\Drivers\\Anonyymizer",
+     "Path ID": -1,
+     "Date Accessed": 1093014292
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Recent/keys.lnk",
+    "attributes": {
+     "Path": "D:\\Drivers\\Anonyymizer\\keys.txt",
+     "Path ID": -1,
+     "Date Accessed": 1093014291
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Recent/Receipt.lnk",
+    "attributes": {
+     "Path": "D:\\Drivers\\GhostWare\\Receipt.rtf",
+     "Path ID": -1,
+     "Date Accessed": 1093014556
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Recent/Temp on m1200 (4.12.220.254).lnk",
+    "attributes": {
+     "Path": "No preferred path found",
+     "Path ID": -1,
+     "Date Accessed": 1093532894
+    }
+   }
+  ],
+  "TSK_ASSOCIATED_OBJECT": [
+   {
+    "file": "/Program Files/mIRC/channels",
+    "attributes": {
+     "Associated Artifact": -9223372036854775801
+    }
+   },
+   {
+    "file": "/Program Files/mIRC/channels/channels.txt",
+    "attributes": {
+     "Associated Artifact": -9223372036854775799
+    }
+   }
+  ],
+  "TSK_EXT_MISMATCH_DETECTED": [],
+  "RA_SHELL_BAG": [
+   {
+    "file": "/Documents and Settings/Mr. Evil/NTUSER.DAT",
+    "attributes": {
+     "Path": "My Documents",
+     "Key": "Software\\Microsoft\\Windows\\Shell\\Bags\\1\\Desktop",
+     "Last Write": 1093601773
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/NTUSER.DAT",
+    "attributes": {
+     "Path": "My Computer",
+     "Key": "Software\\Microsoft\\Windows\\Shell\\Bags\\1\\Desktop",
+     "Last Write": 1093601773
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/NTUSER.DAT",
+    "attributes": {
+     "Path": "My Network Places",
+     "Key": "Software\\Microsoft\\Windows\\Shell\\Bags\\1\\Desktop",
+     "Last Write": 1093601773
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/NTUSER.DAT",
+    "attributes": {
+     "Path": "Recycle Bin",
+     "Key": "Software\\Microsoft\\Windows\\Shell\\Bags\\1\\Desktop",
+     "Last Write": 1093601773
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/NTUSER.DAT",
+    "attributes": {
+     "Path": "Explorer",
+     "Key": "Software\\Microsoft\\Windows\\Shell\\Bags\\1\\Desktop",
+     "Last Write": 1093601773
+    }
+   }
+  ],
+  "TSK_DEVICE_ATTACHED": [
+   {
+    "file": "/WINDOWS/system32/config/system",
+    "attributes": {
+     "Date/Time": 1093619290,
+     "Device Make": null,
+     "Device Model": "ROOT_HUB",
+     "Device ID": "4&15736a3f&0"
+    }
+   }
+  ],
+  "TSK_INSTALLED_PROG": [
+   {
+    "file": "/WINDOWS/system32/config/software",
+    "attributes": {
+     "Program Name": "Ethereal 0.10.6 v.0.10.6",
+     "Date/Time": 1093600759
+    }
+   },
+   {
+    "file": "/WINDOWS/system32/config/software",
+    "attributes": {
+     "Program Name": "WinPcap 3.01 alpha",
+     "Date/Time": 1093599919
+    }
+   },
+   {
+    "file": "/WINDOWS/system32/config/software",
+    "attributes": {
+     "Program Name": "Network Stumbler 0.4.0 (remove only)",
+     "Date/Time": 1093599735
+    }
+   },
+   {
+    "file": "/WINDOWS/system32/config/software",
+    "attributes": {
+     "Program Name": "Look@LAN 2.50 Build 29",
+     "Date/Time": 1093429571
+    }
+   },
+   {
+    "file": "/WINDOWS/system32/config/software",
+    "attributes": {
+     "Program Name": "123 Write All Stored Passwords",
+     "Date/Time": 1092994988
+    }
+   }
+  ],
+  "TSK_OS_INFO": [
+   {
+    "file": null,
+    "attributes": {
+     "Name": "N-1A9ODN6ZXK4LQ",
+     "Program Name": "Microsoft Windows XP",
+     "Processor Architecture": "x86",
+     "Temporary Files Directory": "%SystemRoot%\\TEMP",
+     "Path": "C:\\WINDOWS",
+     "Product ID": "55274-640-0147306-23684",
+     "Owner": "Greg Schardt",
+     "Organization": "N/A"
+    }
+   }
+  ],
+  "TSK_DATA_SOURCE_USAGE": [
+   {
+    "file": null,
+    "attributes": {
+     "Description": "OS Drive (Microsoft Windows XP)"
+    }
+   }
+  ],
+  "TSK_WEB_BOOKMARK": [
+   {
+    "file": "/Documents and Settings/Mr. Evil/Favorites/Links/Free Hotmail.url",
+    "attributes": {
+     "URL": "http://www.microsoft.com/isapi/redir.dll?prd=ie&ar=hotmail",
+     "Title": "Free Hotmail.url",
+     "Date Created": 1092956697,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "microsoft.com"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Favorites/Links/Windows.url",
+    "attributes": {
+     "URL": "http://www.microsoft.com/isapi/redir.dll?prd=ie&ar=windows",
+     "Title": "Windows.url",
+     "Date Created": 1092956697,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "microsoft.com"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Favorites/Links/Windows Media.url",
+    "attributes": {
+     "URL": "http://www.microsoft.com/isapi/redir.dll?prd=ie&ar=windowsmedia",
+     "Title": "Windows Media.url",
+     "Date Created": 1092956697,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "microsoft.com"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Favorites/Radio Station Guide.url",
+    "attributes": {
+     "URL": "http://www.microsoft.com/isapi/redir.dll?prd=windows&sbp=mediaplayer&plcid=&pver=6.1&os=&over=&olcid=&clcid=&ar=Media&sba=RadioBar&o1=&o2=&o3=",
+     "Title": "Radio Station Guide.url",
+     "Date Created": 1092956697,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "microsoft.com"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Favorites/Links/Customize Links.url",
+    "attributes": {
+     "URL": "http://www.microsoft.com/isapi/redir.dll?prd=ie&pver=6&ar=CLinks",
+     "Title": "Customize Links.url",
+     "Date Created": 1092956697,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "microsoft.com"
+    }
+   }
+  ],
+  "TSK_WEB_COOKIE": [
+   {
+    "file": "/Documents and Settings/Mr. Evil/Cookies/mr. evil@www.maktoob[2].txt",
+    "attributes": {
+     "URL": "www.maktoob.com/",
+     "Date Created": 1093621472,
+     "Name": "lang",
+     "Value": "en",
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "maktoob.com"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Cookies/mr. evil@yahoo[1].txt",
+    "attributes": {
+     "URL": "yahoo.com/",
+     "Date Created": 1093447604,
+     "Name": "B",
+     "Value": "fqcp2ep0ic6fj&b=2",
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "yahoo.com"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Cookies/mr. evil@atwola[2].txt",
+    "attributes": {
+     "URL": "atwola.com/",
+     "Date Created": 1093028719,
+     "Name": "badsrfi",
+     "Value": "V0b63cfe697d86901f41264b70668f",
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "atwola.com"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Cookies/mr. evil@centrport[1].txt",
+    "attributes": {
+     "URL": "centrport.net/",
+     "Date Created": 1093448981,
+     "Name": "CPID",
+     "Value": "AA-00000000137851552",
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "centrport.net"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Cookies/mr. evil@microsoft[1].txt",
+    "attributes": {
+     "URL": "microsoft.com/",
+     "Date Created": 1093450383,
+     "Name": "MC1",
+     "Value": "GUID=2f625a1fda5a8a439251493e20437a7d&HASH=1f5a&LV=20048&V=3",
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "microsoft.com"
+    }
+   }
+  ],
+  "TSK_WEB_HISTORY": [
+   {
+    "file": "/Documents and Settings/Mr. Evil/Cookies/index.dat",
+    "attributes": {
+     "URL": "atwola.com/",
+     "Date Accessed": 1093008919,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "atwola.com",
+     "Username": "Cookie:mr. evil"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Cookies/index.dat",
+    "attributes": {
+     "URL": "cnn.com/",
+     "Date Accessed": 1093008921,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "cnn.com",
+     "Username": "Cookie:mr. evil"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Cookies/index.dat",
+    "attributes": {
+     "URL": "search.msn.com/",
+     "Date Accessed": 1093017461,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "msn.com",
+     "Username": "Cookie:mr. evil"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Cookies/index.dat",
+    "attributes": {
+     "URL": "yahoo.com/",
+     "Date Accessed": 1093427804,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "yahoo.com",
+     "Username": "Cookie:mr. evil"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Cookies/index.dat",
+    "attributes": {
+     "URL": "revenue.net/",
+     "Date Accessed": 1093017115,
+     "Program Name": "Internet Explorer Analyzer",
+     "Domain": "revenue.net",
+     "Username": "Cookie:mr. evil"
+    }
+   }
+  ],
+  "TSK_INTERESTING_ITEM": [
+   {
+    "file": "/My Documents/EXPLOITATION/NT/vnc/vncviewer/vncviewer.exe",
+    "attributes": {
+     "Set Name": "Remote Monitoring Management Programs",
+     "Category": "Ultra VNC"
+    }
+   },
+   {
+    "file": "/WINDOWS/system32/mstsc.exe",
+    "attributes": {
+     "Set Name": "Remote Monitoring Management Programs",
+     "Category": "Microsoft RDP"
+    }
+   },
+   {
+    "file": "/WINDOWS/system32/config/system.LOG",
+    "attributes": {
+     "Set Name": "Remote Monitoring Management Programs",
+     "Category": "Kaseya (VSA)"
+    }
+   },
+   {
+    "file": "/WINDOWS/system32/dllcache/mstsc.exe",
+    "attributes": {
+     "Set Name": "Remote Monitoring Management Programs",
+     "Category": "Microsoft RDP"
+    }
+   }
+  ],
+  "TSK_WEB_SEARCH_QUERY": [
+   {
+    "file": "/Documents and Settings/Mr. Evil/Local Settings/History/History.IE5/index.dat",
+    "attributes": {
+     "Domain": "google.com",
+     "Text": "who am i",
+     "Program Name": "Internet Explorer Analyzer",
+     "Date Accessed": 1093430252
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Local Settings/History/History.IE5/index.dat",
+    "attributes": {
+     "Domain": "google.com",
+     "Text": "what is my ip",
+     "Program Name": "Internet Explorer Analyzer",
+     "Date Accessed": 1093430271
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Local Settings/History/History.IE5/MSHist012004082520040826/index.dat",
+    "attributes": {
+     "Domain": "google.com",
+     "Text": "what is my ip",
+     "Program Name": "Internet Explorer Analyzer",
+     "Date Accessed": 1093430271
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Local Settings/History/History.IE5/MSHist012004082520040826/index.dat",
+    "attributes": {
+     "Domain": "google.com",
+     "Text": "who am i",
+     "Program Name": "Internet Explorer Analyzer",
+     "Date Accessed": 1093430252
+    }
+   }
+  ],
+  "TSK_WEB_CATEGORIZATION": [
+   {
+    "file": "/Documents and Settings/Mr. Evil/Local Settings/History/History.IE5/index.dat",
+    "attributes": {
+     "Domain": "google.com",
+     "Host": "google.com",
+     "Name": "Search Engine"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Cookies/index.dat",
+    "attributes": {
+     "Domain": "list.ru",
+     "Host": "list.ru",
+     "Name": "Web Email"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Cookies/index.dat",
+    "attributes": {
+     "Domain": "yahoo.com",
+     "Host": "yahoo.com",
+     "Name": "Search Engine"
+    }
+   },
+   {
+    "file": "/Documents and Settings/Mr. Evil/Local Settings/History/History.IE5/MSHist012004081620040823/index.dat",
+    "attributes": {
+     "Domain": "yahoo.com",
+     "Host": "billing.mail.yahoo.com",
+     "Name": "Web Email"
+    }
+   }
+  ],
+  "TSK_ENCRYPTION_SUSPECTED": [
+   {
+    "file": "/WINDOWS/system32/oembios.bin",
+    "attributes": {
+     "Comment": "Suspected encryption due to high entropy (7.999987)."
+    }
+   },
+   {
+    "file": "/WINDOWS/system32/dllcache/oembios.bin",
+    "attributes": {
+     "Comment": "Suspected encryption due to high entropy (7.999987)."
+    }
+   }
+  ]
+ },
+ "coverage_any_artifact_on_file": {
+  "targets_caught": 0,
+  "targets_total": 7,
+  "target_files_caught": 0,
+  "target_files_total": 15,
+  "caught_names": [],
+  "missed_names": [
+   "Cain & Abel (Cain.exe)",
+   "Ethereal / WinPcap",
+   "NetStumbler",
+   "Password wordlists (ZIP)",
+   "NMEM/NGETTIME (timestomped Novell tools)",
+   "123WASP (UNWISE.EXE, 123wasp.exe)",
+   "defrag.exe / Anonymizer"
+  ]
+ },
+ "coverage_detection_types_only": {
+  "targets_caught": 0,
+  "targets_total": 7,
+  "target_files_caught": 0,
+  "target_files_total": 15,
+  "caught_names": [],
+  "missed_names": [
+   "Cain & Abel (Cain.exe)",
+   "Ethereal / WinPcap",
+   "NetStumbler",
+   "Password wordlists (ZIP)",
+   "NMEM/NGETTIME (timestomped Novell tools)",
+   "123WASP (UNWISE.EXE, 123wasp.exe)",
+   "defrag.exe / Anonymizer"
+  ]
+ },
+ "target_files_present_in_autopsy_listing": 15
+}
