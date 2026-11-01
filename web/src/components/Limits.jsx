@@ -6,7 +6,7 @@ export default function Limits() {
   const spreads = DISKS.map((t) => A2.disks[t].models.IF.summary.knee_spread_pp)
   const noise = ['img1', 'img3'].map((t) => A7.results.noise3600[t].at15.rel_drop_pct)
   return (
-    <Section id="limits" letter="L" title="What these numbers do not show">
+    <Section id="limits" letter="K" title="What these numbers do not show">
       <ol className="notes">
         <li><b>Three disks are not a population.</b> One is an outside intrusion, one an insider data leak and one a lone-wolf case. Nothing here shows that a 20% budget works on a disk from another case.</li>
         <li><b>The targets are not an official answer key everywhere.</b> Disk 1 targets are rebuilt from case notes and disk 2 from the repository’s CFReDS list. On disk 3 the targets are the files an examiner tagged in the suspect’s home folder, because the official key is access-restricted. A plain “read the user folder first” rule therefore also finds 34 of 34 there (A4). Disk 3 mostly shows that the model agrees with that examiner.</li>

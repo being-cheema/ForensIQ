@@ -2,32 +2,7 @@
 
 Settings: Isolation Forest with all five seeds (mean±sd over seeds, sd with n-1). **LOF and One-Class SVM were run with seed 42 only** (single value). Budgets 15%/20% of the disk. Targets: img1 = 7, img2 = 19, img3 = 34.
 
-## (a) legacy23 vs clean
-
-legacy23 = the 23 features used up to study v2 (23 columns found); clean = 17 features. The legacy table was rebuilt with the same builder and checked to have identical file paths and row order as the clean table.
-
-**Image 1: XP Hacking (SCHARDT.001)** (7 targets)
-
-| set | IF at15 | IF at20 | IF knee % | IF plateau % | LOF at15 | LOF at20 | LOF knee % | LOF plateau % | OCSVM at15 | OCSVM at20 | OCSVM knee % | OCSVM plateau % |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| legacy23 | 7.0±0.0 | 7.0±0.0 | 10.2±0.7 | 10.2±0.7 | 6.0 | 6.0 | 21.9 | 21.9 | 6.0 | 7.0 | 17.3 | 17.3 |
-| clean | 6.0±0.0 | 6.0±0.0 | 24.6±3.5 | 24.6±3.5 | 5.0 | 6.0 | 37.2 | 37.2 | 6.0 | 7.0 | 18.9 | 18.9 |
-
-**Image 2: Win7 Data Leakage** (19 targets)
-
-| set | IF at15 | IF at20 | IF knee % | IF plateau % | LOF at15 | LOF at20 | LOF knee % | LOF plateau % | OCSVM at15 | OCSVM at20 | OCSVM knee % | OCSVM plateau % |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| legacy23 | 17.2±0.4 | 19.0±0.0 | 16.0±2.2 | 18.7±0.6 | 7.0 | 8.0 | 85.8 | 89.8 | 19.0 | 19.0 | 2.1 | 3.2 |
-| clean | 18.0±0.0 | 18.0±0.0 | 9.3±2.0 | 21.9±1.3 | 8.0 | 8.0 | 52.9 | 62.4 | 19.0 | 19.0 | 1.9 | 4.6 |
-
-**Image 3: Win10 Lone Wolf** (34 targets)
-
-| set | IF at15 | IF at20 | IF knee % | IF plateau % | LOF at15 | LOF at20 | LOF knee % | LOF plateau % | OCSVM at15 | OCSVM at20 | OCSVM knee % | OCSVM plateau % |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| legacy23 | 33.0±1.2 | 34.0±0.0 | 12.8±1.5 | 14.8±1.4 | 4.0 | 11.0 | 65.5 | 97.8 | 25.0 | 32.0 | 19.4 | 62.8 |
-| clean | 28.2±1.5 | 30.8±2.2 | 19.9±2.9 | 21.6±3.2 | 8.0 | 12.0 | 76.7 | 82.7 | 24.0 | 24.0 | 52.0 | 74.8 |
-
-## (b) drop-one: clean minus a single feature
+## (a) drop-one: clean minus a single feature
 
 Cells are the change in targets caught (removed minus full clean) at 15% / 20%. IF = seed mean over 5 seeds; LOF and OCSVM = seed 42. Last column lists disks where IF recall goes UP when the feature is removed (the protocol's drop criterion).
 
@@ -51,7 +26,7 @@ Cells are the change in targets caught (removed minus full clean) at 15% / 20%. 
 | is_shortcut_or_trace | +0.0/+0.0 | -6.0/-0.6 | +0.8/+1.2 | +0/+0 | -4/+1 | +0/-3 | +0/+0 | -9/-9 | +0/+1 | img3 |
 | per_file_prefetch_hit | +0.0/+0.0 | +0.0/+0.2 | +0.6/+1.2 | +0/+0 | -1/-1 | +0/+0 | -1/+0 | +0/+0 | +0/+0 | img2, img3 |
 
-## (c) clean vs clean + burst
+## (b) clean vs clean + burst
 
 Burst candidates ['log_burst_count', 'log_burst_60s'] (counts of files sharing the same modified second / minute) added to the clean set; same models, same seeds.
 
@@ -79,41 +54,7 @@ Burst candidates ['log_burst_count', 'log_burst_60s'] (counts of files sharing t
 IF change with burst (targets at 15% / 20%): img1 +1.0/+1.0; img2 +1.0/+1.0; img3 +4.2/+3.2.
 Raises on: img1, img2, img3. Lowers on: none. Protocol rule (raise on >=1 disk and lower on none; a disk that goes up at one budget and down at the other counts as lowering): **PASS**.
 
-## (d) v1 vs v2 as originally defined (for the record)
-
-v1 = Isolation Forest, 200 trees, seed 42, on the legacy 23 features. v2 = Isolation Forest, 200 trees, seed 42, on exactly ['delta_mc', 'delta_mb', 'delta_ab', 'future_m', 'zero_size_recent', 'size', 'log_burst_count', 'log_burst_60s'] taken from the legacy table plus the burst columns. Single seed, one model.
-
-**This is not a fair comparison**: the two arms differ in feature count (23 vs 8), in the features' content and in the burst information, v2's feature list was chosen with knowledge of the outcome on these disks, only one seed was run, and no other model or disk-level repeat exists. The fair tests are (a), (b) and (c) above.
-
-| disk | arm | targets | at5 | at15 | at20 | knee % | plateau % |
-|---|---|---|---|---|---|---|---|
-| Image 1: XP Hacking (SCHARDT.001) | v1 | 7 | 5 | 7 | 7 | 9.6 | 9.6 |
-| Image 1: XP Hacking (SCHARDT.001) | v2 | 7 | 6 | 7 | 7 | 10.85 | 10.85 |
-| Image 2: Win7 Data Leakage | v1 | 19 | 17 | 17 | 19 | 17.35 | 18.4 |
-| Image 2: Win7 Data Leakage | v2 | 19 | 3 | 14 | 18 | 19.7 | 27.14 |
-| Image 3: Win10 Lone Wolf | v1 | 34 | 8 | 33 | 34 | 13.75 | 15.74 |
-| Image 3: Win10 Lone Wolf | v2 | 34 | 2 | 28 | 29 | 26.15 | 28.52 |
-
-## (e) Fact-check: "v2 caught 65 of 70 Anonymizer files that v1 missed"
-
-Method: files whose path contains "anonymizer" (case-insensitive), counted on each disk; a file is flagged if it is in the top K files of the arm's ranking (K = budget % of the disk). Isolation Forest, seed 42 and mean over 5 seeds.
-
-**Image 1: XP Hacking (SCHARDT.001)**: 70 files with "anonymizer" in the path.
-
-| arm | flagged at 5% seed42 (5-seed mean) | at 15% | at 20% |
-|---|---|---|---|
-| v1 (legacy23 IF) | 3 (2.6) | 17 (21.2) | 52 (60.0) |
-| v2 (8 feat + burst IF) | 65 (54.6) | 65 (65.0) | 66 (65.8) |
-| clean IF | 3 (2.2) | 65 (55.0) | 68 (68.2) |
-| clean+burst IF | 4 (3.0) | 68 (64.8) | 69 (68.6) |
-
-v1-missed / v2-caught (seed 42): 5%: v1 missed 67, of which v2 caught 65; 15%: v1 missed 53, of which v2 caught 52; 20%: v1 missed 18, of which v2 caught 18.
-
-**Image 2: Win7 Data Leakage**: 0 files with "anonymizer" in the path.
-
-**Image 3: Win10 Lone Wolf**: 0 files with "anonymizer" in the path.
-
-## (f) Protocol rules and the final feature set
+## (c) Protocol rules and the final feature set
 
 Rule: a feature is kept only if removing it does not raise IF seed-mean recall at 15% or 20% on any disk. Burst enters only if it raises recall on at least one disk and lowers it on none.
 

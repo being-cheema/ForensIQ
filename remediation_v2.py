@@ -723,16 +723,16 @@ CLAIMS = [
 def v1_triggers(tag, idx=None, seed=SEED, budget=20):
     """The trigger conditions of remediation.py (detect_breach_types), evaluated without writing any script.
     The flagged rows are the top `budget` % of the final-feature Isolation Forest; the columns the old rules read
-    (credential_tool, sniffer_tool, usb_present ...) come from the legacy 23-feature table of the same disk, joined by path,
+    (credential_tool, sniffer_tool, usb_present ...) come from the internal base table of the same disk, joined by path,
     because the final set no longer carries them.  Returns (fired list, values dict)."""
     D = S.load(tag)
     if idx is None:
         flagged_verdicts(tag, seed, [str(budget)])
         _, order, _, _ = _CACHE[(tag, seed)]
         idx = order[:int(round(budget / 100 * D["N"]))]
-    leg_key = ("legacy", tag)
+    leg_key = ("base", tag)
     if leg_key not in _CACHE:
-        L, _, _ = M.build_features_legacy23(M.IMAGES[tag]["art_dir"], tag)
+        L, _, _ = M.build_features_base(M.IMAGES[tag]["art_dir"], tag)
         _CACHE[leg_key] = L.drop_duplicates("path").set_index("path")
     L = _CACHE[leg_key]
     fl = D["df"].iloc[idx]

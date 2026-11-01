@@ -12,7 +12,6 @@ import Explain from './components/Explain'
 import Remediation from './components/Remediation'
 import Evidence from './components/Evidence'
 import Pipeline from './components/Pipeline'
-import Audit from './components/Audit'
 import Limits from './components/Limits'
 import Footer from './components/Footer'
 
@@ -53,7 +52,6 @@ export default function App() {
         <Remediation img={img} />
         <Evidence img={img} im={im} m={m} K={K} pct={pct} sel={sel} setSel={setSel} />
         <Pipeline img={img} im={im} />
-        <Audit />
         <Limits />
       </main>
       <Footer />

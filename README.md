@@ -69,7 +69,7 @@ The v3 scripts must run with the final feature set (19 features). Without `FOREN
 
 ```bash
 export FORENSIQ_FEATURE_SET=final
-.venv/bin/python study_v3_feature_audit.py --set clean    # --set chooses the audit's own feature set; writes reports/study_v3/feature_audit_clean.md
+.venv/bin/python study_v3_feature_audit.py --set clean    # writes reports/study_v3/feature_audit_clean.md
 .venv/bin/python study_v3_reliability_a.py               # A2, A4, A6
 .venv/bin/python study_v3_reliability_b.py               # A1, A3, A5, A7
 .venv/bin/python study_v3_explain.py                     # B1-B3, all three disks in parallel
@@ -86,7 +86,7 @@ npm install
 npm run dev
 ```
 
-The site reads `site/data.json` and `site/extras.json`, copied into `web/src/data/` by `npm run sync-data`.
+The site reads `site/data.json`, copied into `web/src/data/` by `npm run sync-data`.
 
 ## Repository layout
 
@@ -99,6 +99,6 @@ The site reads `site/data.json` and `site/extras.json`, copied into `web/src/dat
 - `multimodel_eval.py`: ground-truth target lists, model definitions and shared evaluation code. `evaluate_baselines.py`: plain-rule baselines.
 - `study_v3_common.py` and `study_v3_*.py`: the pre-registered v3 study.
 - `reports/study_v3/`: protocol, amendment, feature audit, and per-test results (`final/` holds the final feature set).
-- `web/`: results site (React and Vite). `site/`: exported site data. `build_site.py`, `export_site_*.py`: exports.
+- `web/`: results site (React and Vite). `site/`: exported site data. `export_site_data.py`: export.
 - `features/`, `models/`, `features_dataleak/`, `models_dataleak/`, `reports_dataleak/`: outputs from earlier runs.
 - `runs/`, `images/`, `.cache/`: generated or local data, git-ignored.

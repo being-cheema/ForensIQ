@@ -111,17 +111,10 @@ def verdict(ok):
 
 
 # ----------------------------------------------------------------------------- data
-log("loading disks (clean + legacy tables)")
-DATA, LEG = {}, {}
+log("loading disks")
+DATA = {}
 for t in DISKS:
-    D = C.load(t)
-    spec = M.IMAGES[t]
-    ldf, lraw, lfeats = M.build_features_legacy23(spec["art_dir"], t)
-    M.add_burst_features(ldf, lraw)
-    assert len(ldf) == D["N"] and (ldf["path"].values == D["df"]["path"].values).all(), "row mismatch"
-    assert (lraw["path"].values == D["raw"]["path"].values).all()
-    DATA[t] = D
-    LEG[t] = dict(D, df=ldf, feats=list(lfeats))
+    DATA[t] = C.load(t)
 CLEAN = DATA["img1"]["feats"]
 GROUPS = M.GROUPS  # clean groups, or clean + burst under FEATURE_SET=final
 assert sorted(sum(GROUPS.values(), [])) == sorted(CLEAN)
@@ -231,19 +224,10 @@ def run_A3():
                     table(["set"] + [f"{SHORT[m]} {k}" for m in MODELS for k in ("at15", "at20", "knee %", "plateau %")], rows), ""]
         return out
 
-    # (a) legacy23 vs clean
-    leg_feats = {t: LEG[t]["feats"] for t in DISKS}
-    LEG_EV = {t: {m: ev(LEG[t], m, leg_feats[t], "legacy23") for m in MODELS} for t in DISKS}
-    L += ["## (a) legacy23 vs clean", "",
-          f"legacy23 = the 23 features used up to study v2 ({len(leg_feats['img1'])} columns found); clean = {len(CLEAN)} features. "
-          "The legacy table was rebuilt with the same builder and checked to have identical file paths and row order as the clean table.", ""]
-    L += tbl_sets({"legacy23": LEG_EV, "clean": CLEAN_EV})
-    site["a_legacy_vs_clean"] = {"legacy23": LEG_EV, "clean": CLEAN_EV}
-    site["curves"] = {t: {"legacy23": curve_mean(LEG[t], IF_, leg_feats[t], "legacy23"),
-                          "clean": curve_mean(DATA[t], IF_, CLEAN)} for t in DISKS}
+    site["curves"] = {t: {"clean": curve_mean(DATA[t], IF_, CLEAN)} for t in DISKS}
 
-    # (b) drop one
-    log("A3(b) drop-one")
+    # (a) drop one
+    log("A3(a) drop-one")
     drop = {f: ev_all([c for c in CLEAN if c != f]) for f in CLEAN}
     rows, raise_set, drop_site = [], {}, {}
     for f in CLEAN:
@@ -256,17 +240,17 @@ def run_A3():
         rows.append([f] + [f"{d[t][0]:+.1f}/{d[t][1]:+.1f}" for t in DISKS] +
                     [f"{o[LOF_][t][0]:+.0f}/{o[LOF_][t][1]:+.0f}" for t in DISKS] +
                     [f"{o[SVM_][t][0]:+.0f}/{o[SVM_][t][1]:+.0f}" for t in DISKS] + [", ".join(raisers) or "-"])
-    L += ["## (b) drop-one: clean minus a single feature", "",
+    L += ["## (a) drop-one: clean minus a single feature", "",
           "Cells are the change in targets caught (removed minus full clean) at 15% / 20%. IF = seed mean over 5 seeds; LOF and OCSVM = seed 42. "
           "Last column lists disks where IF recall goes UP when the feature is removed (the protocol's drop criterion).", "",
           table(["feature removed"] + [f"IF {t}" for t in DISKS] + [f"LOF {t}" for t in DISKS] + [f"OCSVM {t}" for t in DISKS] + ["IF raises on"], rows), ""]
     site["b_drop_one"] = drop_site
 
-    # (c) burst
-    log("A3(c) burst")
+    # (b) burst
+    log("A3(b) burst")
     CB = CLEAN + BURST
     BURST_EV = ev_all(CB, "burst")
-    L += ["## (c) clean vs clean + burst", "",
+    L += ["## (b) clean vs clean + burst", "",
           f"Burst candidates {BURST} (counts of files sharing the same modified second / minute) added to the clean set; same models, same seeds.", ""]
     L += tbl_sets({"clean": CLEAN_EV, "clean+burst": BURST_EV})
     bd = deltas(CLEAN_EV, BURST_EV)
@@ -279,73 +263,12 @@ def run_A3():
     site["c_burst"] = {"clean": CLEAN_EV, "clean_plus_burst": BURST_EV, "delta": bd, "passes": burst_pass}
     site["curves"] = {t: dict(site["curves"][t], burst=curve_mean(DATA[t], IF_, CB, "burst")) for t in DISKS}
 
-    # (d) Gemini's v1 vs v2 as defined
-    log("A3(d)/(e) v1 vs v2 and Anonymizer check")
-    V2COLS = ["delta_mc", "delta_mb", "delta_ab", "future_m", "zero_size_recent", "size"] + BURST
-    V2COLS = ["delta_mc", "delta_mb", "delta_ab", "future_m", "zero_size_recent", "size", "log_burst_count", "log_burst_60s"]
-    v1, v2 = {}, {}
-    for t in DISKS:
-        v1[t] = C.summary(LEG[t], S(LEG[t], IF_, leg_feats[t], 42, "legacy23"))
-        v2[t] = C.summary(LEG[t], S(LEG[t], IF_, V2COLS, 42, "legacy23+burst"))
-        for r, s in ((v1[t], S(LEG[t], IF_, leg_feats[t], 42, "legacy23")), (v2[t], S(LEG[t], IF_, V2COLS, 42, "legacy23+burst"))):
-            r["at5"] = int((C.first_rank(LEG[t], s) <= int(round(0.05 * TG[t]))).sum())
-    L += ["## (d) v1 vs v2 as originally defined (for the record)", "",
-          "v1 = Isolation Forest, 200 trees, seed 42, on the legacy 23 features. v2 = Isolation Forest, 200 trees, seed 42, on exactly "
-          f"{V2COLS} taken from the legacy table plus the burst columns. Single seed, one model.", "",
-          "**This is not a fair comparison**: the two arms differ in feature count (23 vs 8), in the features' content and "
-          "in the burst information, v2's feature list was chosen with knowledge of the outcome on these disks, only one seed was run, "
-          "and no other model or disk-level repeat exists. The fair tests are (a), (b) and (c) above.", ""]
-    rows = []
-    for t in DISKS:
-        for name, r in (("v1", v1[t]), ("v2", v2[t])):
-            rows.append([DATA[t]["label"], name, r["targets"], r["at5"], r["at15"], r["at20"], r["knee_pct"], r["plateau_pct"]])
-    L += [table(["disk", "arm", "targets", "at5", "at15", "at20", "knee %", "plateau %"], rows), ""]
-    site["d_v1_v2"] = {"v1": v1, "v2": v2, "v2_features": V2COLS}
-
-    # (e) Anonymizer fact check
-    ARMS = {"v1 (legacy23 IF)": (LEG, leg_feats, "legacy23"), "v2 (8 feat + burst IF)": (LEG, {t: V2COLS for t in DISKS}, "legacy23+burst"),
-            "clean IF": (DATA, {t: CLEAN for t in DISKS}, "clean"), "clean+burst IF": (DATA, {t: CB for t in DISKS}, "burst")}
-    anon = {}
-    for t in DISKS:
-        N = TG[t]
-        mask_a = DATA[t]["df"]["path"].str.contains("anonymizer", case=False, na=False).values
-        anon[t] = {"n_files": int(mask_a.sum()), "arms": {}}
-        for arm, (dm, fm, var) in ARMS.items():
-            per = {}
-            for b in (5.0, 15.0, 20.0):
-                cnt = []
-                for sd in SEEDS:
-                    cnt.append(int((flagged_mask(S(dm[t], IF_, fm[t], sd, var), N, b) & mask_a).sum()))
-                per[f"{int(b)}%"] = {"seed42": cnt[0], "mean5": round(float(np.mean(cnt)), 2)}
-            anon[t]["arms"][arm] = per
-        # v1-missed vs v2-caught at seed 42
-        miss = {}
-        for b in (5.0, 15.0, 20.0):
-            f1 = flagged_mask(S(LEG[t], IF_, leg_feats[t], 42, "legacy23"), N, b)
-            f2 = flagged_mask(S(LEG[t], IF_, V2COLS, 42, "legacy23+burst"), N, b)
-            miss[f"{int(b)}%"] = {"v1_missed": int((mask_a & ~f1).sum()), "v2_caught_of_those": int((mask_a & ~f1 & f2).sum())}
-        anon[t]["v1_missed_v2_caught_seed42"] = miss
-    L += ["## (e) Fact-check: \"v2 caught 65 of 70 Anonymizer files that v1 missed\"", "",
-          "Method: files whose path contains \"anonymizer\" (case-insensitive), counted on each disk; a file is flagged if it is in the top K "
-          "files of the arm's ranking (K = budget % of the disk). Isolation Forest, seed 42 and mean over 5 seeds.", ""]
-    for t in DISKS:
-        L += [f"**{DATA[t]['label']}**: {anon[t]['n_files']} files with \"anonymizer\" in the path.", ""]
-        if anon[t]["n_files"]:
-            rows = []
-            for arm in ARMS:
-                p = anon[t]["arms"][arm]
-                rows.append([arm] + [f"{p[b]['seed42']} ({p[b]['mean5']:.1f})" for b in ("5%", "15%", "20%")])
-            L += [table(["arm", "flagged at 5% seed42 (5-seed mean)", "at 15%", "at 20%"], rows), "",
-                  "v1-missed / v2-caught (seed 42): " + "; ".join(f"{b}: v1 missed {v['v1_missed']}, of which v2 caught {v['v2_caught_of_those']}"
-                                                                for b, v in anon[t]["v1_missed_v2_caught_seed42"].items()) + ".", ""]
-    site["e_anonymizer"] = anon
-
-    # (f) apply protocol rules
-    log("A3(f) protocol rules and FINAL set")
+    # (c) apply protocol rules
+    log("A3(c) protocol rules and FINAL set")
     failing = [f for f in CLEAN if raise_set[f]["raises_on"]]
     final_cols = [c for c in CLEAN if c not in failing] + (BURST if burst_pass else [])
     FINAL_EV = ev_all(final_cols, "final")
-    L += ["## (f) Protocol rules and the final feature set", "",
+    L += ["## (c) Protocol rules and the final feature set", "",
           "Rule: a feature is kept only if removing it does not raise IF seed-mean recall at 15% or 20% on any disk. "
           "Burst enters only if it raises recall on at least one disk and lowers it on none.", ""]
     rows = [[f, "DROP" if f in failing else "keep", ", ".join(raise_set[f]["raises_on"]) or "-",
@@ -372,7 +295,7 @@ def run_A3():
         json.dump({"final": final_cols, "dropped": failing, "burst_included": burst_pass, "reason": reasons}, f, indent=1)
     write("A3", "summary.md", "\n".join(L))
     write_site("A3", site)
-    return failing, final_cols, burst_pass, anon, (v1, v2)
+    return failing, final_cols, burst_pass
 
 
 # ============================================================================= A5
@@ -629,7 +552,5 @@ if __name__ == "__main__":
     a7 = run_A7()
     log(f"DONE  A1={a1} A5={a5[0]} A7={a7[1]}  A3 dropped={a3[0]} burst={a3[2]}")
     print("FINAL", a3[1])
-    print("ANON", json.dumps({t: {"n": v["n_files"], "miss": v["v1_missed_v2_caught_seed42"]} for t, v in a3[3].items()}))
-    print("V1V2", a3[4])
     print("A5 maxchg", json.dumps(a5[2]))
     print("A7", a7[0], json.dumps({v: {t: {b: o[t][b]["rel_drop_pct"] for b in o[t]} for t in o} for v, o in a7[2].items()}))

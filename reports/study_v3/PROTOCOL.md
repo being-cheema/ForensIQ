@@ -9,7 +9,7 @@ study and is judged against the pass rules below, fixed in advance.
 - Seeds: 42, 1337, 9999, 7, 2024 (the same five used in every earlier study).
 - Budgets: 0-100% of the disk in 0.5% steps; headline budgets 15% and 20%.
 - Models: Isolation Forest (200 trees, sample 256), LOF (k=20), One-Class SVM (rbf, nu=0.05, 10,000-row fit sample).
-- Feature sets: `legacy23` (the 23 features used up to now, kept only for comparison) and `clean` (Phase 1 result, frozen once built).
+- Feature set: `clean` (Phase 1 result, frozen once built).
 - Ground truth: the target lists in multimodel_eval.py, unchanged. Ground truth is used only to score, never to build features.
 
 ## Metrics

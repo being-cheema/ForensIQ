@@ -1,7 +1,6 @@
 import D from '../data/data.json'
-import X from '../data/extras.json'
 
-export { D, X }
+export { D }
 export const MODELS = D.models
 export const SHORT = ['Isolation Forest', 'LOF', 'One-Class SVM']
 export const MVAR = ['--m0', '--m1', '--m2']

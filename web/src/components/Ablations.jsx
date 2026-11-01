@@ -77,39 +77,20 @@ function PanelA2() {
 /* ------------------------------------------------------------------ A3 */
 function PanelA3() {
   const drop = A3.b_drop_one, feats = Object.keys(drop)
-  const arms = ['v1 (legacy23 IF)', 'v2 (8 feat + burst IF)', 'clean IF', 'clean+burst IF']
-  const armName = { 'v1 (legacy23 IF)': 'v1: old 23 features', 'v2 (8 feat + burst IF)': 'v2: 8 chosen features + burst', 'clean IF': 'Cleaned 17', 'clean+burst IF': 'Final 19' }
-  const an = A3.e_anonymizer.img1, miss = an.v1_missed_v2_caught_seed42
   const cs = ['img1', 'img2', 'img3']
   return (
     <>
-      <Head q="Which features should stay, and was the cleaning worth it?">
-        Two pre-registered rules decide this. The first removes each feature in turn; the second asks whether the two burst features help. The comparison of the old 23 features with the cleaned set is in Exhibit E.
+      <Head q="Which features should stay?">
+        Two pre-registered rules decide this. The first removes each feature in turn; the second asks whether the two burst features help. The base and final sets are compared in Exhibit E.
       </Head>
       <Rule ok={false} rule="Keep a feature only if removing it does not raise recall on any disk at 15% or 20%." found="Applied as written, this removed 16 of the 17 features and left three. That set falls from 6 targets to 0 on Image 1 at 15%, so it is degenerate. Removing features one at a time is not additive, and most of the “raises” were inside seed noise (for example +0.2 of a target). The rule is reported as failed, and it was not used to pick the final set." />
       <Rule ok={A3.c_burst.passes} rule="The burst features enter the set only if they raise recall on at least one disk and lower it on none." found={'They raised Isolation Forest recall on all three disks (+' + A3.c_burst.delta.img1.map((v) => v).join('/') + ' targets on Image 1, +' + A3.c_burst.delta.img2.join('/') + ' on Image 2, +' + A3.c_burst.delta.img3.join('/') + ' on Image 3, at 15%/20%) and lowered it on none. This is the rule that chose the final 19 features (Amendment 1).'} />
       <h4 className="rel-h"><span>1</span>Removing one feature at a time</h4>
-      <Pr><p>Change in targets caught by Isolation Forest, averaged over 5 seeds, when one feature is left out of the cleaned 17. Positive means recall went up without it. Each cell shows the change at 15% and at 20%.</p></Pr>
+      <Pr><p>Change in targets caught by Isolation Forest, averaged over 5 seeds, when one feature is left out of the base 17. Positive means recall went up without it. Each cell shows the change at 15% and at 20%.</p></Pr>
       <div className="tbl ledger"><table>
         <thead><tr><th>Feature removed</th>{cs.map((t) => <th key={t} className="n">{dn(t)}</th>)}<th>Recall went up on</th></tr></thead>
         <tbody>{feats.map((f) => (
           <tr key={f}><td className="mono">{f}</td>{cs.map((t) => <td key={t} className="n">{drop[f].IF_delta[t].map((v) => (v > 0 ? '+' : '') + f1(v)).join(' / ')}</td>)}<td>{drop[f].raises_on.length ? drop[f].raises_on.map(dn).join(', ') : 'none'}</td></tr>))}</tbody></table></div>
-
-      <h4 className="rel-h"><span>2</span>The earlier “v2” against “v1”, for the record</h4>
-      <Pr note={<><b>This is not a fair comparison.</b> v2’s feature list was picked after seeing results on these disks, it has 8 features against 23, it includes burst information v1 lacks, and it ran with one seed on one model.</>}>
-        <p>An earlier version of this project claimed a “v2” feature set beat the original “v1”. The table repeats that comparison exactly as it was defined. It is kept so the claim can be checked, not as evidence.</p>
-      </Pr>
-      <div className="tbl ledger"><table>
-        <thead><tr><th>Disk</th><th>Arm</th><th className="n">At 5%</th><th className="n">At 15%</th><th className="n">At 20%</th></tr></thead>
-        <tbody>{cs.map((t) => ['v1', 'v2'].map((a, i) => { const r = A3.d_v1_v2[a][t]; return <tr key={t + a} className={i === 0 ? 'grp' : ''}><td>{i === 0 ? dn(t) : ''}</td><td>{a === 'v1' ? 'v1: old 23 features' : 'v2: 8 features + burst'}</td><td className="n">{r.at5} / {r.targets}</td><td className="n">{r.at15} / {r.targets}</td><td className="n">{r.at20} / {r.targets}</td></tr> }))}</tbody></table></div>
-      <Pr><p className="small" style={{ marginTop: 10 }}>Seed 42, Isolation Forest. v2 looked better only at 5% on Image 1. On Images 2 and 3 it was worse at every budget, so the claim does not hold up.</p></Pr>
-
-      <h4 className="rel-h"><span>3</span>Fact-check: the Anonymizer files on Image 1</h4>
-      <Pr><p>The earlier claim was that v2 “caught 65 of 70 Anonymizer files that v1 missed”. Counting every file with “anonymizer” in its path on Image 1 gives <b>{an.n_files} files</b>. At a 5% budget v1 flagged only {an.arms['v1 (legacy23 IF)']['5%'].seed42} of them, so it missed {miss['5%'].v1_missed}, and v2 caught <b>{miss['5%'].v2_caught_of_those} of those {miss['5%'].v1_missed}</b>. The claim holds in substance, with the wrong denominator. It is also a 5% result: with a bigger budget the gap closes.</p></Pr>
-      <div className="tbl ledger"><table>
-        <thead><tr><th>Arm</th><th className="n">Flagged at 5%</th><th className="n">At 15%</th><th className="n">At 20%</th></tr></thead>
-        <tbody>{arms.map((a) => <tr key={a}><td>{armName[a]}</td>{['5%', '15%', '20%'].map((b) => <td key={b} className="n">{an.arms[a][b].seed42} of {an.n_files}<small className="small"> (5-seed mean {f1(an.arms[a][b].mean5)})</small></td>)}</tr>)}</tbody></table></div>
-      <Pr><p className="small" style={{ marginTop: 10 }}>Of the files v1 missed, v2 caught {miss['5%'].v2_caught_of_those} of {miss['5%'].v1_missed} at 5%, {miss['15%'].v2_caught_of_those} of {miss['15%'].v1_missed} at 15% and {miss['20%'].v2_caught_of_those} of {miss['20%'].v1_missed} at 20%. The other two disks have no Anonymizer files.</p></Pr>
     </>
   )
 }

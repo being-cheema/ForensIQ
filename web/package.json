@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "sync-data": "cp ../site/data.json ../site/extras.json src/data/"
+    "sync-data": "cp ../site/data.json src/data/"
   },
   "dependencies": {
     "animejs": "^3.2.2",

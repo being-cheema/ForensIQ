@@ -1,7 +1,7 @@
 """
 multimodel_eval.py
 ==================
-Reproducible 3-model benchmark on the 23-feature ForensIQ baseline.
+Reproducible 3-model benchmark on the ForensIQ per-file feature set.
 
 Models      : Isolation Forest, Local Outlier Factor, One-Class SVM
 Budget      : top-K most suspicious files, K = 5% of the image (equal for every model)
@@ -48,23 +48,14 @@ BUDGET_PCT = 0.05
 EXTRA_BUDGET_PCTS = [0.055, 0.10]
 SEEDS = [42, 1337, 9999, 7, 2024]
 
-LEGACY_17 = list(fe.FEATURE_COLUMNS)
+BASE_17 = list(fe.FEATURE_COLUMNS)
 NEW_6 = ["is_shortcut_or_trace", "per_file_prefetch_hit", "after_hours_touch",
          "delta_si_fn", "filename_entropy", "path_depth"]
 
-GROUPS_LEGACY23 = {
-    "Temporal": ["delta_mc", "delta_mb", "delta_ab", "future_m", "zero_size_recent",
-                 "delta_si_fn", "after_hours_touch"],
-    "Path/File": ["size", "is_deleted", "is_exe", "is_archive", "temp_path", "user_path",
-                  "path_depth", "filename_entropy", "is_shortcut_or_trace"],
-    "Execution/Tool": ["credential_tool", "sniffer_tool", "powershell_exec", "cmd_exec",
-                       "script_host", "usb_present", "per_file_prefetch_hit"],
-}
-
-# Study v3 feature sets. "clean" (default) or "legacy23" (the 23 features used up to study v2).
+# Study v3 feature sets: "clean" (default) or "final" (clean + burst).
 FEATURE_SET = os.environ.get("FORENSIQ_FEATURE_SET", "clean")
 
-# Legacy columns removed in the clean set (disk-level constants, or constant by construction / on all disks).
+# Base-table columns removed in the clean set (disk-level constants, or constant by construction / on all disks).
 CLEAN_DROPPED = ["credential_tool", "sniffer_tool", "powershell_exec", "cmd_exec", "script_host",
                  "usb_present", "future_m", "is_deleted"]
 FEATURES_CLEAN = [
@@ -86,13 +77,10 @@ GROUPS_CLEAN = {
 # Candidate features (Phase 2 decides); NOT part of the clean default.
 BURST = ["log_burst_count", "log_burst_60s"]
 
-# downstream scripts append this to their own cache dirs so clean and legacy results never mix
-CACHE_SUFFIX = "" if FEATURE_SET == "legacy23" else "_" + FEATURE_SET
+# downstream scripts append this to their own cache dirs so results of different feature sets never mix
+CACHE_SUFFIX = "_" + FEATURE_SET
 
-if FEATURE_SET == "legacy23":
-    GROUPS = GROUPS_LEGACY23
-    FEATURES = LEGACY_17 + NEW_6
-elif FEATURE_SET == "final":
+if FEATURE_SET == "final":
     # clean + burst: the set chosen by ablation A3 (reports/study_v3/AMENDMENT.md)
     GROUPS = dict(GROUPS_CLEAN, **{"Execution/Activity": GROUPS_CLEAN["Execution/Activity"] + BURST})
     FEATURES = FEATURES_CLEAN + BURST
@@ -213,7 +201,7 @@ IMAGES = {
 
 
 # ----------------------------------------------------------------------------
-# 23-feature construction
+# Feature construction
 # ----------------------------------------------------------------------------
 def shannon(s):
     if not s:
@@ -224,18 +212,15 @@ def shannon(s):
 
 
 def build_features(art_dir, tag):
-    """Feature table for one disk. FEATURE_SET=legacy23 -> the 23 legacy features (unchanged);
-    otherwise the clean set (see build_features_clean)."""
-    if FEATURE_SET == "legacy23":
-        return build_features_legacy23(art_dir, tag)
+    """Feature table for one disk: the clean set (see build_features_clean), plus burst columns for FEATURE_SET=final."""
     if FEATURE_SET == "final":
         df, raw, feats = build_features_clean(art_dir, tag)
         return df, raw, feats + add_burst_features(df, raw)
     return build_features_clean(art_dir, tag)
 
 
-def build_features_legacy23(art_dir, tag):
-    """17 legacy features via the canonical pipeline code + 6 new per-file features."""
+def build_features_base(art_dir, tag):
+    """Internal base table: 17 columns via the canonical pipeline code + 6 per-file columns."""
     feat_tmp = os.path.join(CACHE, f"{tag}_feat")
     os.makedirs(feat_tmp, exist_ok=True)
     fe.OUT_DIR, fe.FEAT_DIR = art_dir, feat_tmp
@@ -275,7 +260,7 @@ def build_features_legacy23(art_dir, tag):
     df["filename_entropy"] = name.map(shannon)
     df["path_depth"] = path.str.count("/")
 
-    feats = [c for c in LEGACY_17 + NEW_6 if c in df.columns]
+    feats = [c for c in BASE_17 + NEW_6 if c in df.columns]
     return df, raw, feats
 
 
@@ -344,9 +329,9 @@ def add_burst_features(df, raw):
 
 
 def build_features_clean(art_dir, tag):
-    """Clean per-file feature set. Starts from the legacy-23 table (kept in df for reference and for
+    """Clean per-file feature set. Starts from the base table (kept in df for reference and for
     verdicts) and returns the column list FEATURES_CLEAN only."""
-    df, raw, _ = build_features_legacy23(art_dir, tag)
+    df, raw, _ = build_features_base(art_dir, tag)
     path = df["path"].astype(str)
     name = path.str.rsplit("/", n=1).str[-1]
     ext = name.str.extract(r"(\.[^.]+)$")[0].fillna("").str.lower()
@@ -520,7 +505,7 @@ def tool_output(tag, spec, N, feats, res, shaps, df, scores):
     L.append(f" FORENSIQ TRIAGE TOOL OUTPUT - {spec['label']}")
     L.append("=" * 78)
     L.append(f"[+] Files indexed        : {N:,}")
-    L.append(f"[+] Features             : {len(feats)} ({', '.join(f for f in (NEW_6 if FEATURE_SET == 'legacy23' else []) if f not in feats) or 'none'} unavailable; set={FEATURE_SET})")
+    L.append(f"[+] Features             : {len(feats)} ({', '.join(f for f in [] if f not in feats) or 'none'} unavailable; set={FEATURE_SET})")
     L.append(f"[+] Review budget (5%)   : {res['Isolation Forest']['m']['flagged']:,} files")
     for model in MODELS:
         r = res[model]
@@ -621,14 +606,11 @@ def main():
         tool_output(tag, spec, N, feats, res, shaps, df, scores)
 
         if not a.skip_ablation:
-            configs = {"Full (all available)": feats,
-                       "Legacy 17 only": [f for f in feats if f in LEGACY_17]}
-            if FEATURE_SET != "legacy23":
-                configs.pop("Legacy 17 only")
+            configs = {"Full (all available)": feats}
             for g, cols in GROUPS.items():
                 configs[f"Only {g}"] = [f for f in feats if f in cols]
                 configs[f"Without {g}"] = [f for f in feats if f not in cols]
-            for nf in (NEW_6 if FEATURE_SET == "legacy23" else feats):
+            for nf in feats:
                 if nf in feats:
                     configs[f"Full minus {nf}"] = [f for f in feats if f != nf]
             for cname, cols in configs.items():
